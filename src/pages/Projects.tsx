@@ -320,7 +320,7 @@ const ProjectsPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="section-padding py-20 border-t border-border">
+        <section className="section-padding py-20">
           <motion.div
             className="max-w-[1800px] mx-auto text-center"
             initial={{ opacity: 0, y: 40 }}

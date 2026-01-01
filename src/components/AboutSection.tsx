@@ -143,7 +143,7 @@ export const AboutSection = () => {
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <motion.span className="number-label">/10</motion.span>
-          <LineReveal className="h-px bg-border flex-1" delay={0.3} />
+          <LineReveal className="h-px bg-[#004549] flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             About Us
           </motion.span>

@@ -128,7 +128,7 @@ export const ServicesSection = () => {
           >
             /02
           </motion.span>
-          <LineReveal className="h-px bg-border flex-1" delay={0.4} />
+          <LineReveal className="h-px bg-[#004549] flex-1" delay={0.4} />
           <motion.span
             className="text-xs text-muted-foreground uppercase tracking-widest"
             initial={{ opacity: 0, x: -20 }}

@@ -8,6 +8,7 @@ import {
 import { Ellipsis, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "./AnimationComponents";
+import { MusicPlayer } from "./MusicPlayer";
 import { useNavigate } from "react-router-dom";
 
 interface NavLink {
@@ -187,49 +188,55 @@ export const NavbarMenuIcon = () => {
             </motion.span>
           </motion.div>
 
-          {/* Menu Icon Button */}
-          <Magnetic strength={0.2}>
-            <motion.button
-              className="relative w-12 h-12 flex items-center justify-center"
-              onClick={() => setIsOpen(!isOpen)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-foreground/5 rounded-full"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <AnimatePresence mode="wait">
-                {!isOpen ? (
-                  <motion.div
-                    key="menu"
-                    initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
-                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                    exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <Ellipsis
-                      size={50}
-                      strokeWidth={3}
-                      className="relative z-10 font-extrabold"
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="close"
-                    initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
-                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                    exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <X size={30} strokeWidth={2.5} className="relative z-10" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </Magnetic>
+          {/* Menu Actions */}
+          <div className="flex items-center gap-4">
+            {/* Music Player - Right of Menu */}
+            <MusicPlayer />
+            <Magnetic strength={0.2}>
+              <motion.button
+                className="relative w-12 h-12 flex items-center justify-center"
+                onClick={() => setIsOpen(!isOpen)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-foreground/5 rounded-full"
+                  initial={{ scale: 0 }}
+                  whileHover={{ scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <AnimatePresence mode="wait">
+                  {!isOpen ? (
+                    <motion.div
+                      key="menu"
+                      initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                      exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <Ellipsis
+                        size={50}
+                        strokeWidth={3}
+                        className="relative z-10 font-extrabold"
+                      />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="close"
+                      initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                      exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <X size={30} strokeWidth={2.5} className="relative z-10" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            </Magnetic>
+
+
+          </div>
         </nav>
       </header>
 

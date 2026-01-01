@@ -37,7 +37,7 @@ export const LoadingScreen = ({
           {/* Animated background gradient blobs */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div
-              className="absolute top-0 right-0 w-96 h-96 bg-foreground/5 rounded-full blur-3xl"
+              className="absolute top-0 right-0 w-96 h-96 bg-[#3b787a] rounded-full blur-3xl"
               animate={{
                 x: [0, 50, 0],
                 y: [0, -50, 0],
@@ -49,7 +49,7 @@ export const LoadingScreen = ({
               }}
             />
             <motion.div
-              className="absolute bottom-0 left-0 w-96 h-96 bg-foreground/5 rounded-full blur-3xl"
+              className="absolute bottom-0 left-0 w-96 h-96 bg-[#3b787a] rounded-full blur-3xl"
               animate={{
                 x: [0, -50, 0],
                 y: [0, 50, 0],
@@ -61,7 +61,7 @@ export const LoadingScreen = ({
               }}
             />
             <motion.div
-              className="absolute top-1/2 left-1/2 w-80 h-80 bg-foreground/3 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
+              className="absolute top-1/2 left-1/2 w-80 h-80 bg-[#3b787a] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
               animate={{
                 scale: [0.8, 1.2, 0.8],
                 opacity: [0.3, 0.6, 0.3],
