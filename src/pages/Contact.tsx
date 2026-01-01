@@ -117,10 +117,10 @@ export default function ContactPage() {
         transition={{ duration: 1 }}
       >
         {/* Floating particles */}
-        {Array.from({ length: 18 }).map((_, i) => (
+        {Array.from({ length: 188 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-foreground/20 pointer-events-none z-30"
+            className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -238,14 +238,14 @@ export default function ContactPage() {
               <motion.form
                 onSubmit={handleSubmit}
                 className="space-y-8"
-                // style={{ y: formY }}
-                // initial={{ opacity: 0, x: 80 }}
-                // animate={{ opacity: 1, x: 0 }}
-                // transition={{
-                //   duration: 1.2,
-                //   delay: 0.4,
-                //   ease: [0.25, 0.1, 0.25, 1],
-                // }}
+              // style={{ y: formY }}
+              // initial={{ opacity: 0, x: 80 }}
+              // animate={{ opacity: 1, x: 0 }}
+              // transition={{
+              //   duration: 1.2,
+              //   delay: 0.4,
+              //   ease: [0.25, 0.1, 0.25, 1],
+              // }}
               >
                 <div className="grid sm:grid-cols-2 gap-8">
                   {[

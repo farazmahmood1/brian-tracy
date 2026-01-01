@@ -153,16 +153,16 @@ const ProjectsPage = () => {
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
         {/* Hero Section */}
         <motion.section
-          className="relative h-[70vh] min-h-[500px] overflow-hidden flex items-end section-padding pb-20"
+          className="relative lg:h-[100vh] md:h-[10vh] sm:h-[60vh] min-h-[600px] overflow-hidden flex items-end section-padding pb-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
           {/* Floating particles */}
-          {Array.from({ length: 18 }).map((_, i) => (
+          {Array.from({ length: 188 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute rounded-full bg-foreground/20 pointer-events-none z-30"
+              className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -183,18 +183,6 @@ const ProjectsPage = () => {
             />
           ))}
 
-          {/* Parallax Background Image */}
-          <motion.div
-            className="absolute inset-0"
-            style={{ scale: backgroundScale, opacity: 0.7 }}
-          >
-            <img
-              src={projectsData[0].image}
-              alt="Portfolio Hero"
-              className="w-full h-full object-cover scale-105 blur-[2px] brightness-75"
-            />
-          </motion.div>
-
           {/* Animated Gradient Overlay */}
           <motion.div
             className="absolute inset-0 z-10"
@@ -205,7 +193,7 @@ const ProjectsPage = () => {
           </motion.div>
 
           {/* Hero Content */}
-          <motion.div className="absolute inset-0 z-20 section-padding pb-20 pt-40 max-md:pt-52">
+          <motion.div className="absolute inset-0 z-20 section-padding pb-20 pt-60 max-md:pt-52">
             <div className="max-w-[1800px] mx-auto w-full">
               <div className="overflow-hidden mb-6">
                 <motion.h1
@@ -233,34 +221,10 @@ const ProjectsPage = () => {
             </div>
           </motion.div>
 
-          {/* Scroll Indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-          >
-            <motion.div
-              className="flex flex-col items-center gap-2"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              <span className="text-xs text-muted-foreground tracking-widest uppercase">
-                Scroll
-              </span>
-              <motion.div
-                className="w-px h-12 bg-gradient-to-b from-foreground to-transparent"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ delay: 1.8, duration: 0.8 }}
-                style={{ transformOrigin: "top" }}
-              />
-            </motion.div>
-          </motion.div>
         </motion.section>
 
         {/* Stats and Filters Section */}
-        <section className="section-padding py-40 relative">
+        <section className="section-padding py-20 relative">
           <motion.div
             className="max-w-[1800px] mx-auto"
             ref={containerRef}
@@ -286,7 +250,8 @@ const ProjectsPage = () => {
                     delay: 0.4,
                   }}
                 >
-                  {filteredProjects.length.toString().padStart(2, "0")}
+                  {/* {filteredProjects.length.toString().padStart(2, "0")} */}
+                  150+
                 </motion.span>
               </motion.div>
 
@@ -300,11 +265,10 @@ const ProjectsPage = () => {
                 {projectFilters.map((filter, index) => (
                   <Magnetic key={filter} strength={0.1}>
                     <motion.button
-                      className={`px-5 py-3 border rounded-full text-sm transition-all duration-500 ${
-                        activeFilter === filter
-                          ? "bg-foreground text-background border-foreground"
-                          : "border-border text-muted-foreground hover:text-foreground hover:border-foreground"
-                      }`}
+                      className={`px-5 py-3 border rounded-full text-sm transition-all duration-500 ${activeFilter === filter
+                        ? "bg-foreground text-background border-foreground"
+                        : "border-border text-muted-foreground hover:text-foreground hover:border-foreground"
+                        }`}
                       onClick={() =>
                         setActiveFilter(
                           activeFilter === filter ? "All Projects" : filter
@@ -334,7 +298,7 @@ const ProjectsPage = () => {
                   project={project}
                   index={index}
                   isInView={isInView}
-                  onSelectProject={() => {}}
+                  onSelectProject={() => { }}
                 />
               ))}
             </motion.div>

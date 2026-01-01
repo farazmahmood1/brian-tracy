@@ -229,7 +229,7 @@ export const AboutSection = () => {
               transition={{ delay: 0.6, duration: 1 }}
             >
               <motion.img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
+                src="https://dev.gemseeroo.com/about-image.jpeg"
                 alt="Creative work"
                 className="w-full h-full object-cover"
                 initial={{ scale: 1.5 }}
@@ -270,9 +270,9 @@ export const AboutSection = () => {
               initial={{ opacity: 0, y: 60, rotateX: -20 }}
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
               transition={{
-                duration: 1,
-                delay: 0.8 + index * 0.1,
-                ease: [0.25, 0.1, 0.25, 1],
+                duration: 0.5,
+                delay: 0.1,
+                // ease: [0.1, 0.1, 0.1, 0.1],
               }}
               whileHover={{ y: -10, scale: 1.02 }}
               style={{ transformStyle: "preserve-3d" }}
@@ -280,7 +280,7 @@ export const AboutSection = () => {
               <motion.div
                 className="w-14 h-14 rounded-full border border-border flex items-center justify-center mb-6 group-hover:bg-background group-hover:border-background transition-all duration-500"
                 whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.1 }}
               >
                 <value.icon className="w-6 h-6 group-hover:text-foreground transition-colors" />
               </motion.div>

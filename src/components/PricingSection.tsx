@@ -65,18 +65,6 @@ export const PricingSection = () => {
       className="section-padding md:py-40 py-24 relative overflow-hidden border-t border-border"
       ref={containerRef}
     >
-      {/* Decorative floating elements */}
-      <motion.div
-        className="absolute top-20 right-20 opacity-20"
-        animate={{ rotate: 360, y: [0, -20, 0] }}
-        transition={{
-          rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-          y: { duration: 4, repeat: Infinity },
-        }}
-      >
-        <Star size={100} />
-      </motion.div>
-
       <div className="max-w-[1800px] mx-auto">
         {/* Header */}
         <motion.div
@@ -96,7 +84,7 @@ export const PricingSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 mb-24">
           <div className="overflow-hidden">
             <motion.h2
-              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95]"
+              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] pb-4"
               initial={{ y: "100%" }}
               animate={isInView ? { y: 0 } : {}}
               transition={{
@@ -114,7 +102,7 @@ export const PricingSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            <p className="text-xl text-muted-foreground max-w-md leading-relaxed">
+            <p className="text-xl text-muted-foreground max-w-md leading-relaxed mb-2">
               Choose the plan that works best for your business. All plans
               include our commitment to excellence and results.
             </p>
@@ -126,11 +114,10 @@ export const PricingSection = () => {
           {pricingPlans.map((plan, index) => (
             <motion.div
               key={plan.name}
-              className={`relative rounded-3xl p-10 md:p-12 overflow-hidden ${
-                plan.highlighted
-                  ? "bg-foreground text-background"
-                  : "border border-border bg-card/50"
-              }`}
+              className={`relative rounded-3xl p-10 md:p-12 overflow-hidden ${plan.highlighted
+                ? "bg-foreground text-background"
+                : "border border-border bg-card/50"
+                }`}
               initial={{ opacity: 0, y: 80, rotateX: 10 }}
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
               transition={{
@@ -203,9 +190,8 @@ export const PricingSection = () => {
 
               {/* Description */}
               <motion.p
-                className={`text-sm mb-10 ${
-                  plan.highlighted ? "opacity-70" : "text-muted-foreground"
-                }`}
+                className={`text-sm mb-10 ${plan.highlighted ? "opacity-70" : "text-muted-foreground"
+                  }`}
                 initial={{ opacity: 0 }}
                 animate={
                   isInView ? { opacity: plan.highlighted ? 0.7 : 1 } : {}
@@ -228,20 +214,18 @@ export const PricingSection = () => {
                     }}
                   >
                     <motion.div
-                      className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                        plan.highlighted
-                          ? "bg-background/20"
-                          : "bg-foreground/10"
-                      }`}
+                      className={`w-5 h-5 rounded-full flex items-center justify-center ${plan.highlighted
+                        ? "bg-background/20"
+                        : "bg-foreground/10"
+                        }`}
                       whileHover={{ scale: 1.2, rotate: 360 }}
                       transition={{ duration: 0.3 }}
                     >
                       <Check size={12} />
                     </motion.div>
                     <span
-                      className={`text-sm ${
-                        plan.highlighted ? "opacity-90" : ""
-                      }`}
+                      className={`text-sm ${plan.highlighted ? "opacity-90" : ""
+                        }`}
                     >
                       {feature}
                     </span>
@@ -253,38 +237,34 @@ export const PricingSection = () => {
               <Magnetic strength={0.1}>
                 <motion.a
                   href="#contact"
-                  className={`flex items-center justify-center gap-2 py-5 rounded-full font-medium overflow-hidden relative group ${
-                    plan.highlighted
-                      ? "bg-background text-foreground"
-                      : "bg-foreground text-background"
-                  }`}
+                  className={`flex items-center justify-center gap-2 py-5 rounded-full font-medium overflow-hidden relative group ${plan.highlighted
+                    ? "bg-background text-foreground"
+                    : "bg-foreground text-background"
+                    }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <motion.span
-                    className={`absolute inset-0 ${
-                      plan.highlighted ? "bg-foreground" : "bg-background"
-                    }`}
+                    className={`absolute inset-0 ${plan.highlighted ? "bg-foreground" : "bg-background"
+                      }`}
                     initial={{ y: "100%" }}
                     whileHover={{ y: 0 }}
                     transition={{ duration: 0.4 }}
                   />
                   <span
-                    className={`relative z-10 transition-colors duration-300 ${
-                      plan.highlighted
-                        ? "group-hover:text-foreground"
-                        : "group-hover:text-background"
-                    }`}
+                    className={`relative z-10 transition-colors duration-300 ${plan.highlighted
+                      ? "group-hover:text-foreground"
+                      : "group-hover:text-background"
+                      }`}
                   >
                     Get Started
                   </span>
                   <ArrowUpRight
                     size={18}
-                    className={`relative z-10 transition-colors duration-300 ${
-                      plan.highlighted
-                        ? "group-hover:text-foreground"
-                        : "group-hover:text-background"
-                    }`}
+                    className={`relative z-10 transition-colors duration-300 ${plan.highlighted
+                      ? "group-hover:text-foreground"
+                      : "group-hover:text-background"
+                      }`}
                   />
                 </motion.a>
               </Magnetic>

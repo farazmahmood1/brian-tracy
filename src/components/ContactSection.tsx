@@ -114,7 +114,7 @@ export const ContactSection = () => {
           >
             <div className="overflow-hidden mb-8">
               <motion.h2
-                className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95]"
+                className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] pb-4"
                 initial={{ y: "100%" }}
                 animate={isInView ? { y: 0 } : {}}
                 transition={{

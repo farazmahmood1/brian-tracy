@@ -82,7 +82,8 @@ export const ProjectsSection = () => {
                 delay: 0.4,
               }}
             >
-              {projectsData.length.toString().padStart(2, "0")}
+              {/* {projectsData.length.toString().padStart(2, "0")} */}
+              150+
             </motion.span>
           </motion.div>
 
@@ -96,11 +97,10 @@ export const ProjectsSection = () => {
             {projectFilters.map((filter, index) => (
               <Magnetic key={filter} strength={0.1}>
                 <motion.button
-                  className={`px-5 py-3 border rounded-full text-sm transition-all duration-500 ${
-                    activeFilter === filter
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground"
-                  }`}
+                  className={`px-5 py-3 border rounded-full text-sm transition-all duration-500 ${activeFilter === filter
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground"
+                    }`}
                   onClick={() =>
                     setActiveFilter(activeFilter === filter ? null : filter)
                   }

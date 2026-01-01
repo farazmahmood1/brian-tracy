@@ -67,80 +67,72 @@ export const OurClientsSection = () => {
 
           {/* First Row - Left to Right */}
           <div className="relative overflow-hidden mb-8">
-            <motion.div
-              className="flex gap-12"
-              animate={{ x: [0, -1920] }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 30,
-                  ease: "linear",
-                },
-              }}
-            >
-              {[...firstRow, ...firstRow, ...firstRow].map((src, i) => (
-                <motion.div
-                  key={i}
-                  className="flex items-center justify-center shrink-0 w-[200px] h-[100px] bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 px-6 hover:border-border hover:bg-card transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <img
-                    src={src}
-                    alt={`Client ${i + 1}`}
-                    className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      const t = e.target as HTMLImageElement;
-                      if (t && !t.dataset.fallback) {
-                        t.dataset.fallback = "1";
-                        t.src = "/placeholder.svg";
-                      }
-                    }}
-                  />
-                </motion.div>
+            <style>{`
+              @keyframes slide-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+              .slide-left { display: flex; width: max-content; animation: slide-left 30s linear infinite; will-change: transform; }
+              @keyframes slide-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+              .slide-right { display: flex; width: max-content; animation: slide-right 30s linear infinite; will-change: transform; }
+            `}</style>
+            <div className="slide-left">
+              {[...Array(2)].map((_, setIndex) => (
+                <div key={setIndex} className="flex gap-12 shrink-0 pr-12 p-2">
+                  {firstRow.map((src, i) => (
+                    <motion.div
+                      key={`${setIndex}-${i}`}
+                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 px-6 hover:border-border hover:bg-card transition-all duration-300"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                    >
+                      <img
+                        src={src}
+                        alt={`Client ${i + 1}`}
+                        className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          const t = e.target as HTMLImageElement;
+                          if (t && !t.dataset.fallback) {
+                            t.dataset.fallback = "1";
+                            t.src = "/placeholder.svg";
+                          }
+                        }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           {/* Second Row - Right to Left */}
           <div className="relative overflow-hidden">
-            <motion.div
-              className="flex gap-12"
-              animate={{ x: [-1920, 0] }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 35,
-                  ease: "linear",
-                },
-              }}
-            >
-              {[...secondRow, ...secondRow, ...secondRow].map((src, i) => (
-                <motion.div
-                  key={i}
-                  className="flex items-center justify-center shrink-0 w-[200px] h-[100px] bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 px-6 hover:border-border hover:bg-card transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <img
-                    src={src}
-                    alt={`Client ${i + 1}`}
-                    className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      const t = e.target as HTMLImageElement;
-                      if (t && !t.dataset.fallback) {
-                        t.dataset.fallback = "1";
-                        t.src = "/placeholder.svg";
-                      }
-                    }}
-                  />
-                </motion.div>
+            <div className="slide-right">
+              {[...Array(2)].map((_, setIndex) => (
+                <div key={setIndex} className="flex gap-12 shrink-0 pr-12 p-2">
+                  {secondRow.map((src, i) => (
+                    <motion.div
+                      key={`${setIndex}-${i}`}
+                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 px-6 hover:border-border hover:bg-card transition-all duration-300"
+                      whileHover={{ scale: 1.05, y: -5 }}
+                    >
+                      <img
+                        src={src}
+                        alt={`Client ${i + 1}`}
+                        className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          const t = e.target as HTMLImageElement;
+                          if (t && !t.dataset.fallback) {
+                            t.dataset.fallback = "1";
+                            t.src = "/placeholder.svg";
+                          }
+                        }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
 

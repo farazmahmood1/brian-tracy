@@ -1,13 +1,56 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
+import { WarpTransition, WarpMode } from "@/components/WarpTransition";
 import {
   ExternalLink,
   ArrowUpRight,
   Search,
   Briefcase,
   Lock,
+  Atom,
+  Server,
+  Wind,
+  Database,
+  PenTool,
+  Smartphone,
+  Code2,
+  Flame,
+  CreditCard,
+  Map,
+  Cpu,
+  Cloud,
+  Gamepad2,
+  Layers,
+  Globe,
+  Zap,
+  Rocket,
+  Layers as LayersIcon,
 } from "lucide-react";
+
+// Icon mapping for tech stack
+const techIcons: Record<string, React.ElementType> = {
+  "React": Atom,
+  "React Native": Smartphone,
+  "Node.js": Server,
+  "Express": Server,
+  "Next.js": Cpu,
+  "TypeScript": Code2,
+  "JavaScript": Code2,
+  "Tailwind CSS": Wind,
+  "Framer Motion": LayersIcon,
+  "PostgreSQL": Database,
+  "MongoDB": Database,
+  "GraphQL": Globe,
+  "Firebase": Flame,
+  "AWS": Cloud,
+  "Stripe": CreditCard,
+  "Mapbox": Map,
+  "Unity": Gamepad2,
+  "Figma": PenTool,
+  "Encryption Libraries": Lock,
+  "SAAS": Cloud, // Fallback
+};
 import { projectsData } from "@/data/projects";
 
 const ProjectDetails = () => {
@@ -15,67 +58,82 @@ const ProjectDetails = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const nextProjectRef = useRef<HTMLElement>(null);
-  const [hasNavigated, setHasNavigated] = useState(false);
-  const [showHoldTight, setShowHoldTight] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const location = useLocation();
+  const [warpMode, setWarpMode] = useState<WarpMode>("idle");
+  const [chargeProgress, setChargeProgress] = useState(0);
+  const isHolding = useRef(false);
+  const holdInterval = useRef<NodeJS.Timeout>();
 
   const project = projectsData.find((p) => p.id === id);
   const projectIndex = projectsData.findIndex((p) => p.id === id);
-  const nextProject =
-    projectsData.length > 0
-      ? projectsData[(Math.max(0, projectIndex) + 1) % projectsData.length]
-      : undefined;
+  const nextProject = projectsData[
+    (projectsData.findIndex((p) => p.id === id) + 1) % projectsData.length
+  ];
 
-  // Manual scroll tracking for reliability
-  const handleScroll = useCallback(() => {
-    if (!nextProjectRef.current) return;
-
-    const section = nextProjectRef.current;
-    const rect = section.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    // When section top reaches viewport bottom = 0%
-    // When section top reaches viewport top = 100%
-    const sectionTop = rect.top;
-    const scrollProgress = Math.max(
-      0,
-      Math.min(100, ((windowHeight - sectionTop) / windowHeight) * 100)
-    );
-
-    setProgress(scrollProgress);
-
-    // Allow re-triggering: once the user scrolls back up, unlock navigation.
-    if (scrollProgress <= 5 && hasNavigated) {
-      setHasNavigated(false);
-      setShowHoldTight(false);
-    }
-
-    if (scrollProgress >= 60 && !showHoldTight) {
-      setShowHoldTight(true);
-    } else if (scrollProgress < 60 && showHoldTight) {
-      setShowHoldTight(false);
-    }
-
-    if (scrollProgress >= 95 && !hasNavigated && nextProject) {
-      setHasNavigated(true);
-      setTimeout(() => {
-        navigate(`/project/${nextProject.id}`);
-      }, 500);
-    }
-  }, [hasNavigated, showHoldTight, nextProject, navigate, id]);
-
-  // Attach scroll listener
+  // Check for entry warp
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    if (location.state?.warped) {
+      setWarpMode("warping_in");
+      // Reset to idle after animation
+      const timer = setTimeout(() => {
+        setWarpMode("idle");
+        // Clear history state so reload doesn't re-trigger?
+        // Or just leave it.
+        navigate(location.pathname, { replace: true, state: {} });
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state, location.pathname, navigate]);
 
-  // Reset state on route change
-  useEffect(() => {
-    setHasNavigated(false);
-    setShowHoldTight(false);
-    setProgress(0);
-  }, [id]);
+  const startHold = () => {
+    if (warpMode !== "idle") return; // Don't allow if already warping
+    isHolding.current = true;
+    setWarpMode("charging");
+
+    // Increment progress
+    holdInterval.current = setInterval(() => {
+      setChargeProgress(prev => {
+        if (prev >= 100) {
+          finishWarp();
+          return 100;
+        }
+        return prev + 2; // Charge speed: 50 ticks ~ 1s approx (at 20ms) -> tune to user preference
+      });
+    }, 20);
+  };
+
+  const endHold = () => {
+    isHolding.current = false;
+    if (holdInterval.current) clearInterval(holdInterval.current);
+
+    // If not complete, decay progress
+    if (chargeProgress < 100 && warpMode !== "warping_out") {
+      setWarpMode("idle");
+      const decay = setInterval(() => {
+        setChargeProgress(prev => {
+          if (prev <= 0) {
+            clearInterval(decay);
+            return 0;
+          }
+          return prev - 5;
+        });
+      }, 20);
+    }
+  };
+
+  const finishWarp = () => {
+    if (holdInterval.current) clearInterval(holdInterval.current);
+    setWarpMode("warping_out");
+
+    // Wait for animation then navigate
+    setTimeout(() => {
+      if (nextProject) {
+        navigate(`/project/${nextProject.id}`, { state: { warped: true } });
+        // Reset local state for when we come back or for the next page to mount fresh
+        setChargeProgress(0);
+      }
+    }, 2500); // 2.5s warp duration
+  };
 
   if (!project) {
     return (
@@ -98,13 +156,16 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div ref={containerRef} className="bg-background text-foreground">
+    <div ref={containerRef} className="bg-background text-foreground min-h-screen">
+      {/* Warp Transition Overlay */}
+      <WarpTransition mode={warpMode} chargeProgress={chargeProgress} />
+
       {/* Hero Section - Clean like MDX */}
       <section className="px-6 pt-44 pb-20  space-y-12">
         {/* Title - Large and centered */}
         <div className="overflow-hidden">
           <motion.h1
-            className="text-[14vw] md:text-[12vw] lg:text-[10vw] font-bold leading-[0.9] tracking-tighter text-center"
+            className="text-[14vw] md:text-[12vw] lg:text-[10vw] font-bold leading-[0.9] tracking-tighter text-center pb-7"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{
@@ -588,85 +649,87 @@ const ProjectDetails = () => {
           </motion.h2>
 
           <div className="flex flex-wrap gap-4">
-            {project.techStack.map((tech, index) => (
-              <motion.div
-                key={tech}
-                className="px-6 py-4 border border-border rounded-full text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-300 cursor-default"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.4 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                {tech}
-              </motion.div>
-            ))}
+            {project.techStack.map((tech, index) => {
+              const Icon = techIcons[tech] || Zap;
+              return (
+                <motion.div
+                  key={tech}
+                  className="p-4 border border-white/20 rounded-full bg-white/5 backdrop-blur-sm flex items-center justify-center transition-all duration-300 cursor-default group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08, duration: 0.4 }}
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
+                  title={tech}
+                >
+                  <Icon className="w-6 h-6 text-white" />
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    {tech}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Next Project Section - Simple scroll progress */}
-      <section ref={nextProjectRef} className="h-screen relative">
-        <div className="h-full flex flex-col items-center justify-center px-6">
-          <div className="relative z-10 text-center max-w-[600px]">
-            {/* Next Project Title */}
-            <motion.h2
-              className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Next project
-            </motion.h2>
+      {/* Next Project Interaction Area */}
+      <section className="min-h-[50vh] flex flex-col items-center justify-center relative pb-32 mt-[200px]">
+        <div className="text-center space-y-8 z-10">
+          <h3 className="text-2xl md:text-3xl font-light text-muted-foreground">
+            Ready for the next mission?
+          </h3>
+          <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">
+            {nextProject.title}
+          </h2>
 
-            {/* Dynamic Text - Changes based on progress */}
-            <AnimatePresence mode="wait">
-              {showHoldTight ? (
-                <motion.p
-                  key="hold-tight"
-                  className="text-lg text-foreground mb-10 font-medium"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  Hold tight, we're taking you to another project ✨
-                </motion.p>
-              ) : (
-                <motion.p
-                  key="keep-scrolling"
-                  className="text-lg text-muted-foreground mb-10"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  Keep Scrolling
-                </motion.p>
-              )}
-            </AnimatePresence>
-
-            {/* Progress Bar */}
-            <div className="w-full max-w-[400px] h-[2px] bg-border/50 mx-auto overflow-hidden rounded-full">
-              <div
-                className="h-full bg-foreground origin-left transition-all duration-100"
-                style={{ width: `${progress}%` }}
+          {/* Hold Button */}
+          <div
+            className="relative group cursor-pointer w-32 h-32 mx-auto flex items-center justify-center"
+            onMouseDown={startHold}
+            onMouseUp={endHold}
+            onMouseLeave={endHold}
+            onTouchStart={startHold}
+            onTouchEnd={endHold}
+          >
+            {/* Ring Progress */}
+            <svg className="w-32 h-32 transform -rotate-90">
+              <circle
+                cx="64" cy="64" r="60"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="transparent"
+                className="text-white/10"
               />
+              <circle
+                cx="64" cy="64" r="60"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="transparent"
+                className="text-white transition-all duration-75" // faster update
+                strokeDasharray={2 * Math.PI * 60}
+                strokeDashoffset={2 * Math.PI * 60 * (1 - chargeProgress / 100)}
+              />
+            </svg>
+
+            {/* Inner Button Content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <Rocket className={`w-8 h-8 mb-2 transition-transform duration-300 ${chargeProgress > 0 ? 'translate-y-[-4px]' : ''}`} />
+              <span className="text-xs font-medium tracking-widest uppercase">
+                {chargeProgress >= 100 ? "WARPING..." : "HOLD"}
+              </span>
             </div>
 
-            {/* Next Project Preview */}
-            <motion.div
-              className="mt-12 text-muted-foreground"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              <span className="text-sm uppercase tracking-[0.2em]">
-                {nextProject.title}
-              </span>
-            </motion.div>
+            {/* Glow effect */}
+            <div
+              className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl transition-opacity duration-300"
+              style={{ opacity: chargeProgress / 100 }}
+            />
           </div>
+
+          <p className="text-sm text-muted-foreground animate-pulse">
+            Hold to warp to next project
+          </p>
         </div>
       </section>
     </div>

@@ -79,11 +79,13 @@ const EarthScene: React.FC = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth < 768;
+
       // Parallax scroll animation
       gsap.to(proxy.current, {
-        scale: 1.8,
-        positionZ: 2,
-        positionY: -1,
+        scale: isMobile ? 1.3 : 1.8,
+        positionZ: isMobile ? 0 : 2,
+        positionY: isMobile ? -0.5 : -1,
         rotationSpeed: 0.02, // slower on scroll too
         scrollTrigger: {
           trigger: document.body,
@@ -110,29 +112,34 @@ const EarthScene: React.FC = () => {
     };
   }, []);
 
+  // Smooth mouse influence to prevent vibration
+  const currentMouseInfluence = useRef(0);
+
   useFrame(({ clock, mouse }) => {
     const time = clock.getElapsedTime();
     const p = proxy.current;
 
     if (earthRef.current) {
       // Continuous rotation
-      // earthRef.current.rotation.y = time * p.rotationSpeed;
       earthRef.current.rotation.y += 0.0005;
-      const mouseInfluence = ScrollTrigger.isScrolling() ? 0 : 0.15;
+
+      const targetInfluence = ScrollTrigger.isScrolling() ? 0 : 0.15;
+      currentMouseInfluence.current = THREE.MathUtils.lerp(
+        currentMouseInfluence.current,
+        targetInfluence,
+        0.1
+      );
 
       earthRef.current.position.x =
-        p.positionX + mouse.x * mouseInfluence;
+        p.positionX + mouse.x * currentMouseInfluence.current;
       earthRef.current.position.y =
-        p.positionY + mouse.y * mouseInfluence;
-      // Apply proxy transforms
+        p.positionY + mouse.y * currentMouseInfluence.current;
+
       earthRef.current.scale.setScalar(p.scale);
-      // earthRef.current.position.x = p.positionX + mouse.x * 0.2;
-      // earthRef.current.position.y = p.positionY + mouse.y * 0.1;
       earthRef.current.position.z = p.positionZ;
     }
 
     if (cloudsRef.current) {
-      // Clouds rotate slightly faster
       cloudsRef.current.rotation.y = time * (p.rotationSpeed + 0.01);
     }
   });

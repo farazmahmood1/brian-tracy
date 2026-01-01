@@ -5,62 +5,51 @@ import { Star } from "lucide-react";
 const marqueeItems = [
   "Branding",
   "Web Design",
-  "Development",
+  "Web Development",
+  "Mobile App Development",
   "Marketing",
   "SEO",
   "UI/UX",
-  "Strategy",
-  "Content",
+  "Data Solutions",
+  "Cybersecurity",
+  "Cloud Solutions",
+  "Ecommerce Solutions",
+  "Custom Software",
+  "SaaS Development",
+  "API Development",
+  "System Integration",
+  "DevOps",
+  "Performance Optimization",
+  "Automation",
+  "CRM Solutions",
+  "CMS Development",
+  "Product Strategy",
+  "Digital Transformation",
+  "Analytics & Reporting",
 ];
 
 export const MarqueeSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 20,
-  });
-  const rotate = useTransform(smoothProgress, [0, 1], [0, 360]);
-  const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1.1, 0.8]);
 
   return (
     <section
       ref={containerRef}
       className="py-20 overflow-hidden border-y border-border relative"
     >
-      {/* Background floating elements */}
-      <motion.div
-        className="absolute left-10 top-1/2 -translate-y-1/2 opacity-5 max-md:hidden"
-        style={{ rotate, scale }}
-      >
-        <Star size={200} />
-      </motion.div>
-      <motion.div
-        className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 max-md:hidden"
-        style={{ rotate: useTransform(rotate, (v) => -v), scale }}
-      >
-        <Star size={150} />
-      </motion.div>
 
-      {/* First row - continuous marquee (CSS animation) */}
-      <div className="relative overflow-hidden mb-6">
+      <div className="relative overflow-hidden mb-3 pb-5">
         <style>{`
           @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-          .marquee-left { display: flex; gap: 2rem; will-change: transform; }
+          .marquee-left { display: flex; width: max-content; will-change: transform; }
         `}</style>
 
         <div
           className="marquee-left"
-          style={{ animation: "marquee-left 25s linear infinite" }}
+          style={{ animation: "marquee-left 200s linear infinite" }}
           aria-hidden
         >
           {[...Array(2)].map((_, setIndex) => (
-            <div key={setIndex} className="flex gap-8 shrink-0">
+            <div key={setIndex} className="flex gap-8 shrink-0 pr-8">
               {marqueeItems.map((item, index) => (
                 <div
                   key={`${setIndex}-${index}`}
@@ -86,19 +75,19 @@ export const MarqueeSection = () => {
       </div>
 
       {/* Second row - continuous marquee (reverse) */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden pb-5">
         <style>{`
           @keyframes marquee-right { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-          .marquee-right { display: flex; gap: 2rem; will-change: transform; }
+          .marquee-right { display: flex; width: max-content; will-change: transform; }
         `}</style>
 
         <div
           className="marquee-right"
-          style={{ animation: "marquee-right 30s linear infinite reverse" }}
+          style={{ animation: "marquee-right 200s linear infinite reverse" }}
           aria-hidden
         >
           {[...Array(2)].map((_, setIndex) => (
-            <div key={setIndex} className="flex gap-8 shrink-0">
+            <div key={setIndex} className="flex gap-8 shrink-0 pr-8">
               {[...marqueeItems].reverse().map((item, index) => (
                 <div
                   key={`${setIndex}-${index}`}

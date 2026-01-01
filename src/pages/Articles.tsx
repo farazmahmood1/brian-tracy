@@ -36,7 +36,7 @@ const Articles = () => {
       >
         {/* Animated Background Grid */}
         <div className="absolute inset-0 overflow-hidden">
-          <motion.div className="absolute inset-0" style={{ y: smoothHeroY }}>
+          {/* <motion.div className="absolute inset-0" style={{ y: smoothHeroY }}>
             {[...Array(20)].map((_, i) => (
               <motion.div
                 key={i}
@@ -65,27 +65,30 @@ const Articles = () => {
                 transition={{ delay: i * 0.08, duration: 1.2 }}
               />
             ))}
-          </motion.div>
+          </motion.div> */}
         </div>
 
         {/* Floating Elements */}
-        {[...Array(6)].map((_, i) => (
+        {Array.from({ length: 188 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-primary/40"
+            className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
             style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: 2 + Math.random() * 4,
+              height: 2 + Math.random() * 4,
             }}
             animate={{
               y: [0, -30, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.5, 1],
+              x: [0, 15, 0],
+              opacity: [0.2, 0.6, 0.2],
             }}
             transition={{
-              duration: 3 + i * 0.5,
+              duration: 4 + Math.random() * 2,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: Math.random() * 5,
+              ease: "easeInOut",
             }}
           />
         ))}
@@ -145,7 +148,7 @@ const Articles = () => {
         </motion.div>
 
         {/* Scroll Indicator */}
-        <motion.div
+        {/* <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -162,7 +165,7 @@ const Articles = () => {
               transition={{ duration: 1.5, repeat: Infinity }}
             />
           </motion.div>
-        </motion.div>
+        </motion.div> */}
       </section>
 
       {/* Category Filter */}
@@ -177,11 +180,10 @@ const Articles = () => {
             {categories.map((category, index) => (
               <motion.button
                 key={category}
-                className={`px-6 py-3 max-md:text-xs rounded-full border transition-all duration-300 ${
-                  index === 0
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-border hover:border-primary hover:text-primary"
-                }`}
+                className={`px-6 py-3 max-md:text-xs rounded-full border transition-all duration-300 ${index === 0
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "border-border hover:border-primary hover:text-primary"
+                  }`}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}

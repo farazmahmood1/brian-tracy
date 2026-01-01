@@ -92,7 +92,7 @@ export const HeroSection = () => {
 
       {/* 3D Earth Globe with Parallax */}
       <motion.div
-        className="absolute -left-[20%] md:-left-[40%] top-[130%] -translate-y-[60%] z-10 w-[100vw] md:w-[80vw] lg:w-[80vw] aspect-square pointer-events-auto"
+        className="absolute -left-[20%] md:-left-[40%] top-[70%] md:top-[130%] -translate-y-[60%] z-10 w-[100vw] md:w-[80vw] lg:w-[80vw] aspect-square pointer-events-auto"
         style={{
           opacity: earthOpacity,
           willChange: "transform"
