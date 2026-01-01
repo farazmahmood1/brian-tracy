@@ -5,13 +5,42 @@ export const MusicPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
+    const wasPlayingBeforeInterruption = useRef(false);
+
     useEffect(() => {
         // Initialize audio
         audioRef.current = new Audio("https://dev.gemseeroo.com/space-440026.mp3");
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
 
+        // Custom event listeners
+        const handlePause = () => {
+            if (audioRef.current && !audioRef.current.paused) {
+                wasPlayingBeforeInterruption.current = true;
+                audioRef.current.pause();
+                setIsPlaying(false);
+            } else {
+                // If it's already paused, we don't want to auto-resume later
+                // unless we are in a nested state, but for now simple toggle:
+                wasPlayingBeforeInterruption.current = false;
+            }
+        };
+
+        const handleResume = () => {
+            if (wasPlayingBeforeInterruption.current && audioRef.current) {
+                audioRef.current.play().catch(console.error);
+                setIsPlaying(true);
+            }
+            // Reset the flag
+            wasPlayingBeforeInterruption.current = false;
+        };
+
+        window.addEventListener("music:pause", handlePause);
+        window.addEventListener("music:resume", handleResume);
+
         return () => {
+            window.removeEventListener("music:pause", handlePause);
+            window.removeEventListener("music:resume", handleResume);
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current = null;

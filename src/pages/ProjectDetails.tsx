@@ -85,10 +85,34 @@ const ProjectDetails = () => {
     }
   }, [location.state, location.pathname, navigate]);
 
+
+
+  const fxAudioRef = useRef<HTMLAudioElement | null>(null);
+  const wasPlayingRef = useRef(false); // Track if BG music was playing
+
+  useEffect(() => {
+    fxAudioRef.current = new Audio("https://dev.gemseeroo.com/fx-light-90387.mp3");
+    fxAudioRef.current.volume = 1.0;
+    return () => {
+      if (fxAudioRef.current) {
+        fxAudioRef.current.pause();
+        fxAudioRef.current = null;
+      }
+    };
+  }, []);
+
   const startHold = () => {
     if (warpMode !== "idle") return; // Don't allow if already warping
     isHolding.current = true;
     setWarpMode("charging");
+
+    window.dispatchEvent(new Event("music:pause"));
+
+    if (fxAudioRef.current) {
+      fxAudioRef.current.currentTime = 0;
+      fxAudioRef.current.volume = 1.0;
+      fxAudioRef.current.play().catch(console.error);
+    }
 
     // Increment progress
     holdInterval.current = setInterval(() => {
@@ -97,7 +121,7 @@ const ProjectDetails = () => {
           finishWarp();
           return 100;
         }
-        return prev + 2; // Charge speed: 50 ticks ~ 1s approx (at 20ms) -> tune to user preference
+        return prev + 2;
       });
     }, 20);
   };
@@ -106,9 +130,32 @@ const ProjectDetails = () => {
     isHolding.current = false;
     if (holdInterval.current) clearInterval(holdInterval.current);
 
-    // If not complete, decay progress
+    // If not complete, decay progress and fade out sound
     if (chargeProgress < 100 && warpMode !== "warping_out") {
       setWarpMode("idle");
+
+      // Fade out FX
+      if (fxAudioRef.current) {
+        const fadeOut = setInterval(() => {
+          if (fxAudioRef.current && fxAudioRef.current.volume > 0.1) {
+            fxAudioRef.current.volume -= 0.1;
+          } else {
+            clearInterval(fadeOut);
+            if (fxAudioRef.current) {
+              fxAudioRef.current.pause();
+              fxAudioRef.current.currentTime = 0;
+            }
+            // Resume BG music after fade out? Or immediately?
+            // User said "if I unhold... decrease the sound... slowly".
+            // "until fx-light sound is completed" applied to the pause.
+            // So we should resume BG music now.
+            window.dispatchEvent(new Event("music:resume"));
+          }
+        }, 100);
+      } else {
+        window.dispatchEvent(new Event("music:resume"));
+      }
+
       const decay = setInterval(() => {
         setChargeProgress(prev => {
           if (prev <= 0) {
@@ -126,11 +173,15 @@ const ProjectDetails = () => {
     setWarpMode("warping_out");
 
     // Wait for animation then navigate
+    // FX sound continues playing until it ends naturally
     setTimeout(() => {
       if (nextProject) {
         navigate(`/project/${nextProject.id}`, { state: { warped: true } });
-        // Reset local state for when we come back or for the next page to mount fresh
         setChargeProgress(0);
+        // Resume BG music when we leave? Or maybe on the next page?
+        // Navigation might unmount us.
+        // If we want music to resume, we should do it here or in the cleanup.
+        window.dispatchEvent(new Event("music:resume"));
       }
     }, 2500); // 2.5s warp duration
   };
