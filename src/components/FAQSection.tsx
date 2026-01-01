@@ -40,7 +40,7 @@ export const FAQSection = () => {
 
   return (
     <section
-      className="section-padding md:py-20 py-24 relative overflow-hidden border-border"
+      className="section-padding md:py-20 py-24 relative overflow-hidden"
       ref={containerRef}
     >
       <div className="max-w-[1800px] mx-auto">

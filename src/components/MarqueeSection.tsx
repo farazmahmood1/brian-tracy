@@ -5,7 +5,6 @@ import { Star } from "lucide-react";
 const marqueeItems = [
   "Branding",
   "Web Design",
-  "Web Development",
   "Mobile App Development",
   "Marketing",
   "SEO",
@@ -13,6 +12,7 @@ const marqueeItems = [
   "Data Solutions",
   "Cybersecurity",
   "Cloud Solutions",
+  "Web Development",
   "Ecommerce Solutions",
   "Custom Software",
   "SaaS Development",
