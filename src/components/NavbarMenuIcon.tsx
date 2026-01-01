@@ -9,6 +9,7 @@ import { Ellipsis, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "./AnimationComponents";
 import { MusicPlayer } from "./MusicPlayer";
+import { ThemeToggle } from "./ThemeToggle";
 import { useNavigate } from "react-router-dom";
 
 interface NavLink {
@@ -190,6 +191,9 @@ export const NavbarMenuIcon = () => {
 
           {/* Menu Actions */}
           <div className="flex items-center gap-4">
+            {/* Theme Toggle - Left of Music Player */}
+            <ThemeToggle />
+
             {/* Music Player - Right of Menu */}
             <MusicPlayer />
             <Magnetic strength={0.2}>

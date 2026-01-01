@@ -61,73 +61,77 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+import { ThemeProvider } from "./context/ThemeContext";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <LayoutWrapper>
-                <Index />
-              </LayoutWrapper>
-            }
-          />
-          <Route
-            path="/projects"
-            element={
-              <LayoutWrapper>
-                <Projects />
-              </LayoutWrapper>
-            }
-          />
-          <Route
-            path="/project/:id"
-            element={
-              <LayoutWrapper>
-                <ProjectDetails />
-              </LayoutWrapper>
-            }
-          />
-          <Route
-            path="/articles"
-            element={
-              <LayoutWrapper>
-                <Articles />
-              </LayoutWrapper>
-            }
-          />
-          <Route
-            path="/articles/:id"
-            element={
-              <LayoutWrapper>
-                <ArticleDetails />
-              </LayoutWrapper>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <LayoutWrapper>
-                <Contact />
-              </LayoutWrapper>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <LayoutWrapper>
-                <NotFound />
-              </LayoutWrapper>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <LayoutWrapper>
+                  <Index />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <LayoutWrapper>
+                  <Projects />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/project/:id"
+              element={
+                <LayoutWrapper>
+                  <ProjectDetails />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/articles"
+              element={
+                <LayoutWrapper>
+                  <Articles />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/articles/:id"
+              element={
+                <LayoutWrapper>
+                  <ArticleDetails />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <LayoutWrapper>
+                  <Contact />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <LayoutWrapper>
+                  <NotFound />
+                </LayoutWrapper>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
