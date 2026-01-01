@@ -100,7 +100,7 @@ export const Footer = () => {
             className="text-[15vw] font-bold leading-none tracking-tighter text-foreground/5"
             style={{ y: textY }}
           >
-            Forrof®
+            Forrof
           </motion.h2>
         </motion.div>
 
@@ -120,7 +120,7 @@ export const Footer = () => {
                 className="text-3xl font-bold tracking-tight inline-block mb-6"
                 whileHover={{ scale: 1.02 }}
               >
-                Forrof<sup className="text-sm">®</sup>
+                Forrof
               </motion.a>
             </Magnetic>
             <p className="text-muted-foreground max-w-md mb-8 leading-relaxed">

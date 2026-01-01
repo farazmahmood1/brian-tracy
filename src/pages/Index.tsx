@@ -73,7 +73,7 @@ const Index = () => {
         <AboutSection />
         <PricingSection />
         <TestimonialsSection />
-        <TeamSection />
+        {/* <TeamSection /> */}
         <FAQSection />
         <InsightsSection />
         <ContactSection />

@@ -183,7 +183,7 @@ export const NavbarMenuIcon = () => {
               className="text-3xl font-bold tracking-tight inline-block"
               style={{ opacity: logoTextOpacity, y: logoTextY }}
             >
-              Forrof<sup className="text-xs">®</sup>
+              forrof.io
             </motion.span>
           </motion.div>
 

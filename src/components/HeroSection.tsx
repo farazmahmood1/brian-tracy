@@ -176,7 +176,7 @@ export const HeroSection = () => {
                 delay: 0.3,
               }}
             >
-              Forrof<sup className="text-[4vw]">®</sup>
+              forrof
             </motion.h1>
           </motion.div>
         </div>
