@@ -34,7 +34,7 @@ export const MarqueeSection = () => {
   return (
     <section
       ref={containerRef}
-      className="py-20 overflow-hidden border-y border-border relative"
+      className="py-20 overflow-hidden relative"
     >
 
       <div className="relative overflow-hidden mb-3 pb-5">

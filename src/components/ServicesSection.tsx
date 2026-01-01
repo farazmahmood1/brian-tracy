@@ -85,7 +85,7 @@ export const ServicesSection = () => {
   return (
     <section
       id="services"
-      className="section-padding md:py-40 py-24 relative overflow-hidden"
+      className="section-padding md:py-20 py-24 relative overflow-hidden"
       ref={containerRef}
       onMouseMove={handleMouseMove}
     >

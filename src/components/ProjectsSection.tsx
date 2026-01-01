@@ -45,7 +45,7 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="section-padding md:py-40 py-20 relative overflow-hidden"
+      className="section-padding md:py-20 py-20 relative overflow-hidden"
       ref={containerRef}
     >
       <div className="max-w-[1800px] mx-auto">
@@ -73,7 +73,7 @@ export const ProjectsSection = () => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <motion.span
-              className="text-[12rem] md:text-[16rem] font-bold leading-none tracking-tighter block"
+              className="text-[12rem] md:text-[14rem] font-bold leading-none tracking-tighter block"
               initial={{ y: 100, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{

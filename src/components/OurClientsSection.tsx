@@ -28,11 +28,11 @@ export const OurClientsSection = () => {
   return (
     <section className="md:pt-10 pt-6 relative overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
+      <div className="absolute inset-0 from-background via-muted/20 to-background" />
 
       <div className="max-w-[1800px] mx-auto relative z-10 px-6 md:px-12 lg:px-20">
         {/* Header */}
-        <motion.div
+        {/* <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export const OurClientsSection = () => {
           >
             Our Clients
           </motion.h2>
-        </motion.div>
+        </motion.div> */}
 
         {/* Marquee Container */}
         <div className="relative">
@@ -75,7 +75,7 @@ export const OurClientsSection = () => {
             `}</style>
             <div className="slide-left">
               {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-12 shrink-0 pr-12 p-2">
+                <div key={setIndex} className="flex gap-5 shrink-0 pr-4 p-2">
                   {firstRow.map((src, i) => (
                     <motion.div
                       key={`${setIndex}-${i}`}
@@ -107,7 +107,7 @@ export const OurClientsSection = () => {
           <div className="relative overflow-hidden">
             <div className="slide-right">
               {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-12 shrink-0 pr-12 p-2">
+                <div key={setIndex} className="flex gap-5 shrink-0 pr-4 p-2">
                   {secondRow.map((src, i) => (
                     <motion.div
                       key={`${setIndex}-${i}`}
@@ -138,7 +138,7 @@ export const OurClientsSection = () => {
 
         {/* Stats Row */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-border/50"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-10 pt-12 border-border/50"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

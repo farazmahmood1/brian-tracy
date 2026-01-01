@@ -101,7 +101,7 @@ export const TestimonialsSection = () => {
 
   return (
     <section
-      className="section-padding md:py-40 max-md:pt-28 relative overflow-hidden border-t border-border"
+      className="section-padding md:py-20 max-md:pt-28 relative overflow-hidden"
       ref={containerRef}
     >
       <div className="max-w-[1800px] mx-auto">

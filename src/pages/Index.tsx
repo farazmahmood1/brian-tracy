@@ -66,12 +66,13 @@ const Index = () => {
 
       <main>
         <HeroSection />
-        <MarqueeSection />
-        <ServicesSection />
         <OurClientsSection />
+
+        <ServicesSection />
         <ProjectsSection />
         <AboutSection />
         <PricingSection />
+        <MarqueeSection />
         <TestimonialsSection />
         {/* <TeamSection /> */}
         <FAQSection />

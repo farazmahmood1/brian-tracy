@@ -119,7 +119,7 @@ export const AboutSection = () => {
 
   return (
     <section
-      className="section-padding md:py-40 py-12 relative overflow-hidden"
+      className="section-padding md:py-20 py-12 relative overflow-hidden"
       ref={containerRef}
     >
       {/* Large decorative text in background */}

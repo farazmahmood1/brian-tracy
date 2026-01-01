@@ -63,7 +63,7 @@ export const InsightsSection = () => {
 
   return (
     <section
-      className="section-padding md:py-40 py-12 relative overflow-hidden border-t border-border"
+      className="section-padding md:py-20 py-12 relative overflow-hidden border-t border-border"
       ref={containerRef}
     >
       {/* Floating background elements */}

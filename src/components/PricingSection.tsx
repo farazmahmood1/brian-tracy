@@ -62,7 +62,7 @@ export const PricingSection = () => {
   return (
     <section
       id="pricing"
-      className="section-padding md:py-40 py-24 relative overflow-hidden border-t border-border"
+      className="section-padding md:py-20 py-24 relative overflow-hidden"
       ref={containerRef}
     >
       <div className="max-w-[1800px] mx-auto">

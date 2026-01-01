@@ -83,7 +83,7 @@ export const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="section-padding md:py-40 py-20 relative overflow-hidden"
+      className="section-padding md:py-20 py-20 relative overflow-hidden"
       ref={containerRef}
     >
       <div className="max-w-[1800px] mx-auto">
