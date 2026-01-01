@@ -9,39 +9,7 @@ import { useRef, useState } from "react";
 import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 import { useNavigate } from "react-router-dom";
-
-const insights = [
-  {
-    title: "The Future of Brand Identity in a Digital-First World",
-    category: "Branding",
-    date: "Dec 15, 2024",
-    readTime: "8 min read",
-    image:
-      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
-    excerpt:
-      "Exploring how digital transformation is reshaping brand identity strategies for modern businesses.",
-  },
-  {
-    title: "Mastering the Art of Micro-Interactions in UI Design",
-    category: "UI/UX",
-    date: "Dec 10, 2024",
-    readTime: "6 min read",
-    image:
-      "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&q=80",
-    excerpt:
-      "How subtle animations and micro-interactions can dramatically improve user experience.",
-  },
-  {
-    title: "SEO Trends That Will Dominate 2025",
-    category: "Marketing",
-    date: "Dec 5, 2024",
-    readTime: "10 min read",
-    image:
-      "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=800&q=80",
-    excerpt:
-      "Stay ahead of the curve with these emerging SEO strategies and techniques.",
-  },
-];
+import { articles } from "@/data/articles";
 
 export const InsightsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,6 +28,14 @@ export const InsightsSection = () => {
   });
   const headerY = useTransform(smoothProgress, [0, 0.3], [100, 0]);
   const headerOpacity = useTransform(smoothProgress, [0, 0.3], [0, 1]);
+
+  // Display only the first 3 articles
+  const displayedInsights = articles.slice(0, 3);
+
+  const handleArticleClick = (id: string) => {
+    navigate(`/articles/${id}`);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <section
@@ -120,9 +96,9 @@ export const InsightsSection = () => {
 
         {/* Insights Grid with Advanced Hover Effects */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          {insights.map((insight, index) => (
+          {displayedInsights.map((insight, index) => (
             <motion.article
-              key={insight.title}
+              key={insight.id}
               className="group cursor-pointer"
               data-cursor="Read"
               initial={{ opacity: 0, y: 100, rotateY: -10 }}
@@ -134,6 +110,7 @@ export const InsightsSection = () => {
               }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => handleArticleClick(insight.id)}
               style={{ transformStyle: "preserve-3d" }}
             >
               {/* Image Container with Multiple Layers */}
@@ -250,13 +227,11 @@ export const InsightsSection = () => {
                 </motion.p>
 
                 {/* Read More Link */}
-                <motion.a
-                  href="#"
-                  className="inline-flex items-center gap-2 text-sm font-medium group/link"
+                <motion.div // Changed to div to avoid nested anchor interactions if needed, but handleArticleClick handles it
+                  className="inline-flex items-center gap-2 text-sm font-medium group/link text-foreground"
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{ delay: 1.1 + index * 0.15 }}
-                  whileHover={{ x: 5 }}
                 >
                   <span className="relative">
                     Read Article
@@ -271,7 +246,7 @@ export const InsightsSection = () => {
                     size={14}
                     className="group-hover/link:rotate-45 transition-transform"
                   />
-                </motion.a>
+                </motion.div>
               </div>
             </motion.article>
           ))}
@@ -289,7 +264,8 @@ export const InsightsSection = () => {
               href="/articles"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/contact");
+                navigate("/articles");
+                window.scrollTo(0, 0);
               }}
               className="inline-flex items-center gap-3 px-10 py-5 border border-border rounded-full overflow-hidden relative group"
               data-cursor="View"

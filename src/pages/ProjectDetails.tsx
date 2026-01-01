@@ -26,7 +26,10 @@ import {
   Zap,
   Rocket,
   Layers as LayersIcon,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import { Magnetic } from "@/components/AnimationComponents";
 
 // Icon mapping for tech stack
 const techIcons: Record<string, React.ElementType> = {
@@ -61,6 +64,7 @@ const ProjectDetails = () => {
   const location = useLocation();
   const [warpMode, setWarpMode] = useState<WarpMode>("idle");
   const [chargeProgress, setChargeProgress] = useState(0);
+  const [responsiveIndex, setResponsiveIndex] = useState(0);
   const isHolding = useRef(false);
   const holdInterval = useRef<NodeJS.Timeout>();
 
@@ -636,36 +640,82 @@ const ProjectDetails = () => {
             Responsive
           </motion.h2>
 
-          {/* Mobile Marquee */}
+          {/* Slider Container */}
           <div className="relative overflow-hidden mb-12">
-            <style>{`
-              @keyframes marquee-mobile { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-              .marquee-mobile-track { display: flex; gap: 1.5rem; will-change: transform; }
-            `}</style>
-
-            <div
-              className="marquee-mobile-track"
-              style={{ animation: "marquee-mobile 25s linear infinite" }}
+            <motion.div
+              className="flex gap-6"
+              animate={{
+                x: `-${responsiveIndex * (window.innerWidth < 768 ? 216 : 304)}px`, // approximate width + gap (200+16 or 280+24)
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
             >
-              {(project.responsive ?? [])
-                .concat(project.responsive ?? [])
-                .map((src, i) => (
-                  <div
-                    key={`${src}-${i}`}
-                    className="relative flex-shrink-0 w-[200px] md:w-[280px] aspect-[9/16] rounded-xl overflow-hidden group"
-                  >
-                    <img
-                      src={src}
-                      alt={`Mobile ${i + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-foreground/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                ))}
-            </div>
+              {(project.responsive ?? []).map((src, i) => (
+                <div
+                  key={`${src}-${i}`}
+                  className="relative flex-shrink-0 w-[200px] md:w-[280px] aspect-[9/16] rounded-xl overflow-hidden group"
+                >
+                  <img
+                    src={src}
+                    alt={`Mobile ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-foreground/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="flex items-center gap-4 justify-start">
+            <Magnetic strength={0.2}>
+              <motion.button
+                onClick={() => {
+                  setResponsiveIndex((prev) => Math.max(0, prev - 1));
+                }}
+                disabled={responsiveIndex === 0}
+                className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <motion.span
+                  className="absolute inset-0 bg-foreground"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <ChevronLeft size={20} className="relative z-10 group-hover:text-background transition-colors" />
+              </motion.button>
+            </Magnetic>
+            <Magnetic strength={0.2}>
+              <motion.button
+                onClick={() => {
+                  const maxIndex = (project.responsive?.length || 0) - (window.innerWidth < 768 ? 1 : 3); // Conservative max
+                  setResponsiveIndex((prev) =>
+                    Math.min((project.responsive?.length || 1) - 1, prev + 1)
+                  );
+                }}
+                disabled={!project.responsive || responsiveIndex >= project.responsive.length - 1} // Simplified check
+                className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <motion.span
+                  className="absolute inset-0 bg-foreground"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <ChevronRight size={20} className="relative z-10 group-hover:text-background transition-colors" />
+              </motion.button>
+            </Magnetic>
           </div>
         </div>
       </section>
+
 
       {/* The Impact */}
       <section className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
