@@ -15,7 +15,7 @@ import {
 import { getArticleById, articles } from "@/data/articles";
 import { useLenis } from "@/hooks/useLenis";
 import { toast } from "@/hooks/use-toast";
-import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { SEO } from "@/components/SEO";
 
 const ArticleDetails = () => {
   useLenis();
@@ -23,13 +23,13 @@ const ArticleDetails = () => {
   const navigate = useNavigate();
   const article = getArticleById(id || "");
 
-  usePageMetadata({
+  const seoData = {
     title: article?.metaTitle || article?.title,
     description: article?.metaDescription || article?.excerpt,
     image: article?.image,
     url: window.location.href,
     type: "article",
-  });
+  };
 
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

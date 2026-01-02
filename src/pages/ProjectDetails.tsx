@@ -30,7 +30,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
-import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { SEO } from "@/components/SEO";
 
 // Icon mapping for tech stack
 const techIcons: Record<string, React.ElementType> = {
@@ -89,15 +89,6 @@ const ProjectDetails = () => {
       return () => clearTimeout(timer);
     }
   }, [location.state, location.pathname, navigate]);
-
-  // Handle Dynamic Meta Tags & Schema
-  usePageMetadata({
-    title: project?.metaTitle || (project ? `${project.title} | Case Study – Forrof` : undefined),
-    description: project?.metaDescription,
-    image: project?.image,
-    url: window.location.href,
-    type: "article", // Projects are case studies, so article fits better than website
-  });
 
   // Schema Injection
   useEffect(() => {
