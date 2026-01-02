@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
 
 export const OurClientsSection = () => {
+
   const clientFiles = [
     "Appen-Talent Store Logo.png",
     "Bushal Farm Logo.jpg",
+    "a (7).jpeg",
     "carbonmade_logo.jfif",
     "curogram logo.jfif",
+    "a (4).jpeg",
     "FitReps Logo.svg",
     "Fynosign Logo (2).png",
     "glampinghub logo.jpg",
@@ -13,11 +16,15 @@ export const OurClientsSection = () => {
     "Kumon North America, Inc. logo.png",
     "logo_1714715740.jpg",
     "loopiq logo.jfif",
+    "a (3).jpeg",
     "LoopIQ Logo.jpg",
     "mapmatix logo.jfif",
     "Olio_Logo.jpg",
+    "a (1).jpeg",
     "Ruhr-Universität logo.jpg",
-    "Screenshot 2025-12-28 163931.png"
+    "Screenshot 2025-12-28 163931.png",
+    "a (2).jpeg",
+    "a (5).jpeg",
   ];
 
   const paths = clientFiles.map((name) => `https://dev.gemseeroo.com/clients/${encodeURI(name)}`);
@@ -32,32 +39,6 @@ export const OurClientsSection = () => {
 
       <div className="max-w-[1800px] mx-auto relative z-10 px-6 md:px-12 lg:px-20">
         {/* Header */}
-        {/* <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.span
-            className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            Trusted By
-          </motion.span>
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            Our Clients
-          </motion.h2>
-        </motion.div> */}
 
         {/* Marquee Container */}
         <div className="relative">
@@ -79,7 +60,7 @@ export const OurClientsSection = () => {
                   {firstRow.map((src, i) => (
                     <motion.div
                       key={`${setIndex}-${i}`}
-                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 px-6 hover:border-border hover:bg-card transition-all duration-300"
+                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] backdrop-blur-sm rounded-2xl  px-6 transition-all duration-300"
                       whileHover={{ scale: 1.05, y: -5 }}
                     >
                       <img
@@ -111,7 +92,7 @@ export const OurClientsSection = () => {
                   {secondRow.map((src, i) => (
                     <motion.div
                       key={`${setIndex}-${i}`}
-                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 px-6 hover:border-border hover:bg-card transition-all duration-300"
+                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] backdrop-blur-sm rounded-2xl px-6 transition-all duration-300"
                       whileHover={{ scale: 1.05, y: -5 }}
                     >
                       <img
