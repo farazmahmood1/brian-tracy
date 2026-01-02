@@ -140,6 +140,8 @@ const ProjectsPage = () => {
     damping: 20,
   });
   const backgroundY = useTransform(smoothProgress, [0, 1], [0, -200]);
+  const backgroundGradient = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const backgroundScaleGradient = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
   const backgroundScale = useTransform(smoothProgress, [0, 1], [1, 1.2]);
   const counterScale = useTransform(smoothProgress, [0, 0.3], [0.8, 1]);
 
@@ -192,6 +194,9 @@ const ProjectsPage = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent" />
           </motion.div>
 
+
+
+
           {/* Hero Content */}
           <motion.div className="absolute inset-0 z-20 section-padding pb-20 pt-60 max-md:pt-52">
             <div className="max-w-[1800px] mx-auto w-full">
@@ -225,6 +230,8 @@ const ProjectsPage = () => {
 
         {/* Stats and Filters Section */}
         <section className="section-padding py-20 relative">
+
+
           <motion.div
             className="max-w-[1800px] mx-auto"
             ref={containerRef}
@@ -232,6 +239,57 @@ const ProjectsPage = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
+
+
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <motion.div
+                className="absolute top-0 right-0 w-96 h-96 bg-secondary-foreground rounded-full blur-3xl"
+                style={{
+                  y: backgroundGradient,
+                  scale: backgroundScaleGradient,
+                }}
+                animate={{
+                  x: [0, 100, 0],
+                  y: [0, -50, 0],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <motion.div
+                className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-foreground rounded-full blur-3xl"
+                style={{
+                  y: backgroundGradient,
+                  scale: backgroundScaleGradient,
+                }}
+                animate={{
+                  x: [0, -100, 0],
+                  y: [0, 100, 0],
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <motion.div
+                className="absolute top-1/2 left-1/2 w-80 h-80 bg-secondary-foreground rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  scale: backgroundScaleGradient,
+                }}
+                animate={{
+                  scale: [0.8, 1.2, 0.8],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </div>
             <div className="grid lg:grid-cols-2 gap-16 mb-20">
               {/* Big Number Counter */}
               <motion.div
@@ -320,7 +378,7 @@ const ProjectsPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="section-padding py-20">
+        <section className="section-padding py-20" >
           <motion.div
             className="max-w-[1800px] mx-auto text-center"
             initial={{ opacity: 0, y: 40 }}
