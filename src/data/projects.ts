@@ -5,6 +5,20 @@ export const projectsData = [
     title: "Bushel",
     metaTitle: "Bushel Farm Management Platform | Web Development Case Study – Forrof",
     metaDescription: "Bushel is a modern farm management platform built by Forrof. This case study covers UI UX design, custom web development, analytics integration, and performance optimization for agricultural businesses.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Bushel Farm Management Platform",
+      "url": "https://forrof.io/project/bushel",
+      "image": "https://dev.gemseeroo.com/bushel/cover.png",
+      "description": "Case study of Bushel, a farm management platform built by Forrof featuring custom web development, UI UX design, analytics integration, and performance optimization.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["Web Development", "UI UX Design", "Agricultural Software", "Custom Software Development"]
+    },
     date: "Dec 2024",
     location: "Global",
     image: "https://dev.gemseeroo.com/bushel/bushel-web%20(1).png",
@@ -85,6 +99,20 @@ export const projectsData = [
     title: "Olio",
     metaTitle: "Olio | Community Food Sharing App Design – Forrof",
     metaDescription: "Olio is a community-focused app that reduces food waste. Explore our UI UX design work for this sustainable food sharing platform.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Olio Community Sharing",
+      "url": "https://forrof.io/project/olio",
+      "image": "https://dev.gemseeroo.com/olio/cover.png",
+      "description": "User experience and interface design for Olio, a community food sharing app designed to reduce food waste and build local connections.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["Mobile App Design", "UI UX Design", "Sustainability", "Community Platforms"]
+    },
     date: "Nov 2024",
     location: "UK",
     image: "https://dev.gemseeroo.com/olio/olio-phone%20(3).png",
@@ -158,6 +186,20 @@ export const projectsData = [
     title: "Glamping",
     metaTitle: "Glamping | Luxury Travel Booking Platform Case Study – Forrof",
     metaDescription: "A custom web development project for a luxury travel booking platform. Featuring real-time availability and stunning UI UX.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Glamping Luxury Booking",
+      "url": "https://forrof.io/project/glamping",
+      "image": "https://dev.gemseeroo.com/glamping/glamping-cover.png",
+      "description": "Full-stack development of Glamping, a luxury travel booking platform with real-time availability and high-conversion design.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["Web Development", "Booking Systems", "Luxury Travel", "E-commerce"]
+    },
     date: "Oct 2024",
     location: "Europe",
     image: "https://dev.gemseeroo.com/glamping/glamping-web%20(16).png",
@@ -239,6 +281,20 @@ export const projectsData = [
     title: "Curogram",
     metaTitle: "Curogram | Healthcare Communication Platform – Forrof",
     metaDescription: "HIPAA-compliant healthcare platform development. Improving patient-provider communication through custom web solutions.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Curogram Healthcare Platform",
+      "url": "https://forrof.io/project/curogram",
+      "image": "https://dev.gemseeroo.com/curogram/cover%20curogram.png",
+      "description": "Development of Curogram, a secure, HIPAA-compliant communication platform for patients and doctors.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["Healthcare Software", "HIPAA Compliance", "Telemedicine", "Custom Web Development"]
+    },
     date: "Sep 2024",
     location: "USA",
     image: "https://dev.gemseeroo.com/curogram/curogram-web%20(3).png",
@@ -318,6 +374,20 @@ export const projectsData = [
     title: "Carbonmade",
     metaTitle: "Carbonmade | Creative Portfolio Platform Design – Forrof",
     metaDescription: "Empowering creatives with a powerful portfolio platform. Custom web development and UX strategy for professional artists.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Carbonmade Portfolio Platform",
+      "url": "https://forrof.io/project/carbonmade",
+      "image": "https://dev.gemseeroo.com/carbonmade/cover%20carbonmade.png",
+      "description": "Product design and scaling for Carbonmade, a leading portfolio platform for creative professionals.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["Product Design", "Platform Scaling", "Creative Tools", "SaaS Development"]
+    },
     date: "Aug 2024",
     location: "USA",
     image: "https://dev.gemseeroo.com/carbonmade/carbon-web%20(2).png",
@@ -386,6 +456,20 @@ export const projectsData = [
     title: "Loopiq",
     metaTitle: "Loopiq | Customer Engagement SaaS Platform – Forrof",
     metaDescription: "Driving results with SaaS analytics and automated workflows. A deep dive into the development of a customer engagement platform.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Loopiq Engagement SaaS",
+      "url": "https://forrof.io/project/loopiq",
+      "image": "https://dev.gemseeroo.com/loopiq/cover.png",
+      "description": "SaaS development of Loopiq, a customer engagement platform featuring real-time analytics and automated workflows.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["SaaS Development", "Analytics Dashboards", "Marketing Tech", "Automation"]
+    },
     date: "Jul 2024",
     location: "UK",
     image: "https://dev.gemseeroo.com/loopiq/loopiq-web%20(1).png",
@@ -468,6 +552,20 @@ export const projectsData = [
     title: "RallyTyper",
     metaTitle: "RallyTyper | High-Energy Mobile Game Development – Forrof",
     metaDescription: "Gamified typing practice on mobile. Exploring the design and performance tuning of a competitive 3D typing game.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "RallyTyper Mobile Game",
+      "url": "https://forrof.io/project/rallytyper",
+      "image": "https://dev.gemseeroo.com/rallytyper/cover.png",
+      "description": "Design and performance optimization for RallyTyper, a high-speed competitive typing game for mobile platforms.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["Mobile Game Development", "Gamification", "Unity", "Performance Tuning"]
+    },
     date: "Jul 2024",
     location: "Global",
     image: "https://dev.gemseeroo.com/rallytyper/rally-web%20(1).png",
@@ -530,6 +628,20 @@ export const projectsData = [
     title: "FynoSign",
     metaTitle: "FynoSign | Secure E-Signature & Workflow SaaS – Forrof",
     metaDescription: "Building a secure e-signature platform with automated document workflows. Scalable cloud-based SaaS solutions.",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "FynoSign E-Signature SaaS",
+      "url": "https://forrof.io/project/fyno",
+      "image": "https://dev.gemseeroo.com/fyno/fyonosign%20whole.png",
+      "description": "Development of FynoSign, a secure e-signature and document workflow solution for modern businesses.",
+      "author": {
+        "@type": "Organization",
+        "name": "Forrof",
+        "url": "https://forrof.io"
+      },
+      "about": ["SaaS Development", "Cloud Security", "Document Workflows", "FinTech"]
+    },
     date: "Jun 2024",
     location: "Remote",
     image: "https://dev.gemseeroo.com/fyno/fyno-web%20(2).png",

@@ -89,7 +89,7 @@ const ProjectDetails = () => {
     }
   }, [location.state, location.pathname, navigate]);
 
-  // Handle Dynamic Meta Tags
+  // Handle Dynamic Meta Tags & Schema
   useEffect(() => {
     if (project) {
       // Update Title
@@ -101,18 +101,35 @@ const ProjectDetails = () => {
       }
 
       // Update Description
-      const metaDescription = document.querySelector('meta[name="description"]');
-      const originalDescription = metaDescription?.getAttribute("content");
+      const metaDescriptionTag = document.querySelector('meta[name="description"]');
+      const originalDescription = metaDescriptionTag?.getAttribute("content");
 
-      if (metaDescription && project.metaDescription) {
-        metaDescription.setAttribute("content", project.metaDescription);
+      if (metaDescriptionTag && project.metaDescription) {
+        metaDescriptionTag.setAttribute("content", project.metaDescription);
+      }
+
+      // Update Schema
+      let schemaScript = document.getElementById("project-schema") as HTMLScriptElement;
+      if (!schemaScript) {
+        schemaScript = document.createElement("script");
+        schemaScript.type = "application/ld+json";
+        schemaScript.id = "project-schema";
+        document.head.appendChild(schemaScript);
+      }
+
+      if (project.schema) {
+        schemaScript.text = JSON.stringify(project.schema);
       }
 
       return () => {
-        // Restore original tags if needed, or let other pages handle it
+        // Restore original tags
         document.title = originalTitle;
-        if (metaDescription && originalDescription) {
-          metaDescription.setAttribute("content", originalDescription);
+        if (metaDescriptionTag && originalDescription) {
+          metaDescriptionTag.setAttribute("content", originalDescription);
+        }
+        // Remove schema script
+        if (schemaScript && schemaScript.parentNode) {
+          schemaScript.parentNode.removeChild(schemaScript);
         }
       };
     }
