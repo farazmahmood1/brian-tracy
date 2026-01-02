@@ -17,49 +17,49 @@ import {
 const services = [
   {
     number: "01",
-    title: "Branding and Identity",
+    title: "Branding and Visual Identity Design",
     description:
-      "We create distinctive brand identities that communicate your values and resonate with your target audience through strategic design thinking.",
+      "We build strong brand identities including logo design, brand strategy, visual systems, and messaging that position your business clearly and consistently across all digital platforms.",
     image:
       "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=600&q=80",
   },
   {
     number: "02",
-    title: "UI/UX and Product Design",
+    title: "UI UX and Digital Product Design",
     description:
-      "User-centered design solutions that combine aesthetics with functionality for seamless digital experiences that users love.",
+      "User focused UI UX design for web and mobile products. We design intuitive interfaces, scalable design systems, and conversion driven experiences that improve engagement and retention.",
     image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80",
   },
   {
     number: "03",
-    title: "Social Media Marketing",
+    title: "Digital Marketing and Growth Strategy",
     description:
-      "Strategic social media campaigns that build communities, increase engagement, and drive meaningful conversions for your brand.",
+      "Performance driven digital marketing including social media marketing, paid campaigns, content strategy, and conversion optimization to grow traffic, leads, and revenue.",
     image:
       "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
   },
   {
     number: "04",
-    title: "SEO Optimization",
+    title: "SEO and Search Engine Optimization",
     description:
-      "Data-driven SEO strategies that improve visibility, organic traffic, and search engine rankings to grow your business.",
+      "Technical SEO, on page optimization, keyword strategy, and performance improvements designed to increase organic traffic, rankings, and long term visibility on Google.",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
   },
   {
     number: "05",
-    title: "Web Development",
+    title: "Custom Web Development",
     description:
-      "Custom web solutions built with modern technologies for performance, scalability, and exceptional user engagement.",
+      "High performance web development using modern frameworks for scalable websites, SaaS platforms, ecommerce solutions, and custom business applications.",
     image:
       "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80",
   },
   {
     number: "06",
-    title: "Content Creation",
+    title: "Content Creation and Brand Storytelling",
     description:
-      "Compelling visual and written content that tells your brand story and captures the attention of your audience.",
+      "High quality content creation including copywriting, visual assets, and brand storytelling that communicates value, builds trust, and supports SEO and marketing goals.",
     image:
       "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=600&q=80",
   },
@@ -103,7 +103,7 @@ export const ServicesSection = () => {
         {hoveredIndex !== null && (
           <motion.img
             src={services[hoveredIndex].image}
-            alt={services[hoveredIndex].title}
+            alt={`${services[hoveredIndex].title} service by Forrof software agency`}
             className="w-full h-full object-cover"
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
@@ -152,7 +152,7 @@ export const ServicesSection = () => {
                 delay: 0.2,
               }}
             >
-              What we can do for your brand
+              Tech Solutions for Growing Brands
             </motion.h2>
           </div>
           <motion.div
@@ -254,6 +254,17 @@ export const ServicesSection = () => {
             style={{ transformOrigin: "left" }}
           />
         </div>
+      </div>
+
+      {/* SEO description */}
+      <div className="sr-only">
+        <h3>Our Software and Digital Services</h3>
+        <p>
+          Forrof is a full service software agency providing branding, UI UX design,
+          web development, SaaS development, SEO, digital marketing, cloud solutions,
+          automation, cybersecurity, and digital transformation services for startups
+          and growing businesses.
+        </p>
       </div>
     </section>
   );

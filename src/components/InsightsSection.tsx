@@ -69,7 +69,7 @@ export const InsightsSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 mb-24">
           <div className="overflow-hidden">
             <motion.h2
-              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95]"
+              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] pb-4"
               initial={{ y: "120%", rotateX: -45 }}
               animate={isInView ? { y: 0, rotateX: 0 } : {}}
               transition={{
@@ -78,7 +78,7 @@ export const InsightsSection = () => {
                 delay: 0.2,
               }}
             >
-              Latest thoughts & articles
+              Latest Insights
             </motion.h2>
           </div>
           <motion.div
@@ -88,8 +88,7 @@ export const InsightsSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-md leading-relaxed">
-              Explore our collection of insights, tips, and industry trends to
-              help elevate your brand.
+              Explore expert insights on software development, UI UX design, SEO, branding, and digital transformation written by our experienced team.
             </p>
           </motion.div>
         </div>
@@ -98,6 +97,8 @@ export const InsightsSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {displayedInsights.map((insight, index) => (
             <motion.article
+              itemScope
+              itemType="https://schema.org/BlogPosting"
               key={insight.id}
               className="group cursor-pointer"
               data-cursor="Read"
@@ -137,7 +138,7 @@ export const InsightsSection = () => {
                 >
                   <motion.img
                     src={insight.image}
-                    alt={insight.title}
+                    alt={`${insight.title} – Forrof software agency insights`}
                     className="w-full h-full object-cover"
                     initial={{ scale: 1.4, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 1 } : {}}

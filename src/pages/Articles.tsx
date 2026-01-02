@@ -71,6 +71,7 @@ const Articles = () => {
         {/* Floating Elements */}
         {Array.from({ length: 188 }).map((_, i) => (
           <motion.div
+
             key={i}
             className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
             style={{
@@ -295,6 +296,8 @@ const FeaturedArticle = ({ article }: { article: (typeof articles)[0] }) => {
       <Link to={`/articles/${article.id}`}>
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <motion.div
+            itemScope
+            itemType="https://schema.org/BlogPosting"
             className="relative aspect-[4/3] rounded-3xl overflow-hidden"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.4 }}

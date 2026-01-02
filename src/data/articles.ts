@@ -18,7 +18,7 @@ export interface Article {
 export const articles: Article[] = [
   {
     id: "future-of-brand-identity",
-    title: "The Future of Brand Identity in a Digital-First World",
+    title: "Discover how digital-first brand identity strategies are evolving and how modern businesses can build scalable, consistent, and future-ready brands",
     category: "Branding",
     date: "Dec 15, 2024",
     readTime: "8 min read",
@@ -48,7 +48,7 @@ export const articles: Article[] = [
     tags: ["Branding", "Digital Strategy", "Design Systems", "Innovation"]
   },
   {
-    id: "micro-interactions-ui-design",
+    id: "micro-interactions",
     title: "Mastering the Art of Micro-Interactions in UI Design",
     category: "UI/UX",
     date: "Dec 10, 2024",
@@ -80,7 +80,7 @@ export const articles: Article[] = [
   },
   {
     id: "seo-trends-2025",
-    title: "SEO Trends That Will Dominate 2025",
+    title: "Explore the most important SEO trends for 2025, including AI search, E-E-A-T, Core Web Vitals, and content strategies that improve rankings",
     category: "Marketing",
     date: "Dec 5, 2024",
     readTime: "10 min read",
@@ -112,7 +112,7 @@ export const articles: Article[] = [
   },
   {
     id: "design-systems-scale",
-    title: "Building Design Systems That Scale",
+    title: "How to Build Design Systems That Scale for Growing Teams",
     category: "Design",
     date: "Nov 28, 2024",
     readTime: "12 min read",
@@ -144,7 +144,7 @@ export const articles: Article[] = [
   },
   {
     id: "psychology-of-color",
-    title: "The Psychology of Color in Digital Interfaces",
+    title: "Color Psychology in UI UX Design: How Colors Influence User Behavior",
     category: "UI/UX",
     date: "Nov 20, 2024",
     readTime: "7 min read",
@@ -176,7 +176,7 @@ export const articles: Article[] = [
   },
   {
     id: "future-of-web-development",
-    title: "The Future of Web Development: What's Next?",
+    title: "Future of Web Development: Technologies and Trends to Watch",
     category: "Technology",
     date: "Nov 15, 2024",
     readTime: "9 min read",
@@ -215,11 +215,11 @@ export const getArticleById = (id: string): Article | undefined => {
 export const getRelatedArticles = (currentId: string, limit: number = 3): Article[] => {
   const current = getArticleById(currentId);
   if (!current) return articles.slice(0, limit);
-  
+
   return articles
     .filter(article => article.id !== currentId)
-    .filter(article => 
-      article.category === current.category || 
+    .filter(article =>
+      article.category === current.category ||
       article.tags.some(tag => current.tags.includes(tag))
     )
     .slice(0, limit);

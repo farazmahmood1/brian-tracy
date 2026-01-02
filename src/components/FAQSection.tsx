@@ -6,31 +6,32 @@ import { useNavigate } from "react-router-dom";
 
 const faqs = [
   {
-    question: "What services does Forrof offer?",
+    question: "What software and digital services does Forrof provide?",
     answer:
-      "We offer a comprehensive range of creative services including brand identity design, UI/UX design, web development, social media marketing, SEO optimization, and content creation. Our team works closely with clients to deliver tailored solutions that drive results.",
+      "Forrof is a full service software agency offering branding, UI UX design, custom web development, mobile app development, SaaS solutions, SEO, digital marketing, cloud solutions, automation, cybersecurity, and digital transformation services for businesses of all sizes.",
   },
   {
-    question: "How long does a typical project take?",
+    question: "How long does a custom software or web development project take?",
     answer:
-      "Project timelines vary depending on scope and complexity. A brand identity project typically takes 4-6 weeks, while a complete website design and development project may take 8-12 weeks. We provide detailed timelines during our initial consultation.",
+      "Project timelines depend on scope and complexity. UI UX design and branding projects typically take 4 to 6 weeks, while custom web development, SaaS platforms, and mobile applications usually take 8 to 12 weeks. A detailed timeline is shared after project discovery.",
   },
   {
-    question: "What is your pricing structure?",
+    question: "How much does custom software development cost at Forrof?",
     answer:
-      "We offer flexible pricing options including per-project rates starting from $5,490 and monthly retainer packages starting from $8,990/month. The exact pricing depends on the scope of work and deliverables required.",
+      "Pricing depends on project requirements, features, and complexity. Our custom software and web development projects typically start from $5,490, with monthly retainers available from $8,990 per month for ongoing design, development, and SEO services.",
   },
   {
-    question: "Do you work with international clients?",
+    question: "Do you work with international and remote clients?",
     answer:
-      "Yes! We work with clients worldwide. Our team is experienced in remote collaboration and we use modern tools to ensure seamless communication across different time zones and cultures.",
+      "Yes, Forrof works with international clients worldwide. We specialize in remote collaboration using modern communication tools to deliver web development, software, and digital solutions across different time zones.",
   },
   {
-    question: "What is your revision policy?",
+    question: "Do you offer revisions and ongoing support?",
     answer:
-      "All our packages include unlimited revisions to ensure you are completely satisfied with the final deliverables. We believe in collaborative work and value your feedback throughout the entire design process.",
+      "Yes, all our projects include revisions to ensure complete satisfaction. We also provide ongoing support, performance optimization, SEO maintenance, and feature enhancements after project delivery.",
   },
 ];
+
 
 export const FAQSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -76,7 +77,7 @@ export const FAQSection = () => {
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                Common questions
+                Frequently Asked Questions About Our Software and Digital Services
               </motion.h2>
             </div>
             <motion.p
@@ -198,6 +199,14 @@ export const FAQSection = () => {
             />
           </motion.div>
         </div>
+      </div>
+
+      <div className="sr-only">
+        <h3>Software Agency FAQ</h3>
+        <p>
+          Learn more about Forrof’s software development, web development, UI UX design,
+          SEO services, pricing, timelines, and international client support.
+        </p>
       </div>
     </section>
   );
