@@ -5,7 +5,7 @@ import {
   useSpring,
   useInView,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 import {
   LineReveal,
@@ -14,6 +14,7 @@ import {
 } from "@/components/AnimationComponents";
 import { useNavigate } from "react-router-dom";
 import { projectsData } from "@/data/projects";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const projectFilters = ["All Projects", "Web Development", "Mobile App"];
 
@@ -124,9 +125,18 @@ const ProjectCard = ({
   );
 };
 
+
+
 const ProjectsPage = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // SEO Meta Tags
+  usePageMetadata({
+    title: "Projects – Forrof",
+    description: "Explore our finest work across branding, design, and digital solutions. See how we help businesses grow with premium web experiences.",
+  });
+
   // Removed selectedProject state and modal logic
   const [activeFilter, setActiveFilter] = useState("All Projects");
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });

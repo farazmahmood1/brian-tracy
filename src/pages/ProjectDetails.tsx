@@ -30,6 +30,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 // Icon mapping for tech stack
 const techIcons: Record<string, React.ElementType> = {
@@ -90,25 +91,17 @@ const ProjectDetails = () => {
   }, [location.state, location.pathname, navigate]);
 
   // Handle Dynamic Meta Tags & Schema
+  usePageMetadata({
+    title: project?.metaTitle || (project ? `${project.title} | Case Study – Forrof` : undefined),
+    description: project?.metaDescription,
+    image: project?.image,
+    url: window.location.href,
+    type: "article", // Projects are case studies, so article fits better than website
+  });
+
+  // Schema Injection
   useEffect(() => {
     if (project) {
-      // Update Title
-      const originalTitle = document.title;
-      if (project.metaTitle) {
-        document.title = project.metaTitle;
-      } else {
-        document.title = `${project.title} | Case Study – Forrof`;
-      }
-
-      // Update Description
-      const metaDescriptionTag = document.querySelector('meta[name="description"]');
-      const originalDescription = metaDescriptionTag?.getAttribute("content");
-
-      if (metaDescriptionTag && project.metaDescription) {
-        metaDescriptionTag.setAttribute("content", project.metaDescription);
-      }
-
-      // Update Schema
       let schemaScript = document.getElementById("project-schema") as HTMLScriptElement;
       if (!schemaScript) {
         schemaScript = document.createElement("script");
@@ -122,12 +115,6 @@ const ProjectDetails = () => {
       }
 
       return () => {
-        // Restore original tags
-        document.title = originalTitle;
-        if (metaDescriptionTag && originalDescription) {
-          metaDescriptionTag.setAttribute("content", originalDescription);
-        }
-        // Remove schema script
         if (schemaScript && schemaScript.parentNode) {
           schemaScript.parentNode.removeChild(schemaScript);
         }

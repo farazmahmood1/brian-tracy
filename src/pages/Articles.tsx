@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -11,8 +11,17 @@ import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { articles } from "@/data/articles";
 import { useLenis } from "@/hooks/useLenis";
 
+import { usePageMetadata } from "@/hooks/usePageMetadata";
+
 const Articles = () => {
   useLenis();
+
+  // SEO Meta Tags
+  usePageMetadata({
+    title: "Articles – Forrof",
+    description: "Explore our latest thoughts on design, technology, and the future of digital experiences. Ideas that inspire action.",
+  });
+
 
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
