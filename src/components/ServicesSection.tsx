@@ -106,6 +106,7 @@ export const ServicesSection = () => {
             alt={`${services[hoveredIndex].title} service by Forrof software agency`}
             className="w-full h-full object-cover"
             initial={{ scale: 1.2 }}
+            loading="lazy"
             animate={{ scale: 1 }}
             transition={{ duration: 0.4 }}
           />

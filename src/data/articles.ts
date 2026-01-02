@@ -13,6 +13,8 @@ export interface Article {
     role: string;
   };
   tags: string[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export const articles: Article[] = [
@@ -45,7 +47,9 @@ export const articles: Article[] = [
       avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
       role: "Brand Strategist"
     },
-    tags: ["Branding", "Digital Strategy", "Design Systems", "Innovation"]
+    tags: ["Branding", "Digital Strategy", "Design Systems", "Innovation"],
+    metaTitle: "Future of Brand Identity | Insights – Forrof",
+    metaDescription: "Discover how digital-first brand identity strategies are evolving and how modern businesses can build future-ready brands."
   },
   {
     id: "micro-interactions",
@@ -76,7 +80,9 @@ export const articles: Article[] = [
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
       role: "UI Designer"
     },
-    tags: ["UI Design", "Animation", "User Experience", "Frontend"]
+    tags: ["UI Design", "Animation", "User Experience", "Frontend"],
+    metaTitle: "Mastering Micro-Interactions in UI Design – Forrof",
+    metaDescription: "How subtle animations and micro-interactions can dramatically improve user experience in digital products."
   },
   {
     id: "seo-trends-2025",
@@ -108,7 +114,9 @@ export const articles: Article[] = [
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
       role: "SEO Director"
     },
-    tags: ["SEO", "Digital Marketing", "Content Strategy", "Google"]
+    tags: ["SEO", "Digital Marketing", "Content Strategy", "Google"],
+    metaTitle: "SEO Trends 2025: AI Search & Content Strategies – Forrof",
+    metaDescription: "Stay ahead of the curve with the most important SEO trends for 2025, including AI search and E-E-A-T."
   },
   {
     id: "design-systems-scale",
@@ -140,7 +148,9 @@ export const articles: Article[] = [
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
       role: "Design Systems Lead"
     },
-    tags: ["Design Systems", "Component Libraries", "Team Collaboration", "Scalability"]
+    tags: ["Design Systems", "Component Libraries", "Team Collaboration", "Scalability"],
+    metaTitle: "Scaling Design Systems for Growing Teams – Forrof",
+    metaDescription: "A comprehensive guide to building and maintaining scalable design systems for modern organizations."
   },
   {
     id: "psychology-of-color",
@@ -172,7 +182,9 @@ export const articles: Article[] = [
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
       role: "Creative Director"
     },
-    tags: ["Color Theory", "Psychology", "UI Design", "Accessibility"]
+    tags: ["Color Theory", "Psychology", "UI Design", "Accessibility"],
+    metaTitle: "Psychology of Color in UI UX Design – Forrof",
+    metaDescription: "Learn how color choices influence user behavior and emotional responses in interface design."
   },
   {
     id: "future-of-web-development",
@@ -204,7 +216,9 @@ export const articles: Article[] = [
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",
       role: "Tech Lead"
     },
-    tags: ["Web Development", "Technology", "AI", "Edge Computing"]
+    tags: ["Web Development", "Technology", "AI", "Edge Computing"],
+    metaTitle: "The Future of Web Development: 2025 & Beyond – Forrof",
+    metaDescription: "Exploring emerging technologies and methodologies shaping the next era of web development."
   }
 ];
 

@@ -140,6 +140,7 @@ export const InsightsSection = () => {
                     src={insight.image}
                     alt={`${insight.title} – Forrof software agency insights`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                     initial={{ scale: 1.4, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 1 } : {}}
                     transition={{ duration: 1.8, delay: 0.5 + index * 0.15 }}
