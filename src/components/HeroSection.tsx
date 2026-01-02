@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useEffect, useState, Suspense } from "react";
 import { Magnetic, LineReveal } from "./AnimationComponents";
-import Earth3D from "./Earth3D";
+import HeroGlobe from "./HeroGlobe";
 
 const categories = [
   "Cloud Solutions",
@@ -117,7 +117,7 @@ export const HeroSection = () => {
             </div>
           }
         >
-          <Earth3D className="w-[120vw] h-full" />
+          <HeroGlobe className="w-[120vw] h-full" />
         </Suspense>
       </motion.div>
 

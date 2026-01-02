@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useMemo, Suspense } from "react";
+import React, { useRef, useLayoutEffect, useMemo, Suspense, MutableRefObject } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Stars, Preload } from "@react-three/drei";
@@ -48,21 +48,35 @@ const AtmosphereShader = {
   `,
 };
 
+export interface SceneProxy {
+  scale: number;
+  rotationSpeed: number;
+  positionX: number;
+  positionY: number;
+  positionZ: number;
+}
+
+interface EarthSceneProps {
+  proxy?: MutableRefObject<SceneProxy>;
+}
+
 // Earth Scene Component
-const EarthScene: React.FC = () => {
+export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
   const earthRef = useRef<THREE.Group>(null);
   const cloudsRef = useRef<THREE.Mesh>(null);
   const atmosphereRef = useRef<THREE.ShaderMaterial>(null);
-  const { camera } = useThree();
 
-  // Animation Proxy for GSAP
-  const proxy = useRef({
+  // Internal proxy fallback if none provided
+  const internalProxy = useRef({
     scale: 1,
-    rotationSpeed: 0.02, // slower rotation
+    rotationSpeed: 0.02,
     positionX: 0,
     positionY: 0,
     positionZ: 0,
   });
+
+  // Use provided proxy or fallback to internal
+  const activeProxy = proxy || internalProxy;
 
   const [earthMap, earthNormal, earthSpec, cloudsMap] = useLoader(
     THREE.TextureLoader,
@@ -78,11 +92,14 @@ const EarthScene: React.FC = () => {
   );
 
   useLayoutEffect(() => {
+    // Only set up internal GSAP if no external proxy is provided
+    if (proxy) return;
+
     const ctx = gsap.context(() => {
       const isMobile = window.innerWidth < 768;
 
       // Parallax scroll animation
-      gsap.to(proxy.current, {
+      gsap.to(activeProxy.current, {
         scale: isMobile ? 1.3 : 1.8,
         positionZ: isMobile ? 0 : 2,
         positionY: isMobile ? -0.5 : -1,
@@ -95,29 +112,32 @@ const EarthScene: React.FC = () => {
         },
       });
 
-      // Fade out as user scrolls
-      gsap.to(earthRef.current?.scale || {}, {
-        scrollTrigger: {
-          trigger: document.body,
-          start: "top top",
-          end: "+=1500",
-          scrub: 1.5,
-        },
-      });
+      // Fade out as user scrolls - this might need to be handled by parent if proxy is used
+      // For now, we keep it here only if no proxy, or assume parent handles opacity separately
+      if (earthRef.current) {
+        gsap.to(earthRef.current.scale, {
+          scrollTrigger: {
+            trigger: document.body,
+            start: "top top",
+            end: "+=1500",
+            scrub: 1.5,
+          },
+        });
+      }
     });
 
     return () => {
       ctx.revert();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, []);
+  }, [proxy]);
 
   // Smooth mouse influence to prevent vibration
   const currentMouseInfluence = useRef(0);
 
   useFrame(({ clock, mouse }) => {
     const time = clock.getElapsedTime();
-    const p = proxy.current;
+    const p = activeProxy.current;
 
     if (earthRef.current) {
       // Continuous rotation
@@ -145,66 +165,41 @@ const EarthScene: React.FC = () => {
   });
 
   return (
-    <>
-      {/* Stars Background */}
-      <Stars
-        radius={100}
-        depth={50}
-        count={5000}
-        factor={4}
-        saturation={0}
-        fade
-        speed={0.5}
-      />
+    <group ref={earthRef} position={[0, 0, 0]}>
+      {/* Main Earth Sphere */}
+      <mesh castShadow receiveShadow>
+        <sphereGeometry args={[2.5, 64, 64]} />
+        <meshStandardMaterial
+          map={earthMap}
+          normalMap={earthNormal}
+          roughnessMap={earthSpec}
+          metalness={0.3}
+          roughness={0.7}
+        />
+      </mesh>
 
-      {/* Lighting */}
-      <ambientLight intensity={0.15} />
-      <directionalLight
-        position={[10, 5, 5]}
-        intensity={2.5}
-        color="#fff5f0"
-        castShadow
-      />
-      <pointLight position={[-15, -10, -10]} intensity={0.8} color="#4477ff" />
-      <pointLight position={[0, 10, 5]} intensity={0.5} color="#ffffff" />
+      {/* Cloud Layer */}
+      <mesh ref={cloudsRef} scale={1.02}>
+        <sphereGeometry args={[2.5, 64, 64]} />
+        <meshStandardMaterial
+          map={cloudsMap}
+          transparent
+          opacity={0.35}
+          depthWrite={false}
+        />
+      </mesh>
 
-      {/* Earth Group */}
-      <group ref={earthRef} position={[0, 0, 0]}>
-        {/* Main Earth Sphere */}
-        <mesh castShadow receiveShadow>
-          <sphereGeometry args={[2.5, 64, 64]} />
-          <meshStandardMaterial
-            map={earthMap}
-            normalMap={earthNormal}
-            roughnessMap={earthSpec}
-            metalness={0.3}
-            roughness={0.7}
-          />
-        </mesh>
-
-        {/* Cloud Layer */}
-        <mesh ref={cloudsRef} scale={1.02}>
-          <sphereGeometry args={[2.5, 64, 64]} />
-          <meshStandardMaterial
-            map={cloudsMap}
-            transparent
-            opacity={0.35}
-            depthWrite={false}
-          />
-        </mesh>
-
-        {/* Subtle Atmospheric Glow */}
-        <mesh scale={1.03}>
-          <sphereGeometry args={[2.5, 64, 64]} />
-          <shaderMaterial
-            ref={atmosphereRef}
-            {...atmosphereConfig}
-            side={THREE.BackSide}
-            transparent
-          />
-        </mesh>
-      </group>
-    </>
+      {/* Subtle Atmospheric Glow */}
+      <mesh scale={1.03}>
+        <sphereGeometry args={[2.5, 64, 64]} />
+        <shaderMaterial
+          ref={atmosphereRef}
+          {...atmosphereConfig}
+          side={THREE.BackSide}
+          transparent
+        />
+      </mesh>
+    </group>
   );
 };
 
@@ -229,6 +224,25 @@ export const Earth3D: React.FC<{ className?: string }> = ({ className }) => {
         frameloop="always"
       >
         <Suspense fallback={<Loader />}>
+          {/* Lighting needed for standalone */}
+          <ambientLight intensity={0.15} />
+          <directionalLight
+            position={[10, 5, 5]}
+            intensity={2.5}
+            color="#fff5f0"
+            castShadow
+          />
+          <pointLight position={[-15, -10, -10]} intensity={0.8} color="#4477ff" />
+          <pointLight position={[0, 10, 5]} intensity={0.5} color="#ffffff" />
+          <Stars
+            radius={100}
+            depth={50}
+            count={5000}
+            factor={4}
+            saturation={0}
+            fade
+            speed={0.5}
+          />
           <EarthScene />
           <Preload all />
         </Suspense>
