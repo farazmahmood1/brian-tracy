@@ -297,6 +297,7 @@ const ProjectDetails = () => {
               className="w-full h-full object-cover"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.6 }}
+              loading="lazy"
             />
           </div>
         </div>
@@ -555,6 +556,7 @@ const ProjectDetails = () => {
                   <img
                     src={concept}
                     alt={`Concept ${index + 1}`}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -590,6 +592,7 @@ const ProjectDetails = () => {
                   <img
                     src={concept}
                     alt={`Concept ${index + 1}`}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -647,6 +650,7 @@ const ProjectDetails = () => {
                 <motion.img
                   src={img}
                   alt={`Gallery ${index + 1}`}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5 }}
@@ -689,6 +693,7 @@ const ProjectDetails = () => {
                 >
                   <img
                     src={src}
+                    loading="lazy"
                     alt={`Mobile ${i + 1}`}
                     className="w-full h-full object-cover"
                   />

@@ -200,6 +200,7 @@ export const ImageReveal = ({ src, alt, className = "", delay = 0 }: ImageReveal
         <motion.img
           src={src}
           alt={alt}
+          loading="lazy"
           className="w-full h-full object-cover"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6 }}

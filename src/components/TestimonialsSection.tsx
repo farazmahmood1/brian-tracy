@@ -211,6 +211,7 @@ export const TestimonialsSection = () => {
                     <motion.img
                       src={testimonials[current].image}
                       alt={testimonials[current].author}
+                      loading="lazy"
                       className="w-14 h-14 rounded-full object-cover grayscale"
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}

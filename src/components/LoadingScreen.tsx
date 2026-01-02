@@ -101,7 +101,7 @@ export const LoadingScreen = ({
                 }}
               >
                 <div className="flex  items-center">
-                  <img src="/logo.svg" alt="" width={90} height={90} />
+                  <img src="/logo.svg" alt="" width={90} height={90} loading="lazy" />
                   <span className="inline-block">
                     forrof
                   </span>

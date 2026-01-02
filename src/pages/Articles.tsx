@@ -305,6 +305,7 @@ const FeaturedArticle = ({ article }: { article: (typeof articles)[0] }) => {
             <motion.img
               src={article.image}
               alt={article.title}
+              loading="lazy"
               className="w-full h-full object-cover"
               initial={{ scale: 1.2 }}
               animate={isInView ? { scale: 1 } : {}}
@@ -373,6 +374,7 @@ const FeaturedArticle = ({ article }: { article: (typeof articles)[0] }) => {
             >
               <img
                 src={article.author.avatar}
+                loading="lazy"
                 alt={article.author.name}
                 className="w-12 h-12 rounded-full object-cover"
               />
@@ -424,6 +426,7 @@ const ArticleCard = ({
         >
           <motion.img
             src={article.image}
+            loading="lazy"
             alt={article.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
@@ -460,6 +463,7 @@ const ArticleCard = ({
           <div className="flex items-center gap-3 pt-2">
             <img
               src={article.author.avatar}
+              loading="lazy"
               alt={article.author.name}
               className="w-8 h-8 rounded-full object-cover"
             />

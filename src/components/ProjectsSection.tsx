@@ -145,6 +145,7 @@ export const ProjectsSection = () => {
                   <motion.img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="w-full h-full object-fill"
                     initial={{ scale: 1.2, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 1 } : {}}

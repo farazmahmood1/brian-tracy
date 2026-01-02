@@ -213,6 +213,7 @@ export const AboutSection = () => {
                 initial={{ scale: 1.5 }}
                 animate={isInView ? { scale: 1 } : {}}
                 transition={{ duration: 2 }}
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-foreground/20" />
             </motion.div>
@@ -231,6 +232,7 @@ export const AboutSection = () => {
               <motion.img
                 src="https://dev.gemseeroo.com/about-image.jpeg"
                 alt="Creative work"
+                loading="lazy"
                 className="w-full h-full object-cover"
                 initial={{ scale: 1.5 }}
                 animate={isInView ? { scale: 1 } : {}}

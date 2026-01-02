@@ -116,6 +116,7 @@ const ArticleDetails = () => {
             alt={article.title}
             className="w-full h-full object-cover"
             initial={{ scale: 1.1 }}
+            loading="lazy"
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
           />
@@ -192,6 +193,7 @@ const ArticleDetails = () => {
                 <img
                   src={article.author.avatar}
                   alt={article.author.name}
+                  loading="lazy"
                   className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20"
                 />
                 <div>
@@ -310,6 +312,7 @@ const ArticleDetails = () => {
                 <div className="flex items-center gap-4">
                   <img
                     src={article.author.avatar}
+                    loading="lazy"
                     alt={article.author.name}
                     className="w-16 h-16 rounded-full object-cover"
                   />
