@@ -15,12 +15,21 @@ import {
 import { getArticleById, articles } from "@/data/articles";
 import { useLenis } from "@/hooks/useLenis";
 import { toast } from "@/hooks/use-toast";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const ArticleDetails = () => {
   useLenis();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const article = getArticleById(id || "");
+
+  usePageMetadata({
+    title: article?.metaTitle || article?.title,
+    description: article?.metaDescription || article?.excerpt,
+    image: article?.image,
+    url: window.location.href,
+    type: "article",
+  });
 
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
