@@ -89,6 +89,35 @@ const ProjectDetails = () => {
     }
   }, [location.state, location.pathname, navigate]);
 
+  // Handle Dynamic Meta Tags
+  useEffect(() => {
+    if (project) {
+      // Update Title
+      const originalTitle = document.title;
+      if (project.metaTitle) {
+        document.title = project.metaTitle;
+      } else {
+        document.title = `${project.title} | Case Study – Forrof`;
+      }
+
+      // Update Description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const originalDescription = metaDescription?.getAttribute("content");
+
+      if (metaDescription && project.metaDescription) {
+        metaDescription.setAttribute("content", project.metaDescription);
+      }
+
+      return () => {
+        // Restore original tags if needed, or let other pages handle it
+        document.title = originalTitle;
+        if (metaDescription && originalDescription) {
+          metaDescription.setAttribute("content", originalDescription);
+        }
+      };
+    }
+  }, [project]);
+
 
 
   const fxAudioRef = useRef<HTMLAudioElement | null>(null);

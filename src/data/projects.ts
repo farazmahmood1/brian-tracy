@@ -3,6 +3,8 @@ export const projectsData = [
   {
     id: "bushel",
     title: "Bushel",
+    metaTitle: "Bushel Farm Management Platform | Web Development Case Study – Forrof",
+    metaDescription: "Bushel is a modern farm management platform built by Forrof. This case study covers UI UX design, custom web development, analytics integration, and performance optimization for agricultural businesses.",
     date: "Dec 2024",
     location: "Global",
     image: "https://dev.gemseeroo.com/bushel/bushel-web%20(1).png",
@@ -81,6 +83,8 @@ export const projectsData = [
   {
     id: "olio",
     title: "Olio",
+    metaTitle: "Olio | Community Food Sharing App Design – Forrof",
+    metaDescription: "Olio is a community-focused app that reduces food waste. Explore our UI UX design work for this sustainable food sharing platform.",
     date: "Nov 2024",
     location: "UK",
     image: "https://dev.gemseeroo.com/olio/olio-phone%20(3).png",
@@ -152,6 +156,8 @@ export const projectsData = [
   {
     id: "glamping",
     title: "Glamping",
+    metaTitle: "Glamping | Luxury Travel Booking Platform Case Study – Forrof",
+    metaDescription: "A custom web development project for a luxury travel booking platform. Featuring real-time availability and stunning UI UX.",
     date: "Oct 2024",
     location: "Europe",
     image: "https://dev.gemseeroo.com/glamping/glamping-web%20(16).png",
@@ -231,6 +237,8 @@ export const projectsData = [
   {
     id: "curogram",
     title: "Curogram",
+    metaTitle: "Curogram | Healthcare Communication Platform – Forrof",
+    metaDescription: "HIPAA-compliant healthcare platform development. Improving patient-provider communication through custom web solutions.",
     date: "Sep 2024",
     location: "USA",
     image: "https://dev.gemseeroo.com/curogram/curogram-web%20(3).png",
@@ -308,6 +316,8 @@ export const projectsData = [
   {
     id: "carbonmade",
     title: "Carbonmade",
+    metaTitle: "Carbonmade | Creative Portfolio Platform Design – Forrof",
+    metaDescription: "Empowering creatives with a powerful portfolio platform. Custom web development and UX strategy for professional artists.",
     date: "Aug 2024",
     location: "USA",
     image: "https://dev.gemseeroo.com/carbonmade/carbon-web%20(2).png",
@@ -374,6 +384,8 @@ export const projectsData = [
   {
     id: "loopiq",
     title: "Loopiq",
+    metaTitle: "Loopiq | Customer Engagement SaaS Platform – Forrof",
+    metaDescription: "Driving results with SaaS analytics and automated workflows. A deep dive into the development of a customer engagement platform.",
     date: "Jul 2024",
     location: "UK",
     image: "https://dev.gemseeroo.com/loopiq/loopiq-web%20(1).png",
@@ -454,6 +466,8 @@ export const projectsData = [
   {
     id: "rallytyper",
     title: "RallyTyper",
+    metaTitle: "RallyTyper | High-Energy Mobile Game Development – Forrof",
+    metaDescription: "Gamified typing practice on mobile. Exploring the design and performance tuning of a competitive 3D typing game.",
     date: "Jul 2024",
     location: "Global",
     image: "https://dev.gemseeroo.com/rallytyper/rally-web%20(1).png",
@@ -514,6 +528,8 @@ export const projectsData = [
   {
     id: "fyno",
     title: "FynoSign",
+    metaTitle: "FynoSign | Secure E-Signature & Workflow SaaS – Forrof",
+    metaDescription: "Building a secure e-signature platform with automated document workflows. Scalable cloud-based SaaS solutions.",
     date: "Jun 2024",
     location: "Remote",
     image: "https://dev.gemseeroo.com/fyno/fyno-web%20(2).png",
