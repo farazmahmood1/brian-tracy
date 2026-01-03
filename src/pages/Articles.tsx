@@ -11,17 +11,10 @@ import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { articles } from "@/data/articles";
 import { useLenis } from "@/hooks/useLenis";
 
-import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { SEO } from "@/components/SEO";
 
 const Articles = () => {
   useLenis();
-
-  // SEO Meta Tags
-  usePageMetadata({
-    title: "Articles – Forrof",
-    description: "Explore our latest thoughts on design, technology, and the future of digital experiences. Ideas that inspire action.",
-  });
-
 
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -38,6 +31,10 @@ const Articles = () => {
 
   return (
     <main className="min-h-screen bg-background max-md:pt-12">
+      <SEO
+        title="Articles – Forrof"
+        description="Explore our latest thoughts on design, technology, and the future of digital experiences. Ideas that inspire action."
+      />
       {/* Hero Section */}
       <section
         ref={heroRef}

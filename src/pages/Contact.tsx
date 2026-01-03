@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
-import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { SEO } from "@/components/SEO";
 
 const socialLinks = [
   { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com" },
@@ -30,17 +30,10 @@ const socialLinks = [
 
 // --- CLEAN, WORKING CONTACT PAGE COMPONENT ---
 export default function ContactPage() {
-  // SEO Meta Tags
-  usePageMetadata({
-    title: "Contact – Forrof",
-    description: "Get in touch with the Forrof team. We’d love to hear about your ideas, projects, or just say hello. Start a conversation today.",
-  });
-
-
   const contactInfo = [
     { icon: Mail, label: "Email", value: "hello@forrof.io" },
-    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-    { icon: MapPin, label: "Location", value: "New York, NY" },
+    { icon: Phone, label: "Phone", value: "+1 (555) 000-0000" },
+    { icon: MapPin, label: "Office", value: "New York, NY" },
   ];
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({

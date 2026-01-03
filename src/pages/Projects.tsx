@@ -131,12 +131,6 @@ const ProjectsPage = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // SEO Meta Tags
-  usePageMetadata({
-    title: "Projects – Forrof",
-    description: "Explore our finest work across branding, design, and digital solutions. See how we help businesses grow with premium web experiences.",
-  });
-
   // Removed selectedProject state and modal logic
   const [activeFilter, setActiveFilter] = useState("All Projects");
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
