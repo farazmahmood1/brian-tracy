@@ -4,23 +4,11 @@ import * as THREE from "three";
 import { Stars, Preload } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useTheme } from "../context/ThemeContext";
 import { EarthScene } from "./Earth3D";
-import { SunScene } from "./Sun3D";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroGlobeScene: React.FC = () => {
-    const { theme } = useTheme();
-
-    // Helper to resolve effective theme
-    const isLight = useMemo(() => {
-        if (theme === 'system') {
-            return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: light)').matches;
-        }
-        return theme === 'light';
-    }, [theme]);
-
     const scrollProxy = useRef({
         scale: 1,
         rotationSpeed: 0.02,
@@ -29,13 +17,10 @@ const HeroGlobeScene: React.FC = () => {
         positionZ: 0,
     });
 
-    // Setup GSAP ScrollTrigger (Shared logic)
+    // Setup GSAP ScrollTrigger
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             const isMobile = window.innerWidth < 768;
-
-            // Initial State - removed incorrect overrides
-            // scrollProxy defaults are correct (scale: 1, pos: 0)
 
             gsap.to(scrollProxy.current, {
                 scale: isMobile ? 1.3 : 1.8,
@@ -53,43 +38,11 @@ const HeroGlobeScene: React.FC = () => {
         return () => ctx.revert();
     }, []);
 
-    // Transition State (0 = Dark/Earth, 1 = Light/Sun)
-    const transitionRef = useRef(isLight ? 1 : 0);
-    const earthGroupRef = useRef<THREE.Group>(null);
-    const sunGroupRef = useRef<THREE.Group>(null);
-
-    useFrame((state, delta) => {
-        // 1. Interpolate transition
-        const target = isLight ? 1 : 0;
-        // Smooth lerp for transition
-        transitionRef.current = THREE.MathUtils.lerp(transitionRef.current, target, delta * 3); // Adjust speed
-
-        const t = transitionRef.current;
-        const width = 15; // Distance to move sideways
-
-        // 2. Animate Groups
-        // Earth: Active at 0. Moving to Right (+) as t -> 1
-        // Sun: Active at 1. Coming from Left (-) as t -> 1 (or from behind?)
-
-        if (earthGroupRef.current) {
-            earthGroupRef.current.position.x = t * width; // 0 -> 15
-        }
-
-        if (sunGroupRef.current) {
-            sunGroupRef.current.position.x = (t - 1) * width; // -15 -> 0
-        }
-    });
-
     return (
         <>
             {/* Earth Group */}
-            <group ref={earthGroupRef}>
+            <group>
                 <EarthScene proxy={scrollProxy} />
-            </group>
-
-            {/* Sun Group */}
-            <group ref={sunGroupRef}>
-                <SunScene proxy={scrollProxy} />
             </group>
 
             {/* Lighting */}
