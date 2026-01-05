@@ -38,8 +38,8 @@
 
   .dark {
     /* Dark Mode */
-    --background: 0 0% 7.9%; /* #212121 */
-    --foreground: 0 0% 96.5%; /* #F6F6F6 */
+    --background: 0 0% 0%; /* #212121 */
+    --foreground: 0 0% 100%; /* #F6F6F6 */
 
     --card: 0 0% 12.9%;
     --card-foreground: 0 0% 96.5%;
@@ -204,3 +204,10 @@
     @apply cursor-pointer;
   }
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+

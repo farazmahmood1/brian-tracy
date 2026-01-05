@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { WarpTransition, WarpMode } from "@/components/WarpTransition";
@@ -62,6 +62,15 @@ const ProjectDetails = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const nextProjectRef = useRef<HTMLElement>(null);
+  const conceptsRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress: conceptsProgress } = useScroll({
+    target: conceptsRef,
+    offset: ["start end", "end start"],
+  });
+
+  const conceptsX1 = useTransform(conceptsProgress, [0, 1], [0, -500]);
+  const conceptsX2 = useTransform(conceptsProgress, [0, 1], [-500, 0]);
   const location = useLocation();
   const [warpMode, setWarpMode] = useState<WarpMode>("idle");
   const [chargeProgress, setChargeProgress] = useState(0);
@@ -520,8 +529,8 @@ const ProjectDetails = () => {
         </div>
       </section>
 
-      {/* Initial Concepts - Marquee Style */}
-      <section className="py-24 md:py-40 overflow-hidden">
+      {/* Initial Concepts - Scroll Driven Parallax */}
+      <section ref={conceptsRef} className="py-24 md:py-40 overflow-hidden">
         <div className="md:ml-28 max-md:text-center max-md:px-4">
           <motion.div
             className="mb-16"
@@ -535,19 +544,11 @@ const ProjectDetails = () => {
           </motion.div>
         </div>
 
-        {/* Marquee Row 1 - Left to Right */}
+        {/* Parallax Row 1 - Left to Right (Moves Left on Scroll) */}
         <div className="relative mb-6">
           <motion.div
-            className="flex gap-6"
-            animate={{ x: [0, -1920] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 30,
-                ease: "linear",
-              },
-            }}
+            className="flex gap-6 pl-6 md:pl-0"
+            style={{ x: conceptsX1 }}
           >
             {[...project.concepts, ...project.concepts].map(
               (concept, index) => (
@@ -570,19 +571,11 @@ const ProjectDetails = () => {
           </motion.div>
         </div>
 
-        {/* Marquee Row 2 - Right to Left */}
+        {/* Parallax Row 2 - Right to Left (Moves Right on Scroll) */}
         <div className="relative">
           <motion.div
-            className="flex gap-6"
-            animate={{ x: [-1920, 0] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 35,
-                ease: "linear",
-              },
-            }}
+            className="flex gap-6 pl-6 md:pl-0"
+            style={{ x: conceptsX2 }}
           >
             {[...project.concepts, ...project.concepts]
               .reverse()
@@ -668,14 +661,61 @@ const ProjectDetails = () => {
       {/* Responsive Showcase */}
       <section className="px-6 md:px-12 lg:px-20 py-24 md:py-40">
         <div className="max-w-[1600px] mx-auto max-md:text-center">
-          <motion.h2
-            className="text-3xl md:text-5xl uppercase tracking-[0.2em] text-muted-foreground mb-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            Responsive
-          </motion.h2>
+          <div className="flex justify-between items-center mb-10">
+            <motion.h2
+              className="text-3xl md:text-5xl uppercase tracking-[0.2em] text-muted-foreground"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              Responsive
+            </motion.h2>
+
+            <div className="flex items-center gap-4">
+              <Magnetic strength={0.2}>
+                <motion.button
+                  onClick={() => {
+                    setResponsiveIndex((prev) => Math.max(0, prev - 1));
+                  }}
+                  disabled={responsiveIndex === 0}
+                  className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <motion.span
+                    className="absolute inset-0 bg-foreground"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <ChevronLeft size={20} className="relative z-10 group-hover:text-background transition-colors" />
+                </motion.button>
+              </Magnetic>
+              <Magnetic strength={0.2}>
+                <motion.button
+                  onClick={() => {
+                    const maxIndex = (project.responsive?.length || 0) - (window.innerWidth < 768 ? 1 : 3); // Conservative max
+                    setResponsiveIndex((prev) =>
+                      Math.min((project.responsive?.length || 1) - 1, prev + 1)
+                    );
+                  }}
+                  disabled={!project.responsive || responsiveIndex >= project.responsive.length - 1} // Simplified check
+                  className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <motion.span
+                    className="absolute inset-0 bg-foreground"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <ChevronRight size={20} className="relative z-10 group-hover:text-background transition-colors" />
+                </motion.button>
+              </Magnetic>
+            </div>
+          </div>
+
 
           {/* Slider Container */}
           <div className="relative overflow-hidden mb-12">
@@ -707,50 +747,6 @@ const ProjectDetails = () => {
             </motion.div>
           </div>
 
-          {/* Navigation Controls */}
-          <div className="flex items-center gap-4 justify-start">
-            <Magnetic strength={0.2}>
-              <motion.button
-                onClick={() => {
-                  setResponsiveIndex((prev) => Math.max(0, prev - 1));
-                }}
-                disabled={responsiveIndex === 0}
-                className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <motion.span
-                  className="absolute inset-0 bg-foreground"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <ChevronLeft size={20} className="relative z-10 group-hover:text-background transition-colors" />
-              </motion.button>
-            </Magnetic>
-            <Magnetic strength={0.2}>
-              <motion.button
-                onClick={() => {
-                  const maxIndex = (project.responsive?.length || 0) - (window.innerWidth < 768 ? 1 : 3); // Conservative max
-                  setResponsiveIndex((prev) =>
-                    Math.min((project.responsive?.length || 1) - 1, prev + 1)
-                  );
-                }}
-                disabled={!project.responsive || responsiveIndex >= project.responsive.length - 1} // Simplified check
-                className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <motion.span
-                  className="absolute inset-0 bg-foreground"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <ChevronRight size={20} className="relative z-10 group-hover:text-background transition-colors" />
-              </motion.button>
-            </Magnetic>
-          </div>
         </div>
       </section>
 
@@ -793,7 +789,7 @@ const ProjectDetails = () => {
               return (
                 <motion.div
                   key={tech}
-                  className="p-4 border border-white/20 rounded-full bg-white/5 backdrop-blur-sm flex items-center justify-center transition-all duration-300 cursor-default group relative"
+                  className="p-4 border border-muted-foreground rounded-full bg-white/5 text-muted-foreground backdrop-blur-sm flex items-center justify-center transition-all duration-300 cursor-default group relative"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -801,7 +797,7 @@ const ProjectDetails = () => {
                   whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
                   title={tech}
                 >
-                  <Icon className="w-6 h-6 text-white" />
+                  <Icon className="w-6 h-6 text-foreground" />
                   <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                     {tech}
                   </div>
@@ -818,7 +814,7 @@ const ProjectDetails = () => {
           <h3 className="text-2xl md:text-3xl font-light text-muted-foreground">
             Ready for the next mission?
           </h3>
-          <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">
+          <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-foreground bg-gradient-to-b from-white to-white/50">
             {nextProject.title}
           </h2>
 
@@ -838,7 +834,7 @@ const ProjectDetails = () => {
                 stroke="currentColor"
                 strokeWidth="2"
                 fill="transparent"
-                className="text-white/10"
+                className="text-muted-foreground"
               />
               <circle
                 cx="64" cy="64" r="60"

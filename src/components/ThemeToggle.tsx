@@ -17,13 +17,44 @@ export const ThemeToggle = () => {
         }
     }, [theme]);
 
-    const toggleTheme = () => {
-        if (theme === "system") {
-            const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            setTheme(isDark ? "light" : "dark");
-        } else {
-            setTheme(theme === "dark" ? "light" : "dark");
+    const toggleTheme = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        const newTheme = resolvedTheme === "dark" ? "light" : "dark";
+
+        // @ts-ignore
+        if (!document.startViewTransition) {
+            setTheme(newTheme);
+            return;
         }
+
+        const x = e.clientX;
+        const y = e.clientY;
+        const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+        );
+
+        // @ts-ignore
+        const transition = document.startViewTransition(() => {
+            setTheme(newTheme);
+        });
+
+        await transition.ready;
+
+        const clipPath = [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+        ];
+
+        document.documentElement.animate(
+            {
+                clipPath: clipPath,
+            },
+            {
+                duration: 500,
+                easing: "ease-in-out",
+                pseudoElement: "::view-transition-new(root)",
+            }
+        );
     };
 
     return (

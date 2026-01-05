@@ -179,7 +179,7 @@ export const projectsData = [
       "Mapbox",
       "Figma",
     ],
-    liveUrl: "https://www.olio.com",
+    liveUrl: "https://olioapp.com/en/",
   },
   {
     id: "glamping",

@@ -106,7 +106,7 @@ export const AboutSection = () => {
 
   const { scrollYProgress: textScrollProgress } = useScroll({
     target: textRef,
-    offset: ["start 1", "end 0.7"],
+    offset: ["start 1", "end 0.9"],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
