@@ -92,7 +92,7 @@ export const projectsData = [
       "PostgreSQL",
       "Figma",
     ],
-    liveUrl: "https://gemseeroo.com/bushel",
+    liveUrl: "https://bushelfarm.com/",
   },
   {
     id: "olio",
@@ -274,7 +274,7 @@ export const projectsData = [
       "Framer Motion",
       "PostgreSQL",
     ],
-    liveUrl: "https://glamping.example.com",
+    liveUrl: "https://glampinghub.com/",
   },
   {
     id: "curogram",
@@ -545,7 +545,7 @@ export const projectsData = [
       "GraphQL",
       "AWS",
     ],
-    liveUrl: "https://loopiq.com",
+    liveUrl: "https://loop-iq-prod.vercel.app/",
   },
   {
     id: "rallytyper",
@@ -697,6 +697,6 @@ export const projectsData = [
       "https://dev.gemseeroo.com/fyno/fyno-mob%20(10).png",
     ],
     techStack: ["React", "Node.js", "PostgreSQL", "AWS", "Figma"],
-    liveUrl: "https://fynosign.example.com",
+    liveUrl: "https://fynosign.com",
   },
 ];
