@@ -101,9 +101,10 @@ export const LoadingScreen = ({
                 }}
               >
                 <div className="flex  items-center">
-                  <img src="/logo.svg" alt="" width={90} height={90} loading="lazy" />
+                  <img src="/logo.png" alt="" width={48} height={48} loading="lazy" className="dark:hidden" />
+                  <img src="/logo-white.png" alt="" width={48} height={48} loading="lazy" className="hidden dark:block" />
                   <span className="inline-block">
-                    forrof
+                    &nbsp;forrof
                   </span>
                 </div>
               </motion.div>

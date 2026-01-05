@@ -180,12 +180,13 @@ export const NavbarMenuIcon = () => {
               navigate("/");
             }}
           >
-            <img src="/logo.svg" alt="Logo" className="w-14 h-14" />
+            <img src="/logo.png" alt="Logo" className="w-9 h-9 dark:hidden" />
+            <img src="/logo-white.png" alt="Logo" className="w-9 h-9 hidden dark:block" />
             <motion.span
               className="text-3xl font-bold tracking-tight inline-block"
               style={{ opacity: logoTextOpacity, y: logoTextY }}
             >
-              forrof.io
+              &nbsp;forrof.io
             </motion.span>
           </motion.div>
 

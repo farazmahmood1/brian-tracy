@@ -82,12 +82,7 @@ export const HeroSection = () => {
 
       {/* Gradient Overlay - Deep blue gradient from black to dark blue */}
       <motion.div
-        className="absolute inset-0 z-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(10, 30, 70, 0.7) 100%)",
-          pointerEvents: "none",
-        }}
+        className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom_left,#99caea,#298ecd)] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.3)_0%,rgba(10,30,70,0.7)_100%)] pointer-events-none"
       />
 
       {/* 3D Earth Globe with Parallax */}
@@ -134,7 +129,7 @@ export const HeroSection = () => {
             transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <motion.span
-              className="number-label"
+              className="number-label text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -146,7 +141,7 @@ export const HeroSection = () => {
               delay={0.6}
             />
             <motion.span
-              className="text-xs text-muted-foreground uppercase tracking-widest"
+              className="text-xs text-white uppercase tracking-widest"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 }}
@@ -167,7 +162,7 @@ export const HeroSection = () => {
             }}
           >
             <motion.h1
-              className="text-[18vw] md:text-[14vw] font-bold leading-[0.85] tracking-tighter"
+              className="text-[18vw] md:text-[14vw] font-bold leading-[0.85] tracking-tighter text-white"
               initial={{ y: "120%" }}
               animate={{ y: 0 }}
               transition={{
@@ -189,7 +184,7 @@ export const HeroSection = () => {
           transition={{ delay: 1 }}
         >
           <motion.span
-            className="text-sm text-muted-foreground writing-vertical hidden md:block"
+            className="text-sm text-white writing-vertical hidden md:block"
             // style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -216,8 +211,8 @@ export const HeroSection = () => {
                 transition={{ delay: 1.3 + index * 0.1 }}
                 whileHover={{ x: 10 }}
               >
-                <motion.span className="w-8 h-px bg-muted-foreground group-hover:w-16 group-hover:bg-foreground transition-all duration-500" />
-                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500">
+                <motion.span className="w-8 h-px bg-white group-hover:w-16 group-hover:bg-white transition-all duration-500" />
+                <span className="text-sm text-white group-hover:text-white transition-colors duration-500">
                   {cat}
                 </span>
               </motion.a>
@@ -234,26 +229,26 @@ export const HeroSection = () => {
         >
           <div className="flex flex-col items-center gap-5">
             <div className="">
-              <p className="text-lg font-light text-foreground leading-tight">
+              <p className="text-lg text-white leading-tight">
                 Whether through robust APIs, scalable cloud solutions, or
                 seamless integrations,
-                <span className="font-extralight text-foreground/70">
+                <span className="font-extralight text-white/70">
                   we build digital products that empower businesses to grow
                   and innovate.
                 </span>
               </p>
             </div>
             <div className="flex gap-3 -ml-10">
-              <span className="px-4 py-2 border border-white rounded-full text-xs ">
+              <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
                 Frontend
               </span>
-              <span className="px-4 py-2 border border-white rounded-full text-xs ">
+              <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
                 Backend
               </span>
-              <span className="px-4 py-2 border border-white rounded-full text-xs ">
+              <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
                 Cloud
               </span>
-              <span className="px-5 py-1 border border-white rounded-full text-base ">
+              <span className="px-5 py-1 border border-white text-white rounded-full text-base ">
                 +
               </span>
             </div>

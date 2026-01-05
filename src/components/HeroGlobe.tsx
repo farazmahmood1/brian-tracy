@@ -8,7 +8,9 @@ import { EarthScene } from "./Earth3D";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HeroGlobeScene: React.FC = () => {
+import { useTheme } from "@/context/ThemeContext";
+
+const HeroGlobeScene: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
     const scrollProxy = useRef({
         scale: 1,
         rotationSpeed: 0.02,
@@ -45,16 +47,16 @@ const HeroGlobeScene: React.FC = () => {
                 <EarthScene proxy={scrollProxy} />
             </group>
 
-            {/* Lighting */}
-            <ambientLight intensity={0.15} />
+            {/* Lighting - Adjusted based on theme */}
+            <ambientLight intensity={isLightMode ? 2.5 : 0.15} />
             <directionalLight
                 position={[10, 5, 5]}
-                intensity={2.5}
+                intensity={isLightMode ? 4.5 : 2.5}
                 color="#fff5f0"
                 castShadow
             />
-            <pointLight position={[-15, -10, -10]} intensity={0.8} color="#4477ff" />
-            <pointLight position={[0, 10, 5]} intensity={0.5} color="#ffffff" />
+            <pointLight position={[-15, -10, -10]} intensity={isLightMode ? 2.5 : 0.8} color="#4477ff" />
+            <pointLight position={[0, 10, 5]} intensity={isLightMode ? 2.5 : 0.5} color="#ffffff" />
 
             <Stars
                 radius={100}
@@ -75,6 +77,26 @@ const Loader: React.FC = () => {
 };
 
 export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
+    const { theme } = useTheme();
+    const [isLightMode, setIsLightMode] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkTheme = () => {
+            if (theme === "system") {
+                setIsLightMode(!window.matchMedia("(prefers-color-scheme: dark)").matches);
+            } else {
+                setIsLightMode(theme === "light");
+            }
+        };
+
+        checkTheme();
+
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const handleChange = () => checkTheme();
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, [theme]);
+
     return (
         <div className={className}>
             <Canvas
@@ -89,7 +111,7 @@ export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
                 frameloop="always"
             >
                 <Suspense fallback={<Loader />}>
-                    <HeroGlobeScene />
+                    <HeroGlobeScene isLightMode={isLightMode} />
                     <Preload all />
                 </Suspense>
             </Canvas>
