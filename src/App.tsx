@@ -16,6 +16,10 @@ import { CustomCursor } from "./components/CustomCursor";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
+import TermsAndPolicy from "./pages/TermsAndPolicy";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Careers from "./pages/Careers";
+import JobDetails from "./pages/JobDetails";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +122,38 @@ const App = () => (
               element={
                 <LayoutWrapper>
                   <Contact />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/terms-and-policy"
+              element={
+                <LayoutWrapper>
+                  <TermsAndPolicy />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/privacy-policy"
+              element={
+                <LayoutWrapper>
+                  <PrivacyPolicy />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/careers"
+              element={
+                <LayoutWrapper>
+                  <Careers />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/careers/:id"
+              element={
+                <LayoutWrapper>
+                  <JobDetails />
                 </LayoutWrapper>
               }
             />

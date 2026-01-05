@@ -208,7 +208,7 @@ export const Footer = () => {
                   transition={{ delay: 0.4 + index * 0.05 }}
                 >
                   <motion.a
-                    href="#"
+                    href={link === "Careers" ? "/careers" : "#"}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 inline-flex items-center gap-2 group"
                     whileHover={{ x: 5 }}
                   >
@@ -242,20 +242,28 @@ export const Footer = () => {
               © {new Date().getFullYear()} Forrof. All rights reserved.
             </motion.p>
             <div className="flex gap-8">
-              {["Privacy Policy", "Terms of Service"].map((link, index) => (
-                <motion.a
-                  key={link}
-                  href="#"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                >
-                  {link}
-                </motion.a>
-              ))}
+              <motion.a
+                href="/privacy-policy"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0 }}
+                whileHover={{ y: -2 }}
+              >
+                Privacy Policy
+              </motion.a>
+              <motion.a
+                href="/terms-and-policy"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                whileHover={{ y: -2 }}
+              >
+                Terms of Service
+              </motion.a>
             </div>
           </div>
         </motion.div>
