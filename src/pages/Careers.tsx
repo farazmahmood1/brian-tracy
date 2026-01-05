@@ -2,16 +2,22 @@ import { motion } from "framer-motion";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { ArrowUpRight, Globe, Clock, ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
-import { jobs } from "@/data/jobs";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "@/services/api";
 
 const Careers = () => {
+    const [jobs, setJobs] = useState<any[]>([]);
     usePageMetadata({
         title: "Careers | Forrof",
         description: "Join our team of creators, thinkers, and builders. Explore open positions at Forrof.",
         url: window.location.href,
         type: "website",
     });
+
+    useEffect(() => {
+        api.jobs.getAll().then(setJobs).catch(console.error);
+    }, []);
 
     return (
         <div className="min-h-screen bg-background text-foreground pt-32 pb-20">
@@ -69,7 +75,7 @@ const Careers = () => {
                         className="mb-12 border-b border-border pb-4 flex justify-between items-end"
                     >
                         <h2 className="text-xl font-mono uppercase tracking-widest">Open Positions</h2>
-                        <span className="text-muted-foreground">0{jobs.length}</span>
+                        <span className="text-muted-foreground">{jobs.length < 10 ? `0${jobs.length}` : jobs.length}</span>
                     </motion.div>
 
                     <div className="space-y-4">
@@ -114,6 +120,11 @@ const Careers = () => {
                                 </Link>
                             </motion.div>
                         ))}
+                        {jobs.length === 0 && (
+                            <div className="text-center py-12 text-muted-foreground">
+                                No open positions at the moment.
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

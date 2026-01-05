@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -8,13 +8,34 @@ import {
   useInView,
 } from "framer-motion";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
-import { articles } from "@/data/articles";
 import { useLenis } from "@/hooks/useLenis";
-
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { api } from "@/services/api";
+
+// Helper for author if API doesn't return full object
+const getAuthor = (author: any) => {
+  if (typeof author === 'string') return { name: author, avatar: '', role: 'Author' };
+  return author || { name: 'Admin', avatar: '', role: 'Editor' };
+}
 
 const Articles = () => {
   useLenis();
+  const [articles, setArticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    api.blogs.getAll().then(data => {
+      // Transform data to match UI expectations if needed
+      const mapped = data.map((b: any) => ({
+        ...b,
+        date: b.postedDate,
+        image: b.imageUrl || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80', // Fallback
+        category: 'Article', // defaulting category if not in schema
+        excerpt: b.content?.substring(0, 100) + '...',
+        author: { name: b.author, role: 'Editor', avatar: 'https://github.com/shadcn.png' } // Mock author details
+      }));
+      setArticles(mapped);
+    }).catch(console.error);
+  }, []);
 
   // SEO Meta Tags
   usePageMetadata({
@@ -45,36 +66,6 @@ const Articles = () => {
       >
         {/* Animated Background Grid */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* <motion.div className="absolute inset-0" style={{ y: smoothHeroY }}>
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"
-                style={{
-                  top: `${(i + 1) * 5}%`,
-                  left: 0,
-                  right: 0,
-                }}
-                initial={{ scaleX: 0, opacity: 0 }}
-                animate={{ scaleX: 1, opacity: 0.5 }}
-                transition={{ delay: i * 0.05, duration: 1 }}
-              />
-            ))}
-            {[...Array(10)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-px bg-gradient-to-b from-transparent via-primary/10 to-transparent"
-                style={{
-                  left: `${(i + 1) * 10}%`,
-                  top: 0,
-                  bottom: 0,
-                }}
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={{ scaleY: 1, opacity: 0.3 }}
-                transition={{ delay: i * 0.08, duration: 1.2 }}
-              />
-            ))}
-          </motion.div> */}
         </div>
 
         {/* Floating Elements */}
@@ -156,26 +147,6 @@ const Articles = () => {
             digital experiences.
           </motion.p>
         </motion.div>
-
-        {/* Scroll Indicator */}
-        {/* <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-        >
-          <motion.div
-            className="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center pt-2"
-            animate={{ y: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <motion.div
-              className="w-1 h-2 rounded-full bg-primary"
-              animate={{ opacity: [1, 0.5, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          </motion.div>
-        </motion.div> */}
       </section>
 
       {/* Category Filter */}
@@ -211,28 +182,34 @@ const Articles = () => {
       {/* Featured Article */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <FeaturedArticle article={articles[0]} />
+          {articles.length > 0 ? (
+            <FeaturedArticle article={articles[0]} />
+          ) : (
+            <div className="text-center text-muted-foreground">No articles yet.</div>
+          )}
         </div>
       </section>
 
       {/* Articles Grid */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.1 } },
-            }}
-          >
-            {articles.slice(1).map((article, index) => (
-              <ArticleCard key={article.id} article={article} index={index} />
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      {articles.length > 1 && (
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <motion.div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.1 } },
+              }}
+            >
+              {articles.slice(1).map((article, index) => (
+                <ArticleCard key={article.id} article={article} index={index} />
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* Newsletter Section */}
       <section className="py-32 relative overflow-hidden">
@@ -290,7 +267,7 @@ const Articles = () => {
   );
 };
 
-const FeaturedArticle = ({ article }: { article: (typeof articles)[0] }) => {
+const FeaturedArticle = ({ article }: { article: any }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -416,7 +393,7 @@ const ArticleCard = ({
   article,
   index,
 }: {
-  article: (typeof articles)[0];
+  article: any;
   index: number;
 }) => {
   return (

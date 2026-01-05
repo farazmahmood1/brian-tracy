@@ -50,7 +50,7 @@ export const ThemeToggle = () => {
                 clipPath: clipPath,
             },
             {
-                duration: 500,
+                duration: 600,
                 easing: "ease-in-out",
                 pseudoElement: "::view-transition-new(root)",
             }

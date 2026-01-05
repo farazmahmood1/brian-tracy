@@ -20,6 +20,11 @@ import TermsAndPolicy from "./pages/TermsAndPolicy";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Careers from "./pages/Careers";
 import JobDetails from "./pages/JobDetails";
+import AdminLogin from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminJobs from "./pages/admin/Jobs";
+import AdminBlogs from "./pages/admin/Blogs";
+import { ProtectedRoute } from "./components/admin/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +36,8 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
 
   // Check if on project details page
   const isProjectDetails = location.pathname.startsWith("/project/");
+  // Check if admin page
+  const isAdmin = location.pathname.startsWith("/admin");
 
   // Progress bar
   const scaleX = useSpring(scrollYProgress, {
@@ -38,6 +45,14 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     damping: 30,
     restDelta: 0.001,
   });
+
+  if (isAdmin) {
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -157,6 +172,47 @@ const App = () => (
                 </LayoutWrapper>
               }
             />
+
+            {/* Admin Routes */}
+            <Route
+              path="/admin/login"
+              element={
+                <LayoutWrapper>
+                  <AdminLogin />
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <LayoutWrapper>
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/admin/jobs"
+              element={
+                <LayoutWrapper>
+                  <ProtectedRoute>
+                    <AdminJobs />
+                  </ProtectedRoute>
+                </LayoutWrapper>
+              }
+            />
+            <Route
+              path="/admin/blogs"
+              element={
+                <LayoutWrapper>
+                  <ProtectedRoute>
+                    <AdminBlogs />
+                  </ProtectedRoute>
+                </LayoutWrapper>
+              }
+            />
+
             <Route
               path="*"
               element={
