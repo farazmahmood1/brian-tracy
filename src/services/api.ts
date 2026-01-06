@@ -68,19 +68,25 @@ export const api = {
             return res.json();
         },
         create: async (data: any) => {
+            const isFormData = data instanceof FormData;
+            const headers: Record<string, string> = isFormData ? {} : { 'Content-Type': 'application/json' };
+
             const res = await fetch(`${API_BASE}/blogs`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                headers,
+                body: isFormData ? data : JSON.stringify(data),
             });
             if (!res.ok) throw new Error('Failed to create blog');
             return res.json();
         },
         update: async (data: any) => {
+            const isFormData = data instanceof FormData;
+            const headers: Record<string, string> = isFormData ? {} : { 'Content-Type': 'application/json' };
+
             const res = await fetch(`${API_BASE}/blogs`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                headers,
+                body: isFormData ? data : JSON.stringify(data),
             });
             if (!res.ok) throw new Error('Failed to update blog');
             return res.json();
@@ -94,8 +100,13 @@ export const api = {
         },
     },
     applications: {
+        getAll: async () => {
+            const res = await fetch(`${API_BASE}/job-applications`);
+            if (!res.ok) throw new Error('Failed to fetch applications');
+            return res.json();
+        },
         getByJobId: async (jobId: number) => {
-            const res = await fetch(`${API_BASE}/jobs/${jobId}/applications`);
+            const res = await fetch(`${API_BASE}/job-applications/${jobId}`);
             if (!res.ok) throw new Error('Failed to fetch applications');
             return res.json();
         },
@@ -105,6 +116,6 @@ export const api = {
             });
             if (!res.ok) throw new Error('Failed to delete application');
             return res.json();
-        }
+        },
     }
 };

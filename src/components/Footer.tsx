@@ -8,6 +8,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { Magnetic, LineReveal } from "./AnimationComponents";
+import { useNavigate } from "react-router-dom";
 
 const footerLinks = {
   services: ["Branding", "UI/UX Design", "Web Development", "Marketing", "SEO"],
@@ -20,6 +21,7 @@ const footerLinks = {
 };
 
 export const Footer = () => {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -209,6 +211,10 @@ export const Footer = () => {
                 >
                   <motion.a
                     href={link === "Careers" ? "/careers" : "#"}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/careers");
+                    }}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 inline-flex items-center gap-2 group"
                     whileHover={{ x: 5 }}
                   >
@@ -244,6 +250,10 @@ export const Footer = () => {
             <div className="flex gap-8">
               <motion.a
                 href="/privacy-policy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/privacy-policy");
+                }}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -255,6 +265,10 @@ export const Footer = () => {
               </motion.a>
               <motion.a
                 href="/terms-and-policy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/terms-and-policy");
+                }}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}

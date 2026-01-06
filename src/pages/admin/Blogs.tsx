@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { api } from '@/services/api';
 import { Button } from '@/components/ui/button';
@@ -8,23 +8,32 @@ import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
+import ReactQuill from 'react-quill-new';
+import "react-quill-new/dist/quill.snow.css";
 
 export default function AdminBlogs() {
+    const quillRef = useRef(null);
     const [blogs, setBlogs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingBlog, setEditingBlog] = useState<any | null>(null);
 
+    const [imageFile, setImageFile] = useState<File | null>(null);
+
     // Form state
     const [formData, setFormData] = useState({
         title: '',
+        slug: '',
         author: '',
         postedDate: new Date().toISOString().split('T')[0],
         content: '',
-        imageUrl: '',
         readTime: '5 min read',
+        canonicalUrl: '',
+        metaTitle: '',
+        metaDescription: '',
+        metaKeywords: '',
     });
 
     const fetchBlogs = async () => {
@@ -45,15 +54,34 @@ export default function AdminBlogs() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            const submitData = new FormData();
+            submitData.append('title', formData.title);
+            submitData.append('slug', formData.slug); // Ensure slug is generated or manually entered
+            submitData.append('author', formData.author);
+            submitData.append('postedDate', formData.postedDate);
+            submitData.append('content', formData.content);
+            submitData.append('readTime', formData.readTime);
+            submitData.append('canonicalUrl', formData.canonicalUrl);
+            submitData.append('metaTitle', formData.metaTitle);
+            submitData.append('metaDescription', formData.metaDescription);
+            submitData.append('metaKeywords', formData.metaKeywords);
+
+            if (imageFile) {
+                submitData.append('image', imageFile);
+            }
+
             if (editingBlog) {
-                await api.blogs.update({ ...formData, id: editingBlog.id });
+                submitData.append('id', String(editingBlog.id));
+                await api.blogs.update(submitData);
                 toast.success('Blog updated');
             } else {
-                await api.blogs.create(formData);
+                await api.blogs.create(submitData);
                 toast.success('Blog created');
             }
             setIsDialogOpen(false);
+            setIsDialogOpen(false);
             setEditingBlog(null);
+            setImageFile(null);
             resetForm();
             fetchBlogs();
         } catch (error) {
@@ -75,24 +103,35 @@ export default function AdminBlogs() {
     const resetForm = () => {
         setFormData({
             title: '',
+            slug: '',
             author: '',
             postedDate: new Date().toISOString().split('T')[0],
             content: '',
-            imageUrl: '',
             readTime: '5 min read',
+            canonicalUrl: '',
+            metaTitle: '',
+            metaDescription: '',
+            metaKeywords: '',
         });
+        setImageFile(null);
     };
 
     const openEdit = (blog: any) => {
         setEditingBlog(blog);
         setFormData({
             title: blog.title,
+            slug: blog.slug || '',
             author: blog.author,
             postedDate: blog.postedDate,
             content: blog.content,
-            imageUrl: blog.imageUrl || '',
             readTime: blog.readTime || '5 min read',
+            canonicalUrl: blog.canonicalUrl || '',
+            metaTitle: blog.metaTitle || '',
+            metaDescription: blog.metaDescription || '',
+            metaKeywords: blog.metaKeywords || '',
         });
+        // Note: we don't set imageFile here as it's for new uploads only
+        // existing image URL would be handled by displaying it if needed
         setIsDialogOpen(true);
     };
 
@@ -114,7 +153,22 @@ export default function AdminBlogs() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label>Title</Label>
-                                    <Input value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} required />
+                                    <Input
+                                        value={formData.title}
+                                        onChange={e => {
+                                            const title = e.target.value;
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                title,
+                                                slug: prev.slug || title.toLowerCase().replace(/ /g, '-')
+                                            }))
+                                        }}
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Slug</Label>
+                                    <Input value={formData.slug} onChange={e => setFormData({ ...formData, slug: e.target.value })} required />
                                 </div>
                                 <div className="space-y-2">
                                     <Label>Author</Label>
@@ -124,14 +178,67 @@ export default function AdminBlogs() {
                                     <Label>Read Time</Label>
                                     <Input value={formData.readTime} onChange={e => setFormData({ ...formData, readTime: e.target.value })} />
                                 </div>
+                            </div>
+
+                            {/* SEO Fields */}
+                            <div className="space-y-4 border p-4 rounded-md">
+                                <h3 className="font-medium text-sm">SEO Settings</h3>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Meta Title</Label>
+                                        <Input value={formData.metaTitle} onChange={e => setFormData({ ...formData, metaTitle: e.target.value })} />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Canonical URL</Label>
+                                        <Input value={formData.canonicalUrl} onChange={e => setFormData({ ...formData, canonicalUrl: e.target.value })} />
+                                    </div>
+                                </div>
                                 <div className="space-y-2">
-                                    <Label>Image URL</Label>
-                                    <Input value={formData.imageUrl} onChange={e => setFormData({ ...formData, imageUrl: e.target.value })} />
+                                    <Label>Meta Description</Label>
+                                    <Textarea value={formData.metaDescription} onChange={e => setFormData({ ...formData, metaDescription: e.target.value })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Meta Keywords</Label>
+                                    <Input value={formData.metaKeywords} onChange={e => setFormData({ ...formData, metaKeywords: e.target.value })} placeholder="comma, separated, keywords" />
                                 </div>
                             </div>
+
+                            {/* Image Upload */}
                             <div className="space-y-2">
-                                <Label>Content (Markdown)</Label>
-                                <Textarea className="min-h-[200px]" value={formData.content} onChange={e => setFormData({ ...formData, content: e.target.value })} required />
+                                <Label>Featured Image</Label>
+                                <div className="flex items-center gap-4">
+                                    <Input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            if (e.target.files?.[0]) setImageFile(e.target.files[0]);
+                                        }}
+                                        className="cursor-pointer"
+                                    />
+                                    {imageFile && (
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={() => setImageFile(null)}
+                                        >
+                                            <X className="h-4 w-4 mr-2" /> Clear
+                                        </Button>
+                                    )}
+                                </div>
+                                {imageFile && <p className="text-sm text-muted-foreground">Selected: {imageFile.name}</p>}
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label>Content</Label>
+                                <div className="h-[300px] mb-12">
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={formData.content}
+                                        onChange={(content) => setFormData({ ...formData, content })}
+                                        className="h-[250px]"
+                                    />
+                                </div>
                             </div>
                             <Button type="submit" className="w-full">Save</Button>
                         </form>

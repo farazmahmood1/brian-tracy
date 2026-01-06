@@ -50,6 +50,25 @@ const JobDetails = () => {
         type: "article",
     });
 
+    const applicationMutation = useMutation({
+        mutationFn: (data: any) => api.jobs.apply(data),
+        onSuccess: () => {
+            toast({
+                title: "Application Sent!",
+                description: "We'll review your application and get back to you soon.",
+            });
+            setFormData({ name: "", email: "", portfolio: "", coverLetter: "" });
+            setCvFile(null);
+        },
+        onError: () => {
+            toast({
+                title: "Application Failed",
+                description: "Something went wrong. Please try again.",
+                variant: "destructive"
+            });
+        }
+    });
+
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -70,25 +89,6 @@ const JobDetails = () => {
             </div>
         );
     }
-
-    const applicationMutation = useMutation({
-        mutationFn: (data: any) => api.jobs.apply(data),
-        onSuccess: () => {
-            toast({
-                title: "Application Sent!",
-                description: "We'll review your application and get back to you soon.",
-            });
-            setFormData({ name: "", email: "", portfolio: "", coverLetter: "" });
-            setCvFile(null);
-        },
-        onError: () => {
-            toast({
-                title: "Application Failed",
-                description: "Something went wrong. Please try again.",
-                variant: "destructive"
-            });
-        }
-    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

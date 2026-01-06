@@ -1,7 +1,7 @@
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Briefcase, FileText, LogOut } from 'lucide-react';
+import { LayoutDashboard, Briefcase, FileText, LogOut, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -17,6 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const navItems = [
         { label: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
         { label: 'Jobs', path: '/admin/jobs', icon: Briefcase },
+        { label: 'Applications', path: '/admin/applications', icon: Users },
         { label: 'Blogs', path: '/admin/blogs', icon: FileText },
     ];
 
@@ -35,8 +36,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             key={item.path}
                             to={item.path}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === item.path
-                                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300'
-                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                                ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300'
+                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
                                 }`}
                         >
                             <item.icon className="w-5 h-5" />
