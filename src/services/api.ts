@@ -1,10 +1,9 @@
-
-const API_BASE = '/api';
+const API_BASE = 'http://localhost:3000/api/v1';
 
 export const api = {
     auth: {
         login: async (credentials: any) => {
-            const res = await fetch(`${API_BASE}/auth`, {
+            const res = await fetch(`${API_BASE}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credentials),
@@ -29,7 +28,7 @@ export const api = {
             return res.json();
         },
         update: async (data: any) => {
-            const res = await fetch(`${API_BASE}/jobs`, {
+            const res = await fetch(`${API_BASE}/jobs/${data.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -37,11 +36,28 @@ export const api = {
             if (!res.ok) throw new Error('Failed to update job');
             return res.json();
         },
+        getOne: async (idOrSlug: string | number) => {
+            const res = await fetch(`${API_BASE}/jobs/${idOrSlug}`);
+            if (!res.ok) throw new Error('Failed to fetch job');
+            return res.json();
+        },
         delete: async (id: number) => {
-            const res = await fetch(`${API_BASE}/jobs?id=${id}`, {
+            const res = await fetch(`${API_BASE}/jobs/${id}`, {
                 method: 'DELETE',
             });
             if (!res.ok) throw new Error('Failed to delete job');
+            return res.json();
+        },
+        apply: async (data: any) => {
+            const isFormData = data instanceof FormData;
+            const headers: Record<string, string> = isFormData ? {} : { 'Content-Type': 'application/json' };
+
+            const res = await fetch(`${API_BASE}/job-applications`, {
+                method: 'POST',
+                headers,
+                body: isFormData ? data : JSON.stringify(data),
+            });
+            if (!res.ok) throw new Error('Failed to submit application');
             return res.json();
         },
     },
@@ -70,11 +86,25 @@ export const api = {
             return res.json();
         },
         delete: async (id: number) => {
-            const res = await fetch(`${API_BASE}/blogs?id=${id}`, {
+            const res = await fetch(`${API_BASE}/delete-blog-post/${id}`, {
                 method: 'DELETE',
             });
             if (!res.ok) throw new Error('Failed to delete blog');
             return res.json();
         },
     },
+    applications: {
+        getByJobId: async (jobId: number) => {
+            const res = await fetch(`${API_BASE}/jobs/${jobId}/applications`);
+            if (!res.ok) throw new Error('Failed to fetch applications');
+            return res.json();
+        },
+        delete: async (id: number) => {
+            const res = await fetch(`${API_BASE}/applications/${id}`, {
+                method: 'DELETE',
+            });
+            if (!res.ok) throw new Error('Failed to delete application');
+            return res.json();
+        }
+    }
 };

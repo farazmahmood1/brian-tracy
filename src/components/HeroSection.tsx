@@ -82,7 +82,7 @@ export const HeroSection = () => {
 
       {/* Gradient Overlay - Deep blue gradient from black to dark blue */}
       <motion.div
-        className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom_left,#298ECD,#000)] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.3)_0%,rgba(10,30,70,0.7)_100%)] pointer-events-none"
+        className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom_left,#298ECD,#000)] dark:bg-[linear-gradient(to_bottom_left,rgba(0,0,0,0.3),rgba(10,30,70,0.7))] pointer-events-none"
       />
 
       {/* 3D Earth Globe with Parallax */}

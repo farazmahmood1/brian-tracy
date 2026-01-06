@@ -24,6 +24,7 @@ export default function AdminLogin() {
             navigate('/admin/dashboard');
         } catch (error) {
             toast.error('Invalid credentials');
+            console.log(error);
         } finally {
             setIsLoading(false);
         }

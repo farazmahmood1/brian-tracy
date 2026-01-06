@@ -88,7 +88,7 @@ const Careers = () => {
                                 transition={{ delay: index * 0.1 }}
                                 className="group relative"
                             >
-                                <Link to={`/careers/${job.id}`} className="block">
+                                <Link to={`/careers/${job.title.toLowerCase().replace(/ /g, '-')}`} className="block">
                                     <div className="p-8 md:p-12 rounded-2xl bg-muted/20 border border-white/5 hover:border-accent/20 transition-all duration-500 hover:bg-muted/40 group-hover:scale-[1.01]">
                                         <div className="grid md:grid-cols-12 gap-8 items-center">
                                             {/* Title & Dept */}

@@ -1,17 +1,38 @@
 import { motion } from "framer-motion";
-import { useParams, Link } from "react-router-dom";
-import { jobs } from "@/data/jobs";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { api } from "@/services/api";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { ArrowLeft, Clock, Globe, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Clock, Globe, ArrowUpRight, CheckCircle2, Upload } from "lucide-react";
 import { Magnetic, LineReveal } from "@/components/AnimationComponents";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 const JobDetails = () => {
-    const { id } = useParams();
-    const job = jobs.find(j => j.id === Number(id));
+    const { slug } = useParams();
+    const navigate = useNavigate();
     const { toast } = useToast();
     const [focusedField, setFocusedField] = useState<string | null>(null);
+
+    const { data: job, isLoading, isError } = useQuery({
+        queryKey: ['job', slug],
+        queryFn: async () => {
+            const allJobs = await api.jobs.getAll();
+            const foundJob = allJobs.find((j: any) => {
+                const jobSlug = j.title.toLowerCase().replace(/ /g, '-');
+                return jobSlug === slug;
+            });
+
+            if (foundJob) return foundJob;
+
+            if (!isNaN(Number(slug))) {
+                return api.jobs.getOne(slug!);
+            }
+
+            throw new Error("Job not found");
+        },
+        enabled: !!slug
+    });
 
     // Form State
     const [formData, setFormData] = useState({
@@ -20,6 +41,7 @@ const JobDetails = () => {
         portfolio: "",
         coverLetter: "",
     });
+    const [cvFile, setCvFile] = useState<File | null>(null);
 
     usePageMetadata({
         title: job ? `${job.title} | Careers` : "Job Not Found",
@@ -28,7 +50,15 @@ const JobDetails = () => {
         type: "article",
     });
 
-    if (!job) {
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
+            </div>
+        );
+    }
+
+    if (isError || !job) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
@@ -41,17 +71,46 @@ const JobDetails = () => {
         );
     }
 
+    const applicationMutation = useMutation({
+        mutationFn: (data: any) => api.jobs.apply(data),
+        onSuccess: () => {
+            toast({
+                title: "Application Sent!",
+                description: "We'll review your application and get back to you soon.",
+            });
+            setFormData({ name: "", email: "", portfolio: "", coverLetter: "" });
+            setCvFile(null);
+        },
+        onError: () => {
+            toast({
+                title: "Application Failed",
+                description: "Something went wrong. Please try again.",
+                variant: "destructive"
+            });
+        }
+    });
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
 
-        toast({
-            title: "Application Sent!",
-            description: "We'll review your application and get back to you soon.",
-        });
+        if (!cvFile) {
+            toast({
+                title: "CV Required",
+                description: "Please upload your CV/Resume to proceed.",
+                variant: "destructive"
+            });
+            return;
+        }
 
-        setFormData({ name: "", email: "", portfolio: "", coverLetter: "" });
+        const submissionData = new FormData();
+        submissionData.append('jobId', String(job.id));
+        submissionData.append('name', formData.name);
+        submissionData.append('email', formData.email);
+        if (formData.portfolio) submissionData.append('portfolio', formData.portfolio);
+        if (formData.coverLetter) submissionData.append('coverLetter', formData.coverLetter);
+        submissionData.append('cv', cvFile);
+
+        applicationMutation.mutate(submissionData);
     };
 
     return (
@@ -187,6 +246,53 @@ const JobDetails = () => {
                                     </div>
                                 ))}
 
+                                {/* CV Upload */}
+                                <div>
+                                    <label className="block text-sm font-medium mb-2 text-muted-foreground">
+                                        CV / Resume
+                                    </label>
+                                    <div className="relative group">
+                                        <input
+                                            type="file"
+                                            id="cv-upload"
+                                            accept=".pdf,.doc,.docx"
+                                            className="hidden"
+                                            onChange={(e) => {
+                                                if (e.target.files?.[0]) {
+                                                    setCvFile(e.target.files[0]);
+                                                }
+                                            }}
+                                        />
+                                        <label
+                                            htmlFor="cv-upload"
+                                            className={`flex items-center justify-center gap-3 w-full p-4 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-300 ${cvFile
+                                                ? "border-foreground/50 bg-foreground/5"
+                                                : "border-border hover:border-foreground/50 hover:bg-muted/30"
+                                                }`}
+                                        >
+                                            <Upload size={20} className={cvFile ? "text-foreground" : "text-muted-foreground"} />
+                                            <span className={`text-sm font-medium ${cvFile ? "text-foreground" : "text-muted-foreground"}`}>
+                                                {cvFile ? cvFile.name : "Upload CV (PDF, DOC/X)"}
+                                            </span>
+                                        </label>
+                                        {cvFile && (
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setCvFile(null);
+                                                }}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-destructive/10 hover:text-destructive rounded-full transition-colors"
+                                            >
+                                                <div className="w-4 h-4 relative">
+                                                    <div className="absolute inset-0 bg-current rotate-45 h-0.5 top-1/2 -translate-y-[1px]" />
+                                                    <div className="absolute inset-0 bg-current -rotate-45 h-0.5 top-1/2 -translate-y-[1px]" />
+                                                </div>
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+
                                 <div>
                                     <label
                                         className="block text-sm font-medium mb-2 transition-colors"
@@ -216,10 +322,13 @@ const JobDetails = () => {
                                 <Magnetic strength={0.1}>
                                     <button
                                         type="submit"
-                                        className="w-full flex items-center justify-center gap-2 py-4 mt-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors group"
+                                        disabled={applicationMutation.isPending}
+                                        className="w-full flex items-center justify-center gap-2 py-4 mt-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors group disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        <span>Submit Application</span>
-                                        <ArrowUpRight size={18} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                                        <span>{applicationMutation.isPending ? 'Submitting...' : 'Submit Application'}</span>
+                                        {!applicationMutation.isPending && (
+                                            <ArrowUpRight size={18} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                                        )}
                                     </button>
                                 </Magnetic>
                             </form>

@@ -8,7 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, Pencil, Trash2, Loader2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
 export default function AdminJobs() {
@@ -182,6 +183,11 @@ export default function AdminJobs() {
                                         <Button variant="ghost" size="icon" onClick={() => openEdit(job)}>
                                             <Pencil className="h-4 w-4" />
                                         </Button>
+                                        <Link to={`/admin/jobs/${job.id}/applications`}>
+                                            <Button variant="ghost" size="icon" title="View Applications">
+                                                <Users className="h-4 w-4" />
+                                            </Button>
+                                        </Link>
                                         <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 hover:bg-red-50" onClick={() => handleDelete(job.id)}>
                                             <Trash2 className="h-4 w-4" />
                                         </Button>
