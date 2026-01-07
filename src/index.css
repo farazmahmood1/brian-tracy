@@ -29,7 +29,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 176.8 84.8% 61.2%; /* #48F0E7 */
+    --border: 183 100% 29%;
     --input: 155 17.2% 51.2%;
     --ring: 0 0% 12.9%;
 
@@ -62,7 +62,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 96.5%;
 
-    --border:  176.8 84.8% 61.2%; /* Green */
+   --border: 183 100% 29%;
     --input: 155 17.2% 51.2%;
     --ring: 0 0% 96.5%;
   }

@@ -56,18 +56,19 @@ export default function AdminBlogs() {
         try {
             const submitData = new FormData();
             submitData.append('title', formData.title);
-            submitData.append('slug', formData.slug); // Ensure slug is generated or manually entered
+            submitData.append('slug', formData.slug);
+            submitData.append('canonical_tag', formData.slug);
+            submitData.append('meta_title', formData.metaTitle);
             submitData.append('author', formData.author);
-            submitData.append('postedDate', formData.postedDate);
+            submitData.append('meta_description', formData.metaDescription);
+            submitData.append('meta_keywords', formData.metaKeywords);
+            submitData.append('meta_tags', formData.metaKeywords);
             submitData.append('content', formData.content);
+            submitData.append('upload_date', formData.postedDate);
             submitData.append('readTime', formData.readTime);
-            submitData.append('canonicalUrl', formData.canonicalUrl);
-            submitData.append('metaTitle', formData.metaTitle);
-            submitData.append('metaDescription', formData.metaDescription);
-            submitData.append('metaKeywords', formData.metaKeywords);
 
             if (imageFile) {
-                submitData.append('image', imageFile);
+                submitData.append('blogimage', imageFile);
             }
 
             if (editingBlog) {
@@ -254,7 +255,6 @@ export default function AdminBlogs() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Title</TableHead>
-                                <TableHead>Author</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
@@ -263,8 +263,7 @@ export default function AdminBlogs() {
                             {blogs.map((blog) => (
                                 <TableRow key={blog.id}>
                                     <TableCell className="font-medium">{blog.title}</TableCell>
-                                    <TableCell>{blog.author}</TableCell>
-                                    <TableCell>{blog.postedDate}</TableCell>
+                                    <TableCell>{blog.uploadDate}</TableCell>
                                     <TableCell className="text-right space-x-2">
                                         <Button variant="ghost" size="icon" onClick={() => openEdit(blog)}>
                                             <Pencil className="h-4 w-4" />
@@ -285,6 +284,7 @@ export default function AdminBlogs() {
                         </TableBody>
                     </Table>
                 </div>
+
             )}
         </AdminLayout>
     );

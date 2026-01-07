@@ -12,7 +12,11 @@ import { useNavigate } from "react-router-dom";
 
 const footerLinks = {
   services: ["Branding", "UI/UX Design", "Web Development", "Marketing", "SEO"],
-  company: ["About", "Team", "Careers", "Blog", "Contact"],
+  company: [
+    { name: "Projects", href: "/projects" },
+    { name: "Articles", href: "/articles" },
+    { name: "Careers", href: "/careers" },
+    { name: "Contact", href: "/contact" }],
   social: [
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Instagram, href: "#", label: "Instagram" },
@@ -203,22 +207,22 @@ export const Footer = () => {
             <ul className="space-y-4">
               {footerLinks.company.map((link, index) => (
                 <motion.li
-                  key={link}
+                  key={link.name}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.05 }}
                 >
                   <motion.a
-                    href={link === "Careers" ? "/careers" : "#"}
+                    href={link.href}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate("/careers");
+                      navigate(link.href);
                     }}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 inline-flex items-center gap-2 group"
                     whileHover={{ x: 5 }}
                   >
-                    {link}
+                    {link.name}
                     <ArrowUpRight
                       size={12}
                       className="opacity-0 group-hover:opacity-100 transition-opacity"

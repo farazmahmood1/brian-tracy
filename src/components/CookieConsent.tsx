@@ -28,7 +28,7 @@ export const CookieConsent = () => {
                     animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, x: -20, scale: 0.95 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="fixed bottom-6 left-6 z-[100] w-[90vw] md:w-[500px] bg-background/80 backdrop-blur-xl border border-muted-foreground p-8 rounded-2xl shadow-2xl"
+                    className="fixed bottom-6 right-6 z-[100] w-[90vw] md:w-[500px] bg-background/80 backdrop-blur-xl border border-muted-foreground p-8 rounded-2xl shadow-2xl"
                 >
                     <div className="flex items-start justify-between mb-6">
                         <div className="flex items-center gap-3">

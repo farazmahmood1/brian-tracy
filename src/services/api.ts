@@ -63,7 +63,7 @@ export const api = {
     },
     blogs: {
         getAll: async () => {
-            const res = await fetch(`${API_BASE}/blogs`);
+            const res = await fetch(`${API_BASE}/fetch-blog-posts`);
             if (!res.ok) throw new Error('Failed to fetch blogs');
             return res.json();
         },
@@ -71,7 +71,7 @@ export const api = {
             const isFormData = data instanceof FormData;
             const headers: Record<string, string> = isFormData ? {} : { 'Content-Type': 'application/json' };
 
-            const res = await fetch(`${API_BASE}/blogs`, {
+            const res = await fetch(`${API_BASE}/insertblogpost`, {
                 method: 'POST',
                 headers,
                 body: isFormData ? data : JSON.stringify(data),
@@ -83,7 +83,7 @@ export const api = {
             const isFormData = data instanceof FormData;
             const headers: Record<string, string> = isFormData ? {} : { 'Content-Type': 'application/json' };
 
-            const res = await fetch(`${API_BASE}/blogs`, {
+            const res = await fetch(`${API_BASE}/update-blog-post/${data.id}`, {
                 method: 'PUT',
                 headers,
                 body: isFormData ? data : JSON.stringify(data),
