@@ -83,6 +83,7 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
 
 
 import { ThemeProvider } from "./context/ThemeContext";
+import { CookieConsent } from "./components/CookieConsent";
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -90,6 +91,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <CookieConsent />
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
