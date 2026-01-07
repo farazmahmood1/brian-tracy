@@ -23,7 +23,6 @@ import JobDetails from "./pages/JobDetails";
 import AdminLogin from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminJobs from "./pages/admin/Jobs";
-import JobApplications from "./pages/admin/JobApplications";
 import AllApplications from "./pages/admin/AllApplications";
 import AdminBlogs from "./pages/admin/Blogs";
 import { ProtectedRoute } from "./components/admin/ProtectedRoute";
@@ -200,16 +199,6 @@ const App = () => (
                 <LayoutWrapper>
                   <ProtectedRoute>
                     <AdminJobs />
-                  </ProtectedRoute>
-                </LayoutWrapper>
-              }
-            />
-            <Route
-              path="/admin/jobs/:jobId/applications"
-              element={
-                <LayoutWrapper>
-                  <ProtectedRoute>
-                    <JobApplications />
                   </ProtectedRoute>
                 </LayoutWrapper>
               }

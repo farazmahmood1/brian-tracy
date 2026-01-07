@@ -167,15 +167,18 @@ export default function AdminJobs() {
                     <Table>
                         <TableHeader>
                             <TableRow>
+                                <TableHead>Job ID</TableHead>
                                 <TableHead>Title</TableHead>
                                 <TableHead>Department</TableHead>
                                 <TableHead>Location</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
+                                <TableHead>Created At</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {jobs.map((job) => (
                                 <TableRow key={job.id}>
+                                    <TableCell>Job #{job.id}</TableCell>
                                     <TableCell className="font-medium">{job.title}</TableCell>
                                     <TableCell>{job.department}</TableCell>
                                     <TableCell>{job.location}</TableCell>
@@ -183,14 +186,18 @@ export default function AdminJobs() {
                                         <Button variant="ghost" size="icon" onClick={() => openEdit(job)}>
                                             <Pencil className="h-4 w-4" />
                                         </Button>
-                                        <Link to={`/admin/jobs/${job.id}/applications`}>
-                                            <Button variant="ghost" size="icon" title="View Applications">
-                                                <Users className="h-4 w-4" />
-                                            </Button>
-                                        </Link>
                                         <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 hover:bg-red-50" onClick={() => handleDelete(job.id)}>
                                             <Trash2 className="h-4 w-4" />
                                         </Button>
+                                    </TableCell>
+                                    <TableCell>
+                                        {job?.createdAt ? new Date(job.createdAt).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'short',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        }) : '-'}
                                     </TableCell>
                                 </TableRow>
                             ))}
