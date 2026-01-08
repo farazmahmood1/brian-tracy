@@ -21,17 +21,19 @@ const getAuthor = (author: any) => {
 const Articles = () => {
   useLenis();
   const [articles, setArticles] = useState<any[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     api.blogs.getAll().then(data => {
       // Transform data to match UI expectations if needed
       const mapped = data.map((b: any) => ({
         ...b,
-        date: b.postedDate,
-        image: b.imageUrl || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80', // Fallback
-        category: 'Article', // defaulting category if not in schema
+        date: b.uploadDate,
+        stack: b.stack,
+        image: b.blogImage || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80', // Fallback
+        category: 'Article',
         excerpt: b.content?.substring(0, 100) + '...',
-        author: { name: b.author, role: 'Editor', avatar: 'https://github.com/shadcn.png' } // Mock author details
+        author: { name: b.author, role: 'Editor', avatar: 'https://github.com/shadcn.png' }
       }));
       setArticles(mapped);
     }).catch(console.error);
@@ -43,6 +45,11 @@ const Articles = () => {
     description: "Explore our latest thoughts on design, technology, and the future of digital experiences. Ideas that inspire action.",
   });
 
+  const categories = ["All", ...Array.from(new Set(articles.flatMap(article => article.stack ? article.stack.split(',').map((s: string) => s.trim()) : [])))].filter(Boolean);
+
+  const filteredArticles = selectedCategory === "All"
+    ? articles
+    : articles.filter(article => article.stack?.split(',').map((s: string) => s.trim()).includes(selectedCategory));
 
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -54,8 +61,6 @@ const Articles = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
   const smoothHeroY = useSpring(heroY, { stiffness: 100, damping: 30 });
-
-  const categories = ["All", ...new Set(articles.map((a) => a.category))];
 
   return (
     <main className="min-h-screen bg-background max-md:pt-12">
@@ -161,7 +166,8 @@ const Articles = () => {
             {categories.map((category, index) => (
               <motion.button
                 key={category}
-                className={`px-6 py-3 max-md:text-xs rounded-full border transition-all duration-300 ${index === 0
+                onClick={() => setSelectedCategory(category)}
+                className={`px-6 py-3 max-md:text-xs rounded-full border transition-all duration-300 ${selectedCategory === category
                   ? "bg-primary text-primary-foreground border-primary"
                   : "border-border hover:border-primary hover:text-primary"
                   }`}
@@ -182,16 +188,16 @@ const Articles = () => {
       {/* Featured Article */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          {articles.length > 0 ? (
-            <FeaturedArticle article={articles[0]} />
+          {filteredArticles.length > 0 ? (
+            <FeaturedArticle article={filteredArticles[0]} />
           ) : (
-            <div className="text-center text-muted-foreground">No articles yet.</div>
+            <div className="text-center text-muted-foreground">No articles found for this category.</div>
           )}
         </div>
       </section>
 
       {/* Articles Grid */}
-      {articles.length > 1 && (
+      {filteredArticles.length > 1 && (
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <motion.div
@@ -203,7 +209,7 @@ const Articles = () => {
                 visible: { transition: { staggerChildren: 0.1 } },
               }}
             >
-              {articles.slice(1).map((article, index) => (
+              {filteredArticles.slice(1).map((article, index) => (
                 <ArticleCard key={article.id} article={article} index={index} />
               ))}
             </motion.div>
@@ -279,7 +285,7 @@ const FeaturedArticle = ({ article }: { article: any }) => {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8 }}
     >
-      <Link to={`/articles/${article.id}`}>
+      <Link to={`/articles/${article.slug || article.id}`}>
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <motion.div
             itemScope
@@ -333,7 +339,10 @@ const FeaturedArticle = ({ article }: { article: any }) => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4 }}
             >
-              {article.excerpt}
+              <div
+                className="article-content space-y-6"
+                dangerouslySetInnerHTML={{ __html: article.excerpt }}
+              />
             </motion.p>
 
             <motion.div
@@ -348,7 +357,7 @@ const FeaturedArticle = ({ article }: { article: any }) => {
               </span>
               <span className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                {article.readTime}
+                {article.readTime} minutes read
               </span>
             </motion.div>
 
@@ -404,7 +413,7 @@ const ArticleCard = ({
       }}
       transition={{ duration: 0.6 }}
     >
-      <Link to={`/articles/${article.id}`} className="group block">
+      <Link to={`/articles/${article.slug || article.id}`} className="group block">
         <motion.div
           className="relative aspect-[16/10] rounded-2xl overflow-hidden mb-6"
           whileHover={{ scale: 1.02 }}
@@ -416,14 +425,23 @@ const ArticleCard = ({
             alt={article.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <motion.div
-            className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm text-sm"
-            initial={{ opacity: 0, y: 20 }}
-            whileHover={{ opacity: 1, y: 0 }}
-          >
-            {article.category}
-          </motion.div>
+          <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
+            {article.stack?.split(",").map((tag: string, i: number) => (
+              <motion.span
+                key={i}
+                className="px-4 py-2 bg-foreground text-background text-xs font-semibold rounded-full"
+                initial={{ opacity: 0, y: -30, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  delay: 0.7 + index * 0.15 + i * 0.1,
+                  type: "spring",
+                }}
+                whileHover={{ scale: 1.1 }}
+              >
+                {tag.trim()}
+              </motion.span>
+            ))}
+          </div>
         </motion.div>
 
         <div className="space-y-3">
@@ -434,7 +452,7 @@ const ArticleCard = ({
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />
-              {article.readTime}
+              {article.readTime} minutes read
             </span>
           </div>
 
@@ -443,7 +461,9 @@ const ArticleCard = ({
           </h3>
 
           <p className="text-muted-foreground line-clamp-2">
-            {article.excerpt}
+            <div
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
           </p>
 
           <div className="flex items-center gap-3 pt-2">

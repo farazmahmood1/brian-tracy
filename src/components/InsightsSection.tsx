@@ -5,17 +5,34 @@ import {
   useSpring,
   useInView,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 import { useNavigate } from "react-router-dom";
-import { articles } from "@/data/articles";
+import { api } from "@/services/api";
 
 export const InsightsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [displayedInsights, setDisplayedInsights] = useState<any[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    api.blogs.getAll().then((data) => {
+      const mapped = data.slice(0, 3).map((item: any) => ({
+        ...item,
+        image: item.blogImage,
+        category: 'Insights',
+        stack: item.stack,
+        excerpt: item.content?.substring(0, 110) + '...',
+        date: item.uploadDate,
+        readTime: item.readTime || '5',
+        slug: item.slug
+      }));
+      setDisplayedInsights(mapped);
+    }).catch(console.error);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -29,11 +46,8 @@ export const InsightsSection = () => {
   const headerY = useTransform(smoothProgress, [0, 0.3], [100, 0]);
   const headerOpacity = useTransform(smoothProgress, [0, 0.3], [0, 1]);
 
-  // Display only the first 3 articles
-  const displayedInsights = articles.slice(0, 3);
-
-  const handleArticleClick = (id: string) => {
-    navigate(`/articles/${id}`);
+  const handleArticleClick = (article: any) => {
+    navigate(`/articles/${article.slug || article.id}`);
     window.scrollTo(0, 0);
   };
 
@@ -111,7 +125,7 @@ export const InsightsSection = () => {
               }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => handleArticleClick(insight.id)}
+              onClick={() => handleArticleClick(insight)}
               style={{ transformStyle: "preserve-3d" }}
             >
               {/* Image Container with Multiple Layers */}
@@ -154,17 +168,24 @@ export const InsightsSection = () => {
                   transition={{ duration: 0.5 }}
                 />
 
-                {/* Category Badge */}
-                <motion.span
-                  className="absolute top-6 left-6 px-4 py-2 bg-foreground text-background text-xs font-semibold rounded-full"
-                  initial={{ opacity: 0, y: -30, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                  transition={{ delay: 0.7 + index * 0.15, type: "spring" }}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  {insight.category}
-                </motion.span>
-
+                {/* Stack Badges */}
+                <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
+                  {insight.stack?.split(",").map((tag: string, i: number) => (
+                    <motion.span
+                      key={i}
+                      className="px-4 py-2 bg-foreground text-background text-xs font-semibold rounded-full"
+                      initial={{ opacity: 0, y: -30, scale: 0.8 }}
+                      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                      transition={{
+                        delay: 0.7 + index * 0.15 + i * 0.1,
+                        type: "spring",
+                      }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      {tag.trim()}
+                    </motion.span>
+                  ))}
+                </div>
                 {/* Read More Arrow */}
                 <motion.div
                   className="absolute bottom-6 right-6 w-14 h-14 bg-foreground rounded-full flex items-center justify-center"
@@ -196,7 +217,7 @@ export const InsightsSection = () => {
                   <span className="w-1 h-1 rounded-full bg-muted-foreground" />
                   <span className="flex items-center gap-2">
                     <Clock size={14} />
-                    {insight.readTime}
+                    {insight.readTime} minutes read
                   </span>
                 </motion.div>
 
@@ -220,12 +241,15 @@ export const InsightsSection = () => {
 
                 {/* Excerpt with Fade */}
                 <motion.p
+                  style={{ width: "100px" }}
                   className="text-muted-foreground text-sm leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 1 + index * 0.15 }}
                 >
-                  {insight.excerpt}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: insight.excerpt }}
+                  ></div>
                 </motion.p>
 
                 {/* Read More Link */}

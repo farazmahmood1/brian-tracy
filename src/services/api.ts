@@ -12,6 +12,7 @@ export const api = {
             return res.json();
         },
     },
+
     jobs: {
         getAll: async () => {
             const res = await fetch(`${API_BASE}/jobs`);
@@ -91,6 +92,16 @@ export const api = {
             if (!res.ok) throw new Error('Failed to update blog');
             return res.json();
         },
+        getOne: async (id: number | string) => {
+            const res = await fetch(`${API_BASE}/fetch-blog-post/${id}`);
+            if (!res.ok) throw new Error('Failed to fetch blog post');
+            return res.json();
+        },
+        getBySlug: async (slug: string) => {
+            const res = await fetch(`${API_BASE}/fetch-blog-post-by-slug/${slug}`);
+            if (!res.ok) throw new Error('Failed to fetch blog post');
+            return res.json();
+        },
         delete: async (id: number) => {
             const res = await fetch(`${API_BASE}/delete-blog-post/${id}`, {
                 method: 'DELETE',
@@ -111,7 +122,7 @@ export const api = {
             return res.json();
         },
         delete: async (id: number) => {
-            const res = await fetch(`${API_BASE}/applications/${id}`, {
+            const res = await fetch(`${API_BASE}/job-applications/${id}`, {
                 method: 'DELETE',
             });
             if (!res.ok) throw new Error('Failed to delete application');

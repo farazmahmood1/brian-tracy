@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import {
@@ -12,7 +12,7 @@ import {
   Facebook,
   Copy,
 } from "lucide-react";
-import { getArticleById, articles } from "@/data/articles";
+import { api } from "@/services/api";
 import { useLenis } from "@/hooks/useLenis";
 import { toast } from "@/hooks/use-toast";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
@@ -21,7 +21,37 @@ const ArticleDetails = () => {
   useLenis();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const article = getArticleById(id || "");
+  const [article, setArticle] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    setLoading(true);
+
+    const isNumeric = /^\d+$/.test(id);
+    const fetchPromise = isNumeric ? api.blogs.getOne(id) : api.blogs.getBySlug(id);
+
+    fetchPromise
+      .then((data) => {
+        // Map backend fields to frontend expected structure
+        setArticle({
+          ...data,
+          date: data.uploadDate,
+          image: data.blogImage,
+          tags: data.metaTags ? data.metaTags.split(',').map((t: string) => t.trim()) : [], // Assuming comma separated or array
+          author: typeof data.author === 'string'
+            ? { name: data.author, role: 'Editor', avatar: 'https://github.com/shadcn.png' }
+            : data.author || { name: 'Admin', role: 'Editor', avatar: 'https://github.com/shadcn.png' }
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+        setLoading(false);
+      });
+  }, [id]);
 
   usePageMetadata({
     title: article?.metaTitle || article?.title,
@@ -29,8 +59,38 @@ const ArticleDetails = () => {
     image: article?.image,
     url: window.location.href,
     type: "article",
+    keywords: article?.metaKeywords,
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
+  if (!article || error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
+          <Link to="/articles" className="text-primary hover:underline">
+            Back to Articles
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Pass navigation props to ArticleContent
+  const prevArticle = null; // TODO: Fix Previous/Next article logic with API if needed
+  const nextArticle = null;
+
+  return <ArticleContent article={article} prevArticle={prevArticle} nextArticle={nextArticle} />;
+};
+
+const ArticleContent = ({ article, prevArticle, nextArticle }: { article: any, prevArticle: any, nextArticle: any }) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -54,28 +114,6 @@ const ArticleDetails = () => {
     stiffness: 100,
     damping: 30,
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
-
-  if (!article) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
-          <Link to="/articles" className="text-primary hover:underline">
-            Back to Articles
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const currentIndex = articles.findIndex((a) => a.id === id);
-  const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
-  const nextArticle =
-    currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
@@ -219,7 +257,7 @@ const ArticleDetails = () => {
               </span>
               <span className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                {article.readTime}
+                {article.readTime} minutes read
               </span>
             </motion.div>
           </div>
@@ -232,13 +270,13 @@ const ArticleDetails = () => {
           <div className="grid lg:grid-cols-[1fr_300px] gap-12 max-w-6xl mx-auto">
             {/* Main Content */}
             <motion.article
-              className="prose prose-lg dark:prose-invert max-w-none"
+              className="prose prose-lg dark:prose-invert max-w-none min-w-0"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
               <div
-                className="article-content space-y-6"
+                className="article-content space-y-6 w-full break-words overflow-hidden [&_img]:max-w-full [&_iframe]:max-w-full"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
 
@@ -249,7 +287,7 @@ const ArticleDetails = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                {article.tags.map((tag, i) => (
+                {article.tags.map((tag: string, i: number) => (
                   <motion.span
                     key={tag}
                     className="px-4 py-2 rounded-full bg-muted text-muted-foreground text-sm hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
@@ -386,7 +424,7 @@ const ArticleDetails = () => {
                 viewport={{ once: true }}
               >
                 <Link
-                  to={`/articles/${prevArticle.id}`}
+                  to={`/articles/${prevArticle.slug || prevArticle.id}`}
                   className="group flex items-center"
                 >
                   <motion.div
@@ -432,7 +470,7 @@ const ArticleDetails = () => {
                 viewport={{ once: true }}
               >
                 <Link
-                  to={`/articles/${nextArticle.id}`}
+                  to={`/articles/${nextArticle.slug || nextArticle.id}`}
                   className="group flex items-center "
                 >
                   <div className="text-right">

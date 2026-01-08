@@ -7,6 +7,7 @@ interface PageMetadata {
     image?: string;
     url?: string;
     type?: string;
+    keywords?: string;
 }
 
 export const usePageMetadata = ({
@@ -15,6 +16,7 @@ export const usePageMetadata = ({
     image,
     url,
     type,
+    keywords,
 }: PageMetadata) => {
     const metadata = useRef({
         title: title || DEFAULT_METADATA.title,
@@ -22,6 +24,7 @@ export const usePageMetadata = ({
         image: image || DEFAULT_METADATA.image,
         url: url || window.location.href,
         type: type || DEFAULT_METADATA.type,
+        keywords: keywords || "",
     });
 
     // Update ref if props change
@@ -32,11 +35,12 @@ export const usePageMetadata = ({
             image: image || DEFAULT_METADATA.image,
             url: url || window.location.href,
             type: type || DEFAULT_METADATA.type,
+            keywords: keywords || "",
         };
-    }, [title, description, image, url, type]);
+    }, [title, description, image, url, type, keywords]);
 
     useEffect(() => {
-        const { title, description, image, url, type } = metadata.current;
+        const { title, description, image, url, type, keywords } = metadata.current;
 
         // Update Title
         document.title = title;
@@ -59,6 +63,12 @@ export const usePageMetadata = ({
 
         // Update Meta Tags
         updateMeta('meta[name="description"]', "content", description);
+        if (keywords) {
+            updateMeta('meta[name="keywords"]', "content", keywords);
+        } else {
+            const el = document.querySelector('meta[name="keywords"]');
+            if (el) el.setAttribute("content", "");
+        }
 
         // Open Graph
         updateMeta('meta[property="og:title"]', "content", title);
@@ -77,6 +87,8 @@ export const usePageMetadata = ({
             // Restore defaults on cleanup
             document.title = DEFAULT_METADATA.title;
             updateMeta('meta[name="description"]', "content", DEFAULT_METADATA.description);
+            const el = document.querySelector('meta[name="keywords"]');
+            if (el) el.setAttribute("content", "");
 
             updateMeta('meta[property="og:title"]', "content", DEFAULT_METADATA.title);
             updateMeta('meta[property="og:description"]', "content", DEFAULT_METADATA.description);
@@ -88,5 +100,5 @@ export const usePageMetadata = ({
             updateMeta('meta[name="twitter:description"]', "content", DEFAULT_METADATA.description);
             updateMeta('meta[name="twitter:image"]', "content", DEFAULT_METADATA.image);
         };
-    }, [title, description, image, url, type]);
+    }, [title, description, image, url, type, keywords]);
 };

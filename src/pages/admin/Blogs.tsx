@@ -29,7 +29,8 @@ export default function AdminBlogs() {
         author: '',
         postedDate: new Date().toISOString().split('T')[0],
         content: '',
-        readTime: '5 min read',
+        readTime: '',
+        stack: '',
         canonicalUrl: '',
         metaTitle: '',
         metaDescription: '',
@@ -65,7 +66,9 @@ export default function AdminBlogs() {
             submitData.append('meta_tags', formData.metaKeywords);
             submitData.append('content', formData.content);
             submitData.append('upload_date', formData.postedDate);
-            submitData.append('readTime', formData.readTime);
+            submitData.append('read_time', formData.readTime);
+            submitData.append('stack', formData.stack);
+
 
             if (imageFile) {
                 submitData.append('blogimage', imageFile);
@@ -108,7 +111,8 @@ export default function AdminBlogs() {
             author: '',
             postedDate: new Date().toISOString().split('T')[0],
             content: '',
-            readTime: '5 min read',
+            readTime: '',
+            stack: '',
             canonicalUrl: '',
             metaTitle: '',
             metaDescription: '',
@@ -125,14 +129,13 @@ export default function AdminBlogs() {
             author: blog.author,
             postedDate: blog.postedDate,
             content: blog.content,
-            readTime: blog.readTime || '5 min read',
+            readTime: blog.readTime || '5',
+            stack: blog.stack || '',
             canonicalUrl: blog.canonicalUrl || '',
             metaTitle: blog.metaTitle || '',
             metaDescription: blog.metaDescription || '',
             metaKeywords: blog.metaKeywords || '',
         });
-        // Note: we don't set imageFile here as it's for new uploads only
-        // existing image URL would be handled by displaying it if needed
         setIsDialogOpen(true);
     };
 
@@ -176,8 +179,12 @@ export default function AdminBlogs() {
                                     <Input value={formData.author} onChange={e => setFormData({ ...formData, author: e.target.value })} required />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Read Time</Label>
-                                    <Input value={formData.readTime} onChange={e => setFormData({ ...formData, readTime: e.target.value })} />
+                                    <Label>Read Time (write time in minutes)</Label>
+                                    <Input type="number" value={formData.readTime} onChange={e => setFormData({ ...formData, readTime: e.target.value })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Stack</Label>
+                                    <Input value={formData.stack} onChange={e => setFormData({ ...formData, stack: e.target.value })} />
                                 </div>
                             </div>
 
