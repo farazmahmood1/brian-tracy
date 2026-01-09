@@ -230,7 +230,7 @@ export const AboutSection = () => {
               transition={{ delay: 0.6, duration: 1 }}
             >
               <motion.img
-                src="https://dev.gemseeroo.com/about-image.jpeg"
+                src={`${import.meta.env.VITE_SERVER}/about-image.jpeg`}
                 alt="Creative work"
                 loading="lazy"
                 className="w-full h-full object-cover"

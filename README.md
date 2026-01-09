@@ -1,73 +1,79 @@
-# Welcome to your Lovable project
+# Forrof - Digital Agency Portfolio
 
-## Project info
+A modern, high-performance portfolio and agency website built with React, TypeScript, and Vite. This application showcases projects, articles, and career opportunities, complete with a comprehensive admin dashboard for content management.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Features
 
-## How can I edit this code?
+-   **Dynamic Portfolio**: Showcase projects with detailed case studies (`/projects`).
+-   **Blog & Articles**: Informative articles section (`/articles`).
+-   **Careers**: Job listings and application flow (`/careers`).
+-   **Admin Dashboard**: Secure admin area to manage jobs, applications, and blog posts (`/admin`).
+-   **Interactive UI**: Smooth animations using Framer Motion and GSAP, with 3D elements via React Three Fiber.
+-   **Responsive Design**: Fully responsive layout optimized for all devices.
+-   **Dark/Light Mode**: Theme handling with `next-themes`.
 
-There are several ways of editing your application.
+## 🛠 Tech Stack
 
-**Use Lovable**
+-   **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+-   **Language**: [TypeScript](https://www.typescriptlang.org/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+-   **UI Components**: [Radix UI](https://www.radix-ui.com/) (likely Shadcn UI)
+-   **State Management**: [TanStack Query](https://tanstack.com/query/latest)
+-   **Routing**: [React Router](https://reactrouter.com/)
+-   **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+-   **Animations**: [Framer Motion](https://www.framer.com/motion/), [GSAP](https://gsap.com/)
+-   **3D**: [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 📦 Installation
 
-Changes made via Lovable will be committed automatically to this repo.
+1.  **Clone the repository:**
 
-**Use your preferred IDE**
+    ```bash
+    git clone <repository-url>
+    cd forrof-soon
+    ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2.  **Install dependencies:**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+    ```bash
+    npm install
+    # or
+    bun install
+    ```
 
-Follow these steps:
+3.  **Environment Setup:**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+    Create a `.env` file in the root directory. You can copy the structure from a `.env.example` if available, or confirm the required variables:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+    ```env
+    VITE_API_BASE="https://api.forrof.io/api/v1"
+    VITE_SERVER="https://dev.gemseeroo.com"
+    ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📜 Scripts
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Starts the development server. |
+| `npm run build` | Builds the app for production. |
+| `npm run build:dev` | Builds the app for development mode. |
+| `npm run preview` | Locally preview the production build. |
+| `npm run lint` | Runs ESLint to check for code quality issues. |
 
-**Edit a file directly in GitHub**
+## 📂 Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+-   `src/components`: Reusable UI components.
+-   `src/pages`: Application views/pages (Index, Projects, Articles, Admin, etc.).
+-   `src/context`: React Context providers (Theme, etc.).
+-   `src/hooks`: Custom React hooks.
+-   `src/services`: API service definitions (`src/services/api.ts`).
+-   `src/lib`: Utility functions.
+-   `public`: Static assets.
 
-**Use GitHub Codespaces**
+## 🤝 Contributing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1.  Fork the repository.
+2.  Create a new branch (`git checkout -b feature/amazing-feature`).
+3.  Commit your changes (`git commit -m 'Add some amazing feature'`).
+4.  Push to the branch (`git push origin feature/amazing-feature`).
+5.  Open a Pull Request.

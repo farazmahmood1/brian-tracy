@@ -27,7 +27,7 @@ export const OurClientsSection = () => {
     "a (5).jpeg",
   ];
 
-  const paths = clientFiles.map((name) => `https://dev.gemseeroo.com/clients/${encodeURI(name)}`);
+  const paths = clientFiles.map((name) => `${import.meta.env.VITE_SERVER}/clients/${encodeURI(name)}`);
 
   const firstRow = paths.slice(0, Math.ceil(paths.length / 2));
   const secondRow = paths.slice(Math.ceil(paths.length / 2));

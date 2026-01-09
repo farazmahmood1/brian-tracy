@@ -1,4 +1,4 @@
-const API_BASE = 'https://morgan-shell.vercel.app/api/v1';
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 export const api = {
     auth: {

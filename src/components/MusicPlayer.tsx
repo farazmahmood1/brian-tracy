@@ -9,7 +9,7 @@ export const MusicPlayer = () => {
 
     useEffect(() => {
         // Initialize audio
-        audioRef.current = new Audio("https://dev.gemseeroo.com/space-440026.mp3");
+        audioRef.current = new Audio(`${import.meta.env.VITE_SERVER}/space-440026.mp3`);
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
 
