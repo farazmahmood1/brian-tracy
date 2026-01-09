@@ -58,7 +58,7 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-background text-foreground overflow-x-hidden"
+      className="min-h-screen bg-background text-foreground"
     >
       {/* Custom cursor */}
       <CustomCursor />

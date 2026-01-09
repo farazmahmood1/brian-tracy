@@ -48,19 +48,95 @@ const AtmosphereShader = {
   `,
 };
 
+// ... imports
+import { Mesh, RingGeometry, ShaderMaterial, DoubleSide } from "three";
+
 export interface SceneProxy {
   scale: number;
   rotationSpeed: number;
   positionX: number;
   positionY: number;
   positionZ: number;
+  orbitRotation: number; // New: Controls the manual rotation (simulating camera orbit)
+  trailProgress: number; // New: 0 to 1, controls the trail length
 }
 
-interface EarthSceneProps {
-  proxy?: MutableRefObject<SceneProxy>;
-}
+// ... existing code ...
+
+// Helper for trail with Shader
+const ManualTrail = ({ proxy }: { proxy: React.MutableRefObject<SceneProxy> }) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  // Custom shader for a glowing trail with fade
+  const shaderArgs = useMemo(() => ({
+    uniforms: {
+      uProgress: { value: 0 },
+      uColor: { value: new THREE.Color("#ffffff") },
+    },
+    vertexShader: `
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+        `,
+    fragmentShader: `
+        uniform float uProgress;
+        uniform vec3 uColor;
+        varying vec2 vUv;
+        void main() {
+            // uProgress controls length/opacity
+            // Mask out based on radial or angular?
+            // Let's make it simple: Progress controls overall opacity + length
+            
+            // Angular fade (0 to 1 around the ring)
+            float angle = vUv.y; 
+            
+            // Trail length logic: 
+            // We want a "head" at angle = 1 (or rotating) and tail behind.
+            // But here we are rotating the mesh z.
+            // So just a static gradients + opacity control is enough.
+            
+            float alpha = smoothstep(0.0, 0.5, angle) * (1.0 - smoothstep(0.8, 1.0, angle));
+            
+            // Glow from center
+            float glow = 1.0 - abs(vUv.x - 0.5) * 2.0;
+            glow = pow(glow, 4.0); // sharp glow
+            
+            gl_FragColor = vec4(uColor, glow * alpha * uProgress);
+        }
+        `,
+    transparent: true,
+    side: DoubleSide,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  }), []);
+
+  useFrame(() => {
+    if (!meshRef.current) return;
+    const p = proxy.current;
+
+    const mat = meshRef.current.material as THREE.ShaderMaterial;
+    mat.uniforms.uProgress.value = p.trailProgress;
+
+    // Rotate z to animate the "breaking" line movement
+    meshRef.current.rotation.z += 0.02 + (p.trailProgress * 0.05);
+  });
+
+  return (
+    <mesh ref={meshRef} rotation={[Math.PI / 2, 0, 0]} scale={3.5}>
+      {/* RingGeometry: inner, outer, thetaSegments */}
+      <ringGeometry args={[1.0, 1.01, 128]} />
+      <shaderMaterial args={[shaderArgs]} />
+    </mesh>
+  );
+};
 
 // Earth Scene Component
+interface EarthSceneProps {
+  proxy?: React.MutableRefObject<SceneProxy>;
+}
+
 export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
   const earthRef = useRef<THREE.Group>(null);
   const cloudsRef = useRef<THREE.Mesh>(null);
@@ -73,16 +149,22 @@ export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
     positionX: 0,
     positionY: 0,
     positionZ: 0,
+    orbitRotation: 0,
+    trailProgress: 0,
   });
 
   // Use provided proxy or fallback to internal
   const activeProxy = proxy || internalProxy;
+
+  // Track previous rotation for delta
+  const prevOrbitRotation = useRef(0);
 
   const [earthMap, earthNormal, earthSpec, cloudsMap] = useLoader(
     THREE.TextureLoader,
     [TEXTURES.earth, TEXTURES.earthNormal, TEXTURES.earthSpec, TEXTURES.clouds]
   );
 
+  // ... shader config ...
   const atmosphereConfig = useMemo(
     () => ({
       ...AtmosphereShader,
@@ -111,19 +193,6 @@ export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
           scrub: 1.5,
         },
       });
-
-      // Fade out as user scrolls - this might need to be handled by parent if proxy is used
-      // For now, we keep it here only if no proxy, or assume parent handles opacity separately
-      if (earthRef.current) {
-        gsap.to(earthRef.current.scale, {
-          scrollTrigger: {
-            trigger: document.body,
-            start: "top top",
-            end: "+=1500",
-            scrub: 1.5,
-          },
-        });
-      }
     });
 
     return () => {
@@ -132,76 +201,74 @@ export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
     };
   }, [proxy]);
 
-  // Smooth mouse influence to prevent vibration
-  const currentMouseInfluence = useRef(0);
-
   useFrame(({ clock, mouse }) => {
     const time = clock.getElapsedTime();
     const p = activeProxy.current;
 
+    // Update main group transform
     if (earthRef.current) {
-      // Continuous rotation
-      earthRef.current.rotation.y += 0.0005;
-
-      const targetInfluence = ScrollTrigger.isScrolling() ? 0 : 0.15;
-      currentMouseInfluence.current = THREE.MathUtils.lerp(
-        currentMouseInfluence.current,
-        targetInfluence,
-        0.1
-      );
-
-      earthRef.current.position.x =
-        p.positionX + mouse.x * currentMouseInfluence.current;
-      earthRef.current.position.y =
-        p.positionY + mouse.y * currentMouseInfluence.current;
-
+      // Position/Scale
       earthRef.current.scale.setScalar(p.scale);
-      earthRef.current.position.z = p.positionZ;
+      earthRef.current.position.set(p.positionX, p.positionY, p.positionZ);
+
+      // Rotation: Auto + Manual Orbit
+      earthRef.current.rotation.y = (time * p.rotationSpeed) + p.orbitRotation;
     }
 
     if (cloudsRef.current) {
-      cloudsRef.current.rotation.y = time * (p.rotationSpeed + 0.01);
+      // Clouds move slightly faster
+      cloudsRef.current.rotation.y = (time * (p.rotationSpeed + 0.005)) + p.orbitRotation;
     }
   });
 
   return (
-    <group ref={earthRef} position={[0, 0, 0]}>
-      {/* Main Earth Sphere */}
-      <mesh castShadow receiveShadow>
-        <sphereGeometry args={[2.5, 64, 64]} />
-        <meshStandardMaterial
-          map={earthMap}
-          normalMap={earthNormal}
-          roughnessMap={earthSpec}
-          metalness={0.3}
-          roughness={0.7}
-        />
-      </mesh>
+    <group position={[0, 0, 0]}>
+      <group ref={earthRef}>
+        {/* Main Earth Sphere */}
+        <mesh castShadow receiveShadow>
+          <sphereGeometry args={[2.5, 64, 64]} />
+          <meshStandardMaterial
+            map={earthMap}
+            normalMap={earthNormal}
+            roughnessMap={earthSpec}
+            metalness={0.3}
+            roughness={0.7}
+          />
+        </mesh>
 
-      {/* Cloud Layer */}
-      <mesh ref={cloudsRef} scale={1.02}>
-        <sphereGeometry args={[2.5, 64, 64]} />
-        <meshStandardMaterial
-          map={cloudsMap}
-          transparent
-          opacity={0.35}
-          depthWrite={false}
-        />
-      </mesh>
+        {/* Cloud Layer */}
+        <mesh ref={cloudsRef} scale={1.02}>
+          <sphereGeometry args={[2.5, 64, 64]} />
+          <meshStandardMaterial
+            map={cloudsMap}
+            transparent
+            opacity={0.35}
+            depthWrite={false}
+          />
+        </mesh>
 
-      {/* Subtle Atmospheric Glow */}
-      <mesh scale={1.03}>
-        <sphereGeometry args={[2.5, 64, 64]} />
-        <shaderMaterial
-          ref={atmosphereRef}
-          {...atmosphereConfig}
-          side={THREE.BackSide}
-          transparent
-        />
-      </mesh>
+        {/* Subtle Atmospheric Glow */}
+        <mesh scale={1.03}>
+          <sphereGeometry args={[2.5, 64, 64]} />
+          <shaderMaterial
+            ref={atmosphereRef}
+            {...atmosphereConfig}
+            side={THREE.BackSide}
+            transparent
+          />
+        </mesh>
+      </group>
+
+      {/* The Orbit/Trail Ring (Rotated to be diagonal) */}
+      <group rotation={[Math.PI / 3, 0, 0]}>
+        <ManualTrail proxy={activeProxy} />
+      </group>
     </group>
   );
 };
+
+// ... Loader, Earth3D export
+
 
 // Fallback loader component
 const Loader: React.FC = () => {

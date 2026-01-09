@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef, useEffect, useState, Suspense } from "react";
-import { Magnetic, LineReveal } from "./AnimationComponents";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef, useState, useMemo } from "react";
+import { Magnetic } from "./AnimationComponents";
 import HeroGlobe from "./HeroGlobe";
 
 const categories = [
@@ -12,251 +12,190 @@ const categories = [
 
 export const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Track scroll progress for the entire section
+  // Increased height to 400vh for 4 distinct phases
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end end"],
   });
 
-  // Smooth spring physics for parallax
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 20,
+  // Phases:
+  // 0.0 - 0.20: Phase 1 - Enter the Gate (Vertical Window -> Full Screen)
+  // 0.20 - 0.60: Phase 2 - The Orbit (Rotate 360 around Earth, Trail appears)
+  // 0.60 - 0.80: Phase 3 - Zoom Out (Pull back to see full Scale)
+  // 0.80 - 1.00: Phase 4 - Title Reveal (Forrof appears)
+
+  // Window Transforms
+  // Start as Vertical Gate (30vw x 60vh) -> Expand to Full Viewport
+  const windowWidth = useTransform(scrollYProgress, [0, 0.2], ["30vw", "100%"]);
+  const windowHeight = useTransform(scrollYProgress, [0, 0.2], ["60vh", "100vh"]);
+  const windowRadius = useTransform(scrollYProgress, [0.15, 0.2], ["100px", "0px"]); // Round to sharp
+
+  // Title Animation (Forrof)
+  const titleY = useTransform(scrollYProgress, [0.8, 1], ["100%", "0%"]);
+  const titleOpacity = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
+
+  // Text Sidebars (Services / Mission)
+  // They stay static, but might get covered by the window expanding.
+  // We can fade them out slightly as we "enter" to avoid distraction, or keep them. 
+  // User said "overlaps... text does not move". Natural Z-index coverage works.
+
+  // Earth Animation Control via Proxy
+  const earthProxy = useRef({
+    scale: 0.5,
+    rotationSpeed: 0.02,
+    positionX: 0,
+    positionY: 0,
+    positionZ: 0,
+    orbitRotation: 0,
+    trailProgress: 0,
   });
 
-  // Parallax transforms
-  const earthOpacity = useTransform(smoothProgress, [0, 0.5], [1, 0]);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (!earthProxy.current) return;
 
-  // Text animations to move to header
-  // Moves up, scales down significantly to match header size
-  const heroTextY = useTransform(smoothProgress, [0, 0.25], ["0vh", "-42vh"]);
-  const heroTextScale = useTransform(smoothProgress, [0, 0.25], [1, 0.15]); // Adjust scale to match ~30px / ~14vw
-  const heroTextOpacity = useTransform(smoothProgress, [0.15, 0.25], [1, 0]); // Fade out as it reaches top
+    // Phase 1: Enter
+    // Scale: 0.5 -> 1.5 (Get closer)
+    let currentScale = 0.5;
+    if (latest <= 0.2) {
+      currentScale = 0.5 + (latest / 0.2) * 1.0; // 0.5 to 1.5
+    } else if (latest <= 0.6) {
+      // Phase 2: Orbit
+      // Scale stays relatively close: 1.5
+      currentScale = 1.5;
+    } else if (latest <= 0.8) {
+      // Phase 3: Zoom Out
+      // Scale: 1.5 -> 0.8 (See full globe)
+      const p = (latest - 0.6) / 0.2;
+      currentScale = 1.5 - p * 0.7;
+    } else {
+      // Phase 4: Hold
+      currentScale = 0.8;
+    }
 
-  // Twinkling stars effect
-  const [stars, setStars] = useState<
-    Array<{ id: number; x: number; y: number; delay: number; duration: number }>
-  >([]);
+    // Orbit Rotation (Phase 2)
+    // 0.2 to 0.6 -> 0 to 2*PI
+    let rotation = 0;
+    let trail = 0;
 
-  useEffect(() => {
-    const generatedStars = [...Array(100)].map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 3,
-      duration: 2 + Math.random() * 4,
-    }));
-    setStars(generatedStars);
-  }, []);
+    if (latest > 0.2 && latest <= 0.6) {
+      const p = (latest - 0.2) / 0.4;
+      rotation = p * Math.PI * 2;
+
+      // Trail Logic: Fade in quickly, stay, fade out at end
+      if (p < 0.1) trail = p * 10; // 0->1
+      else if (p > 0.9) trail = (1 - p) * 10; // 1->0
+      else trail = 1;
+    } else if (latest > 0.6) {
+      rotation = Math.PI * 2; // Keep at 360
+      trail = 0;
+    }
+
+    earthProxy.current.scale = currentScale;
+    earthProxy.current.orbitRotation = rotation;
+    earthProxy.current.trailProgress = trail;
+    // slightly increase rotation speed?
+    earthProxy.current.rotationSpeed = 0.02;
+  });
 
   return (
+    // Tall container to provide scroll space
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-[100vh] flex items-center overflow-hidden bg-background"
+      className="relative h-[400vh] bg-background"
     >
-      {/* Twinkling Stars Background */}
-      <div className="absolute inset-0 z-[1]">
-        {stars.map((star) => (
+      {/* Sticky Viewport - This is what the user sees while scrolling */}
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+
+        {/* LEFT TEXT (Services) - Static z-10 */}
+        <div className="absolute left-[5%] md:left-[10%] top-1/2 -translate-y-1/2 z-10 hidden md:block w-64">
           <motion.div
-            key={star.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${star.x}%`,
-              top: `${star.y}%`,
-              width: "2px",
-              height: "2px",
-              background: "#ffffff",
-            }}
-            animate={{
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: star.duration,
-              repeat: Infinity,
-              delay: star.delay,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Gradient Overlay - Deep blue gradient from black to dark blue */}
-      <motion.div
-        className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom_left,#298ECD,#000)] dark:bg-[linear-gradient(to_bottom_left,rgba(0,0,0,0.3),rgba(10,30,70,0.7))] pointer-events-none"
-      />
-
-      {/* 3D Earth Globe with Parallax */}
-      <motion.div
-        className="absolute -left-[20%] md:-left-[40%] top-[70%] md:top-[130%] -translate-y-[60%] z-10 w-[100vw] md:w-[80vw] lg:w-[80vw] aspect-square pointer-events-auto"
-        style={{
-          opacity: earthOpacity,
-          willChange: "transform"
-
-          // scale: earthScale,
-        }}
-      >
-        <Suspense
-          fallback={
-            <div className="w-full h-full flex items-center justify-center">
-              <motion.div
-                className="w-[60%] aspect-square rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(circle at 30% 30%, #4da6ff 0%, #1a4a7a 40%, #0a1a2a 80%, #000000 100%)",
-                  boxShadow:
-                    "0 0 100px rgba(77, 166, 255, 0.3), inset -30px -30px 80px rgba(0,0,0,0.8)",
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              />
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <h3 className="text-xs uppercase tracking-[0.2em] text-white/50 mb-6">Services</h3>
+            <div className="flex flex-col gap-4">
+              {categories.map((cat, index) => (
+                <Magnetic key={cat} strength={0.15}>
+                  <a href="#services" className="group flex items-center gap-3 cursor-pointer py-1">
+                    <span className="w-6 h-px bg-white/30 group-hover:w-10 group-hover:bg-white transition-all duration-300" />
+                    <span className="text-sm text-white/80 group-hover:text-white transition-colors">
+                      {cat}
+                    </span>
+                  </a>
+                </Magnetic>
+              ))}
             </div>
-          }
-        >
-          <HeroGlobe className="w-[120vw] h-full" />
-        </Suspense>
-      </motion.div>
-
-      {/* Main Content */}
-      <motion.div
-        className="relative z-20 section-padding w-full"
-      >
-        <div className="max-w-[1800px] mx-auto max-[1500px]:mt-28 ">
-          {/* Top Label */}
-          <motion.div
-            className="flex items-center gap-4 mb-8 mt-28"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <motion.span
-              className="number-label text-white"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              /01
-            </motion.span>
-            <LineReveal
-              className="h-px bg-border flex-1 max-w-[100px]"
-              delay={0.6}
-            />
-            <motion.span
-              className="text-xs text-white uppercase tracking-widest"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              Space of Creative Solutions
-            </motion.span>
-          </motion.div>
-
-          {/* Main Logo Typography */}
-          <motion.div
-            className="overflow-hidden mb-6"
-            style={{
-              background: "transparent",
-              y: heroTextY,
-              scale: heroTextScale,
-              opacity: heroTextOpacity,
-              transformOrigin: "left center"
-            }}
-          >
-            <motion.h1
-              className="text-[18vw] md:text-[14vw] font-bold leading-[0.85] tracking-tighter text-white"
-              initial={{ y: "120%" }}
-              animate={{ y: 0 }}
-              transition={{
-                duration: 1.4,
-                ease: [0.25, 0.1, 0.25, 1],
-                delay: 0.3,
-              }}
-            >
-              forrof
-            </motion.h1>
           </motion.div>
         </div>
 
-        {/* Subtitle */}
-        <motion.div
-          className="flex items-start gap-8 mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <motion.span
-            className="text-sm text-white writing-vertical hidden md:block"
-            // style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
+        {/* RIGHT TEXT (Mission) - Static z-10 */}
+        <div className="absolute right-[5%] md:right-[10%] top-1/2 -translate-y-1/2 z-10 hidden md:block w-72 text-right">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
           >
-            Full-service Creative Agency
-          </motion.span>
-        </motion.div>
+            <h3 className="text-xs uppercase tracking-[0.2em] text-white/50 mb-6">Our Mission</h3>
+            <p className="text-lg text-white leading-relaxed font-light">
+              Crafting digital experiences that transcend boundaries.
+              <span className="block mt-4 text-white/60 text-sm">
+                We build products that empower businesses to grow and innovate.
+              </span>
+            </p>
 
-        {/* Categories - Interactive List */}
-        <motion.div
-          className="flex flex-col gap-4 max-w-md"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-        >
-          {categories.map((cat, index) => (
-            <Magnetic key={cat} strength={0.15}>
-              <motion.a
-                href="#services"
-                className="group flex items-center gap-4 py-1 cursor-pointer"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.3 + index * 0.1 }}
-                whileHover={{ x: 10 }}
-              >
-                <motion.span className="w-8 h-px bg-white group-hover:w-16 group-hover:bg-white transition-all duration-500" />
-                <span className="text-sm text-white group-hover:text-white transition-colors duration-500">
-                  {cat}
+            <div className="flex gap-2 justify-end mt-6 flex-wrap">
+              {["Frontend", "Backend", "Cloud"].map(tag => (
+                <span key={tag} className="px-3 py-1 border border-white/20 rounded-full text-[10px] text-white/70">
+                  {tag}
                 </span>
-              </motion.a>
-            </Magnetic>
-          ))}
-        </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
 
-        {/* Right side description */}
+        {/* COSMIC GATE / WINDOW - Expands (z-20) */}
         <motion.div
-          className="absolute right-0 bottom-[10%] -translate-y-1/2 max-w-[370px] hidden xl:block mr-10"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 1.5, duration: 1 }}
+          className="relative z-20 bg-black overflow-hidden shadow-[0_0_50px_rgba(41,142,205,0.2)] border border-white/10"
+          style={{
+            width: windowWidth,
+            height: windowHeight,
+            borderRadius: windowRadius,
+          }}
         >
-          <div className="flex flex-col items-center gap-5">
-            <div className="">
-              <p className="text-lg text-white leading-tight">
-                Whether through robust APIs, scalable cloud solutions, or
-                seamless integrations,
-                <span className="font-extralight text-white/70">
-                  we build digital products that empower businesses to grow
-                  and innovate.
-                </span>
-              </p>
-            </div>
-            <div className="flex gap-3 -ml-10">
-              <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
-                Frontend
-              </span>
-              <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
-                Backend
-              </span>
-              <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
-                Cloud
-              </span>
-              <span className="px-5 py-1 border border-white text-white rounded-full text-base ">
-                +
-              </span>
-            </div>
+          {/* Inner Content - Earth & Stars */}
+          <div className="absolute inset-0 w-full h-full">
+            <HeroGlobe
+              className="w-full h-full"
+              proxy={earthProxy}
+            />
           </div>
+
+          {/* TITLE REVEAL - Inside the window (z-30) */}
+          {/* Renders at the bottom, moves up */}
+          <div className="absolute bottom-0 left-0 w-full flex justify-center pb-12 z-30 overflow-hidden pointer-events-none">
+            <motion.h1
+              className="text-[15vw] font-bold tracking-tighter text-white leading-none"
+              style={{ y: titleY, opacity: titleOpacity }}
+            >
+              forrof
+            </motion.h1>
+          </div>
+
+          {/* Scroll Prompt - Visible initially */}
+          <motion.div
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-widest uppercase z-30"
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
+          >
+            Enter the Gate
+          </motion.div>
         </motion.div>
 
-      </motion.div>
-
-    </section >
+      </div>
+    </section>
   );
 };
+

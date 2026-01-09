@@ -4,47 +4,27 @@ import * as THREE from "three";
 import { Stars, Preload } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EarthScene } from "./Earth3D";
+import { EarthScene, SceneProxy } from "./Earth3D";
 
 gsap.registerPlugin(ScrollTrigger);
 
 import { useTheme } from "@/context/ThemeContext";
 
-const HeroGlobeScene: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
-    const scrollProxy = useRef({
-        scale: 1,
-        rotationSpeed: 0.02,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-    });
-
-    // Setup GSAP ScrollTrigger
-    useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
-            const isMobile = window.innerWidth < 768;
-
-            gsap.to(scrollProxy.current, {
-                scale: isMobile ? 1.3 : 1.8,
-                positionZ: isMobile ? 0 : 2,
-                positionY: isMobile ? -0.5 : -1,
-                rotationSpeed: 0.02,
-                scrollTrigger: {
-                    trigger: document.body,
-                    start: "top top",
-                    end: "+=1500",
-                    scrub: 1.5,
-                },
-            });
-        });
-        return () => ctx.revert();
-    }, []);
+const HeroGlobeScene: React.FC<{ isLightMode: boolean; proxy?: React.MutableRefObject<SceneProxy> }> = ({
+    isLightMode,
+    proxy,
+}) => {
+    // We only use internal scrollProxy if no external proxy is provided
+    // However, EarthScene handles that fallback logic itself.
+    // We just need to handle the case where we might want to do local GSAP if proxy is missing?
+    // Actually, EarthScene has the GSAP logic inside it now if proxy is missing.
+    // So here we just pass it through.
 
     return (
         <>
             {/* Earth Group */}
             <group>
-                <EarthScene proxy={scrollProxy} />
+                <EarthScene proxy={proxy} />
             </group>
 
             {/* Lighting - Adjusted based on theme */}
@@ -76,7 +56,12 @@ const Loader: React.FC = () => {
     return null;
 };
 
-export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
+interface HeroGlobeProps {
+    className?: string;
+    proxy?: React.MutableRefObject<SceneProxy>;
+}
+
+export const HeroGlobe: React.FC<HeroGlobeProps> = ({ className, proxy }) => {
     const { theme } = useTheme();
     const [isLightMode, setIsLightMode] = React.useState(false);
 
@@ -111,7 +96,7 @@ export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
                 frameloop="always"
             >
                 <Suspense fallback={<Loader />}>
-                    <HeroGlobeScene isLightMode={isLightMode} />
+                    <HeroGlobeScene isLightMode={isLightMode} proxy={proxy} />
                     <Preload all />
                 </Suspense>
             </Canvas>
