@@ -290,7 +290,7 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: any, p
                 {article.tags.map((tag: string, i: number) => (
                   <motion.span
                     key={tag}
-                    className="px-4 py-2 rounded-full bg-muted text-muted-foreground text-sm hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
+                    className="px-4 py-2 rounded-full bg-muted text-foreground text-sm hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -383,25 +383,25 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: any, p
                 <nav className="space-y-2 text-sm">
                   <a
                     href="#"
-                    className="block text-muted-foreground hover:text-primary transition-colors"
+                    className="block text-foreground hover:text-primary transition-colors"
                   >
                     Introduction
                   </a>
                   <a
                     href="#"
-                    className="block text-muted-foreground hover:text-primary transition-colors"
+                    className="block text-foreground hover:text-primary transition-colors"
                   >
                     Key Concepts
                   </a>
                   <a
                     href="#"
-                    className="block text-muted-foreground hover:text-primary transition-colors"
+                    className="block text-foreground hover:text-primary transition-colors"
                   >
                     Best Practices
                   </a>
                   <a
                     href="#"
-                    className="block text-muted-foreground hover:text-primary transition-colors"
+                    className="block text-foreground hover:text-primary transition-colors"
                   >
                     Conclusion
                   </a>
