@@ -20,8 +20,8 @@
     --secondary: 36 33% 78%; /* #D9CAB3 */
     --secondary-foreground: 0 0% 12.9%;
 
-    --muted: 36 33% 78%;
-    --muted-foreground: 0 0% 45.1%;
+    --muted: 0 0% 75%;
+    --muted-foreground: 0 0% 70.1%;
 
     --accent: 155 17.2% 51.2%; /* #6D9886 */
     --accent-foreground: 0 0% 96.5%;
@@ -53,8 +53,8 @@
     --secondary: 36 33% 78%; /* #D9CAB3 */
     --secondary-foreground: 0 0% 12.9%;
 
-    --muted: 36 33% 78%;
-    --muted-foreground: 0 0% 45.1%;
+     --muted: 0 0% 75%;
+    --muted-foreground: 0 0% 70.1%;
 
     --accent: 155 17.2% 51.2%; /* #6D9886 */
     --accent-foreground: 0 0% 96.5%;
