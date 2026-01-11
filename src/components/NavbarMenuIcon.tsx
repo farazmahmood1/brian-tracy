@@ -181,8 +181,8 @@ export const NavbarMenuIcon = () => {
               navigate("/");
             }}
           >
-            <img src="/logo.png" alt="Logo" className="w-9 h-9 dark:hidden" />
-            <img src="/logo-white.png" alt="Logo" className="w-9 h-9 hidden dark:block" />
+            <img src="/logo.png" alt="Forrof Logo" title="Forrof" className="w-9 h-9 dark:hidden" />
+            <img src="/logo-white.png" alt="Forrof Logo" title="Forrof" className="w-9 h-9 hidden dark:block" />
             <motion.span
               className="text-3xl font-bold tracking-tight inline-block"
               style={{ opacity: logoTextOpacity, y: logoTextY }}

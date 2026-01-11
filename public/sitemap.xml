@@ -8,7 +8,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://forrof.io/</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -16,7 +16,7 @@
   <!-- Projects Page -->
   <url>
     <loc>https://forrof.io/projects</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -24,7 +24,7 @@
   <!-- Articles/Blog Page -->
   <url>
     <loc>https://forrof.io/articles</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -32,7 +32,7 @@
   <!-- Contact Page -->
   <url>
     <loc>https://forrof.io/contact</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -40,7 +40,7 @@
   <!-- Careers Page -->
   <url>
     <loc>https://forrof.io/careers</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -48,7 +48,7 @@
   <!-- Terms and Policy -->
   <url>
     <loc>https://forrof.io/terms-and-policy</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -56,20 +56,9 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://forrof.io/privacy-policy</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
-
-  <!-- 
-    Add individual project and article URLs here as they're created.
-    Example:
-    <url>
-      <loc>https://forrof.io/project/example-project</loc>
-      <lastmod>2026-01-10</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-    </url>
-  -->
 
 </urlset>

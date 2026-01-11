@@ -13,10 +13,18 @@ import { ContactSection } from "@/components/ContactSection";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { useLenis } from "@/hooks/useLenis";
 import { useEffect, useState } from "react";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const Index = () => {
   // Initialize Lenis smooth scrolling
   useLenis();
+
+  // SEO Meta Tags
+  usePageMetadata({
+    title: "Forrof | Leading Software & Digital Solutions Agency",
+    description: "Transform your business with Forrof's expert software development, branding, web design, mobile apps, SEO, SaaS, cloud solutions, and digital services. Trusted by businesses worldwide.",
+    keywords: "forrof, software agency, web development, mobile app development, UI UX design, branding, SEO services, SaaS development, cloud solutions, cybersecurity, automation, digital transformation, custom software, software development company",
+  });
 
   const [isLoading, setIsLoading] = useState(true);
 

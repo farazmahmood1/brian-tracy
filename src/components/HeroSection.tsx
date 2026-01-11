@@ -5,7 +5,7 @@ import HeroGlobe from "./HeroGlobe";
 
 const categories = [
   "Cloud Solutions",
-  "Web and app Developement",
+  "Web and app Development",
   "Branding and Identity",
   "Social Media Marketing & SEO",
 ];
