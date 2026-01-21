@@ -94,7 +94,7 @@ export const ContactSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.span className="number-label">/08</motion.span>
+          <motion.span className="number-label">/09</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             Contact

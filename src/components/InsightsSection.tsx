@@ -72,7 +72,7 @@ export const InsightsSection = () => {
           className="flex items-center gap-4 mb-20"
           style={{ y: headerY, opacity: headerOpacity }}
         >
-          <motion.span className="number-label">/09</motion.span>
+          <motion.span className="number-label">/08</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             Insights

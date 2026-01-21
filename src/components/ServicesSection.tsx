@@ -17,52 +17,46 @@ import {
 const services = [
   {
     number: "01",
-    title: "Branding and Visual Identity Design",
+    title: "AI Products & SaaS Development",
     description:
-      "We build strong brand identities including logo design, brand strategy, visual systems, and messaging that position your business clearly and consistently across all digital platforms.",
-    image:
+      "We design and build revenue‑ready AI products, SaaS platforms, and modern applications with strong technical foundations.", image:
       "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=600&q=80",
   },
   {
     number: "02",
-    title: "UI UX and Digital Product Design",
+    title: "AI Business Systems & Internal Tool",
     description:
-      "User focused UI UX design for web and mobile products. We design intuitive interfaces, scalable design systems, and conversion driven experiences that improve engagement and retention.",
-    image:
+      "We create intelligent internal platforms, dashboards, and automation systems that streamline operations and unlock growth.", image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80",
   },
   {
     number: "03",
-    title: "Digital Marketing and Growth Strategy",
+    title: "AI Integrations, Agents & Automation",
     description:
-      "Performance driven digital marketing including social media marketing, paid campaigns, content strategy, and conversion optimization to grow traffic, leads, and revenue.",
-    image:
+      "We build real‑world AI systems — from document intelligence to custom agents and workflows — integrated into your business.", image:
       "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
   },
   {
     number: "04",
-    title: "SEO and Search Engine Optimization",
+    title: "MVP → Scalable Platform Engineering",
     description:
-      "Technical SEO, on page optimization, keyword strategy, and performance improvements designed to increase organic traffic, rankings, and long term visibility on Google.",
-    image:
+      "We help founders go from idea to production‑grade platform with scalable architecture and long‑term product vision.", image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
   },
   {
     number: "05",
-    title: "Custom Web Development",
+    title: "Product Architecture & Technical Strategy",
     description:
-      "High performance web development using modern frameworks for scalable websites, SaaS platforms, ecommerce solutions, and custom business applications.",
-    image:
+      "We partner with teams on system design, AI strategy, and engineering direction to reduce risk and build smarter.", image:
       "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80",
   },
   {
     number: "06",
-    title: "Content Creation and Brand Storytelling",
+    title: "Product Design, UX & Growth Enablement",
     description:
-      "High quality content creation including copywriting, visual assets, and brand storytelling that communicates value, builds trust, and supports SEO and marketing goals.",
-    image:
-      "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=600&q=80",
-  },
+      "We design product‑focused UI/UX, brand systems, and growth‑ready experiences that support adoption, conversion, and long‑term product success.", image:
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80",
+  }
 ];
 
 export const ServicesSection = () => {
@@ -144,7 +138,7 @@ export const ServicesSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 mb-24">
           <div className="overflow-hidden">
             <motion.h2
-              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95]"
+              className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl pb-2 font-bold leading-[0.95]"
               initial={{ y: "100%" }}
               animate={isInView ? { y: 0 } : {}}
               transition={{
@@ -153,7 +147,7 @@ export const ServicesSection = () => {
                 delay: 0.2,
               }}
             >
-              Tech Solutions for Growing Brands
+              Tech Solutions for Companies
             </motion.h2>
           </div>
           <motion.div
@@ -163,8 +157,7 @@ export const ServicesSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-md leading-relaxed">
-              We provide comprehensive creative solutions tailored to elevate
-              your brand presence and accelerate business growth.
+              We partner with founders and growing teams to build AI‑powered products, intelligent systems, and scalable software platforms.
             </p>
           </motion.div>
         </div>

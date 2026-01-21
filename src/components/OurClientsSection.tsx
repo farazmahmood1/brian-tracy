@@ -33,11 +33,11 @@ export const OurClientsSection = () => {
   const secondRow = paths.slice(Math.ceil(paths.length / 2));
 
   return (
-    <section className="md:pt-10 pt-6 relative overflow-hidden">
+    <section className="relative overflow-hidden" >
       {/* Background gradient */}
       <div className="absolute inset-0 from-background via-muted/20 to-background" />
 
-      <div className="max-w-[1800px] mx-auto relative z-10 px-6 md:px-12 lg:px-20">
+      <div className="max-w-[1800px] mx-auto relative z-10" >
         {/* Header */}
 
         {/* Marquee Container */}

@@ -4,10 +4,10 @@ import { Magnetic, LineReveal } from "./AnimationComponents";
 import HeroGlobe from "./HeroGlobe";
 
 const categories = [
-  "Cloud Solutions",
-  "Web and app Development",
-  "Branding and Identity",
-  "Social Media Marketing & SEO",
+  "AI Products & SaaS Platforms",
+  "Intelligent Business Systems",
+  "Automation & AI Integrations",
+  "Product Engineering & Architecture",
 ];
 
 export const HeroSection = () => {
@@ -146,7 +146,7 @@ export const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 }}
             >
-              Space of Creative Solutions
+              Space of Intelligent Products & Business Systems
             </motion.span>
           </motion.div>
 
@@ -190,7 +190,7 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
           >
-            Full-service Creative Agency
+            AI‑First Product & Systems Studio
           </motion.span>
         </motion.div>
 
@@ -222,23 +222,21 @@ export const HeroSection = () => {
 
         {/* Right side description */}
         <motion.div
-          className="absolute right-0 bottom-[10%] -translate-y-1/2 max-w-[370px] hidden xl:block mr-10"
+          className="absolute right-0 bottom-[1%] -translate-y-1/2 max-w-[370px] hidden xl:block mr-10"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1.5, duration: 1 }}
         >
           <div className="flex flex-col items-center gap-5">
             <div className="">
-              <p className="text-lg text-white leading-tight">
-                Whether through robust APIs, scalable cloud solutions, or
-                seamless integrations,
-                <span className="font-extralight text-white/70">
-                  we build digital products that empower businesses to grow
-                  and innovate.
+              <p className="text-lg text-white leading-tight" style={{ textAlign: "right" }}>
+                Whether through AI‑powered platforms, scalable product architectures, or intelligent automation systems,
+                <span className="font-extralight text-white/70">&nbsp;
+                  we design and build software that becomes a long‑term business asset, not just an app.
                 </span>
               </p>
             </div>
-            <div className="flex gap-3 -ml-10">
+            <div className="flex gap-3 -ml-10 justify-end" style={{ alignSelf: "flex-end" }} >
               <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
                 Frontend
               </span>
@@ -246,7 +244,7 @@ export const HeroSection = () => {
                 Backend
               </span>
               <span className="px-4 py-2 border border-white text-white rounded-full text-xs ">
-                Cloud
+                AI
               </span>
               <span className="px-5 py-1 border border-white text-white rounded-full text-base ">
                 +

@@ -77,7 +77,7 @@ export const FAQSection = () => {
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                Frequently Asked Questions About Our Software and Digital Services
+                Frequently Asked Questions About Our Product & AI Services
               </motion.h2>
             </div>
             <motion.p
@@ -86,7 +86,7 @@ export const FAQSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.5 }}
             >
-              Didn't find the answer? Ask us about our services!
+              Didn’t find your answer? Talk with our team.
             </motion.p>
             <Magnetic strength={0.15}>
               <motion.a

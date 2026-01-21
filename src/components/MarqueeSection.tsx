@@ -1,31 +1,21 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
-import { Star } from "lucide-react";
+import { Star, Workflow } from "lucide-react";
 
 const marqueeItems = [
-  "Branding",
-  "Web Design",
-  "Mobile App Development",
-  "Marketing",
-  "SEO",
-  "UI/UX",
-  "Data Solutions",
-  "Cybersecurity",
-  "Cloud Solutions",
-  "Web Development",
-  "Ecommerce Solutions",
-  "Custom Software",
-  "SaaS Development",
-  "API Development",
-  "System Integration",
-  "DevOps",
-  "Performance Optimization",
+  "AI Products",
+  "SaaS Platforms",
+  "Business Systems",
   "Automation",
-  "CRM Solutions",
-  "CMS Development",
-  "Product Strategy",
-  "Digital Transformation",
-  "Analytics & Reporting",
+  "Internal Tools",
+  "AI Integrations",
+  "Product Engineering",
+  "Platform Architecture",
+  "System Design",
+  "Technical Strategy",
+  "Scalable Software",
+  "Data Platforms",
+  "Workflow Automation",
 ];
 
 export const MarqueeSection = () => {
@@ -55,16 +45,16 @@ export const MarqueeSection = () => {
                   key={`${setIndex}-${index}`}
                   className="flex items-center gap-6 shrink-0"
                 >
-                  <span className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter whitespace-nowrap text-foreground/10 hover:text-foreground/40 transition-colors duration-500">
+                  <span className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter whitespace-nowrap text-foreground/10 hover:text-foreground/40 transition-colors duration-500 italic">
                     {item}
                   </span>
                   <motion.div
                     className="w-4 h-4 rounded-full bg-foreground/20"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{
-                      duration: 2,
+                      duration: 4,
                       repeat: Infinity,
-                      delay: index * 0.2,
+                      delay: index * 0.3,
                     }}
                   />
                 </div>

@@ -11,33 +11,33 @@ import { LineReveal, Magnetic, Reveal } from "./AnimationComponents";
 
 const pricingPlans = [
   {
-    name: "Per Project",
+    name: "Product Build",
     price: "$5,490",
-    description: "Perfect for one-time projects and specific deliverables",
+    // period: "/month",
+    description: "Ideal for MVPs, platforms, and system builds",
     features: [
-      "Brand identity design",
-      "Website design & development",
-      "Marketing materials",
-      "Social media assets",
-      "Unlimited revisions",
-      "Source files included",
+      "AI product or SaaS development",
+      "Platform & system architecture",
+      "Full‑stack engineering",
+      "AI integrations",
+      "Scalable foundations",
+      "Source code & documentation",
     ],
     highlighted: false,
   },
   {
-    name: "Monthly",
+    name: "Product Partnership",
     price: "$8,990",
     period: "/month",
-    description: "Ongoing partnership for continuous growth and support",
+    description: "Long‑term product & systems collaboration",
     features: [
-      "Everything in Per Project",
-      "Dedicated design team",
-      "Priority support 24/7",
-      "Monthly strategy calls",
-      "Content creation",
-      "Performance analytics",
-      "SEO optimization",
-      "Social media management",
+      "Everything in Product Build",
+      "Dedicated product engineers",
+      "Ongoing feature development",
+      "AI system evolution",
+      "Architecture & scaling support",
+      "Priority communication",
+      "Monthly product strategy calls",
     ],
     highlighted: true,
   },
@@ -73,7 +73,7 @@ export const PricingSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.span className="number-label">/04</motion.span>
+          <motion.span className="number-label">/05</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             Pricing
@@ -93,7 +93,7 @@ export const PricingSection = () => {
                 delay: 0.2,
               }}
             >
-              Simple, transparent pricing
+              Simple, transparent engagement models
             </motion.h2>
           </div>
           <motion.div
@@ -103,8 +103,7 @@ export const PricingSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-md leading-relaxed mb-2">
-              Choose the plan that works best for your business. All plans
-              include our commitment to excellence and results.
+              Choose a structure that fits your product stage and growth goals.
             </p>
           </motion.div>
         </div>

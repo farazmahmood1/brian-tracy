@@ -15,27 +15,27 @@ const values = [
   {
     icon: Award,
     title: "Excellence",
-    description: "We pursue perfection in every pixel and every interaction.",
+    description: "We pursue engineering quality, scalability, and long‑term performance.",
   },
   {
     icon: Users,
     title: "Collaboration",
-    description: "Working together with clients to achieve remarkable results.",
+    description: "We work as product partners, not just service providers.",
   },
   {
     icon: Globe,
     title: "Innovation",
-    description: "Pushing boundaries with cutting-edge design and technology.",
+    description: "We build with AI‑first thinking and modern system design.",
   },
   {
     icon: Zap,
     title: "Impact",
-    description: "Creating work that drives measurable business growth.",
+    description: "We create platforms that drive measurable business outcomes.",
   },
 ];
 
 const words =
-  "We are a creative agency that transforms brands through strategic design and digital innovation".split(
+  "We build intelligent products and business systems that turn software into a growth engine.".split(
     " "
   );
 
@@ -142,7 +142,7 @@ export const AboutSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.span className="number-label">/10</motion.span>
+          <motion.span className="number-label">/04</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             About Us
