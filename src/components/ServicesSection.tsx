@@ -2,17 +2,11 @@ import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
   useInView,
 } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import {
-  Reveal,
-  LineReveal,
-  Magnetic,
-  TextReveal,
-} from "./AnimationComponents";
+import { LineReveal } from "./AnimationComponents";
 
 const services = [
   {
@@ -70,7 +64,7 @@ export const ServicesSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
@@ -83,6 +77,19 @@ export const ServicesSection = () => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
     >
+      {/* Greenish background glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] rounded-full bg-accent/20 blur-[130px]"
+          animate={{
+            x: [0, -60, 20, -40, 0],
+            y: [0, 60, -40, 30, 0],
+            opacity: [0.6, 1, 0.4, 0.9, 0.6],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
       {/* Floating image that follows cursor when hovering */}
       <motion.div
         className="fixed pointer-events-none z-50 w-64 h-80 rounded-xl overflow-hidden"

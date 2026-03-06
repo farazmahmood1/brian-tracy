@@ -6,11 +6,10 @@ import {
   useInView,
 } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import {
   LineReveal,
   Magnetic,
-  TextReveal,
 } from "@/components/AnimationComponents";
 import { useNavigate } from "react-router-dom";
 import { projectsData } from "@/data/projects";
@@ -129,6 +128,7 @@ const ProjectCard = ({
 
 const ProjectsPage = () => {
   const navigate = useNavigate();
+  const heroRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // SEO Meta Tags
@@ -137,9 +137,12 @@ const ProjectsPage = () => {
     description: "Explore our finest work across branding, design, and digital solutions. See how we help businesses grow with premium web experiences.",
   });
 
-  // Removed selectedProject state and modal logic
   const [activeFilter, setActiveFilter] = useState("All Projects");
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+
+  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(heroScroll, [0, 1], [0, 200]);
+  const heroOpacity = useTransform(heroScroll, [0, 0.6], [1, 0]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -150,10 +153,6 @@ const ProjectsPage = () => {
     stiffness: 50,
     damping: 20,
   });
-  const backgroundY = useTransform(smoothProgress, [0, 1], [0, -200]);
-  const backgroundGradient = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const backgroundScaleGradient = useTransform(scrollYProgress, [0, 0.5], [1, 1.2]);
-  const backgroundScale = useTransform(smoothProgress, [0, 1], [1, 1.2]);
   const counterScale = useTransform(smoothProgress, [0, 0.3], [0.8, 1]);
 
   const filteredProjects =
@@ -166,77 +165,74 @@ const ProjectsPage = () => {
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
         {/* Hero Section */}
         <motion.section
-          className="relative lg:h-[100vh] md:h-[10vh] sm:h-[60vh] min-h-[600px] overflow-hidden flex items-end section-padding pb-20"
+          ref={heroRef}
+          className="relative min-h-screen flex items-end section-padding pb-24 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          {/* Floating particles */}
-          {Array.from({ length: 188 }).map((_, i) => (
+          {/* Animated glow */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <motion.div
-              key={i}
-              className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                width: 2 + Math.random() * 4,
-                height: 2 + Math.random() * 4,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                x: [0, 15, 0],
-                opacity: [0.2, 0.6, 0.2],
-              }}
-              transition={{
-                duration: 4 + Math.random() * 2,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: "easeInOut",
-              }}
+              className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] bg-accent/20 rounded-full blur-[130px]"
+              animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
             />
-          ))}
+            <motion.div
+              className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]"
+              animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
 
-          {/* Animated Gradient Overlay */}
-          <motion.div
-            className="absolute inset-0 z-10"
-            style={{ opacity: 0.85 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent" />
-          </motion.div>
-
-
-
-
-          {/* Hero Content */}
-          <motion.div className="absolute inset-0 z-20 section-padding pb-20 pt-60 max-md:pt-52">
-            <div className="max-w-[1800px] mx-auto w-full">
-              <div className="overflow-hidden mb-6">
-                <motion.h1
-                  className="text-[12vw] md:text-[10vw] font-bold leading-[0.9] tracking-tighter"
-                  initial={{ y: "120%" }}
-                  animate={{ y: 0 }}
-                  transition={{
-                    duration: 1.2,
-                    ease: [0.25, 0.1, 0.25, 1],
-                    delay: 0.4,
-                  }}
-                >
-                  Our Creative Portfolio
-                </motion.h1>
-              </div>
+          <motion.div className="relative z-20 max-w-[1800px] mx-auto w-full" style={{ y: heroY, opacity: heroOpacity }}>
+            <motion.span
+              className="inline-block text-xs text-muted-foreground uppercase tracking-[0.3em] mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              Our work
+            </motion.span>
+            <div className="overflow-hidden mb-6">
+              <motion.h1
+                className="text-[13vw] md:text-[10vw] font-bold leading-[0.88] tracking-tighter"
+                initial={{ y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+              >
+                Our Portfolio
+              </motion.h1>
+            </div>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mt-10">
               <motion.p
-                className="text-lg md:text-2xl text-muted-foreground max-w-2xl mb-8"
+                className="text-lg md:text-2xl text-muted-foreground max-w-xl leading-relaxed"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                Explore our finest work across branding, design, and digital
-                solutions
+                Explore our finest work across branding, design, and digital solutions.
               </motion.p>
+              <motion.div
+                className="flex gap-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                {[
+                  { n: "150+", label: "Projects Shipped" },
+                  { n: "50+", label: "Happy Clients" },
+                  { n: "98%", label: "Satisfaction Rate" },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <span className="text-4xl md:text-5xl font-bold block leading-none mb-1">{s.n}</span>
+                    <span className="text-xs text-muted-foreground uppercase tracking-wider">{s.label}</span>
+                  </div>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
-
         </motion.section>
 
         {/* Stats and Filters Section */}
@@ -254,30 +250,24 @@ const ProjectsPage = () => {
 
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <motion.div
-                className="absolute top-0 right-0 w-96 h-96 bg-secondary-foreground rounded-full blur-3xl"
-                style={{
-                  y: backgroundGradient,
-                  scale: backgroundScaleGradient,
-                }}
+                className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] bg-accent/20 rounded-full blur-[130px]"
                 animate={{
-                  x: [0, 100, 0],
-                  y: [0, -50, 0],
+                  x: [0, -60, 20, -40, 0],
+                  y: [0, 60, -40, 30, 0],
+                  opacity: [0.6, 1, 0.4, 0.9, 0.6],
                 }}
                 transition={{
-                  duration: 8,
+                  duration: 12,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
               />
               <motion.div
-                className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-foreground rounded-full blur-3xl"
-                style={{
-                  y: backgroundGradient,
-                  scale: backgroundScaleGradient,
-                }}
+                className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px]"
                 animate={{
-                  x: [0, -100, 0],
-                  y: [0, 100, 0],
+                  x: [0, -60, 0],
+                  y: [0, 80, 0],
+                  opacity: [0.4, 0.7, 0.4],
                 }}
                 transition={{
                   duration: 10,
@@ -287,9 +277,6 @@ const ProjectsPage = () => {
               />
               <motion.div
                 className="absolute top-1/2 left-1/2 w-80 h-80 bg-secondary-foreground rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  scale: backgroundScaleGradient,
-                }}
                 animate={{
                   scale: [0.8, 1.2, 0.8],
                   opacity: [0.3, 0.6, 0.3],

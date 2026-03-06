@@ -6,8 +6,8 @@ import {
   useInView,
 } from "framer-motion";
 import { useRef } from "react";
-import { Check, ArrowUpRight, Star } from "lucide-react";
-import { LineReveal, Magnetic, Reveal } from "./AnimationComponents";
+import { Check, ArrowUpRight } from "lucide-react";
+import { LineReveal, Magnetic } from "./AnimationComponents";
 
 const pricingPlans = [
   {
@@ -111,8 +111,8 @@ export const PricingSection = () => {
         {/* Pricing Cards with 3D Tilt Effect */}
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
           {pricingPlans.map((plan, index) => (
+            <Magnetic key={plan.name} strength={0.08}>
             <motion.div
-              key={plan.name}
               className={`relative rounded-3xl p-10 md:p-12 overflow-hidden ${plan.highlighted
                 ? "bg-foreground text-background"
                 : "border border-border bg-card/50"
@@ -268,6 +268,7 @@ export const PricingSection = () => {
                 </motion.a>
               </Magnetic>
             </motion.div>
+            </Magnetic>
           ))}
         </div>
       </div>

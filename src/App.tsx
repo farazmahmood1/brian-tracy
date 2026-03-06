@@ -3,30 +3,31 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { lazy, Suspense, useRef } from "react";
 import Index from "./pages/Index";
-import Services from "./pages/Services";
-import Projects from "./pages/Projects";
-import ProjectDetails from "./pages/ProjectDetails";
-import Articles from "./pages/Articles";
-import ArticleDetails from "./pages/ArticleDetails";
-import NotFound from "./pages/NotFound";
-import Contact from "./pages/Contact";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { CustomCursor } from "./components/CustomCursor";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useRef } from "react";
-import TermsAndPolicy from "./pages/TermsAndPolicy";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Careers from "./pages/Careers";
-import JobDetails from "./pages/JobDetails";
-import AdminLogin from "./pages/admin/Login";
-import Dashboard from "./pages/admin/Dashboard";
-import AdminJobs from "./pages/admin/Jobs";
-import AllApplications from "./pages/admin/AllApplications";
-import AdminBlogs from "./pages/admin/Blogs";
 import { ProtectedRoute } from "./components/admin/ProtectedRoute";
+
+const Services = lazy(() => import("./pages/Services"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
+const Articles = lazy(() => import("./pages/Articles"));
+const ArticleDetails = lazy(() => import("./pages/ArticleDetails"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Contact = lazy(() => import("./pages/Contact"));
+const TermsAndPolicy = lazy(() => import("./pages/TermsAndPolicy"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Careers = lazy(() => import("./pages/Careers"));
+const JobDetails = lazy(() => import("./pages/JobDetails"));
+const AdminLogin = lazy(() => import("./pages/admin/Login"));
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const AdminJobs = lazy(() => import("./pages/admin/Jobs"));
+const AllApplications = lazy(() => import("./pages/admin/AllApplications"));
+const AdminBlogs = lazy(() => import("./pages/admin/Blogs"));
 
 const queryClient = new QueryClient();
 
@@ -95,6 +96,7 @@ const App = () => (
         <CookieConsent />
         <BrowserRouter>
           <ScrollToTop />
+          <Suspense fallback={null}>
           <Routes>
             <Route
               path="/"
@@ -244,6 +246,7 @@ const App = () => (
               }
             />
           </Routes>
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

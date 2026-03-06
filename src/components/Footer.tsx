@@ -18,9 +18,9 @@ const footerLinks = {
     { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" }],
   social: [
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Twitter, href: "https://x.com/forrof_io", label: "Twitter" },
+    { icon: Instagram, href: "https://instagram.com/forrof.io", label: "Instagram" },
+    { icon: Linkedin, href: "https://linkedin.com/company/forrof", label: "LinkedIn" },
   ],
 };
 
@@ -138,6 +138,7 @@ export const Footer = () => {
                 <Magnetic key={social.label} strength={0.3}>
                   <motion.a
                     href={social.href}
+                    aria-label={social.label}
                     className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground overflow-hidden relative group"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -166,9 +167,9 @@ export const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h4 className="text-sm font-semibold uppercase tracking-widest mb-6">
+            <p className="text-sm font-semibold uppercase tracking-widest mb-6">
               Services
-            </h4>
+            </p>
             <ul className="space-y-4">
               {footerLinks.services.map((link, index) => (
                 <motion.li
@@ -201,9 +202,9 @@ export const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <h4 className="text-sm font-semibold uppercase tracking-widest mb-6">
+            <p className="text-sm font-semibold uppercase tracking-widest mb-6">
               Company
-            </h4>
+            </p>
             <ul className="space-y-4">
               {footerLinks.company.map((link, index) => (
                 <motion.li

@@ -41,7 +41,8 @@ export const CookieConsent = () => {
                             </div>
                         </div>
                         <button
-                            onClick={() => setIsVisible(false)}
+                            onClick={() => handleConsent('necessary')}
+                            aria-label="Close cookie preferences"
                             className="p-1 text-muted-foreground/50 hover:text-foreground transition-colors hover:bg-foreground/5 rounded-lg"
                         >
                             <X size={18} />

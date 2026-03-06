@@ -2,11 +2,10 @@ import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
-  animate,
   useInView,
+  useSpring,
 } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowUpRight,
   Mail,
@@ -21,8 +20,8 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const socialLinks = [
-  { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com" },
-  { icon: Instagram, label: "Instagram", url: "https://instagram.com" },
+  { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com/company/forrof" },
+  { icon: Instagram, label: "Instagram", url: "https://instagram.com/forrof.io" },
   { icon: Globe, label: "Website", url: "https://forrof.io" },
 ];
 
@@ -52,20 +51,6 @@ export default function ContactPage() {
     damping: 20,
   });
   const heroY = useTransform(smoothProgress, [0, 1], [0, 120]);
-  const [stars, setStars] = useState<
-    Array<{ id: number; x: number; y: number; delay: number; duration: number }>
-  >([]);
-  useEffect(() => {
-    setStars(
-      [...Array(40)].map((_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        delay: Math.random() * 3,
-        duration: 2 + Math.random() * 4,
-      }))
-    );
-  }, []);
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -118,69 +103,55 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Hero Section (like Projects page) */}
+      {/* Hero Section */}
       <motion.section
         ref={heroRef}
-        className="relative h-[70vh] min-h-[500px] overflow-hidden flex items-end section-padding pb-20"
+        className="relative min-h-screen flex items-end section-padding pb-24 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Floating particles */}
-        {Array.from({ length: 188 }).map((_, i) => (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
-            key={i}
-            className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: 2 + Math.random() * 4,
-              height: 2 + Math.random() * 4,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut",
-            }}
+            className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] bg-accent/20 rounded-full blur-[130px]"
+            animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
-        ))}
+          <motion.div
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]"
+            animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
 
-        {/* Hero Content */}
-        <motion.div
-          className="absolute inset-0 z-20 flex items-end section-padding pb-20"
-          style={{ y: heroY }}
-        >
-          <div className="max-w-[1800px] mx-auto w-full pt-32 md:pt-40">
-            <div className="overflow-hidden mb-6">
-              <motion.h1
-                className="text-[12vw] md:text-[10vw] font-bold leading-[0.9] tracking-tighter"
-                initial={{ y: "120%" }}
-                animate={{ y: 0 }}
-                transition={{
-                  duration: 1.2,
-                  ease: [0.25, 0.1, 0.25, 1],
-                  delay: 0.4,
-                }}
-              >
-                Let's Connect
-              </motion.h1>
-            </div>
-            <motion.p
-              className="text-lg md:text-2xl text-muted-foreground max-w-2xl mb-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+        <motion.div className="relative z-20 max-w-[1800px] mx-auto w-full" style={{ y: heroY }}>
+          <motion.span
+            className="inline-block text-xs text-muted-foreground uppercase tracking-[0.3em] mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Get in touch
+          </motion.span>
+          <div className="overflow-hidden mb-6">
+            <motion.h1
+              className="text-[13vw] md:text-[10vw] font-bold leading-[0.88] tracking-tighter"
+              initial={{ y: "110%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
             >
-              We’d love to hear about your ideas, projects, or just say hello.
-              Start a conversation with our team today.
-            </motion.p>
+              Let’s Connect
+            </motion.h1>
           </div>
+          <motion.p
+            className="text-lg md:text-2xl text-muted-foreground max-w-xl leading-relaxed mt-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            We’d love to hear about your ideas, projects, or just say hello. Start a conversation today.
+          </motion.p>
         </motion.div>
       </motion.section>
 
@@ -248,14 +219,6 @@ export default function ContactPage() {
               <motion.form
                 onSubmit={handleSubmit}
                 className="space-y-8"
-              // style={{ y: formY }}
-              // initial={{ opacity: 0, x: 80 }}
-              // animate={{ opacity: 1, x: 0 }}
-              // transition={{
-              //   duration: 1.2,
-              //   delay: 0.4,
-              //   ease: [0.25, 0.1, 0.25, 1],
-              // }}
               >
                 <div className="grid sm:grid-cols-2 gap-8">
                   {[

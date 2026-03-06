@@ -13,6 +13,7 @@ import {
   Copy,
 } from "lucide-react";
 import { api } from "@/services/api";
+import DOMPurify from "dompurify";
 import { useLenis } from "@/hooks/useLenis";
 import { toast } from "@/hooks/use-toast";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
@@ -84,7 +85,7 @@ const ArticleDetails = () => {
   }
 
   // Pass navigation props to ArticleContent
-  const prevArticle = null; // TODO: Fix Previous/Next article logic with API if needed
+  const prevArticle = null;
   const nextArticle = null;
 
   return <ArticleContent article={article} prevArticle={prevArticle} nextArticle={nextArticle} />;
@@ -212,14 +213,6 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: any, p
               </Link>
             </motion.div>
 
-            {/* <motion.span
-              className="inline-block px-4 py-2 rounded-full border border-primary/30 text-primary text-sm mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              {article.category}
-            </motion.span> */}
 
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
@@ -277,7 +270,7 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: any, p
             >
               <div
                 className="article-content space-y-6 w-full break-words overflow-hidden [&_img]:max-w-full [&_iframe]:max-w-full"
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
               />
 
               {/* Tags */}
@@ -372,41 +365,27 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: any, p
                 </div>
               </motion.div>
 
-              {/* Table of Contents Placeholder */}
-              <motion.div
-                className="p-6 rounded-2xl bg-muted/50 border border-border"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.9 }}
-              >
-                <h3 className="font-semibold mb-4">In This Article</h3>
-                <nav className="space-y-2 text-sm">
-                  <a
-                    href="#"
-                    className="block text-foreground hover:text-primary transition-colors"
-                  >
-                    Introduction
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-foreground hover:text-primary transition-colors"
-                  >
-                    Key Concepts
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-foreground hover:text-primary transition-colors"
-                  >
-                    Best Practices
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-foreground hover:text-primary transition-colors"
-                  >
-                    Conclusion
-                  </a>
-                </nav>
-              </motion.div>
+              {/* Related Topics */}
+              {article.tags?.length > 0 && (
+                <motion.div
+                  className="p-6 rounded-2xl bg-muted/50 border border-border"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.9 }}
+                >
+                  <h3 className="font-semibold mb-4">Related Topics</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {article.tags.map((tag: string) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 rounded-full bg-muted text-sm text-foreground"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
             </aside>
           </div>
         </div>

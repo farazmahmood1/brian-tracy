@@ -134,11 +134,10 @@ export const FAQSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.1 }}
+                onMouseEnter={() => setOpenIndex(index)}
+                onMouseLeave={() => setOpenIndex(null)}
               >
                 <motion.button
-                  onClick={() =>
-                    setOpenIndex(openIndex === index ? null : index)
-                  }
                   className="w-full flex items-center justify-between py-8 text-left group"
                   whileHover={{ x: 10 }}
                   transition={{ duration: 0.3 }}

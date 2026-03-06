@@ -65,6 +65,7 @@ export const MusicPlayer = () => {
             onClick={togglePlay}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label={isPlaying ? "Pause background music" : "Play background music"}
         >
             {/* Wave SVG */}
             <svg

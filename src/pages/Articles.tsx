@@ -4,13 +4,13 @@ import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
   useInView,
 } from "framer-motion";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { useLenis } from "@/hooks/useLenis";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { api } from "@/services/api";
+import DOMPurify from "dompurify";
 
 // Helper for author if API doesn't return full object
 const getAuthor = (author: any) => {
@@ -36,7 +36,7 @@ const Articles = () => {
         author: { name: b.author, role: 'Editor', avatar: 'https://github.com/shadcn.png' }
       }));
       setArticles(mapped);
-    }).catch(console.error);
+    }).catch(() => {});
   }, []);
 
   // SEO Meta Tags
@@ -58,101 +58,61 @@ const Articles = () => {
   });
 
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
-  const smoothHeroY = useSpring(heroY, { stiffness: 100, damping: 30 });
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <main className="min-h-screen bg-background max-md:pt-12">
       {/* Hero Section */}
-      <section
+      <motion.section
         ref={heroRef}
-        className="relative h-[70vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-screen flex items-end section-padding pb-24 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
-        {/* Animated Background Grid */}
-        <div className="absolute inset-0 overflow-hidden">
-        </div>
-
-        {/* Floating Elements */}
-        {Array.from({ length: 188 }).map((_, i) => (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
-
-            key={i}
-            className="absolute rounded-full bg-[#004549] pointer-events-none z-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: 2 + Math.random() * 4,
-              height: 2 + Math.random() * 4,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut",
-            }}
+            className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] bg-accent/20 rounded-full blur-[130px]"
+            animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
-        ))}
-
-        <motion.div
-          className="relative z-10 text-center px-4"
-          style={{ opacity: heroOpacity, scale: heroScale }}
-        >
           <motion.div
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]"
+            animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
+
+        <motion.div className="relative z-20 max-w-[1800px] mx-auto w-full" style={{ y: heroY, opacity: heroOpacity }}>
+          <motion.span
+            className="inline-block text-xs text-muted-foreground uppercase tracking-[0.3em] mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Our insights
+          </motion.span>
+          <div className="overflow-hidden mb-6">
+            <motion.h1
+              className="text-[13vw] md:text-[10vw] font-bold leading-[0.88] tracking-tighter"
+              initial={{ y: "110%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+            >
+              Articles & Ideas
+            </motion.h1>
+          </div>
+          <motion.p
+            className="text-lg md:text-2xl text-muted-foreground max-w-xl leading-relaxed mt-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ delay: 0.6 }}
           >
-            <motion.span
-              className="inline-block px-6 py-2 rounded-full border border-primary/30 text-primary text-sm mb-8"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, type: "spring" }}
-            >
-              Our Insights & Articles
-            </motion.span>
-          </motion.div>
-
-          <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <motion.span
-              className="block"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              Ideas That
-            </motion.span>
-            <motion.span
-              className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-primary/60"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              Inspire Action
-            </motion.span>
-          </motion.h1>
-
-          <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            Explore our latest thoughts on design, technology, and the future of
-            digital experiences.
+            Explore our latest thoughts on design, technology, and the future of digital experiences.
           </motion.p>
         </motion.div>
-      </section>
+      </motion.section>
 
       {/* Category Filter */}
       <section className="py-12 border-b border-border">
@@ -251,10 +211,21 @@ const Articles = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const email = (form.elements.namedItem("newsletter_email") as HTMLInputElement)?.value;
+                if (email) {
+                  window.location.href = `mailto:hello@forrof.io?subject=Newsletter Subscription&body=Please add ${email} to your newsletter.`;
+                  form.reset();
+                }
+              }}
             >
               <input
                 type="email"
+                name="newsletter_email"
                 placeholder="Enter your email"
+                required
                 className="flex-1 px-6 py-4 rounded-full bg-background border border-border focus:border-primary focus:outline-none transition-colors"
               />
               <motion.button
@@ -333,17 +304,13 @@ const FeaturedArticle = ({ article }: { article: any }) => {
               {article.title}
             </motion.h2>
 
-            <motion.p
+            <motion.div
               className="text-lg text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4 }}
-            >
-              <div
-                className="article-content space-y-6"
-                dangerouslySetInnerHTML={{ __html: article.excerpt }}
-              />
-            </motion.p>
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.excerpt) }}
+            />
 
             <motion.div
               className="flex items-center gap-6 text-sm text-muted-foreground"
@@ -460,11 +427,10 @@ const ArticleCard = ({
             {article.title}
           </h3>
 
-          <p className="text-muted-foreground line-clamp-2">
-            <div
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
-          </p>
+          <div
+            className="text-muted-foreground line-clamp-2"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
+          />
 
           <div className="flex items-center gap-3 pt-2">
             <img

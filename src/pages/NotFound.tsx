@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
 
@@ -13,12 +13,9 @@ const funnyLines = [
 ];
 
 const NotFound = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.error("404 route:", location.pathname);
-  }, [location.pathname]);
+
 
   const stars = useMemo(
     () =>

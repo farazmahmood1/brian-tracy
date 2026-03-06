@@ -10,6 +10,7 @@ import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/services/api";
+import DOMPurify from "dompurify";
 
 export const InsightsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,7 +32,7 @@ export const InsightsSection = () => {
         slug: item.slug
       }));
       setDisplayedInsights(mapped);
-    }).catch(console.error);
+    }).catch(() => {});
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -131,24 +132,16 @@ export const InsightsSection = () => {
               {/* Image Container with Multiple Layers */}
               <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3]">
                 {/* Background blur layer */}
-                <motion.div
-                  className="absolute inset-0 bg-foreground/5 backdrop-blur-xl"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                  transition={{ duration: 0.5 }}
+                <div
+                  className="absolute inset-0 bg-foreground/5 backdrop-blur-xl transition-opacity duration-500"
+                  style={{ opacity: hoveredIndex === index ? 1 : 0 }}
                 />
 
                 {/* Main Image with Parallax */}
                 <motion.div
                   className="absolute inset-0"
-                  animate={{
-                    scale: hoveredIndex === index ? 1.15 : 1,
-                    filter:
-                      hoveredIndex === index
-                        ? "brightness(0.7)"
-                        : "brightness(1)",
-                  }}
-                  transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                  animate={{ scale: hoveredIndex === index ? 1.15 : 1 }}
+                  transition={{ duration: 0.8 }}
                 >
                   <motion.img
                     src={insight.image}
@@ -158,6 +151,11 @@ export const InsightsSection = () => {
                     initial={{ scale: 1.4, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 1 } : {}}
                     transition={{ duration: 1.8, delay: 0.5 + index * 0.15 }}
+                  />
+                  {/* Brightness overlay (composited opacity instead of filter) */}
+                  <div
+                    className="absolute inset-0 bg-black transition-opacity duration-700"
+                    style={{ opacity: hoveredIndex === index ? 0.3 : 0 }}
                   />
                 </motion.div>
 
@@ -195,7 +193,7 @@ export const InsightsSection = () => {
                     opacity: hoveredIndex === index ? 1 : 0,
                     rotate: hoveredIndex === index ? 0 : -180,
                   }}
-                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                  transition={{ duration: 0.5 }}
                 >
                   <ArrowUpRight className="text-background" size={20} />
                 </motion.div>
@@ -240,17 +238,14 @@ export const InsightsSection = () => {
                 </div>
 
                 {/* Excerpt with Fade */}
-                <motion.p
+                <motion.div
                   style={{ width: "100px" }}
                   className="text-muted-foreground text-sm leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 1 + index * 0.15 }}
-                >
-                  <div
-                    dangerouslySetInnerHTML={{ __html: insight.excerpt }}
-                  ></div>
-                </motion.p>
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(insight.excerpt) }}
+                />
 
                 {/* Read More Link */}
                 <motion.div // Changed to div to avoid nested anchor interactions if needed, but handleArticleClick handles it

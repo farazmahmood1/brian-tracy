@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "./AnimationComponents";
 import { MusicPlayer } from "./MusicPlayer";
 import { ThemeToggle } from "./ThemeToggle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavLink {
   name: string;
@@ -119,6 +119,12 @@ export const NavbarMenuIcon = () => {
   const logoTextY = useTransform(scrollY, [100, 250], [20, 0]);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Close menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -208,6 +214,8 @@ export const NavbarMenuIcon = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={isOpen}
               >
                 <motion.div
                   className="absolute inset-0 bg-foreground/5 rounded-full"

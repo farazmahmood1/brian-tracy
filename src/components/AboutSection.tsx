@@ -122,6 +122,11 @@ export const AboutSection = () => {
       className="section-padding md:py-20 py-12 relative overflow-hidden"
       ref={containerRef}
     >
+      {/* Greenish background glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/2 -translate-y-1/2 right-0 w-[700px] h-[700px] rounded-full bg-accent/15 blur-[130px]" />
+      </div>
+
       {/* Large decorative text in background */}
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
@@ -274,7 +279,6 @@ export const AboutSection = () => {
               transition={{
                 duration: 0.5,
                 delay: 0.1,
-                // ease: [0.1, 0.1, 0.1, 0.1],
               }}
               whileHover={{ y: -10, scale: 1.02 }}
               style={{ transformStyle: "preserve-3d" }}

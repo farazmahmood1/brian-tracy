@@ -1,13 +1,15 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { ArrowUpRight, Globe, Clock, ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "@/services/api";
 
 const Careers = () => {
     const [jobs, setJobs] = useState<any[]>([]);
+    const heroRef = useRef<HTMLDivElement>(null);
+
     usePageMetadata({
         title: "Careers | Forrof",
         description: "Join our team of creators, thinkers, and builders. Explore open positions at Forrof.",
@@ -16,54 +18,82 @@ const Careers = () => {
     });
 
     useEffect(() => {
-        api.jobs.getAll().then(setJobs).catch(console.error);
+        api.jobs.getAll().then(setJobs).catch(() => {});
     }, []);
 
-    return (
-        <div className="min-h-screen bg-background text-foreground pt-32 pb-20">
-            {/* Hero Section */}
-            <div className="px-6 md:px-12 lg:px-24 mb-32">
-                <div className="max-w-[1800px] mx-auto">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-12"
-                    >
-                        Join the <br />
-                        <span className="text-muted-foreground">collective.</span>
-                    </motion.h1>
+    const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+    const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+    const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-                    <div className="grid md:grid-cols-2 gap-12 items-start">
+    return (
+        <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+            {/* Hero Section */}
+            <motion.section
+                ref={heroRef}
+                className="relative min-h-screen flex items-end section-padding pb-24 overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+            >
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <motion.div
+                        className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] bg-accent/20 rounded-full blur-[130px]"
+                        animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
+                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    <motion.div
+                        className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]"
+                        animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
+
+                <motion.div className="relative z-20 max-w-[1800px] mx-auto w-full" style={{ y: heroY, opacity: heroOpacity }}>
+                    <motion.span
+                        className="inline-block text-xs text-muted-foreground uppercase tracking-[0.3em] mb-8"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                    >
+                        We're hiring
+                    </motion.span>
+                    <div className="overflow-hidden mb-6">
+                        <motion.h1
+                            className="text-[13vw] md:text-[10vw] font-bold leading-[0.88] tracking-tighter"
+                            initial={{ y: "110%" }}
+                            animate={{ y: 0 }}
+                            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+                        >
+                            Join the Team
+                        </motion.h1>
+                    </div>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mt-10">
                         <motion.p
+                            className="text-lg md:text-2xl text-muted-foreground max-w-xl leading-relaxed"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            We're always looking for exceptional people who are passionate about building great software and digital experiences.
+                        </motion.p>
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.8 }}
-                            className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed max-w-xl"
+                            transition={{ delay: 0.8 }}
                         >
-                            We are always looking for exceptional talent to join our team.
-                            If you are passionate about design, technology, and creating impactful
-                            digital experiences, we want to hear from you.
-                        </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.4, duration: 0.8 }}
-                            className="bg-accent/5 p-8 rounded-2xl border border-accent/10"
-                        >
-                            <h3 className="text-lg font-semibold mb-2">Don't see a fit?</h3>
-                            <p className="text-muted-foreground mb-6">
-                                We are always interested in meeting new people.
-                                Send us your portfolio and tell us why you want to work with us.
-                            </p>
-                            <a href="mailto:careers@forrof.io" className="inline-flex items-center gap-2 text-sm font-medium hover:text-accent transition-colors">
-                                Email us <ArrowRight size={16} />
-                            </a>
+                            <Magnetic strength={0.15}>
+                                <a
+                                    href="mailto:careers@forrof.io"
+                                    className="inline-flex items-center gap-3 px-8 py-4 border border-border rounded-full text-muted-foreground hover:text-foreground hover:border-foreground transition-colors font-medium whitespace-nowrap"
+                                >
+                                    Email us directly <ArrowRight size={16} />
+                                </a>
+                            </Magnetic>
                         </motion.div>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.section>
 
             {/* Job Listings */}
             <section className="px-6 md:px-12 lg:px-24">

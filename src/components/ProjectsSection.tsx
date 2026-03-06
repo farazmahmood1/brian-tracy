@@ -10,8 +10,6 @@ import { ArrowUpRight } from "lucide-react";
 import {
   LineReveal,
   Magnetic,
-  ImageReveal,
-  ScaleReveal,
 } from "./AnimationComponents";
 import { useNavigate } from "react-router-dom";
 import { projectsData } from "@/data/projects";
@@ -48,7 +46,7 @@ export const ProjectsSection = () => {
       className="section-padding md:py-20 py-20 relative overflow-hidden"
       ref={containerRef}
     >
-      <div className="max-w-[1800px] mx-auto">
+      <div className="max-w-[1800px] mx-auto relative z-10">
         {/* Header */}
         <motion.div
           className="flex items-center gap-4 mb-20"

@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef, useEffect, useState, Suspense } from "react";
+import { useRef, useEffect, useState, Suspense, lazy } from "react";
 import { Magnetic, LineReveal } from "./AnimationComponents";
-import HeroGlobe from "./HeroGlobe";
+const HeroGlobe = lazy(() => import("./HeroGlobe"));
 
 const categories = [
   "AI Products & SaaS Platforms",

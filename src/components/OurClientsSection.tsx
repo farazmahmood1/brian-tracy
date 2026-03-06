@@ -29,92 +29,44 @@ export const OurClientsSection = () => {
 
   const paths = clientFiles.map((name) => `${import.meta.env.VITE_SERVER}/clients/${encodeURI(name)}`);
 
-  const firstRow = paths.slice(0, Math.ceil(paths.length / 2));
-  const secondRow = paths.slice(Math.ceil(paths.length / 2));
-
   return (
     <section className="relative overflow-hidden" >
       {/* Background gradient */}
       <div className="absolute inset-0 from-background via-muted/20 to-background" />
 
-      <div className="max-w-[1800px] mx-auto relative z-10" >
+      <div className="relative z-10 px-4" >
         {/* Header */}
 
-        {/* Marquee Container */}
-        <div className="relative">
-          {/* Gradient overlays for fade effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-          {/* First Row - Left to Right */}
-          <div className="relative overflow-hidden mb-8">
-            <style>{`
-              @keyframes slide-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-              .slide-left { display: flex; width: max-content; animation: slide-left 30s linear infinite; will-change: transform; }
-              @keyframes slide-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-              .slide-right { display: flex; width: max-content; animation: slide-right 30s linear infinite; will-change: transform; }
-            `}</style>
-            <div className="slide-left">
-              {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-5 shrink-0 pr-4 p-2">
-                  {firstRow.map((src, i) => (
-                    <motion.div
-                      key={`${setIndex}-${i}`}
-                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] backdrop-blur-sm rounded-2xl  px-6 transition-all duration-300"
-                      whileHover={{ scale: 1.05, y: -5 }}
-                    >
-                      <img
-                        src={src}
-                        alt={`Client ${i + 1}`}
-                        className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
-                        loading="lazy"
-                        decoding="async"
-                        onError={(e) => {
-                          const t = e.target as HTMLImageElement;
-                          if (t && !t.dataset.fallback) {
-                            t.dataset.fallback = "1";
-                            t.src = "/placeholder.svg";
-                          }
-                        }}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Second Row - Right to Left */}
-          <div className="relative overflow-hidden">
-            <div className="slide-right">
-              {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-5 shrink-0 pr-4 p-2">
-                  {secondRow.map((src, i) => (
-                    <motion.div
-                      key={`${setIndex}-${i}`}
-                      className="flex items-center justify-center shrink-0 w-[200px] h-[100px] backdrop-blur-sm rounded-2xl px-6 transition-all duration-300"
-                      whileHover={{ scale: 1.05, y: -5 }}
-                    >
-                      <img
-                        src={src}
-                        alt={`Client ${i + 1}`}
-                        className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
-                        loading="lazy"
-                        decoding="async"
-                        onError={(e) => {
-                          const t = e.target as HTMLImageElement;
-                          if (t && !t.dataset.fallback) {
-                            t.dataset.fallback = "1";
-                            t.src = "/placeholder.svg";
-                          }
-                        }}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Clients Grid */}
+        <div className="flex flex-wrap justify-center gap-3 mt-10">
+          {paths.map((src, i) => (
+            <motion.div
+              key={i}
+              className="flex items-center justify-center w-[200px] h-[100px] backdrop-blur-sm rounded-2xl px-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={{ duration: 0.5, delay: i * 0.04, ease: [0.25, 0.1, 0.25, 1] }}
+              whileHover={{ scale: 1.05, y: -4 }}
+            >
+              <img
+                src={src}
+                alt={clientFiles[i].replace(/\.(png|jpg|jpeg|svg|jfif|webp)$/i, '').replace(/[-_]/g, ' ')}
+                className="max-h-[60px] max-w-[160px] object-contain filter grayscale hover:grayscale-0 transition-all duration-150"
+                loading="lazy"
+                decoding="async"
+                width="160"
+                height="60"
+                onError={(e) => {
+                  const t = e.target as HTMLImageElement;
+                  if (t && !t.dataset.fallback) {
+                    t.dataset.fallback = "1";
+                    t.src = "/placeholder.svg";
+                  }
+                }}
+              />
+            </motion.div>
+          ))}
         </div>
 
         {/* Stats Row */}
@@ -127,7 +79,7 @@ export const OurClientsSection = () => {
         >
           {[
             { number: "50+", label: "Happy Clients" },
-            { number: "120+", label: "Projects Completed" },
+            { number: "150+", label: "Projects Completed" },
             { number: "5+", label: "Years Experience" },
             { number: "98%", label: "Client Satisfaction" },
           ].map((stat, index) => (

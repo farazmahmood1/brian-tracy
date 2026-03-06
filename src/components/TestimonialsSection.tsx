@@ -41,9 +41,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { label: "Happy Clients", value: "30", suffix: "+" },
+  { label: "Happy Clients", value: "50", suffix: "+" },
   { label: "Success Rate", value: "98", suffix: "%" },
-  { label: "Years Experience", value: "8", suffix: "+" },
+  { label: "Years Experience", value: "5", suffix: "+" },
 ];
 
 export const TestimonialsSection = () => {
@@ -236,6 +236,7 @@ export const TestimonialsSection = () => {
               <Magnetic strength={0.2}>
                 <motion.button
                   onClick={prev}
+                  aria-label="Previous testimonial"
                   className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -252,6 +253,7 @@ export const TestimonialsSection = () => {
               <Magnetic strength={0.2}>
                 <motion.button
                   onClick={next}
+                  aria-label="Next testimonial"
                   className="w-14 h-14 rounded-full border border-border flex items-center justify-center group overflow-hidden relative"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -273,6 +275,7 @@ export const TestimonialsSection = () => {
                 {testimonials.map((_, index) => (
                   <motion.button
                     key={index}
+                    aria-label={`Go to testimonial ${index + 1}`}
                     onClick={() => {
                       setDirection(index > current ? 1 : -1);
                       setCurrent(index);
