@@ -485,7 +485,7 @@ export default function SaasService() {
               animate={sec6InView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              Customer Stories
+              Customer Stories at Forrof
             </motion.h2>
             <motion.p
               className="text-muted-foreground text-lg max-w-sm leading-relaxed hidden md:block"
@@ -493,7 +493,7 @@ export default function SaasService() {
               animate={sec6InView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              SaaS product development services we delivered
+              See how we help companies and innovators turn ideas into scalable products and technology.
             </motion.p>
           </div>
 

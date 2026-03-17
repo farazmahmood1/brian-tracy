@@ -152,7 +152,7 @@ export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
                     _startLoop(); // restart the render loop
                 }
             },
-            { threshold: 0.01, rootMargin: "200px" }
+            { threshold: 0.01, rootMargin: "50px" }
         );
         observer.observe(el);
         return () => observer.disconnect();

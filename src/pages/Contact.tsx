@@ -3,7 +3,6 @@ import {
   useScroll,
   useTransform,
   useInView,
-  useSpring,
 } from "framer-motion";
 import { useRef, useState } from "react";
 import {
@@ -47,11 +46,7 @@ export default function ContactPage() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 20,
-  });
-  const heroY = useTransform(smoothProgress, [0, 1], [0, 120]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",

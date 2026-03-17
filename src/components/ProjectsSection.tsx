@@ -86,7 +86,7 @@ export const ProjectsSection = () => {
               animate={isInView ? { y: 0 } : {}}
               transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
             >
-              Customer Stories
+              Customer Stories at Forrof
             </motion.h2>
           </div>
           <motion.div
@@ -95,14 +95,8 @@ export const ProjectsSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            <div className="flex items-center gap-3 mb-1">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#48f0e7]/30 text-[#48f0e7] text-xs font-medium tracking-wide">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00d4aa] animate-pulse" />
-                150+ Projects Delivered
-              </span>
-            </div>
             <p className="text-xl text-muted-foreground max-w-md leading-relaxed">
-              We partner with startups and growing teams to build products that make an impact — here's what we've delivered.
+              See how we help companies and innovators turn ideas into scalable products and technology.
             </p>
             {/* Filter Tags */}
             <div className="flex flex-wrap gap-3">

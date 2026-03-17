@@ -354,12 +354,18 @@
   transform: translateZ(0);
 }
 
-.mq-track-fwd { animation: mq-scroll-l 90s linear infinite; }
-.mq-track-rev { animation: mq-scroll-r 90s linear infinite; }
+.mq-track-fwd { animation: mq-scroll-l 180s linear infinite; }
+.mq-track-rev { animation: mq-scroll-r 180s linear infinite; }
 
-.mq-filled  { color: #48f0e7; opacity: 0.4; }
-.mq-outline { color: transparent; -webkit-text-stroke: 1.5px rgba(72, 240, 231, 0.3); }
+.mq-filled  { color: #48f0e7; opacity: 0.4; transition: opacity 0.4s, text-shadow 0.4s; }
+.mq-outline { color: transparent; -webkit-text-stroke: 1.5px rgba(72, 240, 231, 0.3); transition: color 0.4s, -webkit-text-stroke 0.4s, text-shadow 0.4s; }
 .mq-dot     { background: rgba(72, 240, 231, 0.25); }
+
+.mq-filled:hover  { opacity: 1; text-shadow: 0 0 20px rgba(72, 240, 231, 0.6), 0 0 40px rgba(72, 240, 231, 0.3); cursor: default; }
+.mq-outline:hover { color: #48f0e7; -webkit-text-stroke: 0px transparent; text-shadow: 0 0 20px rgba(72, 240, 231, 0.6), 0 0 40px rgba(72, 240, 231, 0.3); cursor: default; }
+
+.mq-wrap:hover .mq-track-fwd,
+.mq-wrap:hover .mq-track-rev { animation-play-state: paused; }
 
 /* ─── Respect reduced-motion preference ──────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

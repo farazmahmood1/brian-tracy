@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -130,12 +130,6 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: Articl
   const heroY = useTransform(heroProgress, [0, 1], [0, 300]);
   const heroScale = useTransform(heroProgress, [0, 1], [1, 1.2]);
   const heroOpacity = useTransform(heroProgress, [0, 0.5], [1, 0]);
-  const smoothHeroY = useSpring(heroY, { stiffness: 100, damping: 30 });
-
-  const progressWidth = useSpring(contentProgress, {
-    stiffness: 100,
-    damping: 30,
-  });
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
@@ -171,14 +165,14 @@ const ArticleContent = ({ article, prevArticle, nextArticle }: { article: Articl
       <motion.div
         ref={progressRef}
         className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
-        style={{ scaleX: progressWidth }}
+        style={{ scaleX: contentProgress }}
       />
 
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-[80vh] overflow-hidden">
         <motion.div
           className="absolute inset-0"
-          style={{ y: smoothHeroY, scale: heroScale }}
+          style={{ y: heroY, scale: heroScale }}
         >
           <motion.img
             src={article.image}

@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Index from "./pages/Index";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -38,6 +38,26 @@ const AdminBlogs = lazy(() => import("./pages/admin/Blogs"));
 
 const queryClient = new QueryClient();
 
+// Eagerly preload the most common routes after initial paint so
+// navigating between them never triggers the Suspense fallback.
+const preloadRoutes = () => {
+  import("./pages/Services");
+  import("./pages/Projects");
+  import("./pages/Articles");
+  import("./pages/Contact");
+  import("./pages/Careers");
+  import("./pages/ProjectDetails");
+  import("./pages/ArticleDetails");
+  import("./pages/services/AiMlService");
+  import("./pages/services/SaasService");
+  import("./pages/services/MvpService");
+  import("./pages/services/UxDesignService");
+  import("./pages/services/EnterpriseService");
+  import("./pages/services/StrategyService");
+  import("./pages/services/MobileAppService");
+  import("./pages/services/SocialMediaService");
+};
+
 // Content wrapper that handles layout for all pages
 // Pure CSS progress bar — zero JS on scroll, uses native scroll-driven animation
 const ProgressBar = () => (
@@ -63,6 +83,15 @@ const ProgressBar = () => (
 const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
+  // Preload all lazy routes once after first paint so navigation is instant
+  useEffect(() => {
+    if ("requestIdleCallback" in window) {
+      (window as any).requestIdleCallback(preloadRoutes);
+    } else {
+      setTimeout(preloadRoutes, 1000);
+    }
+  }, []);
+
   const isProjectDetails = location.pathname.startsWith("/project/");
   const isAdmin = location.pathname.startsWith("/admin");
 
@@ -74,8 +103,6 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-
-  
   return (
     <div className="min-h-screen bg-background text-foreground">
       <ProgressBar />
@@ -100,14 +127,7 @@ const App = () => (
         <CookieConsent />
         <BrowserRouter>
           <ScrollToTop />
-          <Suspense fallback={
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-              <div className="flex items-center text-2xl font-bold tracking-tight text-foreground">
-                <img src="/logo-white.png" alt="" width={32} height={32} />
-                <span>&nbsp;forrof</span>
-              </div>
-            </div>
-          }>
+          <Suspense fallback={<div className="min-h-screen bg-background" />}>
           <Routes>
             <Route
               path="/"
