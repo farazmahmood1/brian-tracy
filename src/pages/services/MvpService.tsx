@@ -1,7 +1,8 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Plus, Minus } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -56,6 +57,10 @@ export default function MvpService() {
   const sec5Ref = useRef(null);
   const sec6Ref = useRef(null);
   const ctaRef = useRef(null);
+
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start end", "end center"] });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -258,18 +263,21 @@ export default function MvpService() {
             {offerings.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.07 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{item.num}
-                </span>
-                <h3 className="text-base font-semibold mb-3 group-hover:text-foreground transition-colors leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-base font-semibold mb-3 group-hover:text-foreground transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500 ease-out">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
@@ -299,15 +307,19 @@ export default function MvpService() {
             Our Process
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div ref={timelineRef} className="relative space-y-16">
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border" />
+            <motion.div className="absolute left-6 md:left-8 top-0 w-px bg-accent origin-top" style={{ height: lineHeight }} />
+
             {processSteps.map((step, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
+                className="relative pl-16 md:pl-20"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.12 }}
               >
+                <motion.div className="absolute left-[1.125rem] md:left-[1.625rem] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" />
                 <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
                   /{step.num}
                 </span>
@@ -342,22 +354,31 @@ export default function MvpService() {
             How to Excel at MVPs
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="space-y-0">
             {excellence.map((item, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="py-8 border-t border-border group cursor-pointer"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec4InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.12 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                <div className="flex items-start gap-6">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase pt-1 flex-shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-2 group-hover:translate-x-4 transition-transform duration-500">
+                      {item.title}
+                    </h3>
+                    <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                      <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             ))}
+            <div className="border-t border-border" />
           </div>
         </div>
       </section>
@@ -399,13 +420,14 @@ export default function MvpService() {
             {delivery.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-8 md:p-10 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec5InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.2 + i * 0.1 }}
               >
-                <h3 className="text-2xl font-bold mb-5">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                <GlowCard className="p-8 md:p-10 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 h-full">
+                  <h3 className="text-2xl font-bold mb-5">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
@@ -448,9 +470,22 @@ export default function MvpService() {
                   className="w-full py-7 flex items-center justify-between gap-6 text-left group"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
-                  <span className="text-lg md:text-xl font-semibold group-hover:text-foreground transition-colors">
-                    {faq.q}
-                  </span>
+                  <div className="flex items-center gap-4">
+                    <motion.div
+                      className="w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 text-xs font-semibold"
+                      animate={{
+                        borderColor: openFaq === i ? "hsl(var(--accent))" : "hsl(var(--border))",
+                        backgroundColor: openFaq === i ? "hsl(var(--accent) / 0.1)" : "transparent",
+                        color: openFaq === i ? "hsl(var(--accent))" : "hsl(var(--muted-foreground))",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </motion.div>
+                    <span className="text-lg md:text-xl font-semibold group-hover:text-foreground transition-colors">
+                      {faq.q}
+                    </span>
+                  </div>
                   <motion.div
                     className="w-8 h-8 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
                     animate={{ rotate: openFaq === i ? 180 : 0 }}
@@ -462,16 +497,21 @@ export default function MvpService() {
                     }
                   </motion.div>
                 </button>
-                <motion.div
-                  className="overflow-hidden"
-                  initial={false}
-                  animate={{ height: openFaq === i ? "auto" : 0, opacity: openFaq === i ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                  <p className="text-muted-foreground leading-relaxed pb-8 max-w-3xl">
-                    {faq.a}
-                  </p>
-                </motion.div>
+                <AnimatePresence initial={false}>
+                  {openFaq === i && (
+                    <motion.div
+                      className="overflow-hidden"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                    >
+                      <p className="text-muted-foreground leading-relaxed pb-8 pl-12 max-w-3xl">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
             <div className="border-t border-border" />

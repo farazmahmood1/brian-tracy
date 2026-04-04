@@ -1,7 +1,8 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Plus, Minus } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -91,6 +92,7 @@ export default function MobileAppService() {
 
   const navigate = useNavigate();
   const [openNiche, setOpenNiche] = useState<number | null>(null);
+  const [expandedDiff, setExpandedDiff] = useState<number | null>(null);
 
   const heroRef = useRef(null);
   const sec1Ref = useRef(null);
@@ -101,6 +103,13 @@ export default function MobileAppService() {
   const sec6Ref = useRef(null);
   const sec7Ref = useRef(null);
   const ctaRef = useRef(null);
+
+  const processContainerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: processScroll } = useScroll({
+    target: processContainerRef,
+    offset: ["start end", "end start"],
+  });
+  const processLineHeight = useTransform(processScroll, [0, 1], ["0%", "100%"]);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -251,9 +260,16 @@ export default function MobileAppService() {
                   onClick={() => setOpenNiche(openNiche === i ? null : i)}
                 >
                   <div className="flex items-center gap-8">
-                    <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
-                      /{niche.num}
-                    </span>
+                    <motion.span
+                      className="w-10 h-10 rounded-xl border flex items-center justify-center text-xs font-medium tracking-widest flex-shrink-0"
+                      animate={{
+                        borderColor: openNiche === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)",
+                        backgroundColor: openNiche === i ? "rgba(0,212,170,0.1)" : "transparent",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {niche.num}
+                    </motion.span>
                     <span className="text-lg md:text-xl font-semibold group-hover:text-foreground transition-colors">
                       {niche.title}
                     </span>
@@ -269,16 +285,21 @@ export default function MobileAppService() {
                     }
                   </motion.div>
                 </button>
-                <motion.div
-                  className="overflow-hidden"
-                  initial={false}
-                  animate={{ height: openNiche === i ? "auto" : 0, opacity: openNiche === i ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                  <p className="text-muted-foreground leading-relaxed pb-7 pl-0 md:pl-[88px] max-w-3xl text-sm">
-                    {niche.desc}
-                  </p>
-                </motion.div>
+                <AnimatePresence initial={false}>
+                  {openNiche === i && (
+                    <motion.div
+                      className="overflow-hidden"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                    >
+                      <p className="text-muted-foreground leading-relaxed pb-7 pl-0 md:pl-[88px] max-w-3xl text-sm">
+                        {niche.desc}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
             <div className="border-t border-border" />
@@ -315,16 +336,19 @@ export default function MobileAppService() {
             {painPoints.map((point, i) => (
               <motion.div
                 key={i}
-                className="p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-xl font-semibold mb-4">{point.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{point.desc}</p>
+                <GlowCard className="p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
+                    /{String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-4">{point.title}</h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{point.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
@@ -364,22 +388,44 @@ export default function MobileAppService() {
             </motion.p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="space-y-0">
             {differentiators.map((item, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="border-t border-border group cursor-pointer"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
+                onClick={() => setExpandedDiff(expandedDiff === i ? null : i)}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <div className="py-6 flex items-center gap-6">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3
+                    className="text-lg font-semibold transition-transform duration-300 group-hover:translate-x-3"
+                  >
+                    {item.title}
+                  </h3>
+                </div>
+                <AnimatePresence initial={false}>
+                  {expandedDiff === i && (
+                    <motion.div
+                      className="overflow-hidden"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                    >
+                      <p className="text-muted-foreground leading-relaxed text-sm pb-6 pl-[56px] max-w-3xl">
+                        {item.desc}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
+            <div className="border-t border-border" />
           </div>
         </div>
       </section>
@@ -397,7 +443,11 @@ export default function MobileAppService() {
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
                 <span className="text-5xl md:text-6xl font-bold block mb-3 tracking-tighter">
-                  {stat.value}
+                  <CountUp
+                    value={stat.value.replace(/[^0-9.]/g, "")}
+                    suffix={stat.value.replace(/[0-9.]/g, "")}
+                    delay={200 + i * 100}
+                  />
                 </span>
                 <span className="text-xs text-muted-foreground uppercase tracking-widest">
                   {stat.label}
@@ -445,22 +495,25 @@ export default function MobileAppService() {
             {techStack.map((tech, i) => (
               <motion.div
                 key={i}
-                className="p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec5InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
-                <h3 className="text-xl font-bold mb-4 group-hover:text-foreground transition-colors">
-                  {tech.name}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{tech.desc}</p>
+                <GlowCard className="p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <h3 className="text-xl font-bold mb-4 group-hover:text-foreground transition-colors">
+                    {tech.name}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{tech.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 6 — Process */}
+      {/* SECTION 6 — Process (scroll-driven timeline) */}
       <section ref={sec6Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -491,22 +544,34 @@ export default function MobileAppService() {
             * The process may vary from project to project since we are agile.
           </motion.p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec6InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.08 }}
-              >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{step.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div ref={processContainerRef} className="relative">
+            {/* Vertical line track */}
+            <div className="absolute left-5 md:left-7 top-0 bottom-0 w-px bg-border/30" />
+            {/* Animated fill */}
+            <motion.div
+              className="absolute left-5 md:left-7 top-0 w-px origin-top"
+              style={{ height: processLineHeight, background: "#00d4aa" }}
+            />
+
+            <div className="space-y-12">
+              {processSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  className="relative pl-16 md:pl-20"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sec6InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.08 }}
+                >
+                  {/* Dot */}
+                  <div className="absolute left-[14px] md:left-[22px] top-1 w-3 h-3 rounded-full border-2 border-accent bg-background" />
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-3">
+                    /{step.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm max-w-2xl">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -552,7 +617,7 @@ export default function MobileAppService() {
                   <span className="text-xs text-muted-foreground font-medium tracking-widest min-w-[28px]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-base font-medium group-hover:text-foreground transition-colors text-muted-foreground">
+                  <span className="text-base font-medium group-hover:text-foreground group-hover:translate-x-3 transition-all duration-300 text-muted-foreground">
                     {service}
                   </span>
                 </motion.div>

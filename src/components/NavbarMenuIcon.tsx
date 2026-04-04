@@ -25,6 +25,35 @@ const navLinks: NavLink[] = [
   { name: "Contact", href: "/contact" },
 ];
 
+interface IndustryLink {
+  name: string;
+  slug: string;
+}
+
+const industryLinks: IndustryLink[] = [
+  { name: "Industrial Sector", slug: "industrial-sector" },
+  { name: "Decision Intelligence", slug: "decision-intelligence" },
+  { name: "FinTech & Finance", slug: "fintech-finance" },
+  { name: "Health & Wellness", slug: "health-wellness" },
+  { name: "LegalTech & Law", slug: "legaltech" },
+  { name: "Logistics & Transportation", slug: "transportation" },
+  { name: "Painting", slug: "painting" },
+];
+
+interface BusinessSizeLink {
+  name: string;
+  href: string;
+  popular?: boolean;
+}
+
+const businessSizeLinks: BusinessSizeLink[] = [
+  { name: "Startups, MVPs & POCs", href: "/services/mvp", popular: true },
+  { name: "Small Businesses", href: "/industries/small-business" },
+  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business", popular: true },
+  { name: "Enterprises", href: "/services/enterprise" },
+  { name: "Government & Public Sector", href: "/industries/government" },
+];
+
 interface ServiceLink {
   name: string;
   slug: string;
@@ -125,7 +154,7 @@ const ServiceItem = ({ service, onNavigate }: { service: ServiceLink; onNavigate
             e.preventDefault();
             onNavigate(`/services/${service.slug}`);
           }}
-          className="text-[15px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          className="text-[15px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer py-0.5"
         >
           {service.name}
         </a>
@@ -411,8 +440,8 @@ export const NavbarMenuIcon = () => {
                 initial="hidden"
                 animate="visible"
               >
-                {/* 3-column content */}
-                <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_0.8fr_1.2fr] gap-10 lg:gap-8 items-start">
+                {/* Multi-column content */}
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_0.7fr_0.6fr_0.6fr_1.2fr] gap-8 md:gap-6 lg:gap-6 items-start">
 
                   {/* Left — Connect info */}
                   <motion.div variants={slideUp} className="flex flex-col justify-between h-full">
@@ -421,7 +450,7 @@ export const NavbarMenuIcon = () => {
                         <span className="w-2 h-2 rounded-full bg-accent" />
                         <span className="text-sm text-accent font-medium">Connect with us!</span>
                       </div>
-                      <h2 className="text-3xl md:text-4xl lg:text-[2.8rem] font-bold leading-[1.1] tracking-tight mb-8">
+                      <h2 className="text-2xl md:text-3xl lg:text-[2.8rem] font-bold leading-[1.1] tracking-tight mb-8">
                         Turn Your Vision Into an Experience That Lasts
                       </h2>
                       <div className="w-10 h-px bg-foreground/20 mb-6" />
@@ -464,7 +493,7 @@ export const NavbarMenuIcon = () => {
                             e.preventDefault();
                             handleNavClick(link.href);
                           }}
-                          className={`block py-2 text-lg md:text-xl font-medium transition-colors duration-300 cursor-pointer ${
+                          className={`block py-3 text-base md:text-lg font-medium transition-colors duration-300 cursor-pointer ${
                             location.pathname === link.href
                               ? "text-foreground"
                               : "text-muted-foreground hover:text-foreground"
@@ -481,6 +510,82 @@ export const NavbarMenuIcon = () => {
                           </span>
                         </motion.a>
                       ))}
+                    </nav>
+                  </motion.div>
+
+                  {/* Industries */}
+                  <motion.div variants={slideUp}>
+                    <div className="mb-5 pb-3 border-b border-foreground/10">
+                      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Industries</span>
+                    </div>
+                    <nav className="space-y-0.5">
+                      {industryLinks.map((link, index) => (
+                        <motion.a
+                          key={link.slug}
+                          href={`/industries/${link.slug}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick(`/industries/${link.slug}`);
+                          }}
+                          className={`block py-2.5 text-[15px] font-medium transition-colors duration-300 cursor-pointer ${
+                            location.pathname === `/industries/${link.slug}`
+                              ? "text-foreground"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.3 + index * 0.05 }}
+                        >
+                          <span className="flex items-center gap-3">
+                            {location.pathname === `/industries/${link.slug}` && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                            )}
+                            {link.name}
+                          </span>
+                        </motion.a>
+                      ))}
+                    </nav>
+                  </motion.div>
+
+                  {/* Business Size */}
+                  <motion.div variants={slideUp}>
+                    <div className="mb-5 pb-3 border-b border-foreground/10">
+                      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">By Business Size</span>
+                    </div>
+                    <nav className="space-y-0.5">
+                      {businessSizeLinks.map((link, index) => {
+                        const hasPage = link.href !== "";
+                        return (
+                          <motion.a
+                            key={link.name}
+                            href={hasPage ? link.href : undefined}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (hasPage) handleNavClick(link.href);
+                            }}
+                            className={`block py-2.5 text-[15px] font-medium transition-colors duration-300 ${
+                              hasPage
+                                ? location.pathname === link.href
+                                  ? "text-foreground cursor-pointer"
+                                  : "text-muted-foreground hover:text-foreground cursor-pointer"
+                                : "text-muted-foreground/30 cursor-default"
+                            }`}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 + index * 0.05 }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {location.pathname === link.href && hasPage && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                              )}
+                              {link.name}
+                              {link.popular && (
+                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-accent/15 text-accent font-semibold uppercase tracking-wider">Popular</span>
+                              )}
+                            </span>
+                          </motion.a>
+                        );
+                      })}
                     </nav>
                   </motion.div>
 

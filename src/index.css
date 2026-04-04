@@ -367,6 +367,12 @@
 .mq-wrap:hover .mq-track-fwd,
 .mq-wrap:hover .mq-track-rev { animation-play-state: paused; }
 
+/* ─── GPU acceleration for animated elements ─────────────────────────── */
+[style*="transform"] {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
 /* ─── Respect reduced-motion preference ──────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .star,
@@ -374,6 +380,10 @@
   .mq-track-fwd, .mq-track-rev,
   .concept-row-fwd, .concept-row-rev {
     animation: none !important;
+  }
+  /* Disable Framer Motion transitions for reduced-motion users */
+  * {
+    transition-duration: 0.01ms !important;
   }
 }
 

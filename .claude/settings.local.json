@@ -2,7 +2,17 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc:*)",
-      "Bash(npx vite build:*)"
+      "Bash(npx vite build:*)",
+      "Bash(wc -l /c/animated-ui/brian-tracy/src/pages/services/*.tsx)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://dev.gemseeroo.com\" --max-time 5)",
+      "Bash(wc -l /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
+      "Bash(grep -c \"motion\\\\.\" /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
+      "Bash(grep -n \"const GlowCard\\\\|export.*GlowCard\" /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
+      "Bash(grep -n \"import.*GlowCard\\\\|import.*InteractiveElements\" /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
+      "Bash(git add:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\animated-ui\\brian-tracy\\src\\pages"
     ]
   }
 }

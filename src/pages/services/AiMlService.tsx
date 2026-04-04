@@ -1,7 +1,8 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Plus, Minus } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -178,6 +179,7 @@ export default function AiMlService() {
 
   const navigate = useNavigate();
   const [openIndustry, setOpenIndustry] = useState<number | null>(null);
+  const [activeChallenge, setActiveChallenge] = useState(0);
 
   const heroRef = useRef(null);
   const sec1Ref = useRef(null);
@@ -186,6 +188,7 @@ export default function AiMlService() {
   const sec4Ref = useRef(null);
   const sec5Ref = useRef(null);
   const ctaRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -193,6 +196,12 @@ export default function AiMlService() {
   const sec4InView = useInView(sec4Ref, { once: true, margin: "-100px" });
   const sec5InView = useInView(sec5Ref, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start end", "end start"],
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -272,7 +281,7 @@ export default function AiMlService() {
         </div>
       </motion.section>
 
-      {/* SECTION 1 — Value Proposition */}
+      {/* SECTION 1 — Value Proposition (click-to-select challenge/benefit) */}
       <section ref={sec1Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -304,7 +313,7 @@ export default function AiMlService() {
           </motion.p>
 
           <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
-            {/* Key Problems */}
+            {/* Key Problems — click-to-select */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={sec1InView ? { opacity: 1, y: 0 } : {}}
@@ -313,17 +322,29 @@ export default function AiMlService() {
               <h3 className="text-sm font-semibold mb-8 uppercase tracking-widest text-muted-foreground">
                 Key Problems We Solve
               </h3>
-              <ul className="space-y-5">
+              <ul className="space-y-3">
                 {problems.map((problem, i) => (
-                  <li key={i} className="flex items-start gap-4">
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                  <li
+                    key={i}
+                    className={`flex items-start gap-4 p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
+                      activeChallenge === i
+                        ? "bg-accent/10 border-accent/40"
+                        : "bg-card border-border/40 hover:border-accent/20"
+                    }`}
+                    onClick={() => setActiveChallenge(i)}
+                  >
+                    <span
+                      className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-300 ${
+                        activeChallenge === i ? "bg-accent" : "bg-muted-foreground/40"
+                      }`}
+                    />
                     <p className="text-muted-foreground leading-relaxed">{problem}</p>
                   </li>
                 ))}
               </ul>
             </motion.div>
 
-            {/* Value Props */}
+            {/* Value Props — animated detail panel */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={sec1InView ? { opacity: 1, y: 0 } : {}}
@@ -332,12 +353,31 @@ export default function AiMlService() {
               <h3 className="text-sm font-semibold mb-8 uppercase tracking-widest text-muted-foreground">
                 Forrof's Value Proposition
               </h3>
-              <div className="space-y-4">
-                {valueProps.map((item, i) => (
-                  <div key={i} className="p-6 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-colors">
-                    <h4 className="font-semibold mb-2">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeChallenge}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.35 }}
+                  className="p-8 rounded-2xl bg-card border border-accent/40"
+                >
+                  <span className="text-xs text-accent font-medium tracking-widest uppercase block mb-4">
+                    {String(activeChallenge + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="text-2xl font-semibold mb-4">{valueProps[activeChallenge].title}</h4>
+                  <p className="text-muted-foreground leading-relaxed">{valueProps[activeChallenge].desc}</p>
+                </motion.div>
+              </AnimatePresence>
+              <div className="mt-6 flex gap-2">
+                {valueProps.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveChallenge(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      activeChallenge === i ? "bg-accent w-6" : "bg-border hover:bg-muted-foreground"
+                    }`}
+                  />
                 ))}
               </div>
             </motion.div>
@@ -345,7 +385,7 @@ export default function AiMlService() {
         </div>
       </section>
 
-      {/* SECTION 2 — Services Overview */}
+      {/* SECTION 2 — Services Overview (GlowCard with hover-reveal descriptions) */}
       <section ref={sec2Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -382,18 +422,21 @@ export default function AiMlService() {
             {serviceCards.map((card, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
-                  /{card.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
-                  {card.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{card.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
+                    /{card.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
+                    {card.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{card.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
@@ -417,7 +460,7 @@ export default function AiMlService() {
         </div>
       </section>
 
-      {/* SECTION 3 — Why Choose Us */}
+      {/* SECTION 3 — Why Choose Us (hover-expand list) */}
       <section ref={sec3Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -440,27 +483,34 @@ export default function AiMlService() {
             Why Choose Us
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div>
             {whyUs.map((item, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="border-t border-border group py-8"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <div className="flex items-center gap-6">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-xl font-semibold group-hover:translate-x-4 transition-transform duration-500">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground leading-relaxed text-sm mt-4 pl-[56px]">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
+            <div className="border-t border-border" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 4 — Industries */}
+      {/* SECTION 4 — Industries (accordion with numbered indicator boxes) */}
       <section ref={sec4Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -484,55 +534,70 @@ export default function AiMlService() {
           </motion.h2>
 
           <div className="space-y-0">
-            {industries.map((industry, i) => (
-              <motion.div
-                key={i}
-                className="border-t border-border"
-                initial={{ opacity: 0, y: 16 }}
-                animate={sec4InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}
-              >
-                <button
-                  className="w-full py-7 flex items-center justify-between gap-6 text-left group"
-                  onClick={() => setOpenIndustry(openIndustry === i ? null : i)}
-                >
-                  <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground transition-colors">
-                    {industry.title}
-                  </span>
-                  <motion.div
-                    className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
-                    animate={{ rotate: openIndustry === i ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {openIndustry === i
-                      ? <Minus size={14} className="text-foreground" />
-                      : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
-                    }
-                  </motion.div>
-                </button>
+            {industries.map((industry, i) => {
+              const isOpen = openIndustry === i;
+              return (
                 <motion.div
-                  className="overflow-hidden"
-                  initial={false}
-                  animate={{ height: openIndustry === i ? "auto" : 0, opacity: openIndustry === i ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                  key={i}
+                  className="border-t border-border"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={sec4InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}
                 >
-                  <ul className="space-y-4 pb-8 max-w-4xl">
-                    {industry.points.map((point, j) => (
-                      <li key={j} className="flex items-start gap-4">
-                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-                        <p className="text-muted-foreground leading-relaxed text-sm">{point}</p>
-                      </li>
-                    ))}
-                  </ul>
+                  <button
+                    className="w-full py-7 flex items-center justify-between gap-6 text-left group"
+                    onClick={() => setOpenIndustry(isOpen ? null : i)}
+                  >
+                    <div className="flex items-center gap-6">
+                      <motion.span
+                        className="w-10 h-10 rounded-xl border flex items-center justify-center text-xs font-semibold flex-shrink-0"
+                        animate={{
+                          borderColor: isOpen ? "hsl(var(--accent))" : "hsl(var(--border))",
+                          backgroundColor: isOpen ? "hsl(var(--accent) / 0.1)" : "transparent",
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </motion.span>
+                      <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground transition-colors">
+                        {industry.title}
+                      </span>
+                    </div>
+                    <motion.div
+                      className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {isOpen
+                        ? <Minus size={14} className="text-foreground" />
+                        : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                      }
+                    </motion.div>
+                  </button>
+                  <motion.div
+                    className="overflow-hidden"
+                    initial={false}
+                    animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                  >
+                    <ul className="space-y-4 pb-8 max-w-4xl pl-16">
+                      {industry.points.map((point, j) => (
+                        <li key={j} className="flex items-start gap-4">
+                          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                          <p className="text-muted-foreground leading-relaxed text-sm">{point}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              );
+            })}
             <div className="border-t border-border" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 5 — Process */}
+      {/* SECTION 5 — Process (scroll-driven timeline) */}
       <section ref={sec5Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -563,22 +628,34 @@ export default function AiMlService() {
             * The processes of AI/ML development may vary from project to project since we are agile.
           </motion.p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="pt-8 border-t border-border"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec5InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {step.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div ref={timelineRef} className="relative">
+            {/* Static timeline track */}
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-border" />
+            {/* Animated fill line */}
+            <motion.div
+              className="absolute left-6 top-0 w-px bg-accent origin-top"
+              style={{ height: lineHeight }}
+            />
+
+            <div className="space-y-12">
+              {processSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  className="relative pl-16"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sec5InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-[16px] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" />
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-3">
+                    {step.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm max-w-3xl">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

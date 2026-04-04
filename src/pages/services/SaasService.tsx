@@ -1,7 +1,8 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Plus, Minus } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -107,6 +108,7 @@ export default function SaasService() {
 
   const navigate = useNavigate();
   const [openDomain, setOpenDomain] = useState<number | null>(null);
+  const [activeChallenge, setActiveChallenge] = useState(0);
 
   const heroRef = useRef(null);
   const sec1Ref = useRef(null);
@@ -116,6 +118,7 @@ export default function SaasService() {
   const sec5Ref = useRef(null);
   const sec6Ref = useRef(null);
   const ctaRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -124,6 +127,12 @@ export default function SaasService() {
   const sec5InView = useInView(sec5Ref, { once: true, margin: "-100px" });
   const sec6InView = useInView(sec6Ref, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start end", "end start"],
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -187,7 +196,7 @@ export default function SaasService() {
         </div>
       </motion.section>
 
-      {/* SECTION 1 — Challenges & Benefits */}
+      {/* SECTION 1 — Challenges & Benefits (click-to-select) */}
       <section ref={sec1Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -211,6 +220,7 @@ export default function SaasService() {
           </motion.h2>
 
           <div className="grid md:grid-cols-2 gap-8">
+            {/* Left: clickable challenge items */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={sec1InView ? { opacity: 1, y: 0 } : {}}
@@ -221,14 +231,27 @@ export default function SaasService() {
               </h3>
               <ul className="space-y-4">
                 {challenges.map((c, i) => (
-                  <li key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-card border border-border/40">
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-400/70 flex-shrink-0" />
+                  <li
+                    key={i}
+                    className={`flex items-start gap-4 p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
+                      activeChallenge === i
+                        ? "bg-accent/10 border-accent/40"
+                        : "bg-card border-border/40 hover:border-accent/20"
+                    }`}
+                    onClick={() => setActiveChallenge(i)}
+                  >
+                    <span
+                      className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-300 ${
+                        activeChallenge === i ? "bg-accent" : "bg-red-400/70"
+                      }`}
+                    />
                     <p className="text-muted-foreground leading-relaxed">{c.issue}</p>
                   </li>
                 ))}
               </ul>
             </motion.div>
 
+            {/* Right: animated detail panel */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={sec1InView ? { opacity: 1, y: 0 } : {}}
@@ -237,20 +260,42 @@ export default function SaasService() {
               <h3 className="text-sm font-semibold mb-8 uppercase tracking-widest text-muted-foreground">
                 How We Solve It
               </h3>
-              <ul className="space-y-4">
-                {challenges.map((c, i) => (
-                  <li key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-colors">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeChallenge}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.35 }}
+                  className="p-8 rounded-2xl bg-card border border-accent/40"
+                >
+                  <span className="text-xs text-accent font-medium tracking-widest uppercase block mb-4">
+                    {String(activeChallenge + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="text-lg font-semibold mb-3 text-foreground">{challenges[activeChallenge].issue}</h4>
+                  <div className="flex items-start gap-3">
                     <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-                    <p className="text-muted-foreground leading-relaxed">{c.benefit}</p>
-                  </li>
+                    <p className="text-muted-foreground leading-relaxed">{challenges[activeChallenge].benefit}</p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+              <div className="mt-6 flex gap-2">
+                {challenges.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveChallenge(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      activeChallenge === i ? "bg-accent w-6" : "bg-border hover:bg-muted-foreground"
+                    }`}
+                  />
                 ))}
-              </ul>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2 — Services We Offer */}
+      {/* SECTION 2 — Services We Offer (GlowCard with hover-reveal descriptions) */}
       <section ref={sec2Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -277,25 +322,28 @@ export default function SaasService() {
             {serviceCards.map((card, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
-                  /{card.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
-                  {card.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{card.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
+                    /{card.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
+                    {card.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{card.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 3 — Why Choose Our SaaS Services */}
+      {/* SECTION 3 — Why Choose Our SaaS Services (hover-expand list) */}
       <section ref={sec3Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -318,27 +366,34 @@ export default function SaasService() {
             Why Companies Choose Our SaaS Services
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div>
             {features.map((item, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="border-t border-border group py-8"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {item.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <div className="flex items-center gap-6">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
+                    {item.num}
+                  </span>
+                  <h3 className="text-xl font-semibold group-hover:translate-x-4 transition-transform duration-500">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground leading-relaxed text-sm mt-4 pl-[56px]">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
+            <div className="border-t border-border" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 4 — Process */}
+      {/* SECTION 4 — Process (scroll-driven timeline) */}
       <section ref={sec4Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -361,27 +416,39 @@ export default function SaasService() {
             Our Process
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec4InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.08 }}
-              >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{step.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div ref={timelineRef} className="relative">
+            {/* Static timeline track */}
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-border" />
+            {/* Animated fill line */}
+            <motion.div
+              className="absolute left-6 top-0 w-px bg-accent origin-top"
+              style={{ height: lineHeight }}
+            />
+
+            <div className="space-y-12">
+              {processSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  className="relative pl-16"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sec4InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.08 }}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-[16px] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" />
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-3">
+                    /{step.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm max-w-3xl">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 5 — Business Domains */}
+      {/* SECTION 5 — Business Domains (accordion with numbered indicator boxes) */}
       <section ref={sec5Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -415,56 +482,66 @@ export default function SaasService() {
           </div>
 
           <div className="space-y-0">
-            {domains.map((domain, i) => (
-              <motion.div
-                key={i}
-                className="border-t border-border"
-                initial={{ opacity: 0, y: 20 }}
-                animate={sec5InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.07 }}
-              >
-                <button
-                  className="w-full py-7 flex items-center justify-between gap-6 text-left group"
-                  onClick={() => setOpenDomain(openDomain === i ? null : i)}
-                >
-                  <div className="flex items-center gap-8">
-                    <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
-                      /{domain.num}
-                    </span>
-                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground transition-colors">
-                      {domain.title}
-                    </span>
-                  </div>
-                  <motion.div
-                    className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
-                    animate={{ rotate: openDomain === i ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {openDomain === i
-                      ? <Minus size={14} className="text-foreground" />
-                      : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
-                    }
-                  </motion.div>
-                </button>
-
+            {domains.map((domain, i) => {
+              const isOpen = openDomain === i;
+              return (
                 <motion.div
-                  className="overflow-hidden"
-                  initial={false}
-                  animate={{ height: openDomain === i ? "auto" : 0, opacity: openDomain === i ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                  key={i}
+                  className="border-t border-border"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={sec5InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2 + i * 0.07 }}
                 >
-                  <p className="text-muted-foreground leading-relaxed pb-8 pl-0 md:pl-[88px] max-w-3xl">
-                    {domain.desc}
-                  </p>
+                  <button
+                    className="w-full py-7 flex items-center justify-between gap-6 text-left group"
+                    onClick={() => setOpenDomain(isOpen ? null : i)}
+                  >
+                    <div className="flex items-center gap-6">
+                      <motion.span
+                        className="w-10 h-10 rounded-xl border flex items-center justify-center text-xs font-semibold flex-shrink-0"
+                        animate={{
+                          borderColor: isOpen ? "hsl(var(--accent))" : "hsl(var(--border))",
+                          backgroundColor: isOpen ? "hsl(var(--accent) / 0.1)" : "transparent",
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {domain.num}
+                      </motion.span>
+                      <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground transition-colors">
+                        {domain.title}
+                      </span>
+                    </div>
+                    <motion.div
+                      className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {isOpen
+                        ? <Minus size={14} className="text-foreground" />
+                        : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                      }
+                    </motion.div>
+                  </button>
+
+                  <motion.div
+                    className="overflow-hidden"
+                    initial={false}
+                    animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                  >
+                    <p className="text-muted-foreground leading-relaxed pb-8 pl-16 max-w-3xl">
+                      {domain.desc}
+                    </p>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              );
+            })}
             <div className="border-t border-border" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 6 — Customer Stories */}
+      {/* SECTION 6 — Customer Stories (GlowCard) */}
       <section ref={sec6Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -501,39 +578,42 @@ export default function SaasService() {
             {customerStories.map((story, i) => (
               <motion.div
                 key={i}
-                className="group p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 flex flex-col cursor-pointer"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec6InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.12 }}
-                onClick={() => navigate(`/project/${story.id}`)}
               >
-                <div className="flex items-start justify-between mb-6">
-                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase">
-                    /{String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/20">
-                    {story.stat}
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-bold mb-1 group-hover:text-foreground transition-colors">
-                  {story.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-5">{story.subtitle}</p>
-                <p className="text-muted-foreground leading-relaxed text-sm flex-1 mb-8">
-                  {story.desc}
-                </p>
-
-                <div className="flex items-end justify-between gap-4">
-                  <div className="flex flex-wrap gap-2">
-                    {story.tags.map((tag) => (
-                      <span key={tag} className="px-2.5 py-1 rounded-full border border-border/40 text-xs text-muted-foreground bg-background/40">
-                        {tag}
-                      </span>
-                    ))}
+                <GlowCard
+                  className="group p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 flex flex-col cursor-pointer h-full"
+                  onClick={() => navigate(`/project/${story.id}`)}
+                >
+                  <div className="flex items-start justify-between mb-6">
+                    <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase">
+                      /{String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/20">
+                      {story.stat}
+                    </span>
                   </div>
-                  <ArrowUpRight size={18} className="shrink-0 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
-                </div>
+
+                  <h3 className="text-2xl font-bold mb-1 group-hover:text-foreground transition-colors">
+                    {story.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-5">{story.subtitle}</p>
+                  <p className="text-muted-foreground leading-relaxed text-sm flex-1 mb-8">
+                    {story.desc}
+                  </p>
+
+                  <div className="flex items-end justify-between gap-4">
+                    <div className="flex flex-wrap gap-2">
+                      {story.tags.map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 rounded-full border border-border/40 text-xs text-muted-foreground bg-background/40">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <ArrowUpRight size={18} className="shrink-0 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>

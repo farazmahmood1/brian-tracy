@@ -1,7 +1,8 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +31,24 @@ const processSteps = [
   { num: "04", title: "Reporting & Optimisation", desc: "Regular performance reviews covering all key metrics with clear interpretation and actionable recommendations to continuously improve results month over month." },
 ];
 
+const whyUsItems = [
+  {
+    num: "01",
+    title: "Data-Driven Content",
+    desc: "Every creative decision is grounded in analytics — from post timing and format selection to caption length and hashtag strategy. We test, measure, and iterate so your content continuously improves rather than stagnating on gut feel.",
+  },
+  {
+    num: "02",
+    title: "Brand Voice Consistency",
+    desc: "A unified tone, visual identity, and messaging framework applied consistently across every platform, campaign, and community interaction — so your brand feels instantly recognisable whether someone finds you on LinkedIn, TikTok, or anywhere in between.",
+  },
+  {
+    num: "03",
+    title: "ROI-Focused Campaigns",
+    desc: "Every post, ad, and campaign is tied back to measurable business outcomes — leads generated, traffic driven, revenue attributed. We are accountable to results, not vanity metrics, and our reporting is structured to prove the value of every pound spent.",
+  },
+];
+
 export default function SocialMediaService() {
   usePageMetadata({
     title: "Social Media Marketing Services | Forrof",
@@ -38,6 +57,7 @@ export default function SocialMediaService() {
   });
 
   const navigate = useNavigate();
+  const [expandedWhy, setExpandedWhy] = useState<number | null>(null);
 
   const heroRef = useRef(null);
   const sec1Ref = useRef(null);
@@ -45,6 +65,13 @@ export default function SocialMediaService() {
   const sec3Ref = useRef(null);
   const sec4Ref = useRef(null);
   const ctaRef = useRef(null);
+
+  const processContainerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: processScroll } = useScroll({
+    target: processContainerRef,
+    offset: ["start end", "end start"],
+  });
+  const processLineHeight = useTransform(processScroll, [0, 1], ["0%", "100%"]);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -141,18 +168,21 @@ export default function SocialMediaService() {
             {platforms.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec1InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.07 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
-                  /{item.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
+                    {item.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
@@ -186,25 +216,28 @@ export default function SocialMediaService() {
             {services.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
-                  /{item.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-6">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-4 group-hover:text-foreground transition-colors">
+                    {item.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 3 — Why Us */}
+      {/* SECTION 3 — Why Us (hover-expand list) */}
       <section ref={sec3Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -227,56 +260,49 @@ export default function SocialMediaService() {
             Why Brands Choose Us
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              className="pt-8 border-t border-border"
-              initial={{ opacity: 0, y: 40 }}
-              animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0 }}
-            >
-              <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                01
-              </span>
-              <h3 className="text-xl font-semibold mb-3">Data-Driven Content</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                Every creative decision is grounded in analytics — from post timing and format selection to caption length and hashtag strategy. We test, measure, and iterate so your content continuously improves rather than stagnating on gut feel.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="pt-8 border-t border-border"
-              initial={{ opacity: 0, y: 40 }}
-              animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                02
-              </span>
-              <h3 className="text-xl font-semibold mb-3">Brand Voice Consistency</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                A unified tone, visual identity, and messaging framework applied consistently across every platform, campaign, and community interaction — so your brand feels instantly recognisable whether someone finds you on LinkedIn, TikTok, or anywhere in between.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="pt-8 border-t border-border"
-              initial={{ opacity: 0, y: 40 }}
-              animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                03
-              </span>
-              <h3 className="text-xl font-semibold mb-3">ROI-Focused Campaigns</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                Every post, ad, and campaign is tied back to measurable business outcomes — leads generated, traffic driven, revenue attributed. We are accountable to results, not vanity metrics, and our reporting is structured to prove the value of every pound spent.
-              </p>
-            </motion.div>
+          <div className="space-y-0">
+            {whyUsItems.map((item, i) => (
+              <motion.div
+                key={i}
+                className="border-t border-border group cursor-pointer"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sec3InView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
+                onClick={() => setExpandedWhy(expandedWhy === i ? null : i)}
+              >
+                <div className="py-6 flex items-center gap-6">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
+                    {item.num}
+                  </span>
+                  <h3
+                    className="text-xl font-semibold transition-transform duration-300 group-hover:translate-x-3"
+                  >
+                    {item.title}
+                  </h3>
+                </div>
+                <AnimatePresence initial={false}>
+                  {expandedWhy === i && (
+                    <motion.div
+                      className="overflow-hidden"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                    >
+                      <p className="text-muted-foreground leading-relaxed text-sm pb-6 pl-[56px] max-w-3xl">
+                        {item.desc}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+            <div className="border-t border-border" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 4 — Process */}
+      {/* SECTION 4 — Process (scroll-driven timeline) */}
       <section ref={sec4Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -299,22 +325,34 @@ export default function SocialMediaService() {
             Our Process
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec4InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{step.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div ref={processContainerRef} className="relative">
+            {/* Vertical line track */}
+            <div className="absolute left-5 md:left-7 top-0 bottom-0 w-px bg-border/30" />
+            {/* Animated fill */}
+            <motion.div
+              className="absolute left-5 md:left-7 top-0 w-px origin-top"
+              style={{ height: processLineHeight, background: "#00d4aa" }}
+            />
+
+            <div className="space-y-12">
+              {processSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  className="relative pl-16 md:pl-20"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sec4InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                >
+                  {/* Dot */}
+                  <div className="absolute left-[14px] md:left-[22px] top-1 w-3 h-3 rounded-full border-2 border-accent bg-background" />
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-3">
+                    /{step.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm max-w-2xl">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

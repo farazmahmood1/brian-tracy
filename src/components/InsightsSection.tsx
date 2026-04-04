@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { ArrowUpRight, Clock, Calendar } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,8 @@ export const InsightsSection = () => {
         image: item.blogImage,
         category: 'Insights',
         stack: item.stack,
-        excerpt: (item.content?.substring(0, 110) ?? '') + '...',
+        // Sanitize once at data load time, not on every render
+        excerpt: DOMPurify.sanitize((item.content?.substring(0, 110) ?? '') + '...'),
         date: item.uploadDate,
         readTime: item.readTime || '5',
         slug: item.slug
@@ -99,9 +100,9 @@ export const InsightsSection = () => {
           </motion.div>
         </div>
 
-        {/* Insights Grid with Advanced Hover Effects */}
+        {/* Insights Grid — GPU-accelerated hover effects */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          {displayedInsights.map((insight, index) => (
+          {displayedInsights.map((insight) => (
             <article
               itemScope
               itemType="https://schema.org/BlogPosting"
@@ -110,24 +111,18 @@ export const InsightsSection = () => {
               data-cursor="Read"
               onClick={() => handleArticleClick(insight)}
             >
-              {/* Image Container with Multiple Layers */}
+              {/* Image Container — single composite layer */}
               <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3]">
-                {/* Background overlay layer */}
-                <div className="absolute inset-0 bg-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Main Image — use GPU-friendly scale via will-change */}
+                <img
+                  src={insight.image}
+                  alt={`${insight.title} – Forrof software agency insights`}
+                  className="absolute inset-0 w-full h-full object-cover will-change-transform transition-transform duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                />
 
-                {/* Main Image */}
-                <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-                  <img
-                    src={insight.image}
-                    alt={`${insight.title} – Forrof software agency insights`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
-                </div>
-
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
+                {/* Single gradient overlay instead of 3 separate layers */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent group-hover:from-background/80 transition-colors duration-500" />
 
                 {/* Stack Badges */}
                 <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
@@ -140,8 +135,9 @@ export const InsightsSection = () => {
                     </span>
                   ))}
                 </div>
-                {/* Read More Arrow */}
-                <div className="absolute bottom-6 right-6 w-14 h-14 bg-foreground rounded-full flex items-center justify-center scale-0 opacity-0 -rotate-180 group-hover:scale-100 group-hover:opacity-100 group-hover:rotate-0 transition-all duration-500">
+
+                {/* Read More Arrow — simpler animation (opacity + scale only) */}
+                <div className="absolute bottom-6 right-6 w-14 h-14 bg-foreground rounded-full flex items-center justify-center scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-400 will-change-transform">
                   <ArrowUpRight className="text-background" size={20} />
                 </div>
               </div>
@@ -168,10 +164,10 @@ export const InsightsSection = () => {
                   </span>
                 </h3>
 
-                {/* Excerpt */}
+                {/* Excerpt — sanitized at load time, not on render */}
                 <div
                   className="text-muted-foreground text-sm leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(insight.excerpt) }}
+                  dangerouslySetInnerHTML={{ __html: insight.excerpt }}
                 />
 
                 {/* Read More Link */}

@@ -1,7 +1,8 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -52,6 +53,10 @@ export default function UxDesignService() {
   const sec2Ref = useRef(null);
   const sec3Ref = useRef(null);
   const ctaRef = useRef(null);
+
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start end", "end center"] });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -147,18 +152,21 @@ export default function UxDesignService() {
             {designServices.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec1InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{item.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-foreground transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-foreground transition-colors">
+                    {item.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500 ease-out">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
@@ -188,15 +196,19 @@ export default function UxDesignService() {
             How We Work
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div ref={timelineRef} className="relative space-y-16">
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border" />
+            <motion.div className="absolute left-6 md:left-8 top-0 w-px bg-accent origin-top" style={{ height: lineHeight }} />
+
             {processSteps.map((step, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="relative pl-16 md:pl-20"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
+                <motion.div className="absolute left-[1.125rem] md:left-[1.625rem] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" />
                 <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
                   {step.num}
                 </span>
@@ -231,19 +243,24 @@ export default function UxDesignService() {
             Why Choose Us
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+          <div className="space-y-0 mb-24">
             {whyUs.map((item, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="py-8 border-t border-border group cursor-pointer"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
               >
-                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <h3 className="text-lg font-semibold mb-2 group-hover:translate-x-4 transition-transform duration-500">
+                  {item.title}
+                </h3>
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
+            <div className="border-t border-border" />
           </div>
 
           {/* Stats Row */}
@@ -256,7 +273,11 @@ export default function UxDesignService() {
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.4 + i * 0.1 }}
               >
-                <p className="text-4xl md:text-6xl font-bold tracking-tighter mb-3">{stat.value}</p>
+                <p className="text-4xl md:text-6xl font-bold tracking-tighter mb-3">
+                  {stat.value === "20%" && <CountUp value="20" suffix="%" delay={200} />}
+                  {stat.value === "25%" && <CountUp value="25" suffix="%" delay={400} />}
+                  {stat.value === "Top 50" && <><span className="mr-2">Top</span><CountUp value="50" delay={600} /></>}
+                </p>
                 <p className="text-muted-foreground text-sm leading-relaxed">{stat.label}</p>
               </motion.div>
             ))}

@@ -1,9 +1,10 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
+import { GlowCard } from "@/components/InteractiveElements";
 
 const teamTypes = [
   { num: "01", title: "Enterprise Innovation Labs", desc: "Test ideas fast, launch pilots, and validate new digital products without disrupting core operations." },
@@ -88,6 +89,8 @@ export default function EnterpriseService() {
 
   const navigate = useNavigate();
 
+  const [activeChallenge, setActiveChallenge] = useState(0);
+
   const heroRef = useRef(null);
   const sec1Ref = useRef(null);
   const sec2Ref = useRef(null);
@@ -95,6 +98,7 @@ export default function EnterpriseService() {
   const sec4Ref = useRef(null);
   const sec5Ref = useRef(null);
   const ctaRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
@@ -102,6 +106,9 @@ export default function EnterpriseService() {
   const sec4InView = useInView(sec4Ref, { once: true, margin: "-100px" });
   const sec5InView = useInView(sec5Ref, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start end", "end center"] });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -165,7 +172,7 @@ export default function EnterpriseService() {
         </div>
       </motion.section>
 
-      {/* SECTION 1 — Who We Serve */}
+      {/* SECTION 1 — Who We Serve (hover-expand list) */}
       <section ref={sec1Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -188,21 +195,25 @@ export default function EnterpriseService() {
             Fresh, Flexible IT Services for Enterprise Teams
           </motion.h2>
 
-          <div className="space-y-4">
+          <div>
             {teamTypes.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 flex items-start gap-8"
+                className="group border-t border-border py-6 md:py-8 cursor-pointer"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec1InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase flex-shrink-0 mt-1">
-                  /{item.num}
-                </span>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <div className="flex items-center gap-6 group-hover:translate-x-4 transition-transform duration-500">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase flex-shrink-0">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-lg md:text-xl font-semibold">{item.title}</h3>
+                </div>
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground leading-relaxed text-sm pt-4 pl-[calc(1.5rem+24px)] md:pl-[calc(1.5rem+24px)]">
+                    {item.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -210,7 +221,7 @@ export default function EnterpriseService() {
         </div>
       </section>
 
-      {/* SECTION 2 — Challenges */}
+      {/* SECTION 2 — Challenges (click-to-select) */}
       <section ref={sec2Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -233,35 +244,78 @@ export default function EnterpriseService() {
             Challenges We Help Enterprise Teams Overcome
           </motion.h2>
 
-          <div className="space-y-6">
-            {challenges.map((item, i) => (
-              <motion.div
-                key={i}
-                className="grid md:grid-cols-2 gap-8 p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec2InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              >
-                <div className="flex items-start gap-6">
-                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase flex-shrink-0 mt-1">
+          <div className="grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-16">
+            {/* Left — clickable list */}
+            <div className="space-y-2">
+              {challenges.map((item, i) => (
+                <motion.button
+                  key={i}
+                  onClick={() => setActiveChallenge(i)}
+                  className={`w-full text-left flex items-center gap-4 py-4 px-4 rounded-xl transition-all duration-300 ${
+                    activeChallenge === i
+                      ? "bg-card border border-accent/40"
+                      : "border border-transparent hover:bg-card/50"
+                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={sec2InView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}
+                >
+                  <span className="relative flex-shrink-0 w-3 h-3">
+                    <span
+                      className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                        activeChallenge === i ? "bg-accent scale-100" : "bg-muted-foreground/30 scale-75"
+                      }`}
+                    />
+                    {activeChallenge === i && (
+                      <motion.span
+                        className="absolute inset-0 rounded-full bg-accent/40"
+                        initial={{ scale: 1 }}
+                        animate={{ scale: 2, opacity: 0 }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      />
+                    )}
+                  </span>
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase flex-shrink-0">
                     {item.num}
                   </span>
-                  <div>
-                    <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">Challenge</p>
-                    <h3 className="text-lg font-semibold">{item.challenge}</h3>
+                  <span
+                    className={`text-sm md:text-base font-medium transition-colors duration-300 ${
+                      activeChallenge === i ? "text-foreground" : "text-muted-foreground"
+                    }`}
+                  >
+                    {item.challenge}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Right — detail panel */}
+            <div className="relative min-h-[280px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeChallenge}
+                  initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="p-8 md:p-10 rounded-2xl bg-card border border-border/40"
+                >
+                  <div className="mb-8">
+                    <p className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Challenge</p>
+                    <h3 className="text-xl md:text-2xl font-bold">{challenges[activeChallenge].challenge}</h3>
                   </div>
-                </div>
-                <div>
-                  <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">Our Approach</p>
-                  <p className="text-muted-foreground leading-relaxed">{item.approach}</p>
-                </div>
-              </motion.div>
-            ))}
+                  <div>
+                    <p className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Our Approach</p>
+                    <p className="text-muted-foreground leading-relaxed text-base">{challenges[activeChallenge].approach}</p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 3 — How We Work */}
+      {/* SECTION 3 — How We Work (scroll-driven timeline) */}
       <section ref={sec3Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -284,27 +338,39 @@ export default function EnterpriseService() {
             How We Work with Enterprise Clients
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {processSteps.map((step, i) => (
+          <div ref={timelineRef} className="relative pl-12 md:pl-20">
+            {/* Timeline track */}
+            <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-border">
               <motion.div
-                key={i}
-                className="pt-8 border-t border-border"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {step.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+                className="w-full bg-accent origin-top"
+                style={{ height: lineHeight }}
+              />
+            </div>
+
+            <div className="space-y-16">
+              {processSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  className="relative"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sec3InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                >
+                  {/* Dot */}
+                  <div className="absolute -left-[calc(3rem-6px)] md:-left-[calc(5rem-6px)] top-1 w-3 h-3 rounded-full bg-border border-2 border-background" />
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
+                    {step.num}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm max-w-2xl">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 4 — Engagement Models */}
+      {/* SECTION 4 — Engagement Models (GlowCard with hover-expand) */}
       <section ref={sec4Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -331,25 +397,28 @@ export default function EnterpriseService() {
             {engagementModels.map((model, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec4InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{model.num}
-                </span>
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-foreground transition-colors">
-                  {model.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">{model.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
+                    /{model.num}
+                  </span>
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-foreground transition-colors">
+                    {model.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed">{model.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 5 — Why Partner with Us */}
+      {/* SECTION 5 — Why Partner with Us (GlowCard with hover-expand) */}
       <section ref={sec5Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -376,13 +445,16 @@ export default function EnterpriseService() {
             {reasons.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-10 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec5InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
-                <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                <GlowCard className="p-6 md:p-10 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group">
+                  <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>

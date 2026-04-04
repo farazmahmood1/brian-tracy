@@ -20,6 +20,16 @@ const EnterpriseService = lazy(() => import("./pages/services/EnterpriseService"
 const StrategyService = lazy(() => import("./pages/services/StrategyService"));
 const MobileAppService = lazy(() => import("./pages/services/MobileAppService"));
 const SocialMediaService = lazy(() => import("./pages/services/SocialMediaService"));
+const IndustrialSectorPage = lazy(() => import("./pages/industries/IndustrialSectorPage"));
+const DecisionIntelligencePage = lazy(() => import("./pages/industries/DecisionIntelligencePage"));
+const FintechFinancePage = lazy(() => import("./pages/industries/FintechFinancePage"));
+const HealthWellnessPage = lazy(() => import("./pages/industries/HealthWellnessPage"));
+const LegalTechPage = lazy(() => import("./pages/industries/LegalTechPage"));
+const TransportationPage = lazy(() => import("./pages/industries/TransportationPage"));
+const PaintingPage = lazy(() => import("./pages/industries/PaintingPage"));
+const SmallBusinessPage = lazy(() => import("./pages/industries/SmallBusinessPage"));
+const MidSizedBusinessPage = lazy(() => import("./pages/industries/MidSizedBusinessPage"));
+const GovernmentPage = lazy(() => import("./pages/industries/GovernmentPage"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
 const Articles = lazy(() => import("./pages/Articles"));
@@ -56,6 +66,16 @@ const preloadRoutes = () => {
   import("./pages/services/StrategyService");
   import("./pages/services/MobileAppService");
   import("./pages/services/SocialMediaService");
+  import("./pages/industries/IndustrialSectorPage");
+  import("./pages/industries/DecisionIntelligencePage");
+  import("./pages/industries/FintechFinancePage");
+  import("./pages/industries/HealthWellnessPage");
+  import("./pages/industries/LegalTechPage");
+  import("./pages/industries/TransportationPage");
+  import("./pages/industries/PaintingPage");
+  import("./pages/industries/SmallBusinessPage");
+  import("./pages/industries/MidSizedBusinessPage");
+  import("./pages/industries/GovernmentPage");
 };
 
 // Content wrapper that handles layout for all pages
@@ -153,6 +173,16 @@ const App = () => (
             <Route path="/services/strategy" element={<LayoutWrapper><StrategyService /></LayoutWrapper>} />
             <Route path="/services/mobile" element={<LayoutWrapper><MobileAppService /></LayoutWrapper>} />
             <Route path="/services/social-media" element={<LayoutWrapper><SocialMediaService /></LayoutWrapper>} />
+            <Route path="/industries/industrial-sector" element={<LayoutWrapper><IndustrialSectorPage /></LayoutWrapper>} />
+            <Route path="/industries/decision-intelligence" element={<LayoutWrapper><DecisionIntelligencePage /></LayoutWrapper>} />
+            <Route path="/industries/fintech-finance" element={<LayoutWrapper><FintechFinancePage /></LayoutWrapper>} />
+            <Route path="/industries/health-wellness" element={<LayoutWrapper><HealthWellnessPage /></LayoutWrapper>} />
+            <Route path="/industries/legaltech" element={<LayoutWrapper><LegalTechPage /></LayoutWrapper>} />
+            <Route path="/industries/transportation" element={<LayoutWrapper><TransportationPage /></LayoutWrapper>} />
+            <Route path="/industries/painting" element={<LayoutWrapper><PaintingPage /></LayoutWrapper>} />
+            <Route path="/industries/small-business" element={<LayoutWrapper><SmallBusinessPage /></LayoutWrapper>} />
+            <Route path="/industries/mid-sized-business" element={<LayoutWrapper><MidSizedBusinessPage /></LayoutWrapper>} />
+            <Route path="/industries/government" element={<LayoutWrapper><GovernmentPage /></LayoutWrapper>} />
             <Route
               path="/projects"
               element={

@@ -1,9 +1,10 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
+import { GlowCard } from "@/components/InteractiveElements";
 
 const offerings = [
   { num: "01", title: "Technical Due Diligence", desc: "Deep code, architecture, and team assessments for investors, acquirers, and boards making high-stakes decisions." },
@@ -41,11 +42,15 @@ export default function StrategyService() {
   const sec2Ref = useRef(null);
   const sec3Ref = useRef(null);
   const ctaRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const sec1InView = useInView(sec1Ref, { once: true, margin: "-100px" });
   const sec2InView = useInView(sec2Ref, { once: true, margin: "-100px" });
   const sec3InView = useInView(sec3Ref, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start end", "end center"] });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -109,7 +114,7 @@ export default function StrategyService() {
         </div>
       </motion.section>
 
-      {/* SECTION 1 — What We Offer */}
+      {/* SECTION 1 — What We Offer (GlowCard with hover-expand) */}
       <section ref={sec1Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -136,25 +141,28 @@ export default function StrategyService() {
             {offerings.map((item, i) => (
               <motion.div
                 key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec1InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.07 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{item.num}
-                </span>
-                <h3 className="text-base font-semibold mb-3 group-hover:text-foreground transition-colors leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                <GlowCard className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-base font-semibold mb-3 group-hover:text-foreground transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+                  <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                    <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 2 — Our Approach */}
+      {/* SECTION 2 — Our Approach (hover-expand list) */}
       <section ref={sec2Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -177,27 +185,33 @@ export default function StrategyService() {
             How We Think
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div>
             {pillars.map((item, i) => (
               <motion.div
                 key={i}
-                className="pt-8 border-t border-border"
+                className="group border-t border-border py-6 md:py-8 cursor-pointer"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec2InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.12 }}
               >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {item.num}
-                </span>
-                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                <div className="flex items-center gap-6 group-hover:translate-x-4 transition-transform duration-500">
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase flex-shrink-0">
+                    /{item.num}
+                  </span>
+                  <h3 className="text-xl md:text-2xl font-bold">{item.title}</h3>
+                </div>
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground leading-relaxed pt-4 pl-[calc(1.5rem+24px)] md:pl-[calc(1.5rem+24px)]">
+                    {item.desc}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 3 — Process */}
+      {/* SECTION 3 — Process (scroll-driven timeline) */}
       <section ref={sec3Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
@@ -220,22 +234,34 @@ export default function StrategyService() {
             Our Process
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processSteps.map((step, i) => (
+          <div ref={timelineRef} className="relative pl-12 md:pl-20">
+            {/* Timeline track */}
+            <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-border">
               <motion.div
-                key={i}
-                className="p-6 md:p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              >
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{step.num}
-                </span>
-                <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+                className="w-full bg-accent origin-top"
+                style={{ height: lineHeight }}
+              />
+            </div>
+
+            <div className="space-y-16">
+              {processSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  className="relative"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={sec3InView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                >
+                  {/* Dot */}
+                  <div className="absolute -left-[calc(3rem-6px)] md:-left-[calc(5rem-6px)] top-1 w-3 h-3 rounded-full bg-border border-2 border-background" />
+                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
+                    /{step.num}
+                  </span>
+                  <h3 className="text-xl font-bold mb-4">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm max-w-2xl">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
