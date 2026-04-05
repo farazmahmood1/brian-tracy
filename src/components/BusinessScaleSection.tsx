@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { LineReveal } from "./AnimationComponents";
-import { Lightbulb, Box, LayoutGrid, Star } from "lucide-react";
+import { Lightbulb, Box, LayoutGrid, Star, ArrowRight } from "lucide-react";
 
 const businessScales = [
   {
@@ -16,6 +17,7 @@ const businessScales = [
       "Future-proof architecture solutions;",
       "Long-term partnership, not one-time projects.",
     ],
+    link: "/services/enterprise",
   },
   {
     id: "mid-sized",
@@ -29,6 +31,7 @@ const businessScales = [
       "Scalability without over-engineering;",
       "Visible business value from every release.",
     ],
+    link: "/industries/mid-sized-business",
   },
   {
     id: "small-sized",
@@ -42,6 +45,7 @@ const businessScales = [
       "Turnkey solution without overload;",
       "Clear communication without technical noise.",
     ],
+    link: "/industries/small-business",
   },
   {
     id: "startups",
@@ -55,6 +59,7 @@ const businessScales = [
       "Active participation in vision formation;",
       "UX and core value, not unnecessary features.",
     ],
+    link: "/services/mvp",
   },
 ];
 
@@ -205,6 +210,7 @@ const BusinessDonut = ({
 export const BusinessScaleSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeScale, setActiveScale] = useState(0);
+  const navigate = useNavigate();
 
   return (
     <section
@@ -343,6 +349,19 @@ export const BusinessScaleSection = () => {
                             </motion.li>
                           ))}
                         </ul>
+                        <motion.button
+                          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[#00d4aa] hover:text-[#00f0c0] transition-colors duration-200 group"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.3 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(scale.link);
+                          }}
+                        >
+                          Learn more
+                          <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                        </motion.button>
                       </div>
                     </motion.div>
                   )}

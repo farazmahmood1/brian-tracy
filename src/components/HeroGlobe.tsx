@@ -1,5 +1,5 @@
-import React, { useRef, useLayoutEffect, Suspense, useEffect, useState, useCallback } from "react";
-import { Canvas, useThree, useFrame } from "@react-three/fiber";
+import React, { useRef, useLayoutEffect, Suspense, useEffect } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Stars, Preload } from "@react-three/drei";
 import { EarthScene } from "./Earth3D";
@@ -137,22 +137,8 @@ const HeroGlobeScene: React.FC = () => {
 
 const Loader: React.FC = () => null;
 
-// Signals when the first real frame renders (textures loaded, scene ready)
-const ReadySignal: React.FC<{ onReady: () => void }> = ({ onReady }) => {
-    const fired = useRef(false);
-    useFrame(() => {
-        if (!fired.current) {
-            fired.current = true;
-            onReady();
-        }
-    });
-    return null;
-};
-
 export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
     const divRef = useRef<HTMLDivElement>(null);
-    const [ready, setReady] = useState(false);
-    const onReady = useCallback(() => setReady(true), []);
 
     // Stop Three.js rendering completely when the globe scrolls out of view.
     // When hidden: zero rAF callbacks, zero GPU draws — frees main thread for CSS animations.
@@ -173,34 +159,7 @@ export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
     }, []);
 
     return (
-        <div ref={divRef} className={className} style={{ position: "relative" }}>
-            {/* Subtle dark placeholder — visible instantly while 3D loads */}
-            <div
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    opacity: ready ? 0 : 1,
-                    transition: "opacity 0.6s ease-out",
-                    pointerEvents: "none",
-                    zIndex: 1,
-                }}
-            >
-                <div
-                    style={{
-                        width: "38%",
-                        aspectRatio: "1",
-                        borderRadius: "50%",
-                        background:
-                            "radial-gradient(circle at 35% 35%, #0d2a3d 0%, #071520 50%, #000000 100%)",
-                        boxShadow:
-                            "0 0 60px rgba(0, 180, 160, 0.08), inset -20px -20px 60px rgba(0,0,0,0.9)",
-                    }}
-                />
-            </div>
-
+        <div ref={divRef} className={className}>
             <Canvas
                 camera={{ position: [0, 0, 8], fov: 45 }}
                 gl={{
@@ -209,13 +168,12 @@ export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
                     powerPreference: "high-performance",
                 }}
                 dpr={[1, 1.5]}
-                style={{ background: "transparent", opacity: ready ? 1 : 0, transition: "opacity 0.8s ease-out" }}
+                style={{ background: "transparent" }}
                 frameloop="demand"
             >
                 <Suspense fallback={<Loader />}>
                     <FrameDriver />
                     <HeroGlobeScene />
-                    <ReadySignal onReady={onReady} />
                     <Preload all />
                 </Suspense>
             </Canvas>

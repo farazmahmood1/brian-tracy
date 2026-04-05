@@ -4,12 +4,13 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { X, Mail, ChevronRight } from "lucide-react";
+import { X, Mail, ChevronRight, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "./AnimationComponents";
 import { MusicPlayer } from "./MusicPlayer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SOCIAL_LINKS } from "@/constants/links";
+import { useToast } from "@/hooks/use-toast";
 
 interface NavLink {
   name: string;
@@ -205,6 +206,7 @@ const ServiceItem = ({ service, onNavigate }: { service: ServiceLink; onNavigate
 
 export const NavbarMenuIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [0, 1]);
   const logoTextOpacity = useTransform(scrollY, [100, 250], [0, 1]);
@@ -212,6 +214,55 @@ export const NavbarMenuIcon = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    interest: [] as string[],
+    message: "",
+  });
+
+  const toggleInterest = (tag: string) => {
+    setContactForm((prev) => ({
+      ...prev,
+      interest: prev.interest.includes(tag)
+        ? prev.interest.filter((t) => t !== tag)
+        : [...prev.interest, tag],
+    }));
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+    data.append("name", contactForm.name);
+    data.append("email", contactForm.email);
+    data.append("company", contactForm.company);
+    data.append("phone", contactForm.phone);
+    data.append("interest", contactForm.interest.join(", "));
+    data.append("message", contactForm.message);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you within 24 hours.",
+        });
+        setContactForm({ name: "", email: "", company: "", phone: "", interest: [], message: "" });
+        setIsContactOpen(false);
+      } else {
+        toast({ title: "Error", description: result.message || "Something went wrong.", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error", description: "Something went wrong. Please try again.", variant: "destructive" });
+    }
+  };
 
   // Logo hover-reveal effect (only active in hero zone)
   const logoRef = useRef<HTMLDivElement>(null);
@@ -232,21 +283,25 @@ export const NavbarMenuIcon = () => {
 
   const logoRevealActive = inHeroZone && logoHovered;
 
-  // Close menu on route change
+  // Close menu and contact form on route change
   useEffect(() => {
     setIsOpen(false);
+    setIsContactOpen(false);
   }, [location.pathname]);
 
-  // Close menu when clicking outside
+  // Close menu/contact on Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        setIsContactOpen(false);
+      }
     };
-    if (isOpen) {
+    if (isOpen || isContactOpen) {
       document.addEventListener("keydown", handleEscape);
       return () => document.removeEventListener("keydown", handleEscape);
     }
-  }, [isOpen]);
+  }, [isOpen, isContactOpen]);
 
   // Page stays scrollable when menu is open — no overflow lock
 
@@ -269,13 +324,13 @@ export const NavbarMenuIcon = () => {
 
   return (
     <>
-      {/* Background fade on scroll — no backdropFilter (causes full repaint every scroll tick) */}
+      {/* Background bar on scroll — seamless dark fade */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-24 z-40 pointer-events-none"
+        className="fixed top-0 left-0 right-0 h-24 z-40 pointer-events-none backdrop-blur-md"
         style={{
           opacity: headerOpacity,
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%)",
+            "linear-gradient(to bottom, rgba(5, 10, 18, 0.95) 0%, rgba(5, 10, 18, 0.8) 50%, rgba(5, 10, 18, 0) 100%)",
         }}
       />
 
@@ -335,24 +390,48 @@ export const NavbarMenuIcon = () => {
           {/* Right Actions */}
           <div className="flex items-center gap-2 md:gap-4 z-[100]">
             {/* Let's Talk */}
-            <motion.a
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/contact");
-                window.scrollTo(0, 0);
+            <motion.button
+              onClick={() => {
+                setIsContactOpen(!isContactOpen);
+                setIsOpen(false);
               }}
-              className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-foreground/70 transition-colors cursor-pointer border-b border-foreground/30 pb-0.5"
+              className={`hidden md:inline-flex items-center justify-center cursor-pointer ${
+                isContactOpen ? "w-12 h-12" : "gap-1.5 text-sm font-medium text-foreground hover:text-foreground/70 transition-colors border-b border-foreground/30 pb-0.5"
+              }`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              whileHover={{ y: -1 }}
+              whileHover={isContactOpen ? { scale: 1.05 } : { y: -1 }}
+              whileTap={isContactOpen ? { scale: 0.95 } : undefined}
             >
-              Let's talk
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                <path d="M1 13L13 1M13 1H3M13 1V11" stroke="#48f0e7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </motion.a>
+              <AnimatePresence mode="wait">
+                {isContactOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <X size={30} strokeWidth={2.5} className="relative z-10" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="talk"
+                    className="flex items-center gap-1.5"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    Let's talk
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 13L13 1M13 1H3M13 1V11" stroke="#48f0e7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
 
             <span className="hidden md:block w-px h-5 bg-foreground/20 mx-1" />
 
@@ -365,7 +444,7 @@ export const NavbarMenuIcon = () => {
             <Magnetic strength={0.2}>
               <motion.button
                 className="relative w-12 h-12 flex items-center justify-center cursor-pointer"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => { setIsOpen(!isOpen); setIsContactOpen(false); }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -642,6 +721,197 @@ export const NavbarMenuIcon = () => {
                   </div>
                 </motion.div>
               </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Contact Form Overlay */}
+      <AnimatePresence>
+        {isContactOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              style={{ background: "rgba(0, 0, 0, 0.15)" }}
+              onClick={() => setIsContactOpen(false)}
+            />
+
+            {/* Floating glass card */}
+            <motion.div
+              className="fixed z-40 left-4 right-4 bottom-4 md:left-6 md:right-6 md:bottom-6 lg:left-10 lg:right-10 lg:bottom-8 top-[5.5rem] md:top-[6rem] rounded-2xl md:rounded-3xl overflow-hidden"
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              {/* Glass background */}
+              <div className="absolute inset-0 backdrop-blur-2xl bg-background/60" />
+              <div className="absolute inset-0 border border-foreground/[0.06] rounded-2xl md:rounded-3xl pointer-events-none" />
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/3 rounded-full blur-[80px]" />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col px-6 md:px-12 lg:px-16 pt-10 md:pt-14 pb-6 overflow-y-auto">
+                <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
+
+                  {/* Left — Connect info */}
+                  <motion.div
+                    className="flex flex-col justify-between h-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-6">
+                        <span className="w-2 h-2 rounded-full bg-accent" />
+                        <span className="text-sm text-accent font-medium">Connect with us!</span>
+                      </div>
+                      <h2 className="text-2xl md:text-3xl lg:text-[2.8rem] font-bold leading-[1.1] tracking-tight mb-8">
+                        Turn Your Vision Into an Experience That Lasts
+                      </h2>
+                      <div className="w-10 h-px bg-foreground/20 mb-6" />
+                      <a
+                        href="mailto:hello@forrof.io"
+                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm mb-8"
+                      >
+                        <Mail size={15} />
+                        hello@forrof.io
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-3 mt-auto">
+                      {[
+                        { name: "LinkedIn", url: SOCIAL_LINKS.linkedin },
+                        { name: "Instagram", url: SOCIAL_LINKS.instagram },
+                        { name: "Facebook", url: SOCIAL_LINKS.facebook },
+                      ].map((social) => (
+                        <a
+                          key={social.name}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={social.name}
+                          className="w-9 h-9 rounded-full border border-foreground/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors text-[11px]"
+                        >
+                          {social.name[0]}
+                        </a>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Right — Contact form */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-8">Let's talk</h3>
+                    <form onSubmit={handleContactSubmit} className="space-y-6">
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        <div>
+                          <input
+                            type="text"
+                            name="name"
+                            value={contactForm.name}
+                            onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                            placeholder="Full name"
+                            required
+                            autoComplete="off"
+                            className="w-full bg-transparent border-b border-foreground/20 py-3 text-sm focus:outline-none focus:border-foreground/60 transition-colors placeholder:text-muted-foreground/50"
+                          />
+                        </div>
+                        <div>
+                          <input
+                            type="text"
+                            name="company"
+                            value={contactForm.company}
+                            onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
+                            placeholder="Company"
+                            autoComplete="off"
+                            className="w-full bg-transparent border-b border-foreground/20 py-3 text-sm focus:outline-none focus:border-foreground/60 transition-colors placeholder:text-muted-foreground/50"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        <div>
+                          <input
+                            type="email"
+                            name="email"
+                            value={contactForm.email}
+                            onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                            placeholder="Email"
+                            required
+                            autoComplete="off"
+                            className="w-full bg-transparent border-b border-foreground/20 py-3 text-sm focus:outline-none focus:border-foreground/60 transition-colors placeholder:text-muted-foreground/50"
+                          />
+                        </div>
+                        <div>
+                          <input
+                            type="tel"
+                            name="phone"
+                            value={contactForm.phone}
+                            onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                            placeholder="Phone"
+                            autoComplete="off"
+                            className="w-full bg-transparent border-b border-foreground/20 py-3 text-sm focus:outline-none focus:border-foreground/60 transition-colors placeholder:text-muted-foreground/50"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Interest tags */}
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-3">I'm interested in</p>
+                        <div className="flex flex-wrap gap-2">
+                          {["UI/UX", "Development", "Branding", "AI/ML", "Mobile App", "SaaS"].map((tag) => (
+                            <button
+                              key={tag}
+                              type="button"
+                              onClick={() => toggleInterest(tag)}
+                              className={`px-4 py-2 rounded-full text-xs font-medium border transition-all duration-200 ${
+                                contactForm.interest.includes(tag)
+                                  ? "bg-foreground text-background border-foreground"
+                                  : "bg-transparent text-foreground/70 border-foreground/20 hover:border-foreground/40"
+                              }`}
+                            >
+                              {tag}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Message */}
+                      <div>
+                        <textarea
+                          name="message"
+                          value={contactForm.message}
+                          onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                          placeholder="Tell us more about your project!"
+                          rows={3}
+                          className="w-full bg-transparent border-b border-foreground/20 py-3 text-sm focus:outline-none focus:border-foreground/60 transition-colors resize-none placeholder:text-muted-foreground/50"
+                          autoComplete="off"
+                        />
+                      </div>
+
+                      {/* Submit */}
+                      <motion.button
+                        type="submit"
+                        className="w-full flex items-center justify-center gap-3 py-4 rounded-full font-semibold text-sm uppercase tracking-wider bg-foreground text-background hover:opacity-90 transition-opacity"
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Send
+                        <ArrowRight size={16} />
+                      </motion.button>
+                    </form>
+                  </motion.div>
+                </div>
+              </div>
             </motion.div>
           </>
         )}
