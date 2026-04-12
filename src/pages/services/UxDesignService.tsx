@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
+import { UxTerminalBlock } from "@/components/AiMlVisuals";
 
 const designServices = [
   { num: "01", title: "Web-app Design", desc: "Complex product interfaces simplified — dashboards, portals, and SaaS tools that users actually enjoy navigating." },
@@ -69,7 +70,7 @@ export default function UxDesignService() {
       {/* HERO */}
       <motion.section
         ref={heroRef}
-        className="relative min-h-screen flex items-end section-padding pb-16 md:pb-24 overflow-hidden"
+        className="relative min-h-screen flex items-end section-padding pt-28 pb-16 md:pb-24 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -84,44 +85,44 @@ export default function UxDesignService() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
         <div className="relative z-20 max-w-[1800px] mx-auto w-full">
-          <motion.span
-            className="inline-block text-xs uppercase tracking-[0.3em] mb-8"
-            style={{ color: "#00d4aa" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Services / Design
-          </motion.span>
-          <div className="overflow-hidden mb-6">
-            <motion.h1
-              className="text-[13vw] md:text-[10vw] font-bold leading-[0.88] tracking-tighter"
-              style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                backgroundSize: "200% 200%",
-              }}
-              initial={{ y: "110%", backgroundPosition: "0% 50%" }}
-              animate={{ y: 0, backgroundPosition: "100% 50%" }}
-              transition={{
-                y: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 },
-                backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1, repeat: Infinity, repeatType: "reverse" },
-              }}
+            <motion.span
+              className="inline-block text-xs uppercase tracking-[0.3em] mb-8"
+              style={{ color: "#00d4aa" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
             >
-              UI/UX Design
-            </motion.h1>
-          </div>
-          <motion.p
-            className="text-lg md:text-2xl max-w-2xl leading-relaxed mt-10"
-            style={{ color: "#48f0e7" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            UI/UX Design Services that Elevate Digital Experiences. We help digital products succeed with world-class UI/UX design that improves user satisfaction, boosts retention, and drives business growth.
-          </motion.p>
+              Services / Design
+            </motion.span>
+            <div className="overflow-hidden mb-6 py-2">
+              <motion.h1
+                className="text-[13vw] md:text-[10vw] xl:text-[8vw] font-bold leading-[0.95] tracking-tighter"
+                style={{
+                  background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  backgroundSize: "200% 200%",
+                }}
+                initial={{ y: "110%", backgroundPosition: "0% 50%" }}
+                animate={{ y: 0, backgroundPosition: "100% 50%" }}
+                transition={{
+                  y: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 },
+                  backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1, repeat: Infinity, repeatType: "reverse" },
+                }}
+              >
+                UI/UX Design
+              </motion.h1>
+            </div>
+            <motion.p
+              className="text-lg md:text-2xl max-w-2xl leading-relaxed mt-10"
+              style={{ color: "#48f0e7" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              UI/UX Design Services that Elevate Digital Experiences. We help digital products succeed with world-class UI/UX design that improves user satisfaction, boosts retention, and drives business growth.
+            </motion.p>
         </div>
       </motion.section>
 
@@ -173,11 +174,29 @@ export default function UxDesignService() {
         </div>
       </section>
 
+      {/* Terminal visual */}
+      <section className="section-forced-dark section-padding py-24">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <UxTerminalBlock />
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">Design Systems That Scale</h3>
+              <p className="text-muted-foreground leading-relaxed">We deliver more than mockups — complete design systems with tokens, components, and motion guidelines that keep your product consistent as it grows.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 2 — How We Work */}
       <section ref={sec2Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
-            className="flex items-center gap-4 mb-20"
+            className="flex items-center justify-center gap-4 mb-20 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={sec2InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
@@ -188,7 +207,7 @@ export default function UxDesignService() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl"
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl text-center mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={sec2InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -196,26 +215,57 @@ export default function UxDesignService() {
             How We Work
           </motion.h2>
 
-          <div ref={timelineRef} className="relative space-y-16">
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border" />
-            <motion.div className="absolute left-6 md:left-8 top-0 w-px bg-accent origin-top" style={{ height: lineHeight }} />
-
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="relative pl-16 md:pl-20"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec2InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              >
-                <motion.div className="absolute left-[1.125rem] md:left-[1.625rem] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" />
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                  {step.num}
-                </span>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div ref={timelineRef} className="relative">
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] origin-top rounded-full"
+              style={{
+                height: lineHeight,
+                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
+                boxShadow: "0 0 12px rgba(72, 240, 231, 0.4), 0 0 30px rgba(0, 212, 170, 0.15)",
+              }}
+            />
+            <div className="space-y-0">
+              {processSteps.map((step, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={i}
+                    className="relative flex items-start"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={sec2InView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
+                  >
+                    <div className={`w-1/2 pr-12 ${isLeft ? "" : "md:text-right"}`}>
+                      {isLeft ? (
+                        <div className="md:text-right pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-1 z-10">
+                      <motion.div
+                        className="w-4 h-4 rounded-full border-2 border-accent bg-background"
+                        whileInView={{ scale: [0.5, 1.2, 1] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
+                      />
+                    </div>
+                    <div className={`w-1/2 pl-12`}>
+                      {!isLeft ? (
+                        <div className="pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -247,7 +297,7 @@ export default function UxDesignService() {
             {whyUs.map((item, i) => (
               <motion.div
                 key={i}
-                className="py-8 border-t border-border group cursor-pointer"
+                className="py-8 border-t border-border group cursor-pointer hover:bg-foreground/[0.02] rounded-xl transition-all duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
@@ -286,8 +336,8 @@ export default function UxDesignService() {
       </section>
 
       {/* CTA */}
-      <section ref={ctaRef} className="section-forced-dark section-padding py-40">
-        <div className="max-w-[1800px] mx-auto text-center">
+      <section ref={ctaRef} className="section-forced-dark section-padding py-40 relative overflow-hidden">
+        <div className="relative z-10 max-w-[1800px] mx-auto text-center">
           <motion.h2
             className="text-4xl md:text-7xl font-bold tracking-tighter mb-10"
             initial={{ opacity: 0, y: 40 }}

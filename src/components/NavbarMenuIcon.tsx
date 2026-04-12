@@ -15,10 +15,19 @@ import { useToast } from "@/hooks/use-toast";
 interface NavLink {
   name: string;
   href: string;
+  sub?: { name: string; href: string }[];
 }
 
 const navLinks: NavLink[] = [
   { name: "Home", href: "/" },
+  {
+    name: "About", href: "/about",
+    sub: [
+      { name: "Solutions for Every Stage", href: "/about#business-scale" },
+      { name: "Geographies", href: "/about#geographies" },
+      { name: "Code of Conduct & Values", href: "/about#code-of-conduct" },
+    ],
+  },
   { name: "Services", href: "/services" },
   { name: "Projects", href: "/projects" },
   { name: "Articles", href: "/articles" },
@@ -204,6 +213,73 @@ const ServiceItem = ({ service, onNavigate }: { service: ServiceLink; onNavigate
   );
 };
 
+/* ─── Nav link with optional dropdown sub-links ─── */
+const NavItem = ({ link, index, onNavigate, currentPath }: { link: NavLink; index: number; onNavigate: (href: string) => void; currentPath: string }) => {
+  const [open, setOpen] = useState(false);
+  const isActive = currentPath === link.href;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 + index * 0.05 }}
+    >
+      <div className="flex items-center gap-2 py-3">
+        <a
+          href={link.href}
+          onClick={(e) => { e.preventDefault(); onNavigate(link.href); }}
+          className={`text-base md:text-lg font-medium transition-colors duration-300 cursor-pointer ${
+            isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          <span className="flex items-center gap-3">
+            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
+            {link.name}
+          </span>
+        </a>
+        {link.sub && (
+          <button
+            onMouseEnter={() => setOpen(true)}
+            onClick={() => setOpen(!open)}
+            className="text-muted-foreground/40 hover:text-foreground transition-colors"
+          >
+            <ChevronRight size={13} className={`transition-transform duration-200 ${open ? "rotate-90" : ""}`} />
+          </button>
+        )}
+      </div>
+
+      {link.sub && (
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="overflow-hidden"
+              onMouseLeave={() => setOpen(false)}
+            >
+              <div className="pl-5 pb-2 space-y-1">
+                {link.sub.map((sub, si) => (
+                  <a
+                    key={sub.name}
+                    href={sub.href}
+                    onClick={(e) => { e.preventDefault(); onNavigate(sub.href); }}
+                    className="flex items-baseline gap-2 text-xs text-muted-foreground/50 hover:text-foreground/80 transition-colors cursor-pointer"
+                  >
+                    <span className="text-[10px] text-accent/40 font-mono">/{String(si + 1).padStart(2, "0")}</span>
+                    <span>{sub.name}</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </motion.div>
+  );
+};
+
 export const NavbarMenuIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -313,11 +389,21 @@ export const NavbarMenuIcon = () => {
       return;
     }
 
-    if (href.startsWith("/")) {
-      // Delay navigation slightly to allow exit animation to start
+    // Handle /path#hash links
+    const [path, hash] = href.split("#");
+
+    if (path.startsWith("/")) {
       setTimeout(() => {
-        navigate(href);
-        window.scrollTo(0, 0);
+        navigate(path);
+        if (hash) {
+          // Wait for page to render, then scroll to element
+          setTimeout(() => {
+            const el = document.getElementById(hash);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 500);
+        } else {
+          window.scrollTo(0, 0);
+        }
       }, 300);
     }
   };
@@ -326,7 +412,7 @@ export const NavbarMenuIcon = () => {
     <>
       {/* Background bar on scroll — seamless dark fade */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-24 z-40 pointer-events-none backdrop-blur-md"
+        className="fixed top-0 left-0 right-0 h-24 z-40 pointer-events-none"
         style={{
           opacity: headerOpacity,
           background:
@@ -505,11 +591,11 @@ export const NavbarMenuIcon = () => {
               transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             >
               {/* Glass background */}
-              <div className="absolute inset-0 backdrop-blur-2xl bg-background/60" />
+              <div className="absolute inset-0 backdrop-blur-md bg-background/60" />
               <div className="absolute inset-0 border border-foreground/[0.06] rounded-2xl md:rounded-3xl pointer-events-none" />
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
-                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/3 rounded-full blur-[80px]" />
+                <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[50px]" />
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/3 rounded-full blur-[40px]" />
               </div>
 
               {/* Card content */}
@@ -565,29 +651,7 @@ export const NavbarMenuIcon = () => {
                     </div>
                     <nav className="space-y-0.5">
                       {navLinks.map((link, index) => (
-                        <motion.a
-                          key={link.name}
-                          href={link.href}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleNavClick(link.href);
-                          }}
-                          className={`block py-3 text-base md:text-lg font-medium transition-colors duration-300 cursor-pointer ${
-                            location.pathname === link.href
-                              ? "text-foreground"
-                              : "text-muted-foreground hover:text-foreground"
-                          }`}
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 + index * 0.05 }}
-                        >
-                          <span className="flex items-center gap-3">
-                            {location.pathname === link.href && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                            )}
-                            {link.name}
-                          </span>
-                        </motion.a>
+                        <NavItem key={link.name} link={link} index={index} onNavigate={handleNavClick} currentPath={location.pathname} />
                       ))}
                     </nav>
                   </motion.div>
@@ -750,11 +814,11 @@ export const NavbarMenuIcon = () => {
               transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             >
               {/* Glass background */}
-              <div className="absolute inset-0 backdrop-blur-2xl bg-background/60" />
+              <div className="absolute inset-0 backdrop-blur-md bg-background/60" />
               <div className="absolute inset-0 border border-foreground/[0.06] rounded-2xl md:rounded-3xl pointer-events-none" />
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
-                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/3 rounded-full blur-[80px]" />
+                <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[50px]" />
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/3 rounded-full blur-[40px]" />
               </div>
 
               {/* Content */}

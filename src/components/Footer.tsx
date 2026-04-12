@@ -32,14 +32,15 @@ const industryLinks = [
 ];
 
 const businessSizeLinks = [
-  { name: "Startups, MVPs & POCs", href: "/services/mvp" },
+  { name: "Startups, MVPs & POCs", href: "/services/mvp", popular: true },
   { name: "Small Businesses", href: "/industries/small-business" },
-  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business" },
+  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business", popular: true },
   { name: "Enterprises", href: "/services/enterprise" },
   { name: "Government & Public Sector", href: "/industries/government" },
 ];
 
 const companyLinks = [
+  { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
   { name: "Articles", href: "/articles" },
   { name: "Careers", href: "/careers" },
@@ -173,6 +174,9 @@ export const Footer = () => {
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 inline-flex items-center gap-1.5 group"
                   >
                     {link.name}
+                    {link.popular && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-accent/15 text-accent font-semibold uppercase tracking-wider">Popular</span>
+                    )}
                     <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </li>

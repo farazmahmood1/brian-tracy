@@ -206,9 +206,9 @@ export default function DecisionIntelligencePage() {
           >
             Industries / Decision Intelligence
           </motion.span>
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-6 py-2">
             <motion.h1
-              className="text-[10vw] md:text-[7vw] font-bold leading-[0.88] tracking-tighter"
+              className="text-[10vw] md:text-[7vw] font-bold leading-[0.95] tracking-tighter"
               style={{
                 background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
                 WebkitBackgroundClip: "text",
@@ -267,6 +267,7 @@ export default function DecisionIntelligencePage() {
               <motion.button
                 key={i}
                 onClick={() => setActivePain(i)}
+                onMouseEnter={() => setActivePain(i)}
                 className={`relative px-5 py-3 rounded-xl text-sm font-medium text-left transition-all duration-300 ${
                   activePain === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
@@ -393,12 +394,12 @@ export default function DecisionIntelligencePage() {
                     {currentCase.howItWorks.map((s, i) => (
                       <div key={i} className="border-t border-border">
                         <button
-                          className="w-full py-5 flex items-center justify-between gap-4 text-left group"
+                          className="w-full py-5 flex items-center justify-between gap-4 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl"
                           onClick={() => setActiveCaseStep(activeCaseStep === i ? -1 : i)}
                         >
                           <div className="flex items-center gap-4">
                             <motion.span
-                              className="w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 text-xs font-mono"
+                              className="w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                               animate={{
                                 borderColor: activeCaseStep === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)",
                                 backgroundColor: activeCaseStep === i ? "rgba(0,212,170,0.1)" : "transparent",
@@ -408,12 +409,12 @@ export default function DecisionIntelligencePage() {
                                 {String(i + 1).padStart(2, "0")}
                               </motion.span>
                             </motion.span>
-                            <span className={`font-medium transition-colors ${activeCaseStep === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
+                            <span className={`font-medium group-hover:translate-x-2 transition-all duration-300 ${activeCaseStep === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
                               {s.step}
                             </span>
                           </div>
                           <motion.div
-                            className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0"
+                            className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300"
                             animate={{ rotate: activeCaseStep === i ? 180 : 0 }}
                           >
                             {activeCaseStep === i ? <Minus size={12} /> : <Plus size={12} className="text-muted-foreground" />}
@@ -524,6 +525,7 @@ export default function DecisionIntelligencePage() {
                 <motion.button
                   key={i}
                   onClick={() => setActiveNiche(i)}
+                  onMouseEnter={() => setActiveNiche(i)}
                   className={`relative px-5 py-3 rounded-xl text-sm font-medium text-left whitespace-nowrap lg:whitespace-normal transition-all duration-300 ${
                     activeNiche === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}

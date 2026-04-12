@@ -137,9 +137,9 @@ export default function GovernmentPage() {
           <motion.span className="inline-block text-xs uppercase tracking-[0.3em] mb-8" style={{ color: "#00d4aa" }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             Industries / Government &amp; Public Sector
           </motion.span>
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-6 py-2">
             <motion.h1
-              className="text-[10vw] md:text-[7vw] font-bold leading-[0.88] tracking-tighter"
+              className="text-[10vw] md:text-[7vw] font-bold leading-[0.95] tracking-tighter"
               style={{ background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", backgroundSize: "200% 200%" }}
               initial={{ y: "110%", backgroundPosition: "0% 50%" }}
               animate={{ y: 0, backgroundPosition: "100% 50%" }}
@@ -177,10 +177,10 @@ export default function GovernmentPage() {
           <div className="space-y-0 mt-16">
             {challenges.map((item, i) => (
               <motion.div key={i} className="border-t border-border" initial={{ opacity: 0, y: 16 }} animate={sec1InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}>
-                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group" onClick={() => setOpenChallenge(openChallenge === i ? null : i)}>
+                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl" onClick={() => setOpenChallenge(openChallenge === i ? null : i)}>
                   <div className="flex items-center gap-5">
                     <motion.span
-                      className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono"
+                      className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                       animate={{
                         borderColor: openChallenge === i ? "rgba(0,212,170,0.5)" : "rgba(0,0,0,0.1)",
                         backgroundColor: openChallenge === i ? "rgba(0,212,170,0.1)" : "transparent",
@@ -191,9 +191,9 @@ export default function GovernmentPage() {
                         {String(i + 1).padStart(2, "0")}
                       </motion.span>
                     </motion.span>
-                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground transition-colors">{item.title}</span>
+                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">{item.title}</span>
                   </div>
-                  <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors" animate={{ rotate: openChallenge === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                  <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300" animate={{ rotate: openChallenge === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
                     {openChallenge === i ? <Minus size={14} className="text-foreground" /> : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />}
                   </motion.div>
                 </button>
@@ -227,6 +227,7 @@ export default function GovernmentPage() {
                   key={i}
                   className="w-full text-left py-5 border-t border-border flex items-center gap-5 group transition-colors duration-300"
                   onClick={() => setActiveWho(i)}
+                  onMouseEnter={() => setActiveWho(i)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={sec2InView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.3 + i * 0.08 }}
@@ -288,7 +289,7 @@ export default function GovernmentPage() {
             {services.map((item, i) => (
               <motion.div
                 key={i}
-                className="group border-t border-border cursor-default"
+                className="group border-t border-border cursor-default hover:bg-foreground/[0.02] rounded-xl transition-all duration-300"
                 initial={{ opacity: 0, y: 30 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.06 }}
@@ -330,6 +331,7 @@ export default function GovernmentPage() {
                 <motion.button
                   key={i}
                   onClick={() => setActiveTab(i)}
+                  onMouseEnter={() => setActiveTab(i)}
                   className={`relative px-5 py-3 rounded-xl text-sm font-medium text-left whitespace-nowrap lg:whitespace-normal transition-all duration-300 ${activeTab === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={sec4InView ? { opacity: 1, x: 0 } : {}}

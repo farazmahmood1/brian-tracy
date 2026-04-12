@@ -72,7 +72,7 @@ const Articles = () => {
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[100px]"
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px]"
             style={{ background: "rgba(18, 107, 102, 0.1)" }}
             animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}

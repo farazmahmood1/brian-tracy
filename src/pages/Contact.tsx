@@ -114,7 +114,7 @@ export default function ContactPage() {
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[100px]"
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px]"
             style={{ background: "rgba(18, 107, 102, 0.1)" }}
             animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -386,7 +386,7 @@ export default function ContactPage() {
                       type="submit"
                       className="w-full flex items-center justify-center gap-3 py-6 rounded-full font-medium text-white overflow-hidden relative group"
                       style={{ background: "linear-gradient(135deg, #126b66, #00d4aa)" }}
-                      whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.5), 0 0 40px rgba(72, 240, 231, 0.25), 0 0 60px rgba(72, 240, 231, 0.1)" }}
+                      whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.4)" }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <span className="relative z-10 font-medium">Send Message</span>

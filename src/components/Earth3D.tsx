@@ -106,10 +106,11 @@ export interface SceneProxy {
 
 interface EarthSceneProps {
   proxy?: MutableRefObject<SceneProxy>;
+  showMarkers?: boolean;
 }
 
 // ── EarthScene ────────────────────────────────────────────────────────────
-export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
+export const EarthScene: React.FC<EarthSceneProps> = ({ proxy, showMarkers = false }) => {
   const groupRef = useRef<THREE.Group>(null);
   const cloudsRef = useRef<THREE.Mesh>(null);
 
@@ -193,6 +194,33 @@ export const EarthScene: React.FC<EarthSceneProps> = ({ proxy }) => {
           `}
         />
       </mesh>
+
+      {/* Office location markers */}
+      <group visible={!!showMarkers}>
+        {[
+          { lat: 40.7, lng: -74.0 },
+          { lat: 31.5, lng: 74.3 },
+        ].map((loc, i) => {
+          const phi = (90 - loc.lat) * (Math.PI / 180);
+          const theta = (loc.lng + 180) * (Math.PI / 180);
+          const r = 2.52;
+          const x = -(r * Math.sin(phi) * Math.cos(theta));
+          const y = r * Math.cos(phi);
+          const z = r * Math.sin(phi) * Math.sin(theta);
+          return (
+            <group key={i} position={[x, y, z]}>
+              <mesh>
+                <sphereGeometry args={[0.04, 12, 12]} />
+                <meshBasicMaterial color="#00d4aa" />
+              </mesh>
+              <mesh>
+                <sphereGeometry args={[0.08, 12, 12]} />
+                <meshBasicMaterial color="#00d4aa" transparent opacity={0.3} />
+              </mesh>
+            </group>
+          );
+        })}
+      </group>
 
       {/* Inner atmosphere glow — front-facing ozone layer */}
       <mesh scale={1.015}>

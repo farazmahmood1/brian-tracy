@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
+import { MvpTerminalBlock } from "@/components/AiMlVisuals";
 
 const offerings = [
   { num: "01", title: "Product Discovery & Requirement Analysis", desc: "Map user needs, define scope, and establish clear success criteria before writing a single line of code." },
@@ -76,7 +77,7 @@ export default function MvpService() {
       {/* HERO */}
       <motion.section
         ref={heroRef}
-        className="relative min-h-screen flex items-end section-padding pb-16 md:pb-24 overflow-hidden"
+        className="relative min-h-screen flex items-end section-padding pt-28 pb-16 md:pb-24 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -100,9 +101,9 @@ export default function MvpService() {
           >
             Services / Startups &amp; MVPs
           </motion.span>
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-6 py-2">
             <motion.h1
-              className="text-[13vw] md:text-[8vw] font-bold leading-[0.88] tracking-tighter"
+              className="text-[13vw] md:text-[10vw] xl:text-[8vw] font-bold leading-[0.95] tracking-tighter"
               style={{
                 background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
                 WebkitBackgroundClip: "text",
@@ -284,6 +285,24 @@ export default function MvpService() {
         </div>
       </section>
 
+      {/* Terminal visual */}
+      <section className="section-forced-dark section-padding py-24">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <MvpTerminalBlock />
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">From Idea to Launch in Weeks</h3>
+              <p className="text-muted-foreground leading-relaxed">Our MVP pipeline is optimized for speed without sacrificing quality. Validated ideas, clean code, and a product your investors can interact with.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 3 — Process */}
       <section ref={sec3Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
@@ -299,7 +318,7 @@ export default function MvpService() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl"
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl text-center mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={sec3InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -307,26 +326,57 @@ export default function MvpService() {
             Our Process
           </motion.h2>
 
-          <div ref={timelineRef} className="relative space-y-16">
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border" />
-            <motion.div className="absolute left-6 md:left-8 top-0 w-px bg-accent origin-top" style={{ height: lineHeight }} />
-
-            {processSteps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="relative pl-16 md:pl-20"
-                initial={{ opacity: 0, y: 40 }}
-                animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: i * 0.12 }}
-              >
-                <motion.div className="absolute left-[1.125rem] md:left-[1.625rem] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" />
-                <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-5">
-                  /{step.num}
-                </span>
-                <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
-              </motion.div>
-            ))}
+          <div ref={timelineRef} className="relative">
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] origin-top rounded-full"
+              style={{
+                height: lineHeight,
+                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
+                boxShadow: "0 0 12px rgba(72, 240, 231, 0.4), 0 0 30px rgba(0, 212, 170, 0.15)",
+              }}
+            />
+            <div className="space-y-0">
+              {processSteps.map((step, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={i}
+                    className="relative flex items-start"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={sec3InView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
+                  >
+                    <div className={`w-1/2 pr-12 ${isLeft ? "" : "md:text-right"}`}>
+                      {isLeft ? (
+                        <div className="md:text-right pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-1 z-10">
+                      <motion.div
+                        className="w-4 h-4 rounded-full border-2 border-accent bg-background"
+                        whileInView={{ scale: [0.5, 1.2, 1] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
+                      />
+                    </div>
+                    <div className={`w-1/2 pl-12`}>
+                      {!isLeft ? (
+                        <div className="pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -358,7 +408,7 @@ export default function MvpService() {
             {excellence.map((item, i) => (
               <motion.div
                 key={i}
-                className="py-8 border-t border-border group cursor-pointer"
+                className="py-8 border-t border-border group cursor-pointer hover:bg-foreground/[0.02] rounded-xl transition-all duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec4InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.12 }}
@@ -467,12 +517,12 @@ export default function MvpService() {
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
               >
                 <button
-                  className="w-full py-7 flex items-center justify-between gap-6 text-left group"
+                  className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <div className="flex items-center gap-4">
                     <motion.div
-                      className="w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 text-xs font-semibold"
+                      className="w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 text-xs font-semibold transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                       animate={{
                         borderColor: openFaq === i ? "hsl(var(--accent))" : "hsl(var(--border))",
                         backgroundColor: openFaq === i ? "hsl(var(--accent) / 0.1)" : "transparent",
@@ -482,12 +532,12 @@ export default function MvpService() {
                     >
                       {String(i + 1).padStart(2, "0")}
                     </motion.div>
-                    <span className="text-lg md:text-xl font-semibold group-hover:text-foreground transition-colors">
+                    <span className="text-lg md:text-xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">
                       {faq.q}
                     </span>
                   </div>
                   <motion.div
-                    className="w-8 h-8 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
+                    className="w-8 h-8 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300"
                     animate={{ rotate: openFaq === i ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -520,8 +570,8 @@ export default function MvpService() {
       </section>
 
       {/* CTA */}
-      <section ref={ctaRef} className="section-forced-dark section-padding py-40">
-        <div className="max-w-[1800px] mx-auto text-center">
+      <section ref={ctaRef} className="section-forced-dark section-padding py-40 relative overflow-hidden">
+        <div className="max-w-[1800px] mx-auto text-center relative z-10">
           <motion.h2
             className="text-4xl md:text-7xl font-bold tracking-tighter mb-10"
             initial={{ opacity: 0, y: 40 }}

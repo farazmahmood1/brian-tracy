@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
+import { MobileTerminalBlock } from "@/components/AiMlVisuals";
 
 const niches = [
   { num: "01", title: "Logistics & Transportation", desc: "On-demand delivery apps, fleet management, route optimisation, driver portals, and real-time shipment tracking — built to keep operations moving and customers informed at every step." },
@@ -126,7 +127,7 @@ export default function MobileAppService() {
       {/* HERO */}
       <motion.section
         ref={heroRef}
-        className="relative min-h-screen flex items-end section-padding pb-16 md:pb-24 overflow-hidden"
+        className="relative min-h-screen flex items-end section-padding pt-28 pb-16 md:pb-24 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -150,9 +151,9 @@ export default function MobileAppService() {
           >
             Services / Mobile Development
           </motion.span>
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-6 py-2">
             <motion.h1
-              className="text-[13vw] md:text-[8vw] font-bold leading-[0.88] tracking-tighter"
+              className="text-[13vw] md:text-[10vw] xl:text-[8vw] font-bold leading-[0.95] tracking-tighter"
               style={{
                 background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
                 WebkitBackgroundClip: "text",
@@ -256,12 +257,12 @@ export default function MobileAppService() {
                 transition={{ duration: 0.5, delay: 0.3 + i * 0.05 }}
               >
                 <button
-                  className="w-full py-6 flex items-center justify-between gap-6 text-left group"
+                  className="w-full py-6 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl"
                   onClick={() => setOpenNiche(openNiche === i ? null : i)}
                 >
                   <div className="flex items-center gap-8">
                     <motion.span
-                      className="w-10 h-10 rounded-xl border flex items-center justify-center text-xs font-medium tracking-widest flex-shrink-0"
+                      className="w-10 h-10 rounded-xl border flex items-center justify-center text-xs font-medium tracking-widest flex-shrink-0 transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                       animate={{
                         borderColor: openNiche === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)",
                         backgroundColor: openNiche === i ? "rgba(0,212,170,0.1)" : "transparent",
@@ -270,12 +271,12 @@ export default function MobileAppService() {
                     >
                       {niche.num}
                     </motion.span>
-                    <span className="text-lg md:text-xl font-semibold group-hover:text-foreground transition-colors">
+                    <span className="text-lg md:text-xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">
                       {niche.title}
                     </span>
                   </div>
                   <motion.div
-                    className="w-8 h-8 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors"
+                    className="w-8 h-8 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300"
                     animate={{ rotate: openNiche === i ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -392,11 +393,12 @@ export default function MobileAppService() {
             {differentiators.map((item, i) => (
               <motion.div
                 key={i}
-                className="border-t border-border group cursor-pointer"
+                className="border-t border-border group cursor-pointer hover:bg-foreground/[0.02] rounded-xl transition-all duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
                 onClick={() => setExpandedDiff(expandedDiff === i ? null : i)}
+                onMouseEnter={() => setExpandedDiff(i)}
               >
                 <div className="py-6 flex items-center gap-6">
                   <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase min-w-[32px]">
@@ -513,6 +515,24 @@ export default function MobileAppService() {
         </div>
       </section>
 
+      {/* Terminal visual */}
+      <section className="section-forced-dark section-padding py-24">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <MobileTerminalBlock />
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">Cross-Platform, Native Performance</h3>
+              <p className="text-muted-foreground leading-relaxed">One codebase, two app stores. We build mobile apps that feel native on both iOS and Android with optimized performance and automated deployment.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 6 — Process (scroll-driven timeline) */}
       <section ref={sec6Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
@@ -528,7 +548,7 @@ export default function MobileAppService() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 max-w-4xl"
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 max-w-4xl text-center mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={sec6InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -536,7 +556,7 @@ export default function MobileAppService() {
             Our Process
           </motion.h2>
           <motion.p
-            className="text-muted-foreground mb-16 text-sm"
+            className="text-muted-foreground mb-16 text-sm text-center"
             initial={{ opacity: 0 }}
             animate={sec6InView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -545,32 +565,55 @@ export default function MobileAppService() {
           </motion.p>
 
           <div ref={processContainerRef} className="relative">
-            {/* Vertical line track */}
-            <div className="absolute left-5 md:left-7 top-0 bottom-0 w-px bg-border/30" />
-            {/* Animated fill */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
             <motion.div
-              className="absolute left-5 md:left-7 top-0 w-px origin-top"
-              style={{ height: processLineHeight, background: "#00d4aa" }}
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] origin-top rounded-full"
+              style={{
+                height: processLineHeight,
+                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
+                boxShadow: "0 0 12px rgba(72, 240, 231, 0.4), 0 0 30px rgba(0, 212, 170, 0.15)",
+              }}
             />
-
-            <div className="space-y-12">
-              {processSteps.map((step, i) => (
-                <motion.div
-                  key={i}
-                  className="relative pl-16 md:pl-20"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={sec6InView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: i * 0.08 }}
-                >
-                  {/* Dot */}
-                  <div className="absolute left-[14px] md:left-[22px] top-1 w-3 h-3 rounded-full border-2 border-accent bg-background" />
-                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-3">
-                    /{step.num}
-                  </span>
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm max-w-2xl">{step.desc}</p>
-                </motion.div>
-              ))}
+            <div className="space-y-0">
+              {processSteps.map((step, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={i}
+                    className="relative flex items-start"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={sec6InView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
+                  >
+                    <div className={`w-1/2 pr-12 ${isLeft ? "" : "md:text-right"}`}>
+                      {isLeft ? (
+                        <div className="md:text-right pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-1 z-10">
+                      <motion.div
+                        className="w-4 h-4 rounded-full border-2 border-accent bg-background"
+                        whileInView={{ scale: [0.5, 1.2, 1] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
+                      />
+                    </div>
+                    <div className={`w-1/2 pl-12`}>
+                      {!isLeft ? (
+                        <div className="pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -628,8 +671,8 @@ export default function MobileAppService() {
       </section>
 
       {/* CTA */}
-      <section ref={ctaRef} className="section-forced-dark section-padding py-40">
-        <div className="max-w-[1800px] mx-auto text-center">
+      <section ref={ctaRef} className="section-forced-dark section-padding py-40 relative overflow-hidden">
+        <div className="max-w-[1800px] mx-auto text-center relative z-10">
           <motion.h2
             className="text-4xl md:text-7xl font-bold tracking-tighter mb-10"
             initial={{ opacity: 0, y: 40 }}

@@ -9,7 +9,9 @@
       "Bash(grep -c \"motion\\\\.\" /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
       "Bash(grep -n \"const GlowCard\\\\|export.*GlowCard\" /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
       "Bash(grep -n \"import.*GlowCard\\\\|import.*InteractiveElements\" /c/animated-ui/brian-tracy/src/pages/industries/*.tsx)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit -m ':*)"
     ],
     "additionalDirectories": [
       "c:\\animated-ui\\brian-tracy\\src\\pages"

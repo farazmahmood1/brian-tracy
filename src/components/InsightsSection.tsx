@@ -203,7 +203,7 @@ export const InsightsSection = () => {
               className="inline-flex items-center gap-3 px-10 py-5 rounded-full text-white overflow-hidden relative group"
               style={{ background: "linear-gradient(135deg, #126b66, #00d4aa)" }}
               data-cursor="View"
-              whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.5), 0 0 40px rgba(72, 240, 231, 0.25), 0 0 60px rgba(72, 240, 231, 0.1)" }}
+              whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.4)" }}
               whileTap={{ scale: 0.98 }}
             >
               <span className="relative z-10 font-medium">All Insights</span>

@@ -106,7 +106,7 @@ export const FAQSection = () => {
                   scale: { duration: 0.2, delay: 0 },
                   boxShadow: { duration: 0.2, delay: 0 },
                 }}
-                whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.5), 0 0 40px rgba(72, 240, 231, 0.25), 0 0 60px rgba(72, 240, 231, 0.1)" }}
+                whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.4)" }}
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="relative z-10 font-medium">
@@ -136,15 +136,16 @@ export const FAQSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.1 }}
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                onMouseEnter={() => setOpenIndex(index)}
               >
                 <button
-                  className="w-full flex items-center justify-between py-8 text-left group"
+                  className="w-full flex items-center justify-between py-8 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl"
                 >
-                  <span className="font-medium text-lg md:text-xl pr-8 group-hover:text-foreground transition-colors">
+                  <span className="font-medium text-lg md:text-xl pr-8 group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">
                     {faq.question}
                   </span>
                   <motion.div
-                    className="w-10 h-10 rounded-full border border-border flex items-center justify-center shrink-0"
+                    className="w-10 h-10 rounded-full border border-border flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300"
                     animate={{
                       rotate: openIndex === index ? 180 : 0,
                       backgroundColor:

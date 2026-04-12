@@ -112,6 +112,13 @@
   .section-padding {
     @apply px-6 md:px-12 lg:px-24 xl:px-32;
   }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 
   .text-stroke {
     -webkit-text-stroke: 1px hsl(var(--foreground));
@@ -361,16 +368,20 @@
 .mq-outline { color: transparent; -webkit-text-stroke: 1.5px rgba(72, 240, 231, 0.3); transition: color 0.4s, -webkit-text-stroke 0.4s, text-shadow 0.4s; }
 .mq-dot     { background: rgba(72, 240, 231, 0.25); }
 
-.mq-filled:hover  { opacity: 1; text-shadow: 0 0 20px rgba(72, 240, 231, 0.6), 0 0 40px rgba(72, 240, 231, 0.3); cursor: default; }
-.mq-outline:hover { color: #48f0e7; -webkit-text-stroke: 0px transparent; text-shadow: 0 0 20px rgba(72, 240, 231, 0.6), 0 0 40px rgba(72, 240, 231, 0.3); cursor: default; }
+.mq-filled:hover  { opacity: 1; text-shadow: 0 0 15px rgba(72, 240, 231, 0.5); cursor: default; }
+.mq-outline:hover { color: #48f0e7; -webkit-text-stroke: 0px transparent; text-shadow: 0 0 15px rgba(72, 240, 231, 0.5); cursor: default; }
 
 .mq-wrap:hover .mq-track-fwd,
 .mq-wrap:hover .mq-track-rev { animation-play-state: paused; }
 
-/* ─── GPU acceleration for animated elements ─────────────────────────── */
-[style*="transform"] {
-  will-change: transform;
-  backface-visibility: hidden;
+/* ─── Layout containment for scroll perf ──────────────────��──────────── */
+/* Removed overly broad [style*="transform"] { will-change: transform }
+   rule — it was creating a compositing layer for EVERY framer-motion
+   element on the page, thrashing GPU memory during scroll.
+   The marquee tracks already have will-change set explicitly above. */
+.section-forced-dark,
+.section-forced-light {
+  contain: layout style paint;
 }
 
 /* ─── Respect reduced-motion preference ──────────────────────────────── */

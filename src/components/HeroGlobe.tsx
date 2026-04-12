@@ -55,6 +55,9 @@ const FrameDriver: React.FC = () => {
 
 const isMobileGlobe = typeof window !== 'undefined' && window.innerWidth < 768;
 
+let _disableScrollEffect = false;
+let _showMarkers = false;
+
 const HeroGlobeScene: React.FC = () => {
     const scrollProxy = useRef({
         scale: 1,
@@ -74,6 +77,7 @@ const HeroGlobeScene: React.FC = () => {
         // fires on EVERY scroll pixel for the ENTIRE page, even 5000px down.
         // This native version stops processing once past the hero range.
         const onScroll = () => {
+            if (_disableScrollEffect) return;
             const y = window.scrollY;
             if (y === lastScroll) return;
             lastScroll = y;
@@ -95,17 +99,17 @@ const HeroGlobeScene: React.FC = () => {
 
     return (
         <>
-            <EarthScene proxy={scrollProxy} />
+            <EarthScene proxy={scrollProxy} showMarkers={_showMarkers} />
 
             {/* Sun from the right — matches shader SUN_DIR [6,2,2] */}
             <ambientLight intensity={0.10} />
             <directionalLight position={[6, 2, 2]} intensity={2.2} color="#fff5e8" />
 
-            {/* Dense starfield — reduced on mobile to prevent GPU bottleneck */}
+            {/* Dense starfield — reduced counts for scroll performance */}
             <Stars
                 radius={80}
                 depth={60}
-                count={isMobileGlobe ? 1500 : 6000}
+                count={isMobileGlobe ? 800 : 3000}
                 factor={5}
                 saturation={0}
                 fade
@@ -115,21 +119,11 @@ const HeroGlobeScene: React.FC = () => {
             <Stars
                 radius={150}
                 depth={100}
-                count={isMobileGlobe ? 1200 : 5000}
+                count={isMobileGlobe ? 600 : 2500}
                 factor={3}
                 saturation={0}
                 fade
                 speed={0.15}
-            />
-            {/* Tiny distant stars */}
-            <Stars
-                radius={250}
-                depth={150}
-                count={isMobileGlobe ? 800 : 4000}
-                factor={1.5}
-                saturation={0.1}
-                fade
-                speed={0.05}
             />
         </>
     );
@@ -137,8 +131,14 @@ const HeroGlobeScene: React.FC = () => {
 
 const Loader: React.FC = () => null;
 
-export const HeroGlobe: React.FC<{ className?: string }> = ({ className }) => {
+export const HeroGlobe: React.FC<{ className?: string; disableScrollEffect?: boolean; showMarkers?: boolean }> = ({ className, disableScrollEffect, showMarkers }) => {
     const divRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        _disableScrollEffect = !!disableScrollEffect;
+        _showMarkers = !!showMarkers;
+        return () => { _disableScrollEffect = false; _showMarkers = false; };
+    }, [disableScrollEffect, showMarkers]);
 
     // Stop Three.js rendering completely when the globe scrolls out of view.
     // When hidden: zero rAF callbacks, zero GPU draws — frees main thread for CSS animations.

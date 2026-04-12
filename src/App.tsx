@@ -11,6 +11,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { ProtectedRoute } from "./components/admin/ProtectedRoute";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 
+const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const AiMlService = lazy(() => import("./pages/services/AiMlService"));
 const SaasService = lazy(() => import("./pages/services/SaasService"));
@@ -51,6 +52,7 @@ const queryClient = new QueryClient();
 // Eagerly preload the most common routes after initial paint so
 // navigating between them never triggers the Suspense fallback.
 const preloadRoutes = () => {
+  import("./pages/About");
   import("./pages/Services");
   import("./pages/Projects");
   import("./pages/Articles");
@@ -157,6 +159,7 @@ const App = () => (
                 </LayoutWrapper>
               }
             />
+            <Route path="/about" element={<LayoutWrapper><About /></LayoutWrapper>} />
             <Route
               path="/services"
               element={

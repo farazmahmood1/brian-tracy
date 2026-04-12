@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i 's/import { NeuralBrain3D, DataCube3D } from \"@\\\\/components\\\\/AiMlVisuals\";/import { StrategyCompass3D, DataCube3D } from \"@\\\\/components\\\\/AiMlVisuals\";/' src/pages/services/StrategyService.tsx)",
+      "Bash(sed -i 's/<NeuralBrain3D/<StrategyCompass3D/g' src/pages/services/StrategyService.tsx)",
+      "Bash(sed -i 's/import { StrategyCompass3D, DataCube3D } from \"@\\\\/components\\\\/AiMlVisuals\";/import { NeuralBrain3D, DataCube3D } from \"@\\\\/components\\\\/AiMlVisuals\";/' src/pages/services/StrategyService.tsx)",
+      "Bash(sed -i 's/<StrategyCompass3D/<NeuralBrain3D/g' src/pages/services/StrategyService.tsx)",
+      "Bash(grep -rn \"max-w-4xl text-center\" src/pages/services/*.tsx)",
+      "Bash(grep -n \"timelineRef\\\\|processSteps\\\\|lineHeight\" \"c:/animated-ui/brian-tracy/src/pages/industries\"/*.tsx)",
+      "Bash(grep -l \"Plus\\\\|Minus\" \"c:/animated-ui/brian-tracy/src/pages/industries\"/*.tsx)",
+      "Bash(sed -i '/onClick={\\(\\) => setActiveChallenge\\(i\\)}/{ /onMouseEnter/! s/onClick={\\(\\) => setActiveChallenge\\(i\\)}/onClick={\\(\\) => setActiveChallenge\\(i\\)}\\\\n                    onMouseEnter={\\(\\) => setActiveChallenge\\(i\\)}/ }' src/pages/industries/IndustrialSectorPage.tsx)",
+      "Bash(sed -i '/onClick={\\(\\) => setActiveTech\\(i\\)}/{ /onMouseEnter/! s/onClick={\\(\\) => setActiveTech\\(i\\)}/onClick={\\(\\) => setActiveTech\\(i\\)}\\\\n                    onMouseEnter={\\(\\) => setActiveTech\\(i\\)}/ }' src/pages/industries/IndustrialSectorPage.tsx)",
+      "Bash(sed -i '/onClick={\\(\\) => setActivePain\\(i\\)}/{ /onMouseEnter/! s/onClick={\\(\\) => setActivePain\\(i\\)}/onClick={\\(\\) => setActivePain\\(i\\)}\\\\n                    onMouseEnter={\\(\\) => setActivePain\\(i\\)}/ }' src/pages/industries/PaintingPage.tsx)",
+      "Bash(sed -i '/onClick={\\(\\) => setActiveService\\(i\\)}/{ /onMouseEnter/! s/onClick={\\(\\) => setActiveService\\(i\\)}/onClick={\\(\\) => setActiveService\\(i\\)}\\\\n                    onMouseEnter={\\(\\) => setActiveService\\(i\\)}/ }' src/pages/industries/PaintingPage.tsx)",
+      "Bash(sed -i '/onClick={\\(\\) => setActiveChallenge\\(i\\)}/{ /onMouseEnter/! s/onClick={\\(\\) => setActiveChallenge\\(i\\)}/onClick={\\(\\) => setActiveChallenge\\(i\\)}\\\\n                    onMouseEnter={\\(\\) => setActiveChallenge\\(i\\)}/ }' src/pages/industries/SmallBusinessPage.tsx)",
+      "Bash(sed -i '/onClick={\\(\\) => setActiveService\\(i\\)}/{ /onMouseEnter/! s/onClick={\\(\\) => setActiveService\\(i\\)}/onClick={\\(\\) => setActiveService\\(i\\)}\\\\n                    onMouseEnter={\\(\\) => setActiveService\\(i\\)}/ }' src/pages/industries/SmallBusinessPage.tsx)",
+      "Bash(grep -n \"min-h-screen flex items-end\" src/pages/services/*.tsx src/pages/industries/*.tsx)",
+      "Bash(grep -A3 \"text-\\\\[13vw\\\\]\" src/pages/services/*.tsx)",
+      "Bash(grep -B1 -A1 \"text-\\\\[13vw\\\\]\" src/pages/services/*.tsx src/pages/industries/*.tsx)",
+      "Bash(grep -c 'overflow-hidden mb-6' src/pages/services/*.tsx src/pages/industries/*.tsx)",
+      "Bash(grep -A25 \"xl:text-\\\\[8vw\\\\]\" src/pages/services/*.tsx)",
+      "Bash(grep -E \"\\\\.tsx$\")",
+      "WebFetch(domain:www.icomat.co.uk)",
+      "Bash(wc -l /c/animated-ui/brian-tracy/src/data/*.ts)",
+      "Bash(grep -h \"^import\" /c/animated-ui/brian-tracy/src/pages/services/*.tsx)",
+      "Bash(grep -rn \"DataCube3D\" src/pages/services/*.tsx)",
+      "Bash(sed -i 's/import { AiCodeBlock, DataCube3D, DnaHelix3D } from/import { AiCodeBlock, DnaHelix3D } from/' src/pages/services/AiMlService.tsx)",
+      "Bash(sed -i 's/import { DataCube3D, EnterpriseArchBlock } from/import { EnterpriseArchBlock } from/' src/pages/services/EnterpriseService.tsx)",
+      "Bash(sed -i 's/import { DataCube3D, MobileTerminalBlock } from/import { MobileTerminalBlock } from/' src/pages/services/MobileAppService.tsx)",
+      "Bash(sed -i 's/import { DataCube3D, MvpTerminalBlock } from/import { MvpTerminalBlock } from/' src/pages/services/MvpService.tsx)",
+      "Bash(sed -i 's/import { DataCube3D, SaasTerminalBlock } from/import { SaasTerminalBlock } from/' src/pages/services/SaasService.tsx)",
+      "Bash(curl -s http://localhost:8081/)",
+      "Bash(curl -s http://localhost:8081/about)",
+      "Bash(grep -B2 -A2 \"opacity-30 pointer-events-none\" src/pages/services/*.tsx)",
+      "Bash(sed -i '324s/border-radius: 10px;/border-radius: 0;/' src/index.css)",
+      "Bash(sed -i '325s/background-color: #ffffff;/background-color: transparent;/' src/index.css)",
+      "Bash(grep -n \"useScroll\\\\|whileInView\\\\|whileHover\\\\|whileTap\\\\|repeat: Infinity\" /c/animated-ui/brian-tracy/src/components/*.tsx)",
+      "Bash(wc -l /c/animated-ui/brian-tracy/src/components/*.tsx)",
+      "Bash(grep -n \"addEventListener.*scroll\\\\|window.addEventListener\" /c/animated-ui/brian-tracy/src/components/*.tsx)",
+      "Bash(npx vite:*)",
+      "Bash(git commit -m ':*)"
+    ],
+    "additionalDirectories": [
+      "C:\\animated-ui\\brian-tracy\\src\\pages\\services"
+    ]
+  }
+}

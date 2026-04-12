@@ -137,9 +137,9 @@ export default function PaintingPage() {
           <motion.span className="inline-block text-xs uppercase tracking-[0.3em] mb-8" style={{ color: "#00d4aa" }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             Industries / Painting
           </motion.span>
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-6 py-2">
             <motion.h1
-              className="text-[10vw] md:text-[7vw] font-bold leading-[0.88] tracking-tighter"
+              className="text-[10vw] md:text-[7vw] font-bold leading-[0.95] tracking-tighter"
               style={{ background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", backgroundSize: "200% 200%" }}
               initial={{ y: "110%", backgroundPosition: "0% 50%" }}
               animate={{ y: 0, backgroundPosition: "100% 50%" }}
@@ -184,6 +184,7 @@ export default function PaintingPage() {
                   key={i}
                   className="w-full text-left py-5 border-t border-border flex items-center gap-5 group transition-colors duration-300"
                   onClick={() => setActivePain(i)}
+                    onMouseEnter={() => setActivePain(i)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={sec1InView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.3 + i * 0.08 }}
@@ -239,10 +240,10 @@ export default function PaintingPage() {
           <div className="space-y-0 mt-16">
             {whoWeServe.map((item, i) => (
               <motion.div key={i} className="border-t border-border" initial={{ opacity: 0, y: 16 }} animate={sec2InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}>
-                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group" onClick={() => setOpenRole(openRole === i ? null : i)}>
+                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl" onClick={() => setOpenRole(openRole === i ? null : i)}>
                   <div className="flex items-center gap-5">
                     <motion.span
-                      className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono"
+                      className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                       animate={{
                         borderColor: openRole === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)",
                         backgroundColor: openRole === i ? "rgba(0,212,170,0.1)" : "transparent",
@@ -253,9 +254,9 @@ export default function PaintingPage() {
                         {String(i + 1).padStart(2, "0")}
                       </motion.span>
                     </motion.span>
-                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground transition-colors">{item.title}</span>
+                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">{item.title}</span>
                   </div>
-                  <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground transition-colors" animate={{ rotate: openRole === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                  <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300" animate={{ rotate: openRole === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
                     {openRole === i ? <Minus size={14} className="text-foreground" /> : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />}
                   </motion.div>
                 </button>
@@ -291,7 +292,7 @@ export default function PaintingPage() {
             {useCases.map((item, i) => (
               <motion.div
                 key={i}
-                className="group border-t border-border cursor-default"
+                className="group border-t border-border cursor-default hover:bg-foreground/[0.02] rounded-xl transition-all duration-300"
                 initial={{ opacity: 0, y: 30 }}
                 animate={sec3InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.06 }}
@@ -333,6 +334,7 @@ export default function PaintingPage() {
                 <button
                   key={i}
                   onClick={() => setActiveService(i)}
+                    onMouseEnter={() => setActiveService(i)}
                   className={`relative px-4 py-3 rounded-lg text-sm font-medium text-left transition-all duration-300 ${
                     activeService === i ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
@@ -434,7 +436,7 @@ export default function PaintingPage() {
       </section>
 
       {/* ═══════════ SEC 7 — Process (scroll-driven timeline) ═══════════ */}
-      <section ref={sec7Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec7Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec7InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/07</span>
@@ -442,23 +444,60 @@ export default function PaintingPage() {
             <span className="text-xs text-muted-foreground uppercase tracking-widest">How We Work</span>
           </motion.div>
 
-          <motion.h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl" initial={{ opacity: 0, y: 40 }} animate={sec7InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.1 }}>
+          <motion.h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl text-center mx-auto" initial={{ opacity: 0, y: 40 }} animate={sec7InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.1 }}>
             Our Process
           </motion.h2>
 
           <div ref={timelineRef} className="relative">
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border" />
-            <motion.div className="absolute left-6 md:left-8 top-0 w-px bg-accent origin-top" style={{ height: lineHeight }} />
-
-            <div className="space-y-16 md:space-y-20">
-              {processSteps.map((step, i) => (
-                <motion.div key={i} className="relative pl-16 md:pl-20" initial={{ opacity: 0, y: 50 }} animate={sec7InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 + i * 0.15 }}>
-                  <motion.div className="absolute left-[1.125rem] md:left-[1.625rem] top-1 w-4 h-4 rounded-full border-2 border-accent bg-background" initial={{ scale: 0 }} animate={sec7InView ? { scale: 1 } : {}} transition={{ type: "spring", delay: 0.4 + i * 0.2 }} />
-                  <span className="text-xs text-accent font-medium tracking-widest uppercase block mb-3">{step.num}</span>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed max-w-2xl">{step.desc}</p>
-                </motion.div>
-              ))}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] origin-top rounded-full"
+              style={{
+                height: lineHeight,
+                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
+                boxShadow: "0 0 12px rgba(72, 240, 231, 0.4), 0 0 30px rgba(0, 212, 170, 0.15)",
+              }}
+            />
+            <div className="space-y-0">
+              {processSteps.map((step, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={i}
+                    className="relative flex items-start"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={sec7InView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
+                  >
+                    <div className={`w-1/2 pr-12 ${isLeft ? "" : "md:text-right"}`}>
+                      {isLeft ? (
+                        <div className="md:text-right pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-1 z-10">
+                      <motion.div
+                        className="w-4 h-4 rounded-full border-2 border-accent bg-background"
+                        whileInView={{ scale: [0.5, 1.2, 1] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
+                      />
+                    </div>
+                    <div className="w-1/2 pl-12">
+                      {!isLeft ? (
+                        <div className="pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>

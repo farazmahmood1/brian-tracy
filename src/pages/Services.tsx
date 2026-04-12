@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { ArrowUpRight, Zap, Brain, Layers, Rocket, Map, Palette, Smartphone, Megaphone } from "lucide-react";
+import { ArrowUpRight, Zap, Brain, Layers, Rocket, Map, Palette, Smartphone, Megaphone, Search, PenTool, Code, RocketIcon } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useLenis } from "@/hooks/useLenis";
@@ -94,21 +94,25 @@ const process = [
     step: "01",
     title: "Discover",
     description: "We dig into your business, users, and goals to define exactly what to build and why.",
+    icon: Search,
   },
   {
     step: "02",
     title: "Architect",
     description: "We design the system — tech stack, AI layers, data models, and product flows — before writing a single line.",
+    icon: PenTool,
   },
   {
     step: "03",
     title: "Build",
     description: "Iterative, sprint-based development with continuous feedback. You see progress every week.",
+    icon: Code,
   },
   {
     step: "04",
     title: "Launch",
     description: "Production-ready deployment, QA, performance tuning, and post-launch support.",
+    icon: RocketIcon,
   },
 ];
 
@@ -227,6 +231,7 @@ const Services = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const isServicesInView = useInView(servicesRef, { once: true, margin: "-10%" });
   const isProcessInView = useInView(processRef, { once: true, margin: "-10%" });
@@ -234,6 +239,9 @@ const Services = () => {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  const { scrollYProgress: timelineProgress } = useScroll({ target: timelineRef, offset: ["start end", "end center"] });
+  const lineHeight = useTransform(timelineProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -254,7 +262,7 @@ const Services = () => {
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[100px]"
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px]"
             style={{ background: "rgba(18, 107, 102, 0.1)" }}
             animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -360,17 +368,59 @@ const Services = () => {
       </section>
 
       {/* ── Process ── */}
-      <section className="section-forced-light section-padding py-24 relative overflow-hidden" ref={processRef}>
-        {/* Accent glow */}
+      <section
+        className="section-forced-dark section-padding py-24 relative overflow-hidden"
+        ref={processRef}
+        style={{
+          background: `
+            radial-gradient(ellipse 60% 50% at 10% 20%, rgba(0, 212, 170, 0.07) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 40% at 90% 80%, rgba(18, 107, 102, 0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 40% 30% at 50% 50%, rgba(72, 240, 231, 0.03) 0%, transparent 50%),
+            linear-gradient(180deg, #050a12 0%, #06110f 50%, #050a12 100%)
+          `,
+        }}
+      >
+        {/* Animated ambient glows */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
-            className="absolute top-[calc(50%-300px)] left-0 w-[600px] h-[600px] bg-accent/15 rounded-full blur-[130px]"
+            className="absolute top-[10%] left-[-5%] w-[600px] h-[600px] rounded-full blur-[150px]"
+            style={{ background: "rgba(0, 212, 170, 0.08)" }}
             animate={{
-              x: [0, 60, -20, 40, 0],
-              y: [0, -60, 40, -30, 0],
-              opacity: [0.5, 0.9, 0.3, 0.8, 0.5],
+              x: [0, 80, -30, 50, 0],
+              y: [0, -40, 60, -20, 0],
+              opacity: [0.4, 0.8, 0.3, 0.7, 0.4],
             }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[5%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[130px]"
+            style={{ background: "rgba(72, 240, 231, 0.06)" }}
+            animate={{
+              x: [0, -60, 30, -40, 0],
+              y: [0, 50, -30, 40, 0],
+              opacity: [0.3, 0.7, 0.2, 0.6, 0.3],
+            }}
+            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute top-[40%] left-[40%] w-[400px] h-[400px] rounded-full blur-[120px]"
+            style={{ background: "rgba(18, 107, 102, 0.05)" }}
+            animate={{
+              scale: [1, 1.3, 0.9, 1.2, 1],
+              opacity: [0.3, 0.6, 0.2, 0.5, 0.3],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Subtle grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(0, 212, 170, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 170, 0.3) 1px, transparent 1px)
+              `,
+              backgroundSize: "80px 80px",
+            }}
           />
         </div>
 
@@ -388,46 +438,109 @@ const Services = () => {
           </motion.div>
 
           {/* Title */}
-          <div className="grid lg:grid-cols-2 gap-16 mb-20">
-            <div className="overflow-hidden">
-              <motion.h2
-                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95]"
-                initial={{ y: "100%" }}
-                animate={isProcessInView ? { y: 0 } : {}}
-                transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
-              >
-                From idea to launch
-              </motion.h2>
-            </div>
-            <motion.div
-              className="flex items-end"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isProcessInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1, delay: 0.5 }}
-            >
-              <p className="text-xl text-muted-foreground max-w-md leading-relaxed">
-                A proven process that keeps you in the loop at every step — no black boxes, no surprises.
-              </p>
-            </motion.div>
-          </div>
+          <motion.h2
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-center mx-auto max-w-4xl"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isProcessInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            From idea to launch
+          </motion.h2>
+          <motion.p
+            className="text-muted-foreground mb-20 text-center text-lg max-w-xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={isProcessInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            A proven process that keeps you in the loop at every step — no black boxes, no surprises.
+          </motion.p>
 
-          {/* Steps */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
-            {process.map((step, index) => (
-              <motion.div
-                key={step.step}
-                className="border-t border-border pt-10 pb-12 pr-8"
-                initial={{ opacity: 0, y: 40 }}
-                animate={isProcessInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.3 + index * 0.12 }}
-              >
-                <span className="text-xs text-muted-foreground uppercase tracking-widest mb-6 block">
-                  /{step.step}
-                </span>
-                <h3 className="text-3xl md:text-4xl font-semibold mb-4">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
-              </motion.div>
-            ))}
+          {/* Premium centered timeline */}
+          <div ref={timelineRef} className="relative">
+            {/* Center track */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/20" />
+            {/* Animated glow line */}
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-[3px] origin-top rounded-full"
+              style={{
+                height: lineHeight,
+                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
+                boxShadow: "0 0 20px rgba(72, 240, 231, 0.5), 0 0 40px rgba(0, 212, 170, 0.2), 0 0 60px rgba(0, 212, 170, 0.1)",
+              }}
+            />
+
+            <div className="space-y-0">
+              {process.map((step, i) => {
+                const isLeft = i % 2 === 0;
+                const StepIcon = step.icon;
+                return (
+                  <motion.div
+                    key={i}
+                    className="relative flex items-start"
+                    initial={{ opacity: 0, y: 60 }}
+                    animate={isProcessInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.9, delay: 0.3 + i * 0.15 }}
+                  >
+                    {/* Left side */}
+                    <div className="w-1/2 pr-8 md:pr-16">
+                      {isLeft ? (
+                        <div className="md:text-right pb-20 flex flex-col items-end">
+                          {/* Glass card */}
+                          <div className="relative p-6 md:p-8 rounded-2xl border border-foreground/[0.08] bg-foreground/[0.03] backdrop-blur-sm max-w-md group hover:border-accent/30 transition-all duration-500">
+                            {/* Corner glow */}
+                            <div className="absolute -top-8 -right-8 w-24 h-24 bg-accent/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                            <div className="flex items-center gap-4 mb-4 justify-end">
+                              <span className="text-5xl md:text-6xl font-black text-foreground/[0.06] leading-none">{step.step}</span>
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-bold mb-3">{step.title}</h3>
+                            <p className="text-muted-foreground leading-relaxed text-sm">{step.description}</p>
+                          </div>
+                        </div>
+                      ) : <div className="pb-20" />}
+                    </div>
+
+                    {/* Center node */}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 z-10">
+                      {/* Outer pulse ring */}
+                      <motion.div
+                        className="absolute inset-0 rounded-full border border-accent/30"
+                        style={{ width: 48, height: 48, top: -12, left: -12 }}
+                        animate={{ scale: [1, 1.8, 1], opacity: [0.3, 0, 0.3] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                      />
+                      {/* Icon circle */}
+                      <motion.div
+                        className="w-10 h-10 rounded-full border-2 border-accent bg-background flex items-center justify-center"
+                        whileInView={{ scale: [0.3, 1.15, 1] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4 + i * 0.15, ease: "backOut" }}
+                      >
+                        <StepIcon size={16} className="text-accent" />
+                      </motion.div>
+                    </div>
+
+                    {/* Right side */}
+                    <div className="w-1/2 pl-8 md:pl-16">
+                      {!isLeft ? (
+                        <div className="pb-20 flex flex-col items-start">
+                          {/* Glass card */}
+                          <div className="relative p-6 md:p-8 rounded-2xl border border-foreground/[0.08] bg-foreground/[0.03] backdrop-blur-sm max-w-md group hover:border-accent/30 transition-all duration-500">
+                            <div className="absolute -top-8 -left-8 w-24 h-24 bg-accent/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                            <div className="flex items-center gap-4 mb-4">
+                              <span className="text-5xl md:text-6xl font-black text-foreground/[0.06] leading-none">{step.step}</span>
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-bold mb-3">{step.title}</h3>
+                            <p className="text-muted-foreground leading-relaxed text-sm">{step.description}</p>
+                          </div>
+                        </div>
+                      ) : <div className="pb-20" />}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -444,10 +557,8 @@ const Services = () => {
           <div className="border border-border rounded-3xl p-12 md:p-20 relative overflow-hidden">
             {/* Card glow */}
             <div className="absolute inset-0 pointer-events-none">
-              <motion.div
-                className="absolute top-[-200px] right-[-100px] w-[500px] h-[500px] bg-accent/15 rounded-full blur-[100px]"
-                animate={{ opacity: [0.5, 0.9, 0.5], scale: [1, 1.1, 1] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              <div
+                className="absolute top-[-200px] right-[-100px] w-[500px] h-[500px] bg-accent/15 rounded-full blur-[50px] opacity-70"
               />
             </div>
 
@@ -482,7 +593,7 @@ const Services = () => {
                     onClick={(e) => { e.preventDefault(); navigate("/contact"); }}
                     className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium text-white overflow-hidden relative group whitespace-nowrap"
                     style={{ background: "linear-gradient(135deg, #126b66, #00d4aa)" }}
-                    whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.5), 0 0 40px rgba(72, 240, 231, 0.25), 0 0 60px rgba(72, 240, 231, 0.1)" }}
+                    whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.4)" }}
                     whileTap={{ scale: 0.98 }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

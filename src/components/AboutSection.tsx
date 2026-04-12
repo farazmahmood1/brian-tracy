@@ -40,8 +40,8 @@ export const AboutSection = () => {
     >
 
       {/* Large decorative text in background — static, no scroll animation */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-        <span className="text-[25vw] font-bold text-foreground/[0.02] whitespace-nowrap">
+      <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+        <span className="text-[25vw] font-bold text-foreground/[0.04] whitespace-nowrap">
           FORROF
         </span>
       </div>
@@ -73,28 +73,41 @@ export const AboutSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.8 }}
             >
-              <Magnetic strength={0.15}>
+              <div className="flex items-center gap-4 flex-wrap">
+                <Magnetic strength={0.15}>
+                  <motion.a
+                    href="/contact"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/contact");
+                    }}
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white overflow-hidden relative group"
+                    style={{ background: "linear-gradient(135deg, #126b66, #00d4aa)" }}
+                    data-cursor="Let's Talk"
+                    whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.4)" }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="relative z-10 font-medium">
+                      Start a Project
+                    </span>
+                    <ArrowUpRight size={18} className="relative z-10" />
+                  </motion.a>
+                </Magnetic>
                 <motion.a
-                  href="/contact"
+                  href="/about"
                   onClick={(e) => {
                     e.preventDefault();
-                    navigate("/contact");
+                    navigate("/about");
+                    window.scrollTo(0, 0);
                   }}
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white overflow-hidden relative group"
-                  style={{ background: "linear-gradient(135deg, #126b66, #00d4aa)" }}
-                  data-cursor="Let's Talk"
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 20px rgba(72, 240, 231, 0.5), 0 0 40px rgba(72, 240, 231, 0.25), 0 0 60px rgba(72, 240, 231, 0.1)" }}
+                  className="inline-flex items-center gap-2 px-6 py-4 rounded-full border border-foreground/20 text-foreground font-medium text-sm hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
+                  whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="relative z-10 font-medium">
-                    Start a Project
-                  </span>
-                  <ArrowUpRight
-                    size={18}
-                    className="relative z-10"
-                  />
+                  About Us
+                  <ArrowUpRight size={14} />
                 </motion.a>
-              </Magnetic>
+              </div>
             </motion.div>
           </div>
 

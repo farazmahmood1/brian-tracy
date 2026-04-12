@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 import { GlowCard } from "@/components/InteractiveElements";
+import { EnterpriseArchBlock } from "@/components/AiMlVisuals";
 
 const teamTypes = [
   { num: "01", title: "Enterprise Innovation Labs", desc: "Test ideas fast, launch pilots, and validate new digital products without disrupting core operations." },
@@ -116,7 +117,7 @@ export default function EnterpriseService() {
       {/* HERO */}
       <motion.section
         ref={heroRef}
-        className="relative min-h-screen flex items-end section-padding pb-16 md:pb-24 overflow-hidden"
+        className="relative min-h-screen flex items-end section-padding pt-28 pb-16 md:pb-24 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -131,44 +132,44 @@ export default function EnterpriseService() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
         <div className="relative z-20 max-w-[1800px] mx-auto w-full">
-          <motion.span
-            className="inline-block text-xs uppercase tracking-[0.3em] mb-8"
-            style={{ color: "#00d4aa" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Services / Enterprise
-          </motion.span>
-          <div className="overflow-hidden mb-6">
-            <motion.h1
-              className="text-[13vw] md:text-[10vw] font-bold leading-[0.88] tracking-tighter"
-              style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                backgroundSize: "200% 200%",
-              }}
-              initial={{ y: "110%", backgroundPosition: "0% 50%" }}
-              animate={{ y: 0, backgroundPosition: "100% 50%" }}
-              transition={{
-                y: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 },
-                backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1, repeat: Infinity, repeatType: "reverse" },
-              }}
+            <motion.span
+              className="inline-block text-xs uppercase tracking-[0.3em] mb-8"
+              style={{ color: "#00d4aa" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
             >
-              Enterprise Software
-            </motion.h1>
-          </div>
-          <motion.p
-            className="text-lg md:text-2xl max-w-2xl leading-relaxed mt-10"
-            style={{ color: "#48f0e7" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            IT Technology Partner for Enterprise Innovation. Move Faster. Innovate Smarter. Scale with Confidence. From rapid pilots to production-grade platforms, we deliver speed, expertise, and predictable execution.
-          </motion.p>
+              Services / Enterprise
+            </motion.span>
+            <div className="overflow-hidden mb-6 py-2">
+              <motion.h1
+                className="text-[13vw] md:text-[10vw] xl:text-[8vw] font-bold leading-[0.95] tracking-tighter"
+                style={{
+                  background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  backgroundSize: "200% 200%",
+                }}
+                initial={{ y: "110%", backgroundPosition: "0% 50%" }}
+                animate={{ y: 0, backgroundPosition: "100% 50%" }}
+                transition={{
+                  y: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 },
+                  backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1, repeat: Infinity, repeatType: "reverse" },
+                }}
+              >
+                Enterprise Software
+              </motion.h1>
+            </div>
+            <motion.p
+              className="text-lg md:text-2xl max-w-2xl leading-relaxed mt-10"
+              style={{ color: "#48f0e7" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              IT Technology Partner for Enterprise Innovation. Move Faster. Innovate Smarter. Scale with Confidence. From rapid pilots to production-grade platforms, we deliver speed, expertise, and predictable execution.
+            </motion.p>
         </div>
       </motion.section>
 
@@ -199,7 +200,7 @@ export default function EnterpriseService() {
             {teamTypes.map((item, i) => (
               <motion.div
                 key={i}
-                className="group border-t border-border py-6 md:py-8 cursor-pointer"
+                className="group border-t border-border py-6 md:py-8 cursor-pointer hover:bg-foreground/[0.02] rounded-xl"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sec1InView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
@@ -251,6 +252,7 @@ export default function EnterpriseService() {
                 <motion.button
                   key={i}
                   onClick={() => setActiveChallenge(i)}
+                  onMouseEnter={() => setActiveChallenge(i)}
                   className={`w-full text-left flex items-center gap-4 py-4 px-4 rounded-xl transition-all duration-300 ${
                     activeChallenge === i
                       ? "bg-card border border-accent/40"
@@ -315,8 +317,37 @@ export default function EnterpriseService() {
         </div>
       </section>
 
+      {/* Architecture visual */}
+      <section className="section-forced-dark section-padding py-24">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <EnterpriseArchBlock />
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">Enterprise-Grade from the Ground Up</h3>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                Every system we build is designed for enterprise reality — microservices architecture, SSO integration, SOC 2 compliance, and 99.99% uptime. No shortcuts, no tech debt, no surprises.
+              </p>
+              <Magnetic>
+                <button
+                  onClick={() => navigate("/contact")}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-border hover:border-foreground hover:bg-foreground hover:text-background transition-all duration-300 font-medium"
+                >
+                  Discuss Your Architecture
+                  <ArrowUpRight size={18} />
+                </button>
+              </Magnetic>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 3 — How We Work (scroll-driven timeline) */}
-      <section ref={sec3Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec3Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div
             className="flex items-center gap-4 mb-20"
@@ -330,7 +361,7 @@ export default function EnterpriseService() {
           </motion.div>
 
           <motion.h2
-            className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl"
+            className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl text-center mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={sec3InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -338,33 +369,58 @@ export default function EnterpriseService() {
             How We Work with Enterprise Clients
           </motion.h2>
 
-          <div ref={timelineRef} className="relative pl-12 md:pl-20">
-            {/* Timeline track */}
-            <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-border">
-              <motion.div
-                className="w-full bg-accent origin-top"
-                style={{ height: lineHeight }}
-              />
-            </div>
-
-            <div className="space-y-16">
-              {processSteps.map((step, i) => (
-                <motion.div
-                  key={i}
-                  className="relative"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, delay: i * 0.1 }}
-                >
-                  {/* Dot */}
-                  <div className="absolute -left-[calc(3rem-6px)] md:-left-[calc(5rem-6px)] top-1 w-3 h-3 rounded-full bg-border border-2 border-background" />
-                  <span className="text-xs text-muted-foreground font-medium tracking-widest uppercase block mb-4">
-                    {step.num}
-                  </span>
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm max-w-2xl">{step.desc}</p>
-                </motion.div>
-              ))}
+          <div ref={timelineRef} className="relative">
+            {/* Center line track */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
+            {/* Animated accent fill line */}
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] origin-top rounded-full"
+              style={{
+                height: lineHeight,
+                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
+                boxShadow: "0 0 12px rgba(72, 240, 231, 0.4), 0 0 30px rgba(0, 212, 170, 0.15)",
+              }}
+            />
+            <div className="space-y-0">
+              {processSteps.map((step, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={i}
+                    className="relative flex items-start"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={sec3InView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
+                  >
+                    <div className={`w-1/2 pr-12 ${isLeft ? "" : "md:text-right"}`}>
+                      {isLeft ? (
+                        <div className="md:text-right pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                    <div className="absolute left-1/2 -translate-x-1/2 top-1 z-10">
+                      <motion.div
+                        className="w-4 h-4 rounded-full border-2 border-accent bg-background"
+                        whileInView={{ scale: [0.5, 1.2, 1] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
+                      />
+                    </div>
+                    <div className={`w-1/2 pl-12`}>
+                      {!isLeft ? (
+                        <div className="pb-16">
+                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
+                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
+                        </div>
+                      ) : <div className="pb-16" />}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -462,8 +518,8 @@ export default function EnterpriseService() {
       </section>
 
       {/* CTA */}
-      <section ref={ctaRef} className="section-forced-dark section-padding py-40">
-        <div className="max-w-[1800px] mx-auto text-center">
+      <section ref={ctaRef} className="section-forced-dark section-padding py-40 relative overflow-hidden">
+        <div className="max-w-[1800px] mx-auto text-center relative z-10">
           <motion.h2
             className="text-4xl md:text-7xl font-bold tracking-tighter mb-6"
             initial={{ opacity: 0, y: 40 }}
