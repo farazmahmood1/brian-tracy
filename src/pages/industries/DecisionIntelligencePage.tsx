@@ -394,7 +394,7 @@ export default function DecisionIntelligencePage() {
                     {currentCase.howItWorks.map((s, i) => (
                       <div key={i} className="border-t border-border">
                         <button
-                          className="w-full py-5 flex items-center justify-between gap-4 text-left group transition-all duration-300 hover:pl-6 hover:bg-accent/10 hover:border-l-2 hover:border-l-accent rounded-xl"
+                          className="w-full py-5 flex items-center justify-between gap-4 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.04] rounded-xl"
                           onClick={() => setActiveCaseStep(activeCaseStep === i ? -1 : i)} onMouseEnter={() => setActiveCaseStep(i)}
                         >
                           <div className="flex items-center gap-4">
