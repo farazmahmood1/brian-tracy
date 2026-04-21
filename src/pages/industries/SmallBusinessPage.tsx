@@ -156,7 +156,7 @@ export default function SmallBusinessPage() {
           <div className="space-y-0">
             {clients.map((item, i) => (
               <motion.div key={i} className="border-t border-border" initial={{ opacity: 0, y: 16 }} animate={sec1InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}>
-                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl" onClick={() => setOpenClient(openClient === i ? null : i)}>
+                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-accent/[0.06] rounded-xl" onClick={() => setOpenClient(openClient === i ? null : i)}>
                   <div className="flex items-center gap-5">
                     <motion.span
                       className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
@@ -165,7 +165,7 @@ export default function SmallBusinessPage() {
                     >
                       <motion.span animate={{ color: openClient === i ? "#00d4aa" : "hsl(var(--muted-foreground))" }}>{item.num}</motion.span>
                     </motion.span>
-                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">{item.title}</span>
+                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-4 transition-all duration-300">{item.title}</span>
                   </div>
                   <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300" animate={{ rotate: openClient === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
                     {openClient === i ? <Minus size={14} className="text-foreground" /> : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />}

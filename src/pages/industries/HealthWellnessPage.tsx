@@ -159,7 +159,7 @@ export default function HealthWellnessPage() {
           <div className="space-y-0">
             {painPoints.map((item, i) => (
               <motion.div key={i} className="border-t border-border" initial={{ opacity: 0, y: 16 }} animate={sec1InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}>
-                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl" onClick={() => setOpenPain(openPain === i ? null : i)}>
+                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-accent/[0.06] rounded-xl" onClick={() => setOpenPain(openPain === i ? null : i)}>
                   <div className="flex items-center gap-5">
                     <motion.span
                       className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
@@ -168,7 +168,7 @@ export default function HealthWellnessPage() {
                     >
                       <motion.span animate={{ color: openPain === i ? "#00d4aa" : "hsl(var(--muted-foreground))" }}>{item.num}</motion.span>
                     </motion.span>
-                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">{item.title}</span>
+                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-4 transition-all duration-300">{item.title}</span>
                   </div>
                   <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300" animate={{ rotate: openPain === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
                     {openPain === i ? <Minus size={14} className="text-foreground" /> : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />}
@@ -268,7 +268,7 @@ export default function HealthWellnessPage() {
           <div className="space-y-0">
             {securityFeatures.map((item, i) => (
               <motion.div key={i} className="border-t border-border" initial={{ opacity: 0, y: 16 }} animate={sec5InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}>
-                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-foreground/[0.03] rounded-xl" onClick={() => setOpenSecurity(openSecurity === i ? null : i)}>
+                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-4 hover:bg-accent/[0.06] rounded-xl" onClick={() => setOpenSecurity(openSecurity === i ? null : i)}>
                   <div className="flex items-center gap-5">
                     <motion.span
                       className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
@@ -277,7 +277,7 @@ export default function HealthWellnessPage() {
                     >
                       <Shield size={16} className={openSecurity === i ? "text-accent" : "text-muted-foreground/40"} />
                     </motion.span>
-                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">{item.title}</span>
+                    <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-4 transition-all duration-300">{item.title}</span>
                   </div>
                   <motion.div className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:border-foreground group-hover:scale-110 transition-all duration-300" animate={{ rotate: openSecurity === i ? 180 : 0 }} transition={{ duration: 0.3 }}>
                     {openSecurity === i ? <Minus size={14} className="text-foreground" /> : <Plus size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />}
