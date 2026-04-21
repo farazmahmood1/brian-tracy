@@ -1,7 +1,8 @@
-import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Plus, Minus, Check, Shield } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
+import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
@@ -97,9 +98,6 @@ export default function HealthWellnessPage() {
   const sec7InView = useInView(sec7Ref, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
-  const timelineRef = useRef(null);
-  const { scrollYProgress: timelineProgress } = useScroll({ target: timelineRef, offset: ["start end", "end center"] });
-  const lineHeight = useTransform(timelineProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -231,83 +229,7 @@ export default function HealthWellnessPage() {
       {/* ═══════════ SEC 3 — Process (scroll-driven timeline with outcomes) ═══════════ */}
       <section ref={sec3Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
-          <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
-            <span className="number-label">/03</span>
-            <LineReveal className="h-px bg-border flex-1" delay={0.3} />
-            <span className="text-xs text-muted-foreground uppercase tracking-widest">How We Work</span>
-          </motion.div>
-
-          <motion.h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 max-w-4xl text-center mx-auto" initial={{ opacity: 0, y: 40 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.1 }}>
-            How We Build Custom Healthcare Software Solutions
-          </motion.h2>
-          <motion.p className="text-lg text-muted-foreground max-w-3xl mb-16 leading-relaxed text-center mx-auto" initial={{ opacity: 0, y: 20 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
-            The health &amp; wellness industry is now heavily driven by AI. Our structured process reflects what we&rsquo;ve learned delivering custom healthcare software solutions across fitness, mental health, remote care, and beyond.
-          </motion.p>
-
-          <div ref={timelineRef} className="relative">
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border/30" />
-            <motion.div
-              className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] origin-top rounded-full"
-              style={{
-                height: lineHeight,
-                background: "linear-gradient(to bottom, #48f0e7, #00d4aa, #126b66)",
-                boxShadow: "0 0 12px rgba(72, 240, 231, 0.4), 0 0 30px rgba(0, 212, 170, 0.15)",
-              }}
-            />
-            <div className="space-y-0">
-              {processSteps.map((step, i) => {
-                const isLeft = i % 2 === 0;
-                return (
-                  <motion.div
-                    key={i}
-                    className="relative flex items-start"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={sec3InView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, delay: 0.3 + i * 0.12 }}
-                  >
-                    <div className={`w-1/2 pr-12 ${isLeft ? "" : "md:text-right"}`}>
-                      {isLeft ? (
-                        <div className="md:text-right pb-16">
-                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
-                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
-                          <p className="text-muted-foreground leading-relaxed text-sm mb-3">{step.desc}</p>
-                          <div className="flex items-start gap-2 text-sm justify-end">
-                            <span className="text-accent font-medium">Outcome:</span>
-                            <span className="text-foreground/80">{step.outcome}</span>
-                          </div>
-                        </div>
-                      ) : <div className="pb-16" />}
-                    </div>
-                    <div className="absolute left-1/2 -translate-x-1/2 top-1 z-10">
-                      <motion.div
-                        className="w-4 h-4 rounded-full border-2 border-accent bg-background"
-                        whileInView={{ scale: [0.5, 1.2, 1] }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
-                      />
-                    </div>
-                    <div className="w-1/2 pl-12">
-                      {!isLeft ? (
-                        <div className="pb-16">
-                          <span className="text-xs text-accent font-mono tracking-widest block mb-3">{step.num}</span>
-                          <h3 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h3>
-                          <p className="text-muted-foreground leading-relaxed text-sm mb-3">{step.desc}</p>
-                          <div className="flex items-start gap-2 text-sm">
-                            <span className="text-accent font-medium">Outcome:</span>
-                            <span className="text-foreground/80">{step.outcome}</span>
-                          </div>
-                        </div>
-                      ) : <div className="pb-16" />}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-
-          <motion.p className="text-xs text-muted-foreground mt-12" initial={{ opacity: 0 }} animate={sec3InView ? { opacity: 1 } : {}} transition={{ delay: 1 }}>
-            * The processes of custom healthcare software development may vary from project to project since we are agile.
-          </motion.p>
+          <ProcessTimeline steps={processSteps} inView={sec3InView} sectionLabel="/03" title="How We Build Custom Healthcare Software Solutions" labelText="How We Work" subtitle="The health & wellness industry is now heavily driven by AI. Our structured process reflects what we've learned delivering custom healthcare software solutions across fitness, mental health, remote care, and beyond." />
         </div>
       </section>
 
