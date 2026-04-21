@@ -186,7 +186,7 @@ export default function FintechFinancePage() {
       </motion.section>
 
       {/* ═══════════ SEC 1 — Pain Points (click-to-select) ═══════════ */}
-      <section ref={sec1Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec1Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec1InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/01</span>
@@ -294,7 +294,7 @@ export default function FintechFinancePage() {
       </section>
 
       {/* ═══════════ SEC 3 — Industry Verticals (accordion with indicators) ═══════════ */}
-      <section ref={sec3Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec3Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/03</span>
@@ -380,7 +380,7 @@ export default function FintechFinancePage() {
       </section>
 
       {/* ═══════════ SEC 5 — Compliance & Security ═══════════ */}
-      <section ref={sec5Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec5Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec5InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/05</span>
@@ -457,7 +457,7 @@ export default function FintechFinancePage() {
       </section>
 
       {/* ═══════════ SEC 7 — Scale CTA ═══════════ */}
-      <section ref={sec7Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec7Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec7InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/07</span>

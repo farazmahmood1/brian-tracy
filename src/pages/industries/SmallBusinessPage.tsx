@@ -141,7 +141,7 @@ export default function SmallBusinessPage() {
       </motion.section>
 
       {/* ═══════════ SEC 1 — Who We Work With (accordion with numbered indicators, light) ═══════════ */}
-      <section ref={sec1Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec1Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec1InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/01</span>
@@ -213,7 +213,7 @@ export default function SmallBusinessPage() {
       </section>
 
       {/* ═══════════ SEC 3 — Challenges (click-to-select with detail panel, light) ═══════════ */}
-      <section ref={sec3Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec3Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/03</span>
@@ -272,7 +272,7 @@ export default function SmallBusinessPage() {
       </section>
 
       {/* ═══════════ SEC 5 — Services (vertical tabs with layoutId, light) ═══════════ */}
-      <section ref={sec5Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec5Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec5InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/05</span>
@@ -352,7 +352,7 @@ export default function SmallBusinessPage() {
       </section>
 
       {/* ═══════════ SEC 7 — Why Us (animated checks, light) ═══════════ */}
-      <section ref={sec7Ref} className="section-forced-light section-padding py-32">
+      <section ref={sec7Ref} className="section-forced-dark section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec7InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/07</span>
