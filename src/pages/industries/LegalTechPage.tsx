@@ -261,7 +261,7 @@ export default function LegalTechPage() {
           <div className="space-y-0">
             {whoWeServe.map((item, i) => (
               <motion.div key={i} className="border-t border-border" initial={{ opacity: 0, y: 16 }} animate={sec2InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.06 }}>
-                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-6 hover:bg-accent/10 hover:border-l-2 hover:border-l-accent rounded-xl" onClick={() => setOpenServe(openServe === i ? null : i)}>
+                <button className="w-full py-7 flex items-center justify-between gap-6 text-left group transition-all duration-300 hover:pl-6 hover:bg-accent/10 hover:border-l-2 hover:border-l-accent rounded-xl" onClick={() => setOpenServe(openServe === i ? null : i)} onMouseEnter={() => setOpenServe(i)}>
                   <div className="flex items-center gap-5">
                     <motion.span
                       className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
