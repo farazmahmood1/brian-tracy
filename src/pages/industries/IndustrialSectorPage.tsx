@@ -26,14 +26,14 @@ const valuePoints = [
 ];
 
 const solutions = [
-  "Enterprise Resource Planning (ERP)",
-  "Enterprise Asset Management (EAM)",
-  "Product Lifecycle Management (PLM)",
-  "Manufacturing Execution Systems (MES)",
-  "Industrial Analytics & Business Intelligence",
-  "IoT Integration & Remote Monitoring",
-  "SCADA/HMI Modernization",
-  "Predictive Maintenance & Process Automation",
+  { title: "Enterprise Resource Planning (ERP)", desc: "Unified platforms that connect finance, supply chain, production, and HR into a single source of truth — eliminating data silos and manual reconciliation." },
+  { title: "Enterprise Asset Management (EAM)", desc: "Track, maintain, and optimize physical assets across facilities with real-time condition monitoring, work order management, and compliance reporting." },
+  { title: "Product Lifecycle Management (PLM)", desc: "End-to-end product data management from concept through retirement — version control, BOM management, and cross-team collaboration." },
+  { title: "Manufacturing Execution Systems (MES)", desc: "Real-time production monitoring, quality control, and shop-floor data collection that bridges the gap between ERP planning and actual manufacturing." },
+  { title: "Industrial Analytics & Business Intelligence", desc: "Transform raw sensor and operational data into actionable dashboards, trend analysis, and predictive insights that drive smarter decisions." },
+  { title: "IoT Integration & Remote Monitoring", desc: "Connect machines, sensors, and edge devices to cloud platforms for real-time visibility, remote diagnostics, and automated alerting across facilities." },
+  { title: "SCADA/HMI Modernization", desc: "Upgrade legacy control systems with modern web-based interfaces, improved security, and seamless integration with enterprise IT infrastructure." },
+  { title: "Predictive Maintenance & Process Automation", desc: "ML-driven anomaly detection and automated workflows that reduce unplanned downtime, extend equipment life, and cut maintenance costs." },
 ];
 
 const serviceItems = [
@@ -301,7 +301,7 @@ export default function IndustrialSectorPage() {
 
           {/* Hover-reveal list (like ServicesSection) */}
           <div className="space-y-0">
-            {solutions.map((title, i) => (
+            {solutions.map((item, i) => (
               <motion.div
                 key={i}
                 className="group border-t border-border cursor-default hover:bg-foreground/[0.02] rounded-xl transition-all duration-300"
@@ -314,8 +314,11 @@ export default function IndustrialSectorPage() {
                     /{String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="text-xl md:text-2xl font-semibold group-hover:translate-x-4 transition-transform duration-500">
-                    {title}
+                    {item.title}
                   </h3>
+                </div>
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground pb-6 pl-0 md:pl-[104px] max-w-3xl leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
