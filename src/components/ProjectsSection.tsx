@@ -192,6 +192,7 @@ export const ProjectsSection = () => {
                         alt={project.location}
                         width={16}
                         height={12}
+                        loading="lazy"
                         className="rounded-sm"
                       />
                       {project.location}

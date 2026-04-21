@@ -130,14 +130,9 @@ const ProjectsPage = () => {
       {/* Hero */}
       <section className="relative min-h-screen flex items-end section-padding pb-16 md:pb-24 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-[120px]"
+          <div
+            className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-60"
             style={{ background: "rgba(0, 212, 170, 0.08)" }}
-            animate={{
-              x: [0, -40, 0],
-              y: [0, 40, 0],
-            }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />

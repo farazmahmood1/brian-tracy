@@ -54,30 +54,7 @@ const queryClient = new QueryClient();
 const preloadRoutes = () => {
   import("./pages/About");
   import("./pages/Services");
-  import("./pages/Projects");
-  import("./pages/Articles");
   import("./pages/Contact");
-  import("./pages/Careers");
-  import("./pages/ProjectDetails");
-  import("./pages/ArticleDetails");
-  import("./pages/services/AiMlService");
-  import("./pages/services/SaasService");
-  import("./pages/services/MvpService");
-  import("./pages/services/UxDesignService");
-  import("./pages/services/EnterpriseService");
-  import("./pages/services/StrategyService");
-  import("./pages/services/MobileAppService");
-  import("./pages/services/SocialMediaService");
-  import("./pages/industries/IndustrialSectorPage");
-  import("./pages/industries/DecisionIntelligencePage");
-  import("./pages/industries/FintechFinancePage");
-  import("./pages/industries/HealthWellnessPage");
-  import("./pages/industries/LegalTechPage");
-  import("./pages/industries/TransportationPage");
-  import("./pages/industries/PaintingPage");
-  import("./pages/industries/SmallBusinessPage");
-  import("./pages/industries/MidSizedBusinessPage");
-  import("./pages/industries/GovernmentPage");
 };
 
 // Content wrapper that handles layout for all pages

@@ -39,7 +39,14 @@
       "Bash(grep -n \"addEventListener.*scroll\\\\|window.addEventListener\" /c/animated-ui/brian-tracy/src/components/*.tsx)",
       "Bash(npx vite:*)",
       "Bash(git commit -m ':*)",
-      "Bash(git revert:*)"
+      "Bash(git revert:*)",
+      "Bash(find /c/animated-ui/brian-tracy/src -name \"*.tsx\" -type f -exec wc -l {} +)",
+      "Bash(awk '$1 > 500 {print $0}')",
+      "Bash(find /c/animated-ui/brian-tracy/src -name \"*.tsx\" -exec grep -l \"whileInView\" {} \\\\;)",
+      "Bash(grep -n \"mousemove\\\\|pointermove\" /c/animated-ui/brian-tracy/src/components/*.tsx)",
+      "Bash(ls /c/animated-ui/brian-tracy/src/components/ui/*.tsx)",
+      "Bash(grep -c \"repeat: Infinity\" /c/animated-ui/brian-tracy/src/components/*.tsx)",
+      "Bash(npm uninstall:*)"
     ],
     "additionalDirectories": [
       "C:\\animated-ui\\brian-tracy\\src\\pages\\services"

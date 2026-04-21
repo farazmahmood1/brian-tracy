@@ -23,7 +23,6 @@ export default defineConfig(({ mode }) => ({
           "framer-motion": ["framer-motion"],
           "query": ["@tanstack/react-query"],
           "three": ["three", "@react-three/fiber", "@react-three/drei"],
-          "gsap": ["gsap"],
         },
       },
     },

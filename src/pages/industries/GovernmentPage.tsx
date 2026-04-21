@@ -118,17 +118,13 @@ export default function GovernmentPage() {
         transition={{ duration: 1 }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute top-[calc(50%-350px)] right-[10%] w-[700px] h-[700px] rounded-full blur-[130px]"
+          <div
+            className="absolute top-[calc(50%-350px)] right-[10%] w-[700px] h-[700px] rounded-full blur-[130px] opacity-60"
             style={{ background: "rgba(0, 212, 170, 0.07)" }}
-            animate={{ x: [0, -50, 30, -40, 0], y: [0, 50, -30, 20, 0], opacity: [0.5, 0.9, 0.4, 0.8, 0.5] }}
-            transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute bottom-[15%] left-[5%] w-[500px] h-[500px] rounded-full blur-[120px]"
+          <div
+            className="absolute bottom-[15%] left-[5%] w-[500px] h-[500px] rounded-full blur-[120px] opacity-40"
             style={{ background: "rgba(72, 240, 231, 0.04)" }}
-            animate={{ x: [0, 30, -20, 0], y: [0, -30, 20, 0], opacity: [0.3, 0.6, 0.3, 0.3] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />

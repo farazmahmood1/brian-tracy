@@ -108,7 +108,7 @@ export default function SmallBusinessPage() {
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div className="absolute top-[calc(50%-350px)] right-[15%] w-[700px] h-[700px] rounded-full blur-[130px]" style={{ background: "rgba(0, 212, 170, 0.07)" }} animate={{ x: [0, -40, 30, -50, 0], y: [0, 60, -30, 40, 0], opacity: [0.5, 0.8, 0.4, 0.9, 0.5] }} transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }} />
+          <div className="absolute top-[calc(50%-350px)] right-[15%] w-[700px] h-[700px] rounded-full blur-[130px] opacity-60" style={{ background: "rgba(0, 212, 170, 0.07)" }} />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
 

@@ -255,17 +255,13 @@ const Services = () => {
         transition={{ duration: 1 }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] rounded-full blur-[130px]"
+          <div
+            className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] rounded-full blur-[130px] opacity-70"
             style={{ background: "rgba(0, 212, 170, 0.08)" }}
-            animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px]"
+          <div
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px] opacity-50"
             style={{ background: "rgba(18, 107, 102, 0.1)" }}
-            animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />
@@ -382,34 +378,17 @@ const Services = () => {
       >
         {/* Animated ambient glows */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute top-[10%] left-[-5%] w-[600px] h-[600px] rounded-full blur-[150px]"
+          <div
+            className="absolute top-[10%] left-[-5%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-50"
             style={{ background: "rgba(0, 212, 170, 0.08)" }}
-            animate={{
-              x: [0, 80, -30, 50, 0],
-              y: [0, -40, 60, -20, 0],
-              opacity: [0.4, 0.8, 0.3, 0.7, 0.4],
-            }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute bottom-[5%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[130px]"
+          <div
+            className="absolute bottom-[5%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[130px] opacity-40"
             style={{ background: "rgba(72, 240, 231, 0.06)" }}
-            animate={{
-              x: [0, -60, 30, -40, 0],
-              y: [0, 50, -30, 40, 0],
-              opacity: [0.3, 0.7, 0.2, 0.6, 0.3],
-            }}
-            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute top-[40%] left-[40%] w-[400px] h-[400px] rounded-full blur-[120px]"
+          <div
+            className="absolute top-[40%] left-[40%] w-[400px] h-[400px] rounded-full blur-[120px] opacity-40"
             style={{ background: "rgba(18, 107, 102, 0.05)" }}
-            animate={{
-              scale: [1, 1.3, 0.9, 1.2, 1],
-              opacity: [0.3, 0.6, 0.2, 0.5, 0.3],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
           {/* Subtle grid pattern */}
           <div

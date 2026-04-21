@@ -81,11 +81,9 @@ export default function MvpService() {
         transition={{ duration: 1 }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] rounded-full blur-[130px]"
+          <div
+            className="absolute top-[calc(50%-350px)] right-0 w-[700px] h-[700px] rounded-full blur-[130px] opacity-70"
             style={{ background: "rgba(0, 212, 170, 0.08)" }}
-            animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background z-10" />

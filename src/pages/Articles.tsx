@@ -65,17 +65,13 @@ const Articles = () => {
         transition={{ duration: 1 }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div
-            className="absolute top-[calc(50%-350px)] right-0 w-[400px] md:w-[700px] h-[400px] md:h-[700px] rounded-full blur-[130px]"
+          <div
+            className="absolute top-[calc(50%-350px)] right-0 w-[400px] md:w-[700px] h-[400px] md:h-[700px] rounded-full blur-[130px] opacity-70"
             style={{ background: "rgba(0, 212, 170, 0.08)" }}
-            animate={{ x: [0, -60, 20, -40, 0], y: [0, 60, -40, 30, 0], opacity: [0.6, 1, 0.4, 0.9, 0.6] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px]"
+          <div
+            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[50px] opacity-50"
             style={{ background: "rgba(18, 107, 102, 0.1)" }}
-            animate={{ x: [0, 40, 0], y: [0, -40, 0], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#060608] via-[#060608]/40 to-[#060608] z-10" />
