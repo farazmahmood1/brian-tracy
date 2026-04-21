@@ -1,7 +1,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Plus, Minus } from "lucide-react";
-import { Magnetic } from "@/components/AnimationComponents";
+import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
