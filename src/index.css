@@ -354,6 +354,13 @@
 .mq-wrap:hover .mq-track-fwd,
 .mq-wrap:hover .mq-track-rev { animation-play-state: paused; }
 
+.marquee-paused .cs-track-fwd,
+.marquee-paused .cs-track-rev,
+.marquee-paused .mq-track-fwd,
+.marquee-paused .mq-track-rev {
+  animation-play-state: paused !important;
+}
+
 /* ─── Layout containment for scroll perf ──────────────────��──────────── */
 /* Removed overly broad [style*="transform"] { will-change: transform }
    rule — it was creating a compositing layer for EVERY framer-motion

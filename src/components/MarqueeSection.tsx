@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 const marqueeItems: { text: string; filled: boolean }[] = [
   { text: "AI Products", filled: true },
@@ -33,8 +33,23 @@ const marqueeItems: { text: string; filled: boolean }[] = [
 
 const reversedItems = [...marqueeItems].reverse();
 
-export const MarqueeSection = memo(() => (
-  <section className="py-8 overflow-hidden relative" style={{ contain: "layout style paint" }}>
+export const MarqueeSection = memo(() => {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+  <section ref={ref} className={`py-8 overflow-hidden relative${visible ? "" : " marquee-paused"}`} style={{ contain: "layout style paint" }}>
     {/* Row 1 - forward */}
     <div className="mq-wrap mb-3 pb-3">
       <div className="mq-track-fwd" aria-hidden>
@@ -70,5 +85,6 @@ export const MarqueeSection = memo(() => (
       </div>
     </div>
   </section>
-));
+  );
+});
 MarqueeSection.displayName = "MarqueeSection";

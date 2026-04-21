@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 const clientFiles = [
   "Appen-Talent Store Logo.png",
@@ -77,8 +77,25 @@ const LogoTrack = memo(
 );
 LogoTrack.displayName = "LogoTrack";
 
-export const OurClientsSection = memo(() => (
+export const OurClientsSection = memo(() => {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
   <section
+    ref={ref}
+    className={visible ? undefined : "marquee-paused"}
     style={{
       padding: "40px 0",
       overflow: "hidden",
@@ -123,7 +140,8 @@ export const OurClientsSection = memo(() => (
       <LogoTrack srcs={row2} altNames={names2} direction="rev" />
     </div>
   </section>
-));
+  );
+});
 OurClientsSection.displayName = "OurClientsSection";
 
 export default OurClientsSection;

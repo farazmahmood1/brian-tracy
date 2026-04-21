@@ -43,35 +43,44 @@ export const HeroSection = () => {
     if (!container || !content || !globe) return;
 
     let rafId = 0;
-    let done = false; // tracks if hero already fully hidden
 
+    // Use IntersectionObserver to only attach scroll listener when hero is visible
     const onScroll = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const rect = container.getBoundingClientRect();
         const h = container.offsetHeight;
         if (rect.bottom < 0) {
-          // Hero is fully above viewport — apply final state and stop processing
-          if (!done) {
-            content.style.transform = `translate3d(0, -80px, 0)`;
-            content.style.opacity = "0";
-            globe.style.opacity = "0";
-            done = true;
-          }
+          content.style.transform = `translate3d(0, -80px, 0)`;
+          content.style.opacity = "0";
+          globe.style.opacity = "0";
           return;
         }
-        done = false;
         const progress = Math.min(1, Math.max(0, -rect.top / h));
-        const textY = progress * -80;
-        const textOpacity = Math.max(0, 1 - progress / 0.35);
-        const earthOpacity = Math.max(0, 1 - progress / 0.5);
-        content.style.transform = `translate3d(0, ${textY}px, 0)`;
-        content.style.opacity = String(textOpacity);
-        globe.style.opacity = String(earthOpacity);
+        content.style.transform = `translate3d(0, ${progress * -80}px, 0)`;
+        content.style.opacity = String(Math.max(0, 1 - progress / 0.35));
+        globe.style.opacity = String(Math.max(0, 1 - progress / 0.5));
       });
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(rafId); };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          window.addEventListener("scroll", onScroll, { passive: true });
+        } else {
+          window.removeEventListener("scroll", onScroll);
+          cancelAnimationFrame(rafId);
+        }
+      },
+      { rootMargin: "100px" }
+    );
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const [starCount] = useState(() => window.innerWidth < 768 ? 20 : 40);
