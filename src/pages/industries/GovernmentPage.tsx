@@ -234,7 +234,7 @@ export default function GovernmentPage() {
                 >
                   <motion.span
                     className="w-2 h-2 rounded-full flex-shrink-0"
-                    animate={{ scale: activeWho === i ? 1 : 0.5, backgroundColor: activeWho === i ? "#00d4aa" : "rgba(255,255,255,0.2)" }}
+                    animate={{ scale: activeWho === i ? 1 : 0.5, backgroundColor: activeWho === i ? "#00d4aa" : "hsl(var(--muted))" }}
                     transition={{ duration: 0.3 }}
                   />
                   <span className={`text-lg font-medium transition-colors duration-300 ${activeWho === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>

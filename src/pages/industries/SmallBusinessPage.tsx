@@ -160,10 +160,10 @@ export default function SmallBusinessPage() {
                   <div className="flex items-center gap-5">
                     <motion.span
                       className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
-                      animate={{ borderColor: openClient === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)", backgroundColor: openClient === i ? "rgba(0,212,170,0.1)" : "transparent" }}
+                      animate={{ borderColor: openClient === i ? "rgba(0,212,170,0.5)" : "hsl(var(--border))", backgroundColor: openClient === i ? "rgba(0,212,170,0.1)" : "transparent" }}
                       transition={{ duration: 0.3 }}
                     >
-                      <motion.span animate={{ color: openClient === i ? "#00d4aa" : "rgba(255,255,255,0.4)" }}>{item.num}</motion.span>
+                      <motion.span animate={{ color: openClient === i ? "#00d4aa" : "hsl(var(--muted-foreground))" }}>{item.num}</motion.span>
                     </motion.span>
                     <span className="text-xl md:text-2xl font-semibold group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">{item.title}</span>
                   </div>

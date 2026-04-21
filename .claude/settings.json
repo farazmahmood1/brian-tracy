@@ -38,7 +38,8 @@
       "Bash(wc -l /c/animated-ui/brian-tracy/src/components/*.tsx)",
       "Bash(grep -n \"addEventListener.*scroll\\\\|window.addEventListener\" /c/animated-ui/brian-tracy/src/components/*.tsx)",
       "Bash(npx vite:*)",
-      "Bash(git commit -m ':*)"
+      "Bash(git commit -m ':*)",
+      "Bash(git revert:*)"
     ],
     "additionalDirectories": [
       "C:\\animated-ui\\brian-tracy\\src\\pages\\services"

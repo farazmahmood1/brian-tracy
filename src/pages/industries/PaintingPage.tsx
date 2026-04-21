@@ -189,7 +189,7 @@ export default function PaintingPage() {
                 >
                   <motion.span
                     className="w-2 h-2 rounded-full flex-shrink-0"
-                    animate={{ scale: activePain === i ? 1 : 0.5, backgroundColor: activePain === i ? "#00d4aa" : "rgba(255,255,255,0.2)" }}
+                    animate={{ scale: activePain === i ? 1 : 0.5, backgroundColor: activePain === i ? "#00d4aa" : "hsl(var(--muted))" }}
                     transition={{ duration: 0.3 }}
                   />
                   <span className={`text-lg font-medium transition-colors duration-300 ${activePain === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
@@ -243,12 +243,12 @@ export default function PaintingPage() {
                     <motion.span
                       className="w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                       animate={{
-                        borderColor: openRole === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)",
+                        borderColor: openRole === i ? "rgba(0,212,170,0.5)" : "hsl(var(--border))",
                         backgroundColor: openRole === i ? "rgba(0,212,170,0.1)" : "transparent",
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      <motion.span animate={{ color: openRole === i ? "#00d4aa" : "rgba(255,255,255,0.4)" }}>
+                      <motion.span animate={{ color: openRole === i ? "#00d4aa" : "hsl(var(--muted-foreground))" }}>
                         {String(i + 1).padStart(2, "0")}
                       </motion.span>
                     </motion.span>

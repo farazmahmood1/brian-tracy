@@ -401,11 +401,11 @@ export default function DecisionIntelligencePage() {
                             <motion.span
                               className="w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 text-xs font-mono transition-all duration-300 group-hover:border-accent group-hover:bg-accent/10"
                               animate={{
-                                borderColor: activeCaseStep === i ? "rgba(0,212,170,0.5)" : "rgba(255,255,255,0.1)",
+                                borderColor: activeCaseStep === i ? "rgba(0,212,170,0.5)" : "hsl(var(--border))",
                                 backgroundColor: activeCaseStep === i ? "rgba(0,212,170,0.1)" : "transparent",
                               }}
                             >
-                              <motion.span animate={{ color: activeCaseStep === i ? "#00d4aa" : "rgba(255,255,255,0.4)" }}>
+                              <motion.span animate={{ color: activeCaseStep === i ? "#00d4aa" : "hsl(var(--muted-foreground))" }}>
                                 {String(i + 1).padStart(2, "0")}
                               </motion.span>
                             </motion.span>
