@@ -160,7 +160,7 @@ export default function PaintingPage() {
       </motion.section>
 
       {/* ═══════════ SEC 1 — Pain Points & Solution (two-column click-to-select) ═══════════ */}
-      <section ref={sec1Ref} className="section-forced-dark section-padding py-32">
+      <section ref={sec1Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec1InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/01</span>
@@ -269,7 +269,7 @@ export default function PaintingPage() {
       </section>
 
       {/* ═══════════ SEC 3 — Use Cases (hover-expand list) ═══════════ */}
-      <section ref={sec3Ref} className="section-forced-dark section-padding py-32">
+      <section ref={sec3Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/03</span>
@@ -365,7 +365,7 @@ export default function PaintingPage() {
       </section>
 
       {/* ═══════════ SEC 5 — ROI (stat cards with CountUp) ═══════════ */}
-      <section ref={sec5Ref} className="section-forced-dark section-padding py-32">
+      <section ref={sec5Ref} className="section-forced-light section-padding py-32">
         <div className="max-w-[1800px] mx-auto">
           <motion.div className="flex items-center gap-4 mb-20" initial={{ opacity: 0, y: 20 }} animate={sec5InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
             <span className="number-label">/05</span>
