@@ -95,7 +95,7 @@ export const InsightsSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
-              Expert insights on AI, LLMs, agentic systems, paid ads, and digital transformation — written by our team.
+              Practical guides on AI automation, legal and farm software, integrations, SEO and paid ads for New Zealand and Australian businesses.
             </p>
           </motion.div>
         </div>

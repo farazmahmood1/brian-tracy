@@ -7,6 +7,7 @@ import {
 import { ArrowUpRight, Clock, Calendar, ArrowRight } from "lucide-react";
 import { useLenis } from "@/hooks/useLenis";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { api } from "@/services/api";
 import type { ArticleDisplay } from "@/types/api";
 import type { BlogPost } from "@/types/api";
@@ -38,10 +39,7 @@ const Articles = () => {
     return () => { cancelled = true; };
   }, []);
 
-  usePageMetadata({
-    title: "Articles – Forrof",
-    description: "Explore our latest thoughts on design, technology, and the future of digital experiences. Ideas that inspire action.",
-  });
+  usePageMetadata(seo("/articles"));
 
   const categories = useMemo(() =>
     ["All", ...Array.from(new Set(articles.flatMap(article => article.stack ? article.stack.split(',').map((s: string) => s.trim()) : [])))].filter(Boolean),
@@ -103,7 +101,7 @@ const Articles = () => {
                 backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
               }}
             >
-              Articles & Ideas
+              Articles &amp; Guides
             </motion.h1>
           </div>
           <motion.p
@@ -113,7 +111,7 @@ const Articles = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            Explore our latest thoughts on design, technology, and the future of digital experiences.
+            Practical guides on AI automation, legal and farm software, integrations, SEO and paid ads, written for New Zealand and Australian business owners.
           </motion.p>
         </motion.div>
       </motion.section>
@@ -245,7 +243,7 @@ const Articles = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                Stay in the Loop
+                Get New Articles by Email
               </motion.h2>
               <motion.p
                 className="text-white/40 mb-10 text-base md:text-lg leading-relaxed"
@@ -254,8 +252,8 @@ const Articles = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                Get our latest insights delivered straight to your inbox. No spam,
-                just quality content.
+                One email when we publish something useful. No spam, and you can
+                unsubscribe any time.
               </motion.p>
               <motion.form
                 className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"

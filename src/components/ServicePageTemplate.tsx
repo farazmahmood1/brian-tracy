@@ -22,7 +22,7 @@ export interface ServicePageContent {
   techStack: { intro: string; items: { name: string; desc: string }[] };
   whyUs: { title: string; desc: string }[];
   sideVisual: ReactNode;
-  industries: { heading: string; items: { title: string; points: string[] }[] };
+  industries: { label?: string; heading: string; items: { title: string; points: string[] }[] };
   process: { steps: { num: string; title: string; desc: string }[]; note?: string };
   faqs: { q: string; a: string }[];
   cta: { heading: string; label: string };
@@ -513,7 +513,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
       {/* /05 INDUSTRIES */}
       <section ref={refs.industries} className="section-forced-light section-padding py-32 relative overflow-hidden">
         <div className="max-w-[1800px] mx-auto">
-          <SectionLabel num="/05" label="Industries" inView={inView.industries} />
+          <SectionLabel num="/05" label={c.industries.label ?? "Industries"} inView={inView.industries} />
           <motion.h2
             className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl"
             initial={{ opacity: 0, y: 40 }}

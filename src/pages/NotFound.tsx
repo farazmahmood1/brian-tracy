@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const funnyLines = [
   "This page is lost in space...",
@@ -14,6 +15,7 @@ const funnyLines = [
 
 const NotFound = () => {
   const navigate = useNavigate();
+  usePageMetadata({ title: "Page Not Found | Forrof", description: "This page does not exist. Head back to the Forrof homepage.", noindex: true });
 
 
 

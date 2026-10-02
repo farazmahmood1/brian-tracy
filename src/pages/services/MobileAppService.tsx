@@ -6,13 +6,14 @@ import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { TechLogo } from "@/components/TechLogo";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { MobileTerminalBlock } from "@/components/AiMlVisuals";
 
 const niches = [
   { num: "01", title: "Logistics & Transportation", desc: "On-demand delivery apps, fleet management, route optimisation, driver portals, and real-time shipment tracking - built to keep operations moving and customers informed at every step." },
   { num: "02", title: "Education", desc: "E-learning platforms, interactive courseware, progress tracking dashboards, live tutoring features, and gamified learning experiences that keep students engaged across devices." },
-  { num: "03", title: "Healthcare & Wellness", desc: "HIPAA-compliant telehealth apps, appointment booking, electronic health records, medication reminders, wearable integrations, and patient-provider communication platforms." },
+  { num: "03", title: "Healthcare & Wellness", desc: "Telehealth apps, appointment booking, medication reminders, wearable integrations and patient messaging, built around New Zealand and Australian health privacy rules." },
   { num: "04", title: "Fintech & Finance", desc: "Mobile banking, digital wallets, investment tracking, KYC/AML workflows, real-time market data, and secure payment flows built to PCI-DSS standards." },
   { num: "05", title: "Food & Restaurant Management", desc: "Online ordering, table reservations, kitchen display systems, loyalty programmes, and delivery-driver coordination - for independent restaurants and franchise chains alike." },
   { num: "06", title: "Social & Entertainment", desc: "Community platforms, live streaming, short-form video, real-time chat, social graphs, and creator monetisation tools designed for scale and engagement." },
@@ -41,7 +42,7 @@ const painPoints = [
 ];
 
 const differentiators = [
-  { title: "100+ Mobile Apps Shipped", desc: "We've successfully built and launched over 100 mobile applications for startups, growing businesses, and global enterprises across every major vertical." },
+  { title: "Apps That Work Offline", desc: "We build apps that keep working without coverage and sync later, which matters on farms, on the road and on site." },
   { title: "Experts in React Native, Flutter, Kotlin & Swift", desc: "Deep expertise in every major mobile stack means we always recommend the right technology for your product - not the one we're most comfortable billing for." },
   { title: "Transparent Agile Development", desc: "We keep you involved at every planning, design, development, and testing stage. Monitor progress, give feedback early, and stay in full control of your product throughout." },
   { title: "Analytics & A/B Testing Built-In", desc: "We instrument every project with analytics and A/B testing capabilities so you can track user behaviour, validate hypotheses, and make evidence-based product decisions from day one." },
@@ -50,7 +51,7 @@ const differentiators = [
 ];
 
 const stats = [
-  { value: "2M+", label: "Installations" },
+  { value: "150+", label: "Projects Shipped" },
   { value: "5/5", label: "Rating for Cost on Clutch" },
   { value: "20+", label: "Industries Served" },
   { value: "0.1s", label: "Average Response Time" },
@@ -59,14 +60,14 @@ const stats = [
 const techStack = [
   { name: "React Native", desc: "Cross-platform JavaScript framework delivering near-native performance on iOS and Android from a single, maintainable codebase." },
   { name: "Flutter", desc: "Google's UI toolkit for building natively compiled, visually expressive apps across mobile, web, and desktop from one codebase." },
-  { name: "Kotlin", desc: "Modern, concise, and safe language for native Android development - full Jetpack ecosystem, Compose UI, and seamless Google integration." },
+  { name: "Kotlin", desc: "Modern, concise, and safe language for native Android development - full Jetpack ecosystem, Compose UI and Google services integration." },
   { name: "Swift", desc: "Apple's powerful and expressive language for native iOS development - performance, safety, and deep OS integration built in from the ground up." },
 ];
 
 const processSteps = [
   { num: "01", title: "Idea Assessment", desc: "Investigate user needs and market trends to shape and validate your app idea - so we build something people actually want before writing a line of code." },
   { num: "02", title: "UX Design", desc: "Design intuitive, engaging interfaces focused on user experience and usability - wireframes, prototypes, and high-fidelity screens validated with real users." },
-  { num: "03", title: "App Development", desc: "Develop a robust, scalable, high-performance app architecture with sprint-based builds, continuous integration, and weekly progress demos." },
+  { num: "03", title: "App Development", desc: "Two-week sprints, automated builds and a working demo every week, so you can try the app on your own phone as it takes shape." },
   { num: "04", title: "Quality Assurance", desc: "Automated and manual testing across real device matrices to guarantee reliability, security, and premium quality before anything reaches the store." },
   { num: "05", title: "Smooth Deployment", desc: "Managed App Store and Play Store submission with phased rollout strategy, crash monitoring from day one, and zero-downtime launch execution." },
   { num: "06", title: "Ongoing Support & Optimisation", desc: "Continuous updates, performance improvements, OS compatibility maintenance, and feature iteration based on real user feedback and analytics data." },
@@ -87,11 +88,7 @@ const popularServices = [
 ];
 
 export default function MobileAppService() {
-  usePageMetadata({
-    title: "Mobile App Development Services | Forrof",
-    description: "Expert mobile app development for iOS and Android. From native Swift and Kotlin apps to cross-platform React Native and Flutter - we build fast, functional, and future-ready mobile experiences.",
-    keywords: "mobile app development, iOS development, Android development, React Native, Flutter, cross-platform apps, MVP mobile app, app store optimisation",
-  });
+  usePageMetadata(seo("/services/mobile"));
 
   const navigate = useNavigate();
   const [openNiche, setOpenNiche] = useState<number | null>(null);
@@ -172,7 +169,7 @@ export default function MobileAppService() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            From first sketch to full-scale launch, we build mobile apps that are fast, functional, and future-ready - on iOS, Android, and cross-platform.
+            iOS and Android apps for New Zealand and Australian businesses, from first sketch to App Store launch. Native or cross-platform, online or offline.
           </motion.p>
           <motion.div
             className="mt-10"

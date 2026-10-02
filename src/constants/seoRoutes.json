@@ -1,0 +1,214 @@
+{
+  "/": {
+    "title": "Custom Software & AI Automation | NZ & Australia | Forrof",
+    "description": "Forrof builds custom software, AI automation and Xero integrations, and runs SEO and Google Ads for law firms, farms and growing businesses in New Zealand and Australia.",
+    "keywords": "custom software development New Zealand, software development company Australia, AI automation agency, legal software development, farm management software, Xero integration, SEO agency New Zealand, Google Ads agency Australia",
+    "priority": 1.0
+  },
+  "/about": {
+    "title": "About Forrof | Software & AI Team for NZ & Australia",
+    "description": "Meet Forrof: a 17-person team of engineers, AI specialists and marketers building software for New Zealand and Australian law firms, farms and growing businesses.",
+    "keywords": "about Forrof, software development team, offshore software developers for Australia, software agency for New Zealand businesses, LegalTech developers, AgriTech developers",
+    "priority": 0.8
+  },
+  "/services": {
+    "title": "Software, AI, SEO & Ads Services | NZ & Australia | Forrof",
+    "description": "Five services from one team: AI automation, custom software, systems integration, SEO and paid ads. Fixed quotes in USD for New Zealand and Australian businesses.",
+    "keywords": "software development services, AI automation services, systems integration, Xero integration, SEO services New Zealand, Google Ads management Australia",
+    "priority": 0.9
+  },
+  "/services/ai-automation": {
+    "title": "AI Automation Services in NZ & Australia | Forrof",
+    "description": "AI agents, document automation and workflow automation for New Zealand and Australian businesses. Private by design, built on OpenAI and Claude, live in weeks.",
+    "keywords": "AI automation services, AI automation agency New Zealand, AI agents Australia, workflow automation, document automation, RAG chatbot, business process automation, LLM development",
+    "priority": 0.9
+  },
+  "/services/custom-software": {
+    "title": "Custom Software Development NZ & Australia | Forrof",
+    "description": "Web apps, client portals, SaaS products and mobile apps built for New Zealand and Australian businesses. Fixed quote, weekly demos, and you own the code.",
+    "keywords": "custom software development New Zealand, custom software development Australia, web application development, client portal development, SaaS development, mobile app developers",
+    "priority": 0.9
+  },
+  "/services/systems-integration": {
+    "title": "Systems Integration & Xero Integration | NZ & AU | Forrof",
+    "description": "Connect Xero, your CRM and practice or farm software so data is entered once. API integrations, data pipelines and live dashboards for NZ and Australian businesses.",
+    "keywords": "systems integration, Xero integration, API integration services, MYOB integration, data integration New Zealand, business dashboards Australia, practice management integration",
+    "priority": 0.9
+  },
+  "/services/seo": {
+    "title": "SEO & AI Search Optimisation | NZ & Australia | Forrof",
+    "description": "Technical SEO, local SEO and AI search optimisation for New Zealand and Australian businesses. Rank on Google and get cited by ChatGPT, Perplexity and AI Overviews.",
+    "keywords": "SEO services New Zealand, SEO agency Australia, local SEO Auckland, local SEO Sydney, AI search optimisation, generative engine optimisation, law firm SEO, technical SEO",
+    "priority": 0.9
+  },
+  "/services/performance-marketing": {
+    "title": "Google Ads & Meta Ads Management | NZ & Australia | Forrof",
+    "description": "Google, Meta and LinkedIn ads managed for New Zealand and Australian businesses, with server-side tracking so you see cost per qualified lead, not just clicks.",
+    "keywords": "Google Ads management New Zealand, Google Ads agency Australia, Meta ads agency, LinkedIn ads B2B, performance marketing agency, PPC management, lead generation",
+    "priority": 0.9
+  },
+  "/services/saas": {
+    "title": "SaaS Development Company | NZ & Australia | Forrof",
+    "description": "SaaS product development for New Zealand and Australian founders: multi-tenant architecture, Stripe billing, roles and analytics, from MVP to scale.",
+    "keywords": "SaaS development company, SaaS developers Australia, SaaS development New Zealand, multi-tenant SaaS, Stripe billing integration, SaaS MVP",
+    "priority": 0.7
+  },
+  "/services/enterprise": {
+    "title": "Enterprise Software Development | NZ & Australia | Forrof",
+    "description": "Internal platforms, dashboards and workflow systems for established New Zealand and Australian organisations. Modernise legacy systems without stopping the business.",
+    "keywords": "enterprise software development, internal tools development, legacy system modernisation, workflow software Australia, business software New Zealand",
+    "priority": 0.7
+  },
+  "/services/mobile": {
+    "title": "Mobile App Development NZ & Australia | iOS & Android | Forrof",
+    "description": "iOS and Android apps for New Zealand and Australian businesses, built in React Native, Flutter, Swift and Kotlin. Offline-ready, App Store launch included.",
+    "keywords": "mobile app development New Zealand, app developers Australia, iOS app development, Android app development, React Native developers, Flutter developers",
+    "priority": 0.7
+  },
+  "/services/mvp": {
+    "title": "MVP Development for Startups | NZ & Australia | Forrof",
+    "description": "Launch a working MVP in 6 to 12 weeks. Fixed-price MVP and proof-of-concept development for New Zealand and Australian founders, from USD 7,900.",
+    "keywords": "MVP development, MVP developers Australia, startup software development New Zealand, proof of concept development, fixed price MVP",
+    "priority": 0.7
+  },
+  "/services/strategy": {
+    "title": "Technical Strategy & CTO-as-a-Service | NZ & AU | Forrof",
+    "description": "System design, technical due diligence and fractional CTO support for New Zealand and Australian companies making big technology decisions.",
+    "keywords": "CTO as a service, fractional CTO Australia, technical due diligence, software architecture consulting, technology strategy New Zealand",
+    "priority": 0.6
+  },
+  "/services/paid-ads": {
+    "title": "Paid Ads Agency | Google, Meta & LinkedIn | NZ & AU | Forrof",
+    "description": "Paid ad campaigns on Google, Meta, LinkedIn and TikTok for New Zealand and Australian businesses, with conversion tracking wired to your CRM.",
+    "keywords": "paid ads agency, PPC agency New Zealand, paid media agency Australia, Google Ads, Meta ads, LinkedIn ads, conversion tracking",
+    "priority": 0.7
+  },
+  "/services/google-ads": {
+    "title": "Google Ads Management | NZ & Australia | Forrof",
+    "description": "Google Ads management for New Zealand and Australian businesses: Search, Performance Max and YouTube, with landing pages and tracking built by our own developers.",
+    "keywords": "Google Ads management New Zealand, Google Ads agency Australia, Google Ads specialist Auckland, PPC management Sydney, Performance Max",
+    "priority": 0.7
+  },
+  "/services/meta-ads": {
+    "title": "Meta Ads Agency | Facebook & Instagram | NZ & AU | Forrof",
+    "description": "Facebook and Instagram ads for New Zealand and Australian businesses, with creative testing and Conversions API tracking that still works after iOS privacy changes.",
+    "keywords": "Meta ads agency, Facebook ads agency New Zealand, Instagram ads Australia, Conversions API, paid social agency",
+    "priority": 0.7
+  },
+  "/services/linkedin-ads": {
+    "title": "LinkedIn Ads Agency for B2B | NZ & Australia | Forrof",
+    "description": "LinkedIn Ads for B2B companies in New Zealand and Australia. Target by job title, industry and company size, and track leads through to closed revenue.",
+    "keywords": "LinkedIn ads agency, B2B lead generation Australia, LinkedIn advertising New Zealand, account based marketing",
+    "priority": 0.6
+  },
+  "/services/tiktok-ads": {
+    "title": "TikTok Ads Agency | NZ & Australia | Forrof",
+    "description": "TikTok ad campaigns for New Zealand and Australian brands: native creative, Spark Ads and Events API tracking that ties short-form video to real sales.",
+    "keywords": "TikTok ads agency, TikTok advertising New Zealand, TikTok ads Australia, Spark Ads",
+    "priority": 0.5
+  },
+  "/services/bing-ads": {
+    "title": "Microsoft Ads (Bing) Management | NZ & Australia | Forrof",
+    "description": "Microsoft Ads management for New Zealand and Australian businesses. Reach desktop and B2B searchers on Bing at lower cost per click than Google.",
+    "keywords": "Microsoft Ads management, Bing Ads agency Australia, Bing advertising New Zealand, B2B search ads",
+    "priority": 0.5
+  },
+  "/services/yelp-ads": {
+    "title": "Yelp Ads & Local Service Ads Management | Forrof",
+    "description": "Yelp Ads and Google Local Service Ads management for local service businesses, with call tracking that ties spend to booked jobs.",
+    "keywords": "Yelp ads management, local service ads",
+    "priority": 0.3,
+    "sitemap": false,
+    "noindex": true
+  },
+  "/services/social-media": {
+    "title": "Social Media Marketing | NZ & Australia | Forrof",
+    "description": "Social media strategy, content and community management for New Zealand and Australian businesses on LinkedIn, Instagram, Facebook and TikTok.",
+    "keywords": "social media marketing New Zealand, social media agency Australia, LinkedIn content, Instagram marketing, social media management",
+    "priority": 0.7
+  },
+  "/industries/legaltech": {
+    "title": "Legal Software & AI for Law Firms | NZ & Australia | Forrof",
+    "description": "Client portals, document automation, private legal AI and Actionstep, LEAP, Smokeball and Xero integrations for New Zealand and Australian law firms.",
+    "keywords": "legal software development New Zealand, law firm software Australia, LegalTech NZ, Actionstep integration, LEAP integration, Smokeball integration, legal AI, client portal for law firms, document automation, e-signature",
+    "priority": 0.9
+  },
+  "/industries/agriculture": {
+    "title": "Farm Software & AgriTech Development | NZ & Australia | Forrof",
+    "description": "Farm management software, offline field apps, John Deere and Climate FieldView integrations, compliance reporting and ongoing support for NZ and Australian farms.",
+    "keywords": "farm management software New Zealand, AgriTech software development Australia, farm app development, agriculture software, John Deere API integration, Freshwater Farm Plan software, farm compliance reporting",
+    "priority": 0.9
+  },
+  "/industries/fintech-finance": {
+    "title": "FinTech Software Development | NZ & Australia | Forrof",
+    "description": "Payment, lending and reporting software for New Zealand and Australian finance businesses, built with bank-grade security and Stripe, Xero and open banking integrations.",
+    "keywords": "fintech software development Australia, fintech developers New Zealand, payment platform development, lending software, open banking integration, Consumer Data Right",
+    "priority": 0.7
+  },
+  "/industries/health-wellness": {
+    "title": "Healthcare Software Development | NZ & Australia | Forrof",
+    "description": "Patient apps, clinic systems and telehealth software for New Zealand and Australian health providers, designed around health privacy rules from day one.",
+    "keywords": "healthcare software development Australia, health app developers New Zealand, telehealth software, clinic management software, Health Information Privacy Code",
+    "priority": 0.7
+  },
+  "/industries/transportation": {
+    "title": "Logistics & Transport Software | NZ & Australia | Forrof",
+    "description": "Fleet tracking, route planning and warehouse software for New Zealand and Australian transport and logistics operators, integrated with the systems you already run.",
+    "keywords": "logistics software development Australia, transport software New Zealand, fleet management software, route optimisation, warehouse management system integration",
+    "priority": 0.7
+  },
+  "/industries/small-business": {
+    "title": "Software & IT for Small Business | NZ & Australia | Forrof",
+    "description": "Websites, apps, automation and Xero integrations for New Zealand and Australian small businesses. Fixed quotes from USD 2,900 and plain-English communication.",
+    "keywords": "small business software New Zealand, small business IT services Australia, small business automation, Xero integration small business, affordable software development",
+    "priority": 0.7
+  },
+  "/industries/mid-sized-business": {
+    "title": "Software for Mid-Sized Businesses | NZ & Australia | Forrof",
+    "description": "Custom platforms, integrations and a dedicated development team for mid-sized New Zealand and Australian businesses that have outgrown off-the-shelf software.",
+    "keywords": "software for mid-sized business, custom ERP development Australia, dedicated development team New Zealand, business systems integration",
+    "priority": 0.7
+  },
+  "/industries/government": {
+    "title": "Public Sector Software Development | NZ & Australia | Forrof",
+    "description": "Accessible, secure digital services for councils, agencies and public organisations in New Zealand and Australia, built to WCAG and local data-residency needs.",
+    "keywords": "government software development, public sector digital services New Zealand, council software Australia, WCAG accessible web development, data residency",
+    "priority": 0.5
+  },
+  "/projects": {
+    "title": "Case Studies: LegalTech, AgriTech, AI & SaaS | Forrof",
+    "description": "See what Forrof has built: the FynoSign e-signature platform, Bushel farm management software, AI assistants and SaaS products, with the stack and results for each.",
+    "keywords": "software development case studies, LegalTech case study, AgriTech case study, e-signature platform, farm management software case study, AI assistant case study",
+    "priority": 0.8
+  },
+  "/articles": {
+    "title": "Articles on AI, Software & SEO for NZ & AU Businesses | Forrof",
+    "description": "Practical articles on AI automation, legal and farm software, integrations, SEO and paid ads, written for New Zealand and Australian business owners.",
+    "keywords": "AI automation articles, legal technology blog, AgriTech blog, software development blog New Zealand, SEO tips Australia",
+    "priority": 0.7
+  },
+  "/careers": {
+    "title": "Careers at Forrof | Engineering, AI & Marketing Jobs",
+    "description": "Join Forrof's remote team building software and AI for New Zealand and Australian clients. See open engineering, AI and marketing roles.",
+    "keywords": "Forrof careers, remote software engineering jobs, AI engineer jobs, marketing jobs",
+    "priority": 0.5
+  },
+  "/contact": {
+    "title": "Contact Forrof | Book a Free Consultation | NZ & Australia",
+    "description": "Talk to Forrof about software, AI automation, integrations, SEO or ads. Live calls 12-5pm AEST and 2-5pm NZT. We reply within one business day.",
+    "keywords": "contact Forrof, software development quote, free consultation, AI automation consultation",
+    "priority": 0.8
+  },
+  "/privacy-policy": {
+    "title": "Privacy Policy | Forrof",
+    "description": "How Forrof collects, uses and protects your personal information.",
+    "keywords": "",
+    "priority": 0.2
+  },
+  "/terms-and-policy": {
+    "title": "Terms of Service | Forrof",
+    "description": "The terms that apply when you use the Forrof website and services.",
+    "keywords": "",
+    "priority": 0.2
+  }
+}

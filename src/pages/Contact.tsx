@@ -17,6 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { SOCIAL_LINKS } from "@/constants/links";
 
 const socialLinks = [
@@ -30,16 +31,13 @@ const socialLinks = [
 // --- CLEAN, WORKING CONTACT PAGE COMPONENT ---
 export default function ContactPage() {
   // SEO Meta Tags
-  usePageMetadata({
-    title: "Contact – Forrof",
-    description: "Get in touch with the Forrof team. We’d love to hear about your ideas, projects, or just say hello. Start a conversation today.",
-  });
+  usePageMetadata(seo("/contact"));
 
 
   const contactInfo = [
     { icon: Mail, label: "Email", value: "hello@forrof.io" },
-    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-    { icon: MapPin, label: "Location", value: "New York, NY" },
+    { icon: Phone, label: "Phone", value: "+1 (914) 899-0442" },
+    { icon: MapPin, label: "Office", value: "312 W 2nd St Unit #A8583, Casper, WY 82601, USA" },
   ];
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -145,7 +143,7 @@ export default function ContactPage() {
                 backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
               }}
             >
-              Let’s Connect
+              Talk to Forrof
             </motion.h1>
           </div>
           <motion.p
@@ -155,7 +153,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            We’d love to hear about your ideas, projects, or just say hello. Start a conversation today.
+            Tell us what is slowing your business down. We reply within one business day, and we take calls from 12 to 5pm AEST (2 to 5pm NZT).
           </motion.p>
         </motion.div>
       </motion.section>

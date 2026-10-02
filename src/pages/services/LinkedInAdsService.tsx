@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -52,11 +53,7 @@ const whyUsItems = [
 ];
 
 export default function LinkedInAdsService() {
-  usePageMetadata({
-    title: "LinkedIn Ads Agency | B2B Lead Generation | Forrof",
-    description: "LinkedIn Ads management for B2B businesses - precision targeting by job title, seniority, and company, with CRM-wired attribution that ties spend to closed revenue.",
-    keywords: "linkedin ads agency, linkedin ads management, b2b advertising, linkedin lead generation, sponsored content, sponsored inmail, account based marketing, abm, b2b paid social",
-  });
+  usePageMetadata(seo("/services/linkedin-ads"));
 
   const navigate = useNavigate();
   const [expandedWhy, setExpandedWhy] = useState<number | null>(null);
@@ -128,7 +125,7 @@ export default function LinkedInAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              B2B-grade campaigns targeting senior decision-makers by company, role, and industry - for high-ticket services where one closed account pays for the whole quarter.
+              LinkedIn campaigns for B2B companies in New Zealand and Australia, targeted by company, role and industry. Best for high-value services where one new account pays for the quarter.
             </motion.p>
         </div>
       </motion.section>

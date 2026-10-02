@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { ArrowUpRight, Globe, Clock, ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
 import { Link } from "react-router-dom";
@@ -10,12 +11,7 @@ import type { Job } from "@/types/api";
 const Careers = () => {
     const [jobs, setJobs] = useState<Job[]>([]);
 
-    usePageMetadata({
-        title: "Careers | Forrof",
-        description: "Join our team of creators, thinkers, and builders. Explore open positions at Forrof.",
-        url: window.location.href,
-        type: "website",
-    });
+    usePageMetadata(seo("/careers"));
 
     useEffect(() => {
         let cancelled = false;
@@ -75,7 +71,7 @@ const Careers = () => {
                                 backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
                             }}
                         >
-                            Join the Team
+                            Careers at Forrof
                         </motion.h1>
                     </div>
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mt-10">
@@ -86,7 +82,7 @@ const Careers = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
-                            We're always looking for exceptional people who are passionate about building great software and digital experiences.
+                            We are a 17-person remote team building software and AI for clients in New Zealand and Australia. We hire engineers, AI specialists and marketers who like owning their work.
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -163,7 +159,7 @@ const Careers = () => {
                         ))}
                         {jobs.length === 0 && (
                             <div className="text-center py-12 text-muted-foreground">
-                                No open positions at the moment.
+                                No open roles right now. Send your CV to hello@forrof.io and we will keep it on file.
                             </div>
                         )}
                     </div>

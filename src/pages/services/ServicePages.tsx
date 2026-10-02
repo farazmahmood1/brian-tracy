@@ -1,4 +1,5 @@
 import { ServicePageTemplate, TerminalBlock, type ServicePageContent } from "@/components/ServicePageTemplate";
+import { seo } from "@/constants/seo";
 import {
   AiCodeBlock, SaasTerminalBlock, DnaHelix3D, AppFrame3D, DataCube3D, OrbitRings3D, SocialGraph3D,
 } from "@/components/AiMlVisuals";
@@ -21,19 +22,15 @@ const sharedWhyUs = {
 const aiAutomation: ServicePageContent = {
   slug: "ai-automation",
   name: "AI & Automation",
-  meta: {
-    title: "AI & Automation Services NZ & Australia | AI Agents, LLMs & Workflow Automation | Forrof",
-    description: "AI development and business automation for New Zealand and Australian companies - custom AI agents, LLM and RAG solutions, document intelligence, and workflow automation that cut manual work and reach production.",
-    keywords: "AI automation services, AI development New Zealand, AI agency Australia, AI agents, LLM development, RAG, workflow automation, business process automation, document automation, machine learning",
-  },
+  meta: seo("/services/ai-automation"),
   hero: {
     heading: "AI & Automation",
     intro: "Custom AI agents, LLM solutions, and workflow automation that remove manual work and plug straight into the tools your team already uses.",
     cta: "Book an AI Consultation",
   },
   valueProp: {
-    heading: "Your Business Deserves More Than Generic AI",
-    intro: "Most AI projects stall at the demo stage. We build AI and automation that understands your data, fits your workflow, and goes live in production.",
+    heading: "AI That Does Real Work in Your Business",
+    intro: "Most AI projects stop at a demo. Ours are built on your own documents and data, connected to the tools your team uses, and put into daily use.",
     problems: [
       "Your team spends hours on repetitive admin, data entry, and copy-paste between systems?",
       "Sitting on documents and data, but can't search or extract insights from them?",
@@ -62,8 +59,8 @@ const aiAutomation: ServicePageContent = {
     ],
   },
   visual: {
-    heading: "Production-Ready from Day One",
-    desc: "Our AI doesn't just work in a notebook - it ships with evaluation, monitoring, guardrails, and CI/CD, so it stays accurate and affordable as usage grows.",
+    heading: "Built to Run Every Day",
+    desc: "Every AI system we ship is tested against real examples, monitored for accuracy and cost, and limited to the tasks you approve. When it is unsure, it hands over to a person.",
     terminal: <AiCodeBlock />,
   },
   stats,
@@ -135,25 +132,21 @@ const aiAutomation: ServicePageContent = {
     { q: "Do you work with businesses in New Zealand and Australia?", a: "Yes - New Zealand and Australia are our focus markets. We schedule overlapping hours for calls and design around the NZ Privacy Act 2020 and the Australian Privacy Principles." },
     { q: "Can AI integrate with the software we already use?", a: "Usually, yes. We connect AI and automations to CRMs, accounting software like Xero, practice management systems, email, and document storage through their APIs." },
   ],
-  cta: { heading: "Ready to put AI to work in your business?", label: "Book an AI Consultation" },
+  cta: { heading: "Which task would you hand to AI first?", label: "Book an AI Consultation" },
 };
 
 const customSoftware: ServicePageContent = {
   slug: "custom-software",
   name: "Custom Software Development",
-  meta: {
-    title: "Custom Software Development NZ & Australia | Web, SaaS & Mobile Apps | Forrof",
-    description: "Custom software development for New Zealand and Australian businesses - web applications, SaaS platforms, mobile apps, client portals, and internal systems built by a senior team, with full code ownership.",
-    keywords: "custom software development, software development company New Zealand, software developers Australia, web application development, SaaS development, mobile app development, client portal development, MVP development",
-  },
+  meta: seo("/services/custom-software"),
   hero: {
     heading: "Custom Software Development",
     intro: "Web platforms, SaaS products, mobile apps, and internal systems - designed, built, and scaled by one senior team, from first sprint to production.",
     cta: "Start Your Project",
   },
   valueProp: {
-    heading: "Software Built Around How You Actually Work",
-    intro: "Off-the-shelf tools force your team to work around them. We build software that fits your process - and grows with your business.",
+    heading: "Software That Fits How You Work",
+    intro: "Off-the-shelf tools make your team work around them. We build software around your process, and we keep improving it as the business grows.",
     problems: [
       "Running the business on spreadsheets, email threads, and disconnected tools?",
       "Off-the-shelf software doesn't fit your workflow - and the workarounds keep growing?",
@@ -182,8 +175,8 @@ const customSoftware: ServicePageContent = {
     ],
   },
   visual: {
-    heading: "Engineered to Scale",
-    desc: "Clean architecture, automated testing, CI/CD, and cloud infrastructure come standard - so your software stays fast, secure, and easy to extend.",
+    heading: "Easy to Maintain, Ready to Grow",
+    desc: "Automated tests, code review, continuous deployment and documented architecture are part of every build. The next developer, ours or yours, can pick it up without guesswork.",
     terminal: <SaasTerminalBlock />,
   },
   stats,
@@ -255,25 +248,21 @@ const customSoftware: ServicePageContent = {
     { q: "Do we own the source code?", a: "Yes. You own all source code, designs, data, and accounts from day one. Everything is documented so any team can maintain it." },
     { q: "Can you work with our existing systems?", a: "Yes. We integrate new software with your existing tools - accounting, CRM, practice management, and more - and can modernise legacy systems step by step." },
   ],
-  cta: { heading: "Let's build software that fits your business.", label: "Start Your Project" },
+  cta: { heading: "Tell us what you need built.", label: "Start Your Project" },
 };
 
 const systemsIntegration: ServicePageContent = {
   slug: "systems-integration",
   name: "Systems Integration & Data",
-  meta: {
-    title: "Systems Integration & Data Services NZ & Australia | API Integration, Xero & Dashboards | Forrof",
-    description: "Systems integration and data services for New Zealand and Australian businesses - API integrations, Xero and practice management integrations, data pipelines, and reporting dashboards that connect the tools you already use.",
-    keywords: "systems integration, API integration services, Xero integration, data integration New Zealand, data engineering Australia, business intelligence dashboards, data pipelines, legacy system integration, software integration",
-  },
+  meta: seo("/services/systems-integration"),
   hero: {
     heading: "Systems Integration & Data",
     intro: "Connect the software you already use, eliminate double entry, and get one reliable view of your business - in real time.",
     cta: "Plan Your Integration",
   },
   valueProp: {
-    heading: "Your Tools Should Talk to Each Other",
-    intro: "Most businesses run on a patchwork of apps that don't share data. We connect them, so information flows automatically and reporting is always accurate.",
+    heading: "Enter It Once, Use It Everywhere",
+    intro: "Most businesses run on five or six apps that do not share data. We connect them, so details are typed once and every report shows the same numbers.",
     problems: [
       "Re-typing the same data into your CRM, accounting, and practice software?",
       "Reports take days to compile from spreadsheets - and the numbers don't match?",
@@ -284,7 +273,7 @@ const systemsIntegration: ServicePageContent = {
     answers: [
       { title: "Automated Data Sync", desc: "We connect your systems through their APIs so records, invoices, and contacts update everywhere automatically - no double entry, no errors." },
       { title: "Single Source of Truth", desc: "We centralise data from every system into a clean, governed data store, so every report uses the same numbers." },
-      { title: "Custom, Reliable Integrations", desc: "When off-the-shelf connectors fall short, we build robust custom integrations with retries, alerts, and logging." },
+      { title: "Custom, Reliable Integrations", desc: "When off-the-shelf connectors fall short, we build custom integrations with retries, alerts and logging, so a failed sync is caught the same day." },
       { title: "Real-Time Dashboards", desc: "Live dashboards for revenue, operations, and KPIs - built for leaders who need answers, not spreadsheets." },
       { title: "Legacy System Bridges", desc: "We wrap legacy systems in modern APIs, so they can connect to new tools while you plan a safe migration." },
     ],
@@ -394,25 +383,21 @@ const systemsIntegration: ServicePageContent = {
     { q: "What happens when an integration fails?", a: "Every integration we build includes retries, logging, and alerts. If something fails, it's flagged immediately and resolved before data falls out of sync." },
     { q: "How long does an integration project take?", a: "A single integration typically takes 2-6 weeks. Multi-system data platforms are delivered in phases, with value delivered from the first phase." },
   ],
-  cta: { heading: "Connect your systems. Trust your data.", label: "Plan Your Integration" },
+  cta: { heading: "Which two systems should talk first?", label: "Plan Your Integration" },
 };
 
 const seoAiSearch: ServicePageContent = {
   slug: "seo",
   name: "SEO & AI Search Visibility",
-  meta: {
-    title: "SEO & AI Search Visibility Services NZ & Australia | Technical SEO, Local SEO & GEO | Forrof",
-    description: "SEO and AI search visibility services for New Zealand and Australian businesses - technical SEO, local SEO, content strategy, and generative engine optimisation (GEO) to rank in Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
-    keywords: "SEO services New Zealand, SEO agency Australia, AI search optimisation, generative engine optimisation, GEO, local SEO, technical SEO, law firm SEO, AI Overviews, ChatGPT SEO",
-  },
+  meta: seo("/services/seo"),
   hero: {
     heading: "SEO & AI Search Visibility",
     intro: "Rank on Google and get recommended by ChatGPT, Perplexity, and Google's AI Overviews - with technical SEO, content, and local search done properly.",
     cta: "Get a Free SEO Audit",
   },
   valueProp: {
-    heading: "Be Found Where Your Customers Search",
-    intro: "Search has changed. Buyers now ask Google and AI assistants for recommendations. We make sure your business is the answer they get.",
+    heading: "Show Up When Customers Are Looking",
+    intro: "People now ask ChatGPT and Google's AI for a recommendation, as well as typing a search. We work on both, so your business is named in the answer and listed in the results.",
     problems: [
       "Competitors outrank you on Google for the services you offer?",
       "Your business never appears when people ask ChatGPT or Perplexity for a recommendation?",
@@ -532,25 +517,21 @@ const seoAiSearch: ServicePageContent = {
     { q: "Do you offer local SEO for New Zealand and Australian cities?", a: "Yes. We optimise Google Business Profiles, local citations, reviews, and location pages for cities across New Zealand and Australia." },
     { q: "Can you implement technical SEO fixes on our website?", a: "Yes. Our team includes developers, so we implement technical fixes directly rather than handing you a list of recommendations." },
   ],
-  cta: { heading: "Be the answer your customers find.", label: "Get a Free SEO Audit" },
+  cta: { heading: "See where you rank today.", label: "Get a Free SEO Audit" },
 };
 
 const performanceMarketing: ServicePageContent = {
   slug: "performance-marketing",
   name: "Performance Marketing",
-  meta: {
-    title: "Performance Marketing Agency NZ & Australia | Google Ads, Meta Ads & Social Media | Forrof",
-    description: "Performance marketing for New Zealand and Australian businesses - Google Ads, Meta, LinkedIn, and TikTok campaigns plus social media marketing, with server-side tracking and landing pages that turn ad spend into qualified leads.",
-    keywords: "performance marketing agency, Google Ads agency New Zealand, PPC agency Australia, Meta ads, LinkedIn ads, social media marketing, paid social, lead generation, conversion tracking, landing page optimisation",
-  },
+  meta: seo("/services/performance-marketing"),
   hero: {
     heading: "Performance Marketing",
     intro: "Paid ads and social media built around one goal - turning ad spend into qualified, booked revenue, with tracking you can trust.",
     cta: "Get a Free Ad Account Audit",
   },
   valueProp: {
-    heading: "Ad Spend Should Produce Revenue, Not Just Clicks",
-    intro: "We run paid media like engineers - every campaign is tracked, tested, and tied back to enquiries and revenue.",
+    heading: "Know What Every Ad Dollar Brings In",
+    intro: "Our developers set up the tracking before we spend anything, so every campaign is measured by the enquiries and sales it produces.",
     problems: [
       "Spending on Google or Meta ads but can't tell which campaigns bring in customers?",
       "Leads are coming in, but they're the wrong fit or never convert?",
@@ -579,7 +560,7 @@ const performanceMarketing: ServicePageContent = {
     ],
   },
   visual: {
-    heading: "Every Dollar Accounted For",
+    heading: "Reports You Can Act On",
     desc: "We connect ad platforms, analytics, and your CRM, so you see cost per qualified lead and return on ad spend - not just clicks and impressions.",
     terminal: (
       <TerminalBlock
@@ -670,7 +651,7 @@ const performanceMarketing: ServicePageContent = {
     { q: "Will we own our ad accounts and data?", a: "Yes. Campaigns run in accounts you own, so you keep all data, audiences, and history if you ever change providers." },
     { q: "How do you measure success?", a: "We focus on cost per qualified lead, conversion rate, and return on ad spend - connected to your CRM wherever possible, rather than clicks or impressions alone." },
   ],
-  cta: { heading: "Stop guessing. Start scaling.", label: "Get a Free Ad Account Audit" },
+  cta: { heading: "Find out where your ad budget is going.", label: "Get a Free Ad Account Audit" },
 };
 
 export const servicePages = { aiAutomation, customSoftware, systemsIntegration, seoAiSearch, performanceMarketing };

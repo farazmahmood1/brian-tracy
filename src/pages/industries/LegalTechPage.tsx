@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { TechLogo } from "@/components/TechLogo";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 
 /* ───────────────────────── DATA ───────────────────────── */
@@ -96,11 +97,7 @@ const whyChooseUs = [
 /* ─────────────────────── PAGE ─────────────────────── */
 
 export default function LegalTechPage() {
-  usePageMetadata({
-    title: "Legal Software & AI for Law Firms in NZ & Australia | Forrof",
-    description: "Legal software development, practice management integrations (Actionstep, LEAP, Smokeball, Xero), client portals, and private legal AI for New Zealand and Australian law firms.",
-    keywords: "legal software development New Zealand, law firm software Australia, LegalTech NZ, Actionstep integration, LEAP integration, Smokeball integration, legal AI, client portal for law firms, document automation, e-signature, law firm automation",
-  });
+  usePageMetadata(seo("/industries/legaltech"));
 
   const navigate = useNavigate();
   const [activeChallenge, setActiveChallenge] = useState(0);

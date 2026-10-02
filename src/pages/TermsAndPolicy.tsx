@@ -1,15 +1,11 @@
 import { motion } from "framer-motion";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const TermsAndPolicy = () => {
-    usePageMetadata({
-        title: "Terms & Privacy Policy | Forrof",
-        description: "Read our Terms of Service and Privacy Policy. We are committed to transparency and protecting your data.",
-        url: window.location.href,
-        type: "website",
-    });
+    usePageMetadata(seo("/terms-and-policy"));
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },

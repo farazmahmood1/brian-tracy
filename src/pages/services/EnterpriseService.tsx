@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { GlowCard } from "@/components/InteractiveElements";
 import { EnterpriseArchBlock } from "@/components/AiMlVisuals";
@@ -12,7 +13,7 @@ const teamTypes = [
   { num: "01", title: "Enterprise Innovation Labs", desc: "Test ideas fast, launch pilots, and validate new digital products without disrupting core operations." },
   { num: "02", title: "CIO / CTO Offices", desc: "Engineering expertise and predictable delivery for technology leaders managing complex transformation agendas." },
   { num: "03", title: "Corporate Digital Ventures", desc: "From concept to MVP and scaling - we operate as your external venture studio with enterprise-grade discipline." },
-  { num: "04", title: "Regional Divisions and R&D Departments", desc: "Launch local initiatives with global standards - strategy, design, and development under one roof." },
+  { num: "04", title: "Regional Divisions and R&D Departments", desc: "Run local projects to group standards, with strategy, design and development from one team." },
   { num: "05", title: "Enterprise AI / Automation Initiatives", desc: "Quick ROI, production-ready AI pilots that move from whiteboard to working system in weeks, not quarters." },
 ];
 
@@ -77,17 +78,13 @@ const engagementModels = [
 
 const reasons = [
   { title: "Deep Expertise in AI and Digital Innovation", desc: "Proven track record delivering AI solutions, digital platforms, and automation systems across complex enterprise environments." },
-  { title: "Enterprise-Level Delivery", desc: "SOC 2-ready processes, senior engineers, and delivery standards that meet enterprise procurement and security requirements." },
+  { title: "Enterprise-Level Delivery", desc: "Senior engineers, documented processes and the security paperwork your procurement team will ask for." },
   { title: "Transparent Communication and Agile Approach", desc: "Weekly demos, honest status reporting, and sprint retrospectives - no surprises, just consistent progress." },
   { title: "Focus on Measurable Business Results", desc: "Every engagement is tied to specific KPIs. We optimize for your outcomes, not deliverable counts." },
 ];
 
 export default function EnterpriseService() {
-  usePageMetadata({
-    title: "Enterprise Software & IT Services | Forrof",
-    description: "IT technology partner for enterprise innovation. Move faster, innovate smarter, and scale with confidence - from rapid pilots to production-grade platforms.",
-    keywords: "enterprise software, IT consulting, digital transformation, enterprise AI, innovation lab, CTO services, enterprise development",
-  });
+  usePageMetadata(seo("/services/enterprise"));
 
   const navigate = useNavigate();
 
@@ -154,7 +151,7 @@ export default function EnterpriseService() {
                   backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
                 }}
               >
-                Enterprise Software
+                Enterprise Software Development
               </motion.h1>
             </div>
             <motion.p
@@ -164,7 +161,7 @@ export default function EnterpriseService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              IT Technology Partner for Enterprise Innovation. Move Faster. Innovate Smarter. Scale with Confidence. From rapid pilots to production-grade platforms, we deliver speed, expertise, and predictable execution.
+              Internal platforms, dashboards and workflow systems for established New Zealand and Australian organisations. We start with a fixed-price pilot, prove it works, then scale it.
             </motion.p>
         </div>
       </motion.section>
@@ -326,7 +323,7 @@ export default function EnterpriseService() {
             >
               <h3 className="text-2xl md:text-3xl font-bold mb-6">Enterprise-Grade from the Ground Up</h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                Every system we build is designed for enterprise reality - microservices architecture, SSO integration, SOC 2 compliance, and 99.99% uptime. No shortcuts, no tech debt, no surprises.
+                We build for how large organisations actually run: single sign-on, role-based access, audit logs, staged rollouts and monitoring from the first release.
               </p>
               <Magnetic>
                 <button

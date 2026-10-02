@@ -1,29 +1,28 @@
-# Forrof.io - Full Service Software Agency
+# Forrof - software, AI and growth for New Zealand and Australia
 # https://forrof.io
 
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /*.json$
 
-# Specific bots
-User-agent: Googlebot
-Allow: /
-Disallow: /admin/
-
-User-agent: Bingbot
-Allow: /
-Disallow: /admin/
-
-User-agent: Twitterbot
+# AI search and answer engines - allowed so Forrof can be cited in AI answers
+User-agent: GPTBot
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent: OAI-SearchBot
 Allow: /
 
-# Sitemap location
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://forrof.io/sitemap.xml
-
-# Crawl-delay (optional - helps prevent server overload)
-Crawl-delay: 1

@@ -1,15 +1,12 @@
 import { ServicePageTemplate, TerminalBlock, type ServicePageContent } from "@/components/ServicePageTemplate";
+import { seo } from "@/constants/seo";
 import { WireSphere3D } from "@/components/AiMlVisuals";
 
 const agriculture: ServicePageContent = {
   slug: "agriculture",
   name: "Agriculture & AgriTech Software",
   section: { label: "Industries", path: "/industries" },
-  meta: {
-    title: "Agriculture & AgriTech Software Development NZ & Australia | Farm Software, Automation & Support | Forrof",
-    description: "Agriculture software development, automation, and ongoing support for New Zealand and Australian farms and agribusinesses - farm management platforms, offline field apps, John Deere and Climate FieldView integrations, and compliance reporting.",
-    keywords: "agriculture software development, AgriTech New Zealand, farm management software Australia, farm software development, agritech software company, farm app development, John Deere API integration, Climate FieldView integration, Freshwater Farm Plan software, farm compliance reporting, agribusiness automation",
-  },
+  meta: seo("/industries/agriculture"),
   hero: {
     heading: "Agriculture & AgriTech Software",
     intro: "Farm management platforms, offline-ready field apps, equipment and data integrations, automation, and ongoing support - for farms and agribusinesses across New Zealand and Australia.",

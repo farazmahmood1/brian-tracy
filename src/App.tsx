@@ -27,14 +27,9 @@ const LinkedInAdsService = lazy(() => import("./pages/services/LinkedInAdsServic
 const TikTokAdsService = lazy(() => import("./pages/services/TikTokAdsService"));
 const BingAdsService = lazy(() => import("./pages/services/BingAdsService"));
 const YelpAdsService = lazy(() => import("./pages/services/YelpAdsService"));
-const FintechFinancePage = lazy(() => import("./pages/industries/FintechFinancePage"));
-const HealthWellnessPage = lazy(() => import("./pages/industries/HealthWellnessPage"));
+const IndustryPage = lazy(() => import("./pages/industries/IndustryPages"));
 const LegalTechPage = lazy(() => import("./pages/industries/LegalTechPage"));
 const AgriculturePage = lazy(() => import("./pages/industries/AgriculturePage"));
-const TransportationPage = lazy(() => import("./pages/industries/TransportationPage"));
-const SmallBusinessPage = lazy(() => import("./pages/industries/SmallBusinessPage"));
-const MidSizedBusinessPage = lazy(() => import("./pages/industries/MidSizedBusinessPage"));
-const GovernmentPage = lazy(() => import("./pages/industries/GovernmentPage"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
 const Articles = lazy(() => import("./pages/Articles"));
@@ -173,14 +168,14 @@ const App = () => (
             <Route path="/services/tiktok-ads" element={<LayoutWrapper><TikTokAdsService /></LayoutWrapper>} />
             <Route path="/services/bing-ads" element={<LayoutWrapper><BingAdsService /></LayoutWrapper>} />
             <Route path="/services/yelp-ads" element={<LayoutWrapper><YelpAdsService /></LayoutWrapper>} />
-            <Route path="/industries/fintech-finance" element={<LayoutWrapper><FintechFinancePage /></LayoutWrapper>} />
-            <Route path="/industries/health-wellness" element={<LayoutWrapper><HealthWellnessPage /></LayoutWrapper>} />
+            <Route path="/industries/fintech-finance" element={<LayoutWrapper><IndustryPage page="fintech" /></LayoutWrapper>} />
+            <Route path="/industries/health-wellness" element={<LayoutWrapper><IndustryPage page="health" /></LayoutWrapper>} />
             <Route path="/industries/legaltech" element={<LayoutWrapper><LegalTechPage /></LayoutWrapper>} />
             <Route path="/industries/agriculture" element={<LayoutWrapper><AgriculturePage /></LayoutWrapper>} />
-            <Route path="/industries/transportation" element={<LayoutWrapper><TransportationPage /></LayoutWrapper>} />
-            <Route path="/industries/small-business" element={<LayoutWrapper><SmallBusinessPage /></LayoutWrapper>} />
-            <Route path="/industries/mid-sized-business" element={<LayoutWrapper><MidSizedBusinessPage /></LayoutWrapper>} />
-            <Route path="/industries/government" element={<LayoutWrapper><GovernmentPage /></LayoutWrapper>} />
+            <Route path="/industries/transportation" element={<LayoutWrapper><IndustryPage page="transport" /></LayoutWrapper>} />
+            <Route path="/industries/small-business" element={<LayoutWrapper><IndustryPage page="smallBusiness" /></LayoutWrapper>} />
+            <Route path="/industries/mid-sized-business" element={<LayoutWrapper><IndustryPage page="midSized" /></LayoutWrapper>} />
+            <Route path="/industries/government" element={<LayoutWrapper><IndustryPage page="government" /></LayoutWrapper>} />
             <Route
               path="/projects"
               element={
