@@ -11,14 +11,14 @@ import { useNavigate } from "react-router-dom";
 import { MobileTerminalBlock } from "@/components/AiMlVisuals";
 
 const niches = [
-  { num: "01", title: "Logistics & Transportation", desc: "On-demand delivery apps, fleet management, route optimisation, driver portals, and real-time shipment tracking - built to keep operations moving and customers informed at every step." },
+  { num: "01", title: "Logistics & Transportation", desc: "On-demand delivery apps, fleet management, route optimization, driver portals, and real-time shipment tracking - built to keep operations moving and customers informed at every step." },
   { num: "02", title: "Education", desc: "E-learning platforms, interactive courseware, progress tracking dashboards, live tutoring features, and gamified learning experiences that keep students engaged across devices." },
-  { num: "03", title: "Healthcare & Wellness", desc: "Telehealth apps, appointment booking, medication reminders, wearable integrations and patient messaging, built around New Zealand and Australian health privacy rules." },
+  { num: "03", title: "Healthcare & Wellness", desc: "Telehealth apps, appointment booking, medication reminders, wearable integrations and patient messaging, built around health privacy rules such as HIPAA." },
   { num: "04", title: "Fintech & Finance", desc: "Mobile banking, digital wallets, investment tracking, KYC/AML workflows, real-time market data, and secure payment flows built to PCI-DSS standards." },
-  { num: "05", title: "Food & Restaurant Management", desc: "Online ordering, table reservations, kitchen display systems, loyalty programmes, and delivery-driver coordination - for independent restaurants and franchise chains alike." },
+  { num: "05", title: "Food & Restaurant Management", desc: "Online ordering, table reservations, kitchen display systems, loyalty programs, and delivery-driver coordination - for independent restaurants and franchise chains alike." },
   { num: "06", title: "Social & Entertainment", desc: "Community platforms, live streaming, short-form video, real-time chat, social graphs, and creator monetisation tools designed for scale and engagement." },
   { num: "07", title: "Industrial Sector", desc: "Field service management, asset tracking, IoT sensor dashboards, predictive maintenance alerts, and offline-first apps built for environments where connectivity is unreliable." },
-  { num: "08", title: "E-commerce & Marketplace", desc: "Product catalogues, smart search, cart and checkout flows, vendor portals, in-app payments, reviews, and personalised recommendations that convert browsers into buyers." },
+  { num: "08", title: "E-commerce & Marketplace", desc: "Product catalogs, smart search, cart and checkout flows, vendor portals, in-app payments, reviews, and personalized recommendations that convert browsers into buyers." },
   { num: "09", title: "Other Apps", desc: "LegalTech, Decision Intelligence, real estate, travel, SaaS companion apps, and more. If your niche isn't listed, we've likely built in it - or we'll figure it out together." },
 ];
 
@@ -29,7 +29,7 @@ const painPoints = [
   },
   {
     title: "User Experience (UX) Challenges",
-    desc: "A confusing or outdated interface turns users away fast. We analyse flows, detect friction points, and deliver intuitive, engaging experiences that keep users coming back.",
+    desc: "A confusing or outdated interface turns users away fast. We analyze flows, detect friction points, and deliver intuitive, engaging experiences that keep users coming back.",
   },
   {
     title: "Long Time-to-Market",
@@ -45,8 +45,8 @@ const differentiators = [
   { title: "Apps That Work Offline", desc: "We build apps that keep working without coverage and sync later, which matters on farms, on the road and on site." },
   { title: "Experts in React Native, Flutter, Kotlin & Swift", desc: "Deep expertise in every major mobile stack means we always recommend the right technology for your product - not the one we're most comfortable billing for." },
   { title: "Transparent Agile Development", desc: "We keep you involved at every planning, design, development, and testing stage. Monitor progress, give feedback early, and stay in full control of your product throughout." },
-  { title: "Analytics & A/B Testing Built-In", desc: "We instrument every project with analytics and A/B testing capabilities so you can track user behaviour, validate hypotheses, and make evidence-based product decisions from day one." },
-  { title: "App Store Publication & ASO Support", desc: "Full support with store submission and App Store Optimisation - ensuring your app launches smoothly and gets discovered by the right users from the moment it goes live." },
+  { title: "Analytics & A/B Testing Built-In", desc: "We instrument every project with analytics and A/B testing capabilities so you can track user behavior, validate hypotheses, and make evidence-based product decisions from day one." },
+  { title: "App Store Publication & ASO Support", desc: "Full support with store submission and App Store Optimization - ensuring your app launches smoothly and gets discovered by the right users from the moment it goes live." },
   { title: "SLA Support & Scaling Roadmap", desc: "Post-launch SLA agreements guarantee fast response times, regular updates, and proactive monitoring. Your app stays reliable, secure, and ready to scale as you grow." },
 ];
 
@@ -70,7 +70,7 @@ const processSteps = [
   { num: "03", title: "App Development", desc: "Two-week sprints, automated builds and a working demo every week, so you can try the app on your own phone as it takes shape." },
   { num: "04", title: "Quality Assurance", desc: "Automated and manual testing across real device matrices to guarantee reliability, security, and premium quality before anything reaches the store." },
   { num: "05", title: "Smooth Deployment", desc: "Managed App Store and Play Store submission with phased rollout strategy, crash monitoring from day one, and zero-downtime launch execution." },
-  { num: "06", title: "Ongoing Support & Optimisation", desc: "Continuous updates, performance improvements, OS compatibility maintenance, and feature iteration based on real user feedback and analytics data." },
+  { num: "06", title: "Ongoing Support & Optimization", desc: "Continuous updates, performance improvements, OS compatibility maintenance, and feature iteration based on real user feedback and analytics data." },
 ];
 
 const popularServices = [
@@ -169,7 +169,7 @@ export default function MobileAppService() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            iOS and Android apps for New Zealand and Australian businesses, from first sketch to App Store launch. Native or cross-platform, online or offline.
+            iOS and Android apps for startups and established businesses, from first sketch to App Store launch. Native or cross-platform, online or offline.
           </motion.p>
           <motion.div
             className="mt-10"

@@ -125,7 +125,7 @@ export default function LinkedInAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              LinkedIn campaigns for B2B companies in New Zealand and Australia, targeted by company, role and industry. Best for high-value services where one new account pays for the quarter.
+              LinkedIn campaigns for B2B companies, targeted by company, role and industry. Best for high-value services where one new account pays for the quarter.
             </motion.p>
         </div>
       </motion.section>

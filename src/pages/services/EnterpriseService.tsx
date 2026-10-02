@@ -161,7 +161,7 @@ export default function EnterpriseService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Internal platforms, dashboards and workflow systems for established New Zealand and Australian organisations. We start with a fixed-price pilot, prove it works, then scale it.
+              Internal platforms, dashboards and workflow systems for established organizations. We start with a fixed-price pilot, prove it works, then scale it.
             </motion.p>
         </div>
       </motion.section>
@@ -323,7 +323,7 @@ export default function EnterpriseService() {
             >
               <h3 className="text-2xl md:text-3xl font-bold mb-6">Enterprise-Grade from the Ground Up</h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                We build for how large organisations actually run: single sign-on, role-based access, audit logs, staged rollouts and monitoring from the first release.
+                We build for how large organizations actually run: single sign-on, role-based access, audit logs, staged rollouts and monitoring from the first release.
               </p>
               <Magnetic>
                 <button

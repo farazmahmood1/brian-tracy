@@ -1,6 +1,6 @@
 # Forrof
 
-> Forrof is a software, AI and growth agency serving businesses in New Zealand and Australia, with a focus on law firms (LegalTech) and agriculture (AgriTech). A 17-person team builds custom software, AI automation and system integrations, and runs SEO and paid ads. Live calls run 12-5pm AEST and 2-5pm NZT. Prices are quoted in USD with a fixed quote before work starts.
+> Forrof is a software, AI and growth marketing agency with a focus on law firms (LegalTech) and agriculture (AgriTech). A 17-person team builds custom software, AI automation and system integrations, and runs SEO and paid ads for clients worldwide. Prices are quoted in USD with a fixed quote before work starts.
 
 ## Services
 
@@ -12,7 +12,7 @@
 
 ## Industries
 
-- [LegalTech & Law Firms](https://forrof.io/industries/legaltech): Client portals, document automation, private legal AI, and Actionstep, LEAP, Smokeball and Xero integrations.
+- [LegalTech & Law Firms](https://forrof.io/industries/legaltech): Client portals, document automation, e-signature, private legal AI and practice management integrations.
 - [Agriculture & AgriTech](https://forrof.io/industries/agriculture): Farm management software, offline field apps, John Deere and Climate FieldView integrations, compliance reporting and support.
 
 ## Case studies

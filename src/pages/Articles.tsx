@@ -111,7 +111,7 @@ const Articles = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            Practical guides on AI automation, legal and farm software, integrations, SEO and paid ads, written for New Zealand and Australian business owners.
+            Practical guides on AI automation, legal and farm software, integrations, SEO and paid ads, written for business owners and operators.
           </motion.p>
         </motion.div>
       </motion.section>

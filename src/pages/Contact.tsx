@@ -153,7 +153,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            Tell us what is slowing your business down. We reply within one business day, and we take calls from 12 to 5pm AEST (2 to 5pm NZT).
+            Tell us what is slowing your business down. We reply within one business day and schedule calls in your time zone.
           </motion.p>
         </motion.div>
       </motion.section>
@@ -167,7 +167,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <motion.span className="number-label">/09</motion.span>
+            <motion.span className="number-label">/08</motion.span>
             <LineReveal className="h-px bg-border flex-1" delay={0.3} />
             <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
               Contact

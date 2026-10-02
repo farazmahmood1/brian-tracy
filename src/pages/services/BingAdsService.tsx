@@ -125,7 +125,7 @@ export default function BingAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Microsoft Ads for New Zealand and Australian businesses. Bing reaches desktop and office users with the same search intent as Google, usually at a lower cost per click.
+              Microsoft Ads management. Bing reaches desktop and office users with the same search intent as Google, usually at a lower cost per click.
             </motion.p>
         </div>
       </motion.section>

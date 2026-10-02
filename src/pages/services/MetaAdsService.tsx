@@ -125,7 +125,7 @@ export default function MetaAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Facebook and Instagram ads for New Zealand and Australian businesses, with regular creative testing and server-side Conversions API tracking that still works after iOS privacy changes.
+              Facebook and Instagram ads with regular creative testing and server-side Conversions API tracking that still works after iOS privacy changes.
             </motion.p>
         </div>
       </motion.section>
@@ -149,7 +149,7 @@ export default function MetaAdsService() {
             animate={sec1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            Every Meta Surface, Optimised
+            Every Meta Surface, Optimized
           </motion.h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

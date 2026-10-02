@@ -14,7 +14,7 @@ const stats = [
   { value: "17", label: "People on the Team" },
 ];
 
-const hours = { title: "Calls in your afternoon", desc: "We take calls and run demos between 12 and 5pm AEST (2 to 5pm NZT), and you get a written update before your morning starts." };
+const hours = { title: "Calls in your time zone", desc: "We schedule calls and demos inside your working day, and you get a written update between them so nothing waits on a meeting." };
 const fixedQuote = { title: "A fixed quote before we start", desc: "You see the scope, the price in USD and the delivery date before any work begins. If the scope changes, we re-quote. No surprise invoices." };
 const ownership = { title: "You own everything", desc: "Source code, cloud accounts, data and documentation are yours from the first commit. You can take the work in-house whenever you like." };
 
@@ -25,7 +25,7 @@ const fintech: ServicePageContent = {
   meta: seo("/industries/fintech-finance"),
   hero: {
     heading: "FinTech Software Development",
-    intro: "Payment flows, lending tools, investor dashboards and reporting systems for finance businesses in New Zealand and Australia. Built by the team behind the Signal Sigma investment research platform.",
+    intro: "Payment flows, lending tools, investor dashboards and reporting systems for finance businesses. Built by the team behind the Signal Sigma investment research platform.",
     cta: "Talk to a FinTech Engineer",
   },
   valueProp: {
@@ -40,8 +40,8 @@ const fintech: ServicePageContent = {
     ],
     answers: [
       { title: "Automatic reconciliation", desc: "We connect your payment provider, bank feeds and accounting software so transactions match themselves. Your team only looks at the exceptions." },
-      { title: "Open banking integrations", desc: "We build on Australia's Consumer Data Right and New Zealand's open banking APIs through accredited providers, so customers can share account data and pay by bank safely." },
-      { title: "Digital onboarding", desc: "Identity checks, document collection and approvals in one flow, with every step recorded for your AML/CTF programme." },
+      { title: "Open banking integrations", desc: "We build on open banking APIs through accredited providers such as Plaid and TrueLayer, so customers can share account data and pay by bank safely." },
+      { title: "Digital onboarding", desc: "Identity checks, document collection and approvals in one flow, with every step recorded for your AML/CTF program." },
       { title: "Reporting people can trust", desc: "One data source, clear definitions and dashboards that update themselves. The numbers match your ledger, and anyone can trace how they were calculated." },
       { title: "Careful legacy replacement", desc: "We replace old systems one module at a time and run old and new side by side until the figures match. The business keeps operating throughout." },
     ],
@@ -50,10 +50,10 @@ const fintech: ServicePageContent = {
     heading: "FinTech Development Services",
     intro: "From a single integration to a full product build. Every project comes with a fixed quote, a test plan for the money paths and a named engineer you can call.",
     cards: [
-      { title: "Payments and Billing", desc: "Card payments, direct debit, subscriptions, invoicing and payouts using Stripe and local payment rails, with reconciliation into Xero or MYOB." },
+      { title: "Payments and Billing", desc: "Card payments, direct debit, subscriptions, invoicing and payouts using Stripe and local payment rails, with reconciliation into Xero or QuickBooks." },
       { title: "Lending and Credit Tools", desc: "Application portals, credit decision workflows, repayment schedules and borrower dashboards for lenders and brokers." },
       { title: "Investment and Wealth Platforms", desc: "Portfolio dashboards, research tools and strategy builders. We built Signal Sigma, a platform that lets retail investors build and backtest strategies without code." },
-      { title: "Open Banking Integrations", desc: "Account data, payment initiation and income verification through Consumer Data Right and NZ open banking providers." },
+      { title: "Open Banking Integrations", desc: "Account data, payment initiation and income verification through accredited open banking providers." },
       { title: "Reporting and Data", desc: "Automated regulatory, board and investor reports built from one reliable data source." },
       { title: "AI for Finance Teams", desc: "Document extraction for statements and invoices, anomaly flags on transactions, and assistants that answer questions over your own policies." },
     ],
@@ -83,16 +83,16 @@ const fintech: ServicePageContent = {
   },
   stats,
   techStack: {
-    intro: "We work with the payment and accounting tools New Zealand and Australian finance teams already use, on a stack that is easy to audit and hire for.",
+    intro: "We work with the payment and accounting tools finance teams already use, on a stack that is easy to audit and hire for.",
     items: [
       { name: "Stripe", desc: "Payments, subscriptions, payouts and billing." },
       { name: "Xero", desc: "Ledger sync, invoicing and reconciliation." },
-      { name: "MYOB", desc: "Accounting integration for Australian and New Zealand businesses." },
+      { name: "QuickBooks", desc: "Accounting integration for invoices and payments." },
       { name: "Python", desc: "Financial calculations, data pipelines and machine learning." },
       { name: "Node.js", desc: "APIs and integration services." },
       { name: "PostgreSQL", desc: "Transactional data with strong consistency." },
       { name: "React", desc: "Dashboards and customer portals." },
-      { name: "AWS", desc: "Hosting in the Sydney region for data residency." },
+      { name: "AWS", desc: "Hosting in the region your data must stay in." },
     ],
   },
   whyUs: [
@@ -123,7 +123,7 @@ const fintech: ServicePageContent = {
         "Automated statements and adviser reports.",
       ] },
       { title: "Accounting and Advisory Practices", points: [
-        "Client portals connected to Xero or MYOB.",
+        "Client portals connected to Xero or QuickBooks.",
         "Automated data collection for tax and compliance work.",
         "Dashboards that show clients their numbers in plain language.",
       ] },
@@ -146,8 +146,8 @@ const fintech: ServicePageContent = {
     note: "* We build software. For licensing and regulatory advice you will still need your own legal or compliance adviser.",
   },
   faqs: [
-    { q: "Do you build fintech software for New Zealand and Australian companies?", a: "Yes. We build payment, lending, investment and reporting software for finance businesses in both countries, and we host in the AWS Sydney region when data needs to stay local." },
-    { q: "Can you integrate with Xero, MYOB and Stripe?", a: "Yes. We connect payment providers and bank data to Xero and MYOB so invoices, payments and reconciliations stay in sync without manual entry." },
+    { q: "What kind of fintech software do you build?", a: "Payment and billing systems, lending and credit tools, investment and wealth platforms, open banking integrations and automated reporting. We host in the cloud region your data needs to stay in." },
+    { q: "Can you integrate with Stripe, Xero and QuickBooks?", a: "Yes. We connect payment providers and bank data to Xero, QuickBooks and other accounting software, so invoices, payments and reconciliations stay in sync without manual entry." },
     { q: "Do you handle regulatory compliance?", a: "We build the technical controls that compliance requires, such as audit logs, access controls, identity-check integrations and reporting. We are not a law firm, so licensing and regulatory advice should come from your legal or compliance adviser." },
     { q: "How much does a fintech MVP cost?", a: "Fintech MVPs start from about USD 9,000. The final price depends on the integrations and compliance requirements, and you get a fixed quote after a short scoping call." },
   ],
@@ -161,7 +161,7 @@ const health: ServicePageContent = {
   meta: seo("/industries/health-wellness"),
   hero: {
     heading: "Healthcare Software Development",
-    intro: "Patient apps, clinic systems, telehealth and wellness products for providers in New Zealand and Australia. Built by the team behind Curogram's patient communication platform.",
+    intro: "Patient apps, clinic systems, telehealth and wellness products for health providers. Built by the team behind Curogram's patient communication platform.",
     cta: "Talk to a Health Software Engineer",
   },
   valueProp: {
@@ -178,7 +178,7 @@ const health: ServicePageContent = {
       { title: "Automated reminders and two-way SMS", desc: "Patients confirm, cancel or reschedule by text. The appointment book updates itself and the phones stay quiet." },
       { title: "Digital intake", desc: "Patients complete forms on their phone before they arrive, and the answers go straight into the record." },
       { title: "Connected clinic systems", desc: "We link booking, patient records and billing through their APIs or HL7 FHIR, so details are typed once." },
-      { title: "Privacy designed in", desc: "We build around New Zealand's Health Information Privacy Code and the Australian Privacy Principles: collect only what is needed, encrypt it, and log who accessed it." },
+      { title: "Privacy designed in", desc: "We build around the health privacy rules that apply to you, including HIPAA and GDPR: collect only what is needed, encrypt it, and log who accessed it." },
       { title: "Telehealth that works first time", desc: "One link, no downloads, and a waiting room your clinicians control. We test it with real patients before launch." },
     ],
   },
@@ -189,9 +189,9 @@ const health: ServicePageContent = {
       { title: "Patient Communication", desc: "Appointment reminders, two-way SMS, online forms and payments by text. This is the kind of platform we built for Curogram." },
       { title: "Telehealth", desc: "Secure video consultations, virtual waiting rooms and follow-up messaging." },
       { title: "Clinic and Practice Systems", desc: "Scheduling, patient records, billing and reporting built around how your practice runs." },
-      { title: "Patient and Wellness Apps", desc: "iOS and Android apps for bookings, programmes, tracking and education." },
+      { title: "Patient and Wellness Apps", desc: "iOS and Android apps for bookings, programs, tracking and education." },
       { title: "Practice Software Integrations", desc: "Connections between your practice management system, booking tools, accounting and messaging." },
-      { title: "AI for Health Admin", desc: "Note summarisation, referral triage and document extraction, with a clinician checking every output." },
+      { title: "AI for Health Admin", desc: "Note summarization, referral triage and document extraction, with a clinician checking every output." },
     ],
   },
   visual: {
@@ -218,21 +218,21 @@ const health: ServicePageContent = {
   },
   stats,
   techStack: {
-    intro: "Reliable, widely supported technology, hosted in the region when your data needs to stay in Australia or New Zealand.",
+    intro: "Reliable, widely supported technology, hosted in the region your patient data needs to stay in.",
     items: [
       { name: "React Native", desc: "Patient apps for iOS and Android from one codebase." },
       { name: "Flutter", desc: "Fast, polished mobile apps for wellness products." },
       { name: "Node.js", desc: "APIs and integration services." },
       { name: "Python", desc: "Data processing and clinical AI assistants." },
       { name: "PostgreSQL", desc: "Encrypted storage for patient data." },
-      { name: "AWS", desc: "Sydney-region hosting for data residency." },
-      { name: "OpenAI", desc: "Summarisation and triage with clinician review." },
+      { name: "AWS", desc: "Regional hosting for data residency." },
+      { name: "OpenAI", desc: "Summarization and triage with clinician review." },
       { name: "Stripe", desc: "Patient payments and subscriptions." },
     ],
   },
   whyUs: [
     { title: "We have built patient communication at scale", desc: "For Curogram we worked on two-way SMS, automated reminders, online intake, telemedicine and text-to-pay, connected to clinic record systems." },
-    { title: "Privacy first, features second", desc: "Role-based access, encryption, audit logs and data minimisation go into the first design, before any feature work." },
+    { title: "Privacy first, features second", desc: "Role-based access, encryption, audit logs and data minimization go into the first design, before any feature work." },
     hours,
     fixedQuote,
     ownership,
@@ -248,9 +248,9 @@ const health: ServicePageContent = {
         "Telehealth consultations with a simple patient link.",
       ] },
       { title: "Allied Health and Physiotherapy", points: [
-        "Online booking and exercise programme apps.",
+        "Online booking and exercise program apps.",
         "Progress tracking patients can see between visits.",
-        "Billing and health fund claim workflows.",
+        "Billing and insurance claim workflows.",
       ] },
       { title: "Mental Health Services", points: [
         "Private video sessions and secure messaging.",
@@ -259,7 +259,7 @@ const health: ServicePageContent = {
       ] },
       { title: "Fitness and Wellness Brands", points: [
         "Membership and class booking apps.",
-        "Programmes, habit tracking and wearable data.",
+        "Programs, habit tracking and wearable data.",
         "Subscriptions and in-app payments.",
       ] },
       { title: "Health Startups", points: [
@@ -281,8 +281,8 @@ const health: ServicePageContent = {
     note: "* Software that diagnoses or treats may be regulated as a medical device. We will flag this early so you can get regulatory advice.",
   },
   faqs: [
-    { q: "Do you build healthcare software for New Zealand and Australian providers?", a: "Yes. We build patient apps, clinic systems, telehealth and wellness products for providers in both countries." },
-    { q: "How do you protect patient information?", a: "We design around New Zealand's Health Information Privacy Code and the Australian Privacy Principles. That means collecting only what is needed, encrypting data in transit and at rest, role-based access, audit logs and regional hosting when required." },
+    { q: "What kind of healthcare software do you build?", a: "Patient communication tools, telehealth, clinic and practice systems, patient and wellness apps, and integrations with practice management and record systems." },
+    { q: "How do you protect patient information?", a: "We design around the health privacy rules that apply to you, such as HIPAA and GDPR. That means collecting only what is needed, encrypting data in transit and at rest, role-based access, audit logs and regional hosting when required." },
     { q: "Can you integrate with our practice management system?", a: "Usually, yes. If your system offers an API or supports HL7 FHIR, we can connect booking, messaging, forms and billing to it. We check this during scoping, before you commit." },
     { q: "Have you built healthcare products before?", a: "Yes. We worked on Curogram, a patient communication platform for medical practices that combines SMS, reminders, intake forms, telemedicine and payments." },
   ],
@@ -296,7 +296,7 @@ const transport: ServicePageContent = {
   meta: seo("/industries/transportation"),
   hero: {
     heading: "Logistics & Transport Software",
-    intro: "Dispatch, tracking, proof of delivery and warehouse tools for transport and logistics operators in New Zealand and Australia, connected to the telematics and accounting systems you already run.",
+    intro: "Dispatch, tracking, proof of delivery and warehouse tools for transport and logistics operators, connected to the telematics and accounting systems you already run.",
     cta: "Talk to a Logistics Engineer",
   },
   valueProp: {
@@ -313,7 +313,7 @@ const transport: ServicePageContent = {
       { title: "One job record", desc: "A job is entered once, by your team or by the customer online, and flows through dispatch, the driver app and invoicing." },
       { title: "Driver app with photo proof of delivery", desc: "Signatures, photos and timestamps captured on the phone, even without coverage, and synced when the driver is back in range." },
       { title: "Customer tracking link", desc: "Customers get a live link and delivery notifications, so they stop calling dispatch." },
-      { title: "Same-day invoicing", desc: "Completed jobs are rated automatically and pushed to Xero or MYOB as invoices." },
+      { title: "Same-day invoicing", desc: "Completed jobs are rated automatically and pushed to your accounting software as invoices." },
       { title: "Connected systems", desc: "We integrate your telematics provider, warehouse system and accounting software, so data moves without re-keying." },
     ],
   },
@@ -326,7 +326,7 @@ const transport: ServicePageContent = {
       { title: "Customer Portals and Tracking", desc: "Online booking, live tracking, delivery notifications and document downloads for your customers." },
       { title: "Telematics and System Integrations", desc: "GPS and telematics data joined with jobs, warehouse stock and accounts through each provider's API." },
       { title: "Warehouse and Inventory Tools", desc: "Receiving, put-away, picking and stock reporting, with barcode scanning on handheld devices." },
-      { title: "Route Planning and Reporting", desc: "Route optimisation, on-time delivery reports and cost per job, drawn from your own data." },
+      { title: "Route Planning and Reporting", desc: "Route optimization, on-time delivery reports and cost per job, drawn from your own data." },
     ],
   },
   visual: {
@@ -358,11 +358,11 @@ const transport: ServicePageContent = {
       { name: "React Native", desc: "Driver apps for iOS and Android." },
       { name: "Flutter", desc: "Handheld and tablet apps for warehouse and yard." },
       { name: "Google Maps", desc: "Routing, geocoding and live tracking." },
-      { name: "Mapbox", desc: "Custom maps and route visualisation." },
+      { name: "Mapbox", desc: "Custom maps and route visualization." },
       { name: "Node.js", desc: "Dispatch services and integrations." },
       { name: "PostgreSQL", desc: "Jobs, rates and delivery records." },
       { name: "Xero", desc: "Invoices and customer accounts." },
-      { name: "MYOB", desc: "Accounting integration." },
+      { name: "Stripe", desc: "Online payments for customer bookings." },
     ],
   },
   whyUs: [
@@ -383,7 +383,7 @@ const transport: ServicePageContent = {
         "Automatic rating and invoicing.",
       ] },
       { title: "Couriers and Last-Mile Delivery", points: [
-        "Route optimisation for multi-drop runs.",
+        "Route optimization for multi-drop runs.",
         "Live tracking links and delivery notifications.",
         "Driver apps with barcode scanning.",
       ] },
@@ -400,7 +400,7 @@ const transport: ServicePageContent = {
       { title: "Fleet and Equipment Hire", points: [
         "Booking and availability calendars.",
         "Pre-start checks and maintenance schedules.",
-        "Utilisation and cost reporting.",
+        "Utilization and cost reporting.",
       ] },
     ],
   },
@@ -413,10 +413,10 @@ const transport: ServicePageContent = {
       { num: "05", title: "Roll out", desc: "Training for drivers, dispatch and accounts, depot by depot." },
       { num: "06", title: "Support", desc: "Monitoring, fixes and new features on a monthly plan." },
     ],
-    note: "* We integrate with electronic work diary and road user charge providers. We do not replace approved compliance systems.",
+    note: "* We integrate with electronic logging and compliance providers. We do not replace approved compliance systems.",
   },
   faqs: [
-    { q: "Do you build logistics software for New Zealand and Australian operators?", a: "Yes. We build dispatch, driver, tracking and warehouse software for transport and logistics businesses in both countries." },
+    { q: "What kind of logistics software do you build?", a: "Dispatch and job management, driver apps with electronic proof of delivery, customer tracking portals, warehouse tools and integrations with telematics and accounting systems." },
     { q: "Can you integrate with our telematics and accounting systems?", a: "In most cases, yes. If your telematics provider and accounting software offer an API, we can connect them to your job data. We confirm this during scoping." },
     { q: "Will the driver app work without mobile coverage?", a: "Yes. Jobs, signatures and photos are stored on the phone and sync automatically when coverage returns." },
     { q: "How long does a first project take?", a: "A focused pilot, such as a driver app with proof of delivery and invoicing, typically takes 6 to 10 weeks." },
@@ -431,23 +431,23 @@ const smallBusiness: ServicePageContent = {
   meta: seo("/industries/small-business"),
   hero: {
     heading: "Software for Small Business",
-    intro: "Websites, automations, apps and Xero integrations for small businesses in New Zealand and Australia. Fixed quotes from USD 2,900, explained in plain English.",
+    intro: "Websites, automations, apps and accounting integrations for small businesses. Fixed quotes from USD 2,900, explained in plain English.",
     cta: "Get a Fixed Quote",
   },
   valueProp: {
     heading: "Fix the Jobs That Eat Your Week",
     intro: "You do not need a digital transformation. You need the quoting, invoicing, booking or follow-up that takes hours every week to take minutes. We find that job and fix it.",
     problems: [
-      "Copying details from enquiry emails into a spreadsheet, then into Xero?",
+      "Copying details from inquiry emails into a spreadsheet, then into Xero?",
       "Quotes and invoices that take an evening to prepare?",
       "Leads from your website that sit unanswered for a day or two?",
-      "A website that looks fine but does not bring in enquiries?",
+      "A website that looks fine but does not bring in inquiries?",
       "Past developers who were hard to reach or blew the budget?",
     ],
     answers: [
-      { title: "Automation between your apps", desc: "We connect your forms, email, CRM and Xero or MYOB so information is entered once and moves on its own." },
+      { title: "Automation between your apps", desc: "We connect your forms, email, CRM and accounting software so information is entered once and moves on its own." },
       { title: "Quoting and invoicing in minutes", desc: "Templates, price lists and one-click invoices pushed straight to your accounting software." },
-      { title: "Instant lead follow-up", desc: "Enquiries get an immediate reply, land in your CRM and remind you to call. No lead goes cold." },
+      { title: "Instant lead follow-up", desc: "Inquiries get an immediate reply, land in your CRM and remind you to call. No lead goes cold." },
       { title: "A website that gets found", desc: "Fast pages, local SEO and clear calls to action, so people searching in your town can find and contact you." },
       { title: "A fixed price and one contact", desc: "You get a written quote, a delivery date and one person who answers your messages." },
     ],
@@ -457,11 +457,11 @@ const smallBusiness: ServicePageContent = {
     intro: "Small, well-defined projects that pay for themselves quickly. Most take two to six weeks.",
     cards: [
       { title: "Business Automation", desc: "Connect the apps you already pay for and automate quoting, invoicing, onboarding and reporting.", slug: "ai-automation" },
-      { title: "Xero and MYOB Integrations", desc: "Sync invoices, payments and contacts between your accounting software and everything else.", slug: "systems-integration" },
-      { title: "Websites and Online Stores", desc: "Fast, search-friendly websites and Shopify stores that turn visitors into enquiries and orders." },
+      { title: "Accounting Software Integrations", desc: "Sync invoices, payments and contacts between Xero or QuickBooks and everything else you use.", slug: "systems-integration" },
+      { title: "Websites and Online Stores", desc: "Fast, search-friendly websites and Shopify stores that turn visitors into inquiries and orders." },
       { title: "Booking and Customer Portals", desc: "Online booking, payments and a place for customers to see their jobs and documents.", slug: "custom-software" },
       { title: "Local SEO", desc: "Google Business Profile, reviews and location pages so you show up when locals search.", slug: "seo" },
-      { title: "Google and Meta Ads", desc: "Small, tightly managed ad budgets focused on phone calls and enquiries.", slug: "performance-marketing" },
+      { title: "Google and Meta Ads", desc: "Small, tightly managed ad budgets focused on phone calls and inquiries.", slug: "performance-marketing" },
     ],
   },
   visual: {
@@ -470,7 +470,7 @@ const smallBusiness: ServicePageContent = {
     terminal: (
       <TerminalBlock
         lines={[
-          "$ forrof automate --workflow new-enquiry",
+          "$ forrof automate --workflow new-inquiry",
           "",
           "⬡ When a website form is submitted",
           "  ├── Reply to customer ......... ✓ instant",
@@ -491,8 +491,8 @@ const smallBusiness: ServicePageContent = {
     intro: "We build on tools small businesses already know, so you are never locked into something only we can maintain.",
     items: [
       { name: "Xero", desc: "Invoices, payments and contacts in sync." },
-      { name: "MYOB", desc: "Accounting integration." },
-      { name: "Shopify", desc: "Online stores and product catalogues." },
+      { name: "QuickBooks", desc: "Accounting integration." },
+      { name: "Shopify", desc: "Online stores and product catalogs." },
       { name: "Stripe", desc: "Online payments and subscriptions." },
       { name: "Zapier", desc: "Quick automations between apps." },
       { name: "Make", desc: "More complex automated workflows." },
@@ -513,7 +513,7 @@ const smallBusiness: ServicePageContent = {
     heading: "Small Businesses We Help",
     items: [
       { title: "Trades and Home Services", points: [
-        "Job booking, quoting and invoicing connected to Xero.",
+        "Job booking, quoting and invoicing connected to your accounting software.",
         "Automatic follow-up on quotes that have not been accepted.",
         "Local SEO and Google Ads for your service area.",
       ] },
@@ -551,9 +551,9 @@ const smallBusiness: ServicePageContent = {
   },
   faqs: [
     { q: "How much does a small business project cost?", a: "Most small business projects cost between USD 2,900 and 9,000. Automations and integrations are at the lower end. Custom portals and apps cost more. You always get a fixed quote first." },
-    { q: "Can you connect my software to Xero or MYOB?", a: "Yes. We connect websites, CRMs, booking tools and job management software to Xero and MYOB so invoices and payments stay in sync." },
+    { q: "Can you connect my software to Xero or QuickBooks?", a: "Yes. We connect websites, CRMs, booking tools and job management software to Xero, QuickBooks and other accounting software, so invoices and payments stay in sync." },
     { q: "Do I need custom software, or will an existing app do?", a: "Often an existing app with the right automation is enough, and we will tell you if that is the case. Custom software makes sense when no product fits how you work." },
-    { q: "Can we talk during New Zealand or Australian business hours?", a: "Yes. We take calls between 12 and 5pm AEST, which is 2 to 5pm in New Zealand." },
+    { q: "How quickly can you start?", a: "Usually within a week of you approving the quote. Most small business projects are finished in two to six weeks." },
   ],
   cta: { heading: "Tell us what takes too long.", label: "Get a Fixed Quote" },
 };
@@ -565,7 +565,7 @@ const midSized: ServicePageContent = {
   meta: seo("/industries/mid-sized-business"),
   hero: {
     heading: "Software for Mid-Sized Businesses",
-    intro: "Custom platforms, integrations and a dedicated development team for New Zealand and Australian companies that have outgrown spreadsheets and off-the-shelf tools.",
+    intro: "Custom platforms, integrations and a dedicated development team for companies that have outgrown spreadsheets and off-the-shelf tools.",
     cta: "Book a Scoping Call",
   },
   valueProp: {
@@ -594,7 +594,7 @@ const midSized: ServicePageContent = {
       { title: "Custom Business Platforms", desc: "Operations, customer and partner portals built around your processes.", slug: "custom-software" },
       { title: "Workflow and AI Automation", desc: "Approvals, document handling and routine decisions automated, with people in the loop where it matters.", slug: "ai-automation" },
       { title: "Reporting and Dashboards", desc: "A data warehouse and dashboards your leadership team can rely on." },
-      { title: "Legacy Modernisation", desc: "Replace ageing systems in stages, without a risky big-bang switch.", slug: "enterprise" },
+      { title: "Legacy Modernization", desc: "Replace ageing systems in stages, without a risky big-bang switch.", slug: "enterprise" },
       { title: "Dedicated Development Team", desc: "Senior engineers, QA and a project lead working to your roadmap from USD 3,490 per developer per month." },
     ],
   },
@@ -616,7 +616,7 @@ const midSized: ServicePageContent = {
           "  ├── Sales dashboard ........... ✓ in review",
           "  └── Approval workflow ......... in progress",
           "",
-          "✓ Demo: Thursday 2pm AEST",
+          "✓ Demo: Thursday, your time zone",
         ]}
       />
     ),
@@ -630,8 +630,8 @@ const midSized: ServicePageContent = {
       { name: ".NET", desc: "Integration with Microsoft-based systems." },
       { name: "PostgreSQL", desc: "Operational data and reporting." },
       { name: "Snowflake", desc: "Data warehousing across systems." },
-      { name: "Azure", desc: "Hosting for Microsoft-centred organisations." },
-      { name: "AWS", desc: "Sydney-region hosting." },
+      { name: "Azure", desc: "Hosting for Microsoft-centred organizations." },
+      { name: "AWS", desc: "Hosting in the region you choose." },
       { name: "HubSpot", desc: "CRM and marketing integration." },
     ],
   },
@@ -650,10 +650,10 @@ const midSized: ServicePageContent = {
       { title: "Professional Services Firms", points: [
         "Practice, time and billing systems integrated with finance.",
         "Client portals and document automation.",
-        "Utilisation and profitability dashboards.",
+        "Utilization and profitability dashboards.",
       ] },
       { title: "Agribusiness and Food Producers", points: [
-        "Farm, packhouse and supply chain systems connected.",
+        "Farm, packing and supply chain systems connected.",
         "Traceability and compliance reporting.",
         "Grower and supplier portals.",
       ] },
@@ -677,7 +677,7 @@ const midSized: ServicePageContent = {
   process: {
     steps: [
       { num: "01", title: "Systems review", desc: "We map your systems and data flows and list where time and accuracy are being lost." },
-      { num: "02", title: "Roadmap", desc: "A prioritised plan with costs, so you can fund the highest-value work first." },
+      { num: "02", title: "Roadmap", desc: "A prioritized plan with costs, so you can fund the highest-value work first." },
       { num: "03", title: "First delivery", desc: "One integration or tool delivered in weeks, to prove the approach." },
       { num: "04", title: "Scale the team", desc: "Add engineers as the roadmap grows, or keep it project by project." },
       { num: "05", title: "Handover and documentation", desc: "Your team gets code, documentation and training." },
@@ -688,7 +688,7 @@ const midSized: ServicePageContent = {
     { q: "How does a dedicated development team work?", a: "You get named senior engineers who work only on your projects, join your meetings and use your tools. You set priorities. We handle recruitment, management and cover. Pricing starts at USD 3,490 per developer per month, and you can change the team size monthly." },
     { q: "Can you integrate with our ERP and CRM?", a: "Yes, provided they expose an API or data export. We connect ERP, CRM, accounting and operational systems, and we confirm feasibility during the systems review." },
     { q: "How do you work with our internal IT team?", a: "We follow your security policies, code review process and release schedule, and we document everything we build so your team can maintain it." },
-    { q: "Where is our data hosted?", a: "Wherever you require. For New Zealand and Australian clients we typically host in the AWS or Azure Sydney regions." },
+    { q: "Where is our data hosted?", a: "Wherever you require. We deploy to the AWS or Azure region closest to your users, or the one your compliance team specifies." },
   ],
   cta: { heading: "Outgrown your current systems?", label: "Book a Scoping Call" },
 };
@@ -700,7 +700,7 @@ const government: ServicePageContent = {
   meta: seo("/industries/government"),
   hero: {
     heading: "Public Sector Software Development",
-    intro: "Accessible websites, online forms and internal tools for councils, public organisations and the agencies that deliver for them in New Zealand and Australia.",
+    intro: "Accessible websites, online forms and internal tools for local government, public organizations and the agencies that deliver for them.",
     cta: "Discuss Your Project",
   },
   valueProp: {
@@ -717,7 +717,7 @@ const government: ServicePageContent = {
       { title: "Online forms that complete the job", desc: "Applications, payments and status updates in one flow, with the data delivered straight to your back-office system." },
       { title: "Accessibility from the start", desc: "We design and test to WCAG 2.2 AA, including keyboard navigation, screen readers and plain-language content." },
       { title: "Integration with existing systems", desc: "Submissions arrive in your records, finance or case system through secure APIs, with no manual re-entry." },
-      { title: "Documented modernisation", desc: "We document what the old system does, replace it in stages and keep it running until the new one is proven." },
+      { title: "Documented modernization", desc: "We document what the old system does, replace it in stages and keep it running until the new one is proven." },
       { title: "Right-sized delivery", desc: "Fixed-price projects sized for a small team, delivered directly or as a subcontractor to your primary supplier." },
     ],
   },
@@ -729,8 +729,8 @@ const government: ServicePageContent = {
       { title: "Online Forms and Applications", desc: "Permits, bookings, requests and payments completed online, with status tracking." },
       { title: "Internal Workflow Tools", desc: "Case tracking, approvals and reporting tools for staff." },
       { title: "Systems Integration", desc: "Secure connections between public-facing services and back-office systems.", slug: "systems-integration" },
-      { title: "Legacy Modernisation", desc: "Staged replacement of ageing systems with full documentation." },
-      { title: "Document and Enquiry Automation", desc: "AI-assisted sorting and summarising of enquiries and documents, with staff making every decision.", slug: "ai-automation" },
+      { title: "Legacy Modernization", desc: "Staged replacement of ageing systems with full documentation." },
+      { title: "Document and Inquiry Automation", desc: "AI-assisted sorting and summarizing of inquiries and documents, with staff making every decision.", slug: "ai-automation" },
     ],
   },
   visual: {
@@ -749,7 +749,7 @@ const government: ServicePageContent = {
           "⬡ Delivery",
           "  ├── Documentation ............. ✓ supplied",
           "  ├── Source code ............... ✓ handed over",
-          "  └── Hosting region ............ ✓ local",
+          "  └── Hosting region ............ ✓ in-country",
           "",
           "✓ Ready for review",
         ]}
@@ -766,7 +766,7 @@ const government: ServicePageContent = {
       { name: ".NET", desc: "Integration with Microsoft-based systems." },
       { name: "PostgreSQL", desc: "Reliable open-source database." },
       { name: "Azure", desc: "Regional hosting." },
-      { name: "AWS", desc: "Sydney-region hosting." },
+      { name: "AWS", desc: "Regional hosting." },
       { name: "Docker", desc: "Portable, repeatable deployments." },
     ],
   },
@@ -780,9 +780,9 @@ const government: ServicePageContent = {
   sideVisual: <StrategyCompass3D className="h-[500px] w-full" />,
   industries: {
     label: "Who We Work With",
-    heading: "Public Organisations We Can Help",
+    heading: "Public Organizations We Can Help",
     items: [
-      { title: "Local Councils", points: [
+      { title: "Local Government", points: [
         "Online applications for permits, bookings and requests.",
         "Accessible websites and service pages.",
         "Integration with records and finance systems.",
@@ -792,7 +792,7 @@ const government: ServicePageContent = {
         "Student and parent communication tools.",
         "Reporting dashboards.",
       ] },
-      { title: "Health and Community Organisations", points: [
+      { title: "Health and Community Organizations", points: [
         "Referral and booking systems.",
         "Client and case tracking.",
         "Funding and outcome reporting.",
@@ -821,10 +821,10 @@ const government: ServicePageContent = {
     note: "* We are a small team and best suited to focused projects. We do not hold government security certifications, and we will say so clearly if a project requires them.",
   },
   faqs: [
-    { q: "Do you build to accessibility standards?", a: "Yes. We design, build and test to WCAG 2.2 AA, which is the level referenced by New Zealand and Australian government web standards." },
-    { q: "Can data be hosted in New Zealand or Australia?", a: "Yes. We deploy to the cloud region you specify, including Sydney-based AWS and Azure regions, or to your own infrastructure." },
+    { q: "Do you build to accessibility standards?", a: "Yes. We design, build and test to WCAG 2.2 AA, the level most government accessibility standards reference, including Section 508 and EN 301 549." },
+    { q: "Can data be hosted in our own country?", a: "Yes. We deploy to the cloud region you specify, or to your own infrastructure." },
     { q: "Can you work as a subcontractor?", a: "Yes. We can work as an extension of another team and deliver under your existing supplier or panel arrangement." },
-    { q: "What size of project suits you?", a: "Focused projects such as an online form, a website rebuild, an integration or an internal tool. For large multi-year programmes we work best as a specialist partner to a lead supplier." },
+    { q: "What size of project suits you?", a: "Focused projects such as an online form, a website rebuild, an integration or an internal tool. For large multi-year programs we work best as a specialist partner to a lead supplier." },
   ],
   cta: { heading: "Have a public service that should be online?", label: "Discuss Your Project" },
 };

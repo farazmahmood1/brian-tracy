@@ -246,7 +246,7 @@ const About = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                Software Built{" "}
+                Software &amp; AI{" "}
                 <span
                   style={{
                     background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
@@ -256,7 +256,7 @@ const About = () => {
                     backgroundSize: "200% 200%",
                   }}
                 >
-                  for NZ &amp; Australia
+                  That Ships
                 </span>
               </motion.h1>
             </div>
@@ -267,7 +267,7 @@ const About = () => {
               transition={{ duration: 1, delay: 0.6 }}
             >
               We are 17 engineers, AI specialists and marketers. Most of our work is for
-              law firms and farms in New Zealand and Australia, and we take calls in your afternoon.
+              law firms, agribusinesses and growing companies, and we schedule calls inside your working day.
             </motion.p>
           </div>
         </div>
@@ -298,7 +298,7 @@ const About = () => {
                   <p className="text-sm md:text-base font-semibold">Lahore, Pakistan</p>
                 </div>
                 <div className="pt-2 border-t border-foreground/10">
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Clients in New Zealand &amp; Australia</span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Working with clients worldwide</span>
                 </div>
               </div>
             </Reveal>
@@ -595,8 +595,8 @@ const About = () => {
               {
                 num: "01",
                 title: "Our Mission",
-                desc: "Give New Zealand and Australian businesses a senior software team they can afford, reach during their own working day, and rely on after launch.",
-                tags: ["Senior team", "NZ & AU hours", "Long-term support"],
+                desc: "Give growing businesses a senior software team they can afford, reach during their own working day, and rely on after launch.",
+                tags: ["Senior team", "Your time zone", "Long-term support"],
               },
               {
                 num: "02",
@@ -700,7 +700,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            We're a team of 17 engineers, AI specialists and marketers working with clients in New Zealand and Australia. If you like shipping real products for real businesses, have a look at our open roles.
+            We're a team of 17 engineers, AI specialists and marketers working with clients around the world. If you like shipping real products for real businesses, have a look at our open roles.
           </motion.p>
           <motion.div
             className="flex items-center justify-center gap-4 flex-wrap"

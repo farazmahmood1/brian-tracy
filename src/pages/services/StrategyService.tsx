@@ -101,7 +101,7 @@ export default function StrategyService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              System design, technical due diligence and fractional CTO support for New Zealand and Australian companies facing a big technology decision. You get a senior engineer's honest view before you spend the money.
+              System design, technical due diligence and fractional CTO support for companies facing a big technology decision. You get a senior engineer's honest view before you spend the money.
             </motion.p>
         </div>
       </motion.section>

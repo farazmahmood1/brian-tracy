@@ -24,7 +24,7 @@ const platforms: { num: string; title: string; desc: string; slug?: string }[] =
   { num: "03", title: "LinkedIn Ads", desc: "B2B-grade campaigns targeting senior decision-makers by company, role, and industry - for high-ticket services where one closed account pays for the whole quarter.", slug: "linkedin-ads" },
   { num: "04", title: "TikTok Ads", desc: "Short-form video campaigns that engage cold audiences with native, scroll-friendly creative - generating affordable leads from a channel most competitors are still ignoring.", slug: "tiktok-ads" },
   { num: "05", title: "Microsoft (Bing) Ads", desc: "Untapped audiences at lower CPCs - Bing campaigns deliver Google-level intent at a fraction of the cost, especially for B2B and 35+ demographics.", slug: "bing-ads" },
-  { num: "06", title: "Local Search & Google Business Profile", desc: "Show up in Google Maps and the local pack when someone nearby is ready to book. Profile optimisation, reviews and location pages for New Zealand and Australian towns and cities.", slug: "seo" },
+  { num: "06", title: "Yelp & Local Service Ads", desc: "Local placement when buyers are ready to book: tuned bidding, optimized profiles and call tracking that ties spend to booked jobs.", slug: "yelp-ads" },
 ];
 
 const processSteps = [
@@ -190,7 +190,7 @@ export default function PaidAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Google, Meta, LinkedIn and TikTok campaigns for New Zealand and Australian businesses, with conversion tracking wired into your CRM so you can see which ads bring in paying customers.
+              Google, Meta, LinkedIn and TikTok campaigns, with conversion tracking wired into your CRM so you can see which ads bring in paying customers.
             </motion.p>
         </div>
       </motion.section>

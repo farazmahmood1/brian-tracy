@@ -121,7 +121,7 @@ export default function MvpService() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            A working MVP in 6 to 12 weeks, at a fixed price from USD 7,900. For New Zealand and Australian founders who need something real to show customers and investors.
+            A working MVP in 6 to 12 weeks, at a fixed price from USD 7,900. For founders who need something real to show customers and investors.
           </motion.p>
           <motion.div
             className="mt-10"

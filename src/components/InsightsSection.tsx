@@ -65,7 +65,7 @@ export const InsightsSection = () => {
           className="flex items-center gap-4 mb-12"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         >
-          <motion.span className="number-label">/08</motion.span>
+          <motion.span className="number-label">/07</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             Insights
@@ -95,7 +95,7 @@ export const InsightsSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
-              Practical guides on AI automation, legal and farm software, integrations, SEO and paid ads for New Zealand and Australian businesses.
+              Practical guides on AI automation, legal and farm software, integrations, SEO and paid ads, written for business owners and operators.
             </p>
           </motion.div>
         </div>

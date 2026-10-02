@@ -46,17 +46,17 @@ const domains = [
   {
     num: "01",
     title: "Logistics & Transportation",
-    desc: "We build route optimisation engines, real-time fleet tracking, driver management portals, and end-to-end supply chain visibility platforms. We integrate with carriers, warehouse systems and ERP so a job is entered once, from dispatch to delivery.",
+    desc: "We build route optimization engines, real-time fleet tracking, driver management portals, and end-to-end supply chain visibility platforms. We integrate with carriers, warehouse systems and ERP so a job is entered once, from dispatch to delivery.",
   },
   {
     num: "02",
     title: "Legal Tech",
-    desc: "Our legal tech platforms cover case management, document automation, time tracking, client billing, and compliance workflows. We build them around the NZ Privacy Act 2020 and the Australian Privacy Principles, and integrate with Actionstep, LEAP and Smokeball.",
+    desc: "Our legal tech platforms cover case management, document automation, time tracking, client billing, and compliance workflows. We build them around your privacy and confidentiality obligations, and integrate with Clio, Actionstep, LEAP and Smokeball.",
   },
   {
     num: "03",
     title: "Health & Wellness",
-    desc: "Platforms for appointment booking, telehealth, patient records and care coordination, designed around New Zealand's Health Information Privacy Code and the Australian Privacy Principles. We integrate with practice management systems through their APIs or HL7 FHIR.",
+    desc: "Platforms for appointment booking, telehealth, patient records and care coordination, designed around the health privacy rules that apply to you, including HIPAA. We integrate with practice management systems through their APIs or HL7 FHIR.",
   },
   {
     num: "04",
@@ -66,7 +66,7 @@ const domains = [
   {
     num: "05",
     title: "Food & Restaurant Management",
-    desc: "Full-stack restaurant tech - POS integrations, online ordering, kitchen display systems, inventory management, staff scheduling, and loyalty programmes. We build for independent restaurants and multi-location franchise operations alike.",
+    desc: "Full-stack restaurant tech - POS integrations, online ordering, kitchen display systems, inventory management, staff scheduling, and loyalty programs. We build for independent restaurants and multi-location franchise operations alike.",
   },
   {
     num: "06",
@@ -182,7 +182,7 @@ export default function SaasService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              We design, build and run SaaS products for New Zealand and Australian founders: multi-tenant architecture, Stripe billing, roles and analytics, from first MVP to paying customers.
+              We design, build and run SaaS products for founders and product teams: multi-tenant architecture, Stripe billing, roles and analytics, from first MVP to paying customers.
             </motion.p>
         </div>
       </motion.section>

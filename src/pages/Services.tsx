@@ -45,7 +45,7 @@ const services = [
     number: "04",
     title: "SEO & AI Search Visibility",
     description:
-      "Technical SEO, local SEO, and generative engine optimisation to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
+      "Technical SEO, local SEO, and generative engine optimization to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
     tags: ["Technical SEO", "Local SEO", "GEO"],
     icon: Search,
     slug: "seo",

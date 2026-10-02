@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const words =
-  "We build custom software, AI automation, and system integrations for New Zealand and Australian businesses - with deep expertise in LegalTech and Agriculture.".split(
+  "We build custom software, AI automation and system integrations for growing companies, with deep expertise in LegalTech and Agriculture.".split(
     " "
   );
 
@@ -74,8 +74,6 @@ export const AboutSection = () => {
               transition={{ delay: 0.6 }}
             >
               <li>17-person senior team of engineers, AI specialists, and growth marketers</li>
-              <li>Live calls during NZ &amp; AU business hours - 12–5pm AEST, 2–5pm NZT</li>
-              <li>Built e-signing, legal AI, and farm management platforms in production</li>
               <li>You own 100% of the code, data, and accounts</li>
             </motion.ul>
 

@@ -82,7 +82,7 @@ const Careers = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
-                            We are a 17-person remote team building software and AI for clients in New Zealand and Australia. We hire engineers, AI specialists and marketers who like owning their work.
+                            We are a 17-person remote team building software and AI for law firms, agribusinesses and growing companies. We hire engineers, AI specialists and marketers who like owning their work.
                         </motion.p>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}

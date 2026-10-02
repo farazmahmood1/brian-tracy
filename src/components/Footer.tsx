@@ -22,14 +22,14 @@ const serviceLinks = [
 const focusIndustries = [
   {
     label: "LegalTech & Law Firms",
-    desc: "Software, AI, and automation for New Zealand and Australian law firms - e-signing, client portals, legal AI assistants, and practice integrations.",
+    desc: "E-signing, client portals, legal AI and practice management integrations for law firms.",
     href: "/industries/legaltech",
     cta: "Explore LegalTech",
     proof: { name: "FynoSign case study", href: "/project/fyno" },
   },
   {
     label: "Agriculture & AgriTech",
-    desc: "Farm software, automation, and ongoing support for agribusinesses - farm management platforms, equipment and data integrations, and compliance reporting.",
+    desc: "Farm management software, equipment integrations and compliance reporting for agribusinesses.",
     href: "/industries/agriculture",
     cta: "Explore Agriculture",
     proof: { name: "Bushel case study", href: "/project/bushel" },
@@ -129,7 +129,7 @@ export const Footer = () => {
           transition={{ duration: 0.6 }}
         >
           <p className="text-sm font-semibold uppercase tracking-widest mb-6">
-            Specialists for New Zealand &amp; Australia
+            Industries We Specialize In
           </p>
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             {focusIndustries.map((item) => (
@@ -276,7 +276,7 @@ export const Footer = () => {
           >
             <p className="text-sm font-semibold uppercase tracking-widest mb-6">Connect</p>
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-              Software, AI, and growth for New Zealand and Australian businesses - with a focus on legal and agriculture.
+              Custom software, AI automation and growth marketing, with deep experience in legal and agriculture.
             </p>
             <div className="flex gap-3 mb-6">
               {socialLinks.map((social) => (

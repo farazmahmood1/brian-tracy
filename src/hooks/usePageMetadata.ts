@@ -35,8 +35,8 @@ const setLink = (rel: string, href: string, hreflang?: string) => {
     el.setAttribute("href", href);
 };
 
-// The same English page serves both markets, so every regional hreflang points at the one URL.
-export const HREFLANGS = ["en-AU", "en-NZ", "en", "x-default"];
+// One English version of each page, served to every region.
+export const HREFLANGS = ["en", "x-default"];
 
 export const usePageMetadata = ({ title, description, image, url, type, keywords, noindex }: PageMetadata) => {
     useEffect(() => {

@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const SITE_URL = "https://forrof.io";
-const HREFLANGS = ["en-AU", "en-NZ", "en", "x-default"];
+const HREFLANGS = ["en", "x-default"];
 
 const routes = JSON.parse(readFileSync(join(root, "src/constants/seoRoutes.json"), "utf8"));
 const template = readFileSync(join(dist, "index.html"), "utf8");

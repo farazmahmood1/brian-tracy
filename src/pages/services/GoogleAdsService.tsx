@@ -125,7 +125,7 @@ export default function GoogleAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Google Ads for New Zealand and Australian businesses: tight keyword targeting, conversion tracking that reaches your CRM, and landing pages built by our own developers.
+              Google Ads built on tight keyword targeting, conversion tracking that reaches your CRM, and landing pages built by our own developers.
             </motion.p>
         </div>
       </motion.section>

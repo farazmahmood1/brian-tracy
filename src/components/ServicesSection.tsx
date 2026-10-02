@@ -25,14 +25,14 @@ const services: { number: string; title: string; description: string; tags: stri
   {
     number: "03",
     title: "Systems Integration & Data",
-    description: "API and Xero integrations, data pipelines, and real-time dashboards that connect your systems and end double entry for good.",
-    tags: ["API Integrations", "Xero", "Dashboards"],
+    description: "API integrations, accounting and CRM sync, data pipelines and real-time dashboards that connect your systems and end double entry.",
+    tags: ["API Integrations", "Data Pipelines", "Dashboards"],
     slug: "systems-integration",
   },
   {
     number: "04",
     title: "SEO & AI Search Visibility",
-    description: "Technical SEO, local SEO, and AI search optimisation that put your business at the top of Google - and inside ChatGPT, Perplexity, and AI Overviews answers.",
+    description: "Technical SEO, local SEO, and AI search optimization that put your business at the top of Google - and inside ChatGPT, Perplexity, and AI Overviews answers.",
     tags: ["Technical SEO", "Local SEO", "GEO"],
     slug: "seo",
   },
@@ -100,7 +100,7 @@ export const ServicesSection = () => {
                 delay: 0.2,
               }}
             >
-              Software, AI &amp; Growth Services for NZ &amp; Australia
+              Software Development, AI &amp; Growth Marketing Services
             </motion.h2>
           </div>
           <motion.p
@@ -109,7 +109,7 @@ export const ServicesSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            Five services, one senior team: we build the software and AI that run your business, connect the systems you already use, and bring in qualified leads through search and paid ads.
+            Five services from one senior team: software, AI, integrations, SEO and paid ads.
           </motion.p>
         </div>
 
@@ -192,9 +192,9 @@ export const ServicesSection = () => {
 
       {/* SEO description */}
       <div className="sr-only">
-        <h3>Software, AI and Growth Services for New Zealand and Australia</h3>
+        <h3>Custom Software Development, AI Automation and Growth Marketing Services</h3>
         <p>
-          Forrof is a software, AI, and growth agency serving New Zealand and Australian businesses:
+          Forrof is a custom software development, AI automation and growth marketing agency:
           AI and automation, custom software development, systems integration and data,
           SEO and AI search visibility, and performance marketing.
         </p>

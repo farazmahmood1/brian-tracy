@@ -1,4 +1,4 @@
-# Forrof - software, AI and growth for New Zealand and Australia
+# Forrof - custom software, AI automation and growth marketing agency
 # https://forrof.io
 
 User-agent: *

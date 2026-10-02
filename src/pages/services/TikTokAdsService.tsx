@@ -125,7 +125,7 @@ export default function TikTokAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Short-form video ads for New Zealand and Australian brands, made to look like the content people already watch. A cheaper source of leads on a channel many competitors still ignore.
+              Short-form video ads made to look like the content people already watch. A cheaper source of leads on a channel many competitors still ignore.
             </motion.p>
         </div>
       </motion.section>
