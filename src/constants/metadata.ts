@@ -1,7 +1,7 @@
 export const DEFAULT_METADATA = {
-    title: "Forrof | Custom Software, Web, Mobile App & Digital Solutions Agency",
+    title: "Forrof | Custom Software, AI Automation & SEO for New Zealand & Australia",
     description:
-        "Forrof is a full service software agency delivering branding, web development, mobile apps, UI UX, SEO, cloud solutions, SaaS, cybersecurity, automation, and digital transformation for growing businesses.",
+        "Forrof builds custom software, AI automation, Xero and system integrations, and runs SEO and Google Ads for New Zealand and Australian businesses - specialists in LegalTech and Agriculture.",
     image: "https://forrof.io/logo.png",
     type: "website",
     twitterCard: "summary_large_image",

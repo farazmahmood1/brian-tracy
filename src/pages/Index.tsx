@@ -4,7 +4,8 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { OurClientsSection } from "@/components/OurClientsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { AboutSection } from "@/components/AboutSection";
-import { BusinessScaleSection } from "@/components/BusinessScaleSection";
+// import { BusinessScaleSection } from "@/components/BusinessScaleSection";
+import { PricingSection } from "@/components/PricingSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { InsightsSection } from "@/components/InsightsSection";
@@ -20,9 +21,9 @@ const Index = () => {
   useLenis();
 
   usePageMetadata({
-    title: "Forrof | Leading Software & Digital Solutions Agency",
-    description: "Transform your business with Forrof's expert software development, branding, web design, mobile apps, SEO, SaaS, cloud solutions, and digital services. Trusted by businesses worldwide.",
-    keywords: "forrof, software agency, web development, mobile app development, UI UX design, branding, SEO services, SaaS development, cloud solutions, cybersecurity, automation, digital transformation, custom software, software development company",
+    title: "Forrof | Custom Software, AI Automation & SEO for New Zealand & Australia",
+    description: "Forrof builds custom software, AI automation, Xero and system integrations, and runs SEO and Google Ads for New Zealand and Australian businesses - specialists in LegalTech and Agriculture.",
+    keywords: "custom software development New Zealand, software development company Australia, AI automation agency, legal software development, law firm software, LegalTech, agriculture software, AgriTech, farm management software, Xero integration, systems integration, SEO agency New Zealand, Google Ads agency Australia",
   });
 
   const [isLoading, setIsLoading] = useState(!homeShown);
@@ -65,7 +66,8 @@ const Index = () => {
         <ServicesSection />
         <ProjectsSection />
         <AboutSection />
-        <BusinessScaleSection />
+        {/* <BusinessScaleSection /> */}
+        <PricingSection />
         <MarqueeSection />
         <TestimonialsSection />
         <FAQSection />

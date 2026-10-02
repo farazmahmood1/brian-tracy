@@ -4,6 +4,7 @@ import { ArrowUpRight, Plus, Minus } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
+import { TechLogo } from "@/components/TechLogo";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 import { MobileTerminalBlock } from "@/components/AiMlVisuals";
@@ -439,11 +440,7 @@ export default function MobileAppService() {
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
                 <span className="text-5xl md:text-6xl font-bold block mb-3 tracking-tighter">
-                  <CountUp
-                    value={stat.value.replace(/[^0-9.]/g, "")}
-                    suffix={stat.value.replace(/[0-9.]/g, "")}
-                    delay={200 + i * 100}
-                  />
+                  <CountUp value={stat.value} delay={200 + i * 100} />
                 </span>
                 <span className="text-xs text-muted-foreground uppercase tracking-widest">
                   {stat.label}
@@ -496,6 +493,7 @@ export default function MobileAppService() {
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               >
                 <GlowCard className="p-8 rounded-2xl bg-card border border-border/40 hover:border-accent/40 transition-all duration-300 group h-full">
+                  <TechLogo name={tech.name} className="w-10 h-10 mb-6" />
                   <h3 className="text-xl font-bold mb-4 group-hover:text-foreground transition-colors">
                     {tech.name}
                   </h3>

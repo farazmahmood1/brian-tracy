@@ -4,6 +4,7 @@ import { ArrowUpRight, Plus, Minus, Check } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
+import { TechLogo } from "@/components/TechLogo";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useNavigate } from "react-router-dom";
 
@@ -423,7 +424,10 @@ export default function FintechFinancePage() {
                     {activeTech === i && (
                       <motion.div className="absolute inset-0 rounded-lg bg-foreground/5 border border-accent/30" layoutId="activeTechTab" transition={{ duration: 0.3 }} />
                     )}
-                    <span className="relative z-10">{t.name}</span>
+                    <span className="relative z-10 flex items-center gap-2">
+                      <TechLogo name={t.name} className="w-4 h-4" />
+                      {t.name}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -436,7 +440,10 @@ export default function FintechFinancePage() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h4 className="text-lg font-semibold mb-2">{techStack[activeTech].name}</h4>
+                  <h4 className="text-lg font-semibold mb-2 flex items-center gap-3">
+                    <TechLogo name={techStack[activeTech].name} className="w-6 h-6" />
+                    {techStack[activeTech].name}
+                  </h4>
                   <p className="text-muted-foreground leading-relaxed text-sm">{techStack[activeTech].desc}</p>
                 </motion.div>
               </AnimatePresence>

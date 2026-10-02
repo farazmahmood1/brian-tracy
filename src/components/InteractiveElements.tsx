@@ -46,11 +46,17 @@ export const CountUp = ({ value, suffix = "", delay = 0 }: { value: string; suff
     if (!inView || hasRun.current || !ref.current) return;
     hasRun.current = true;
 
-    const numeric = parseFloat(value);
-    if (isNaN(numeric)) {
-      setTimeout(() => { if (ref.current) ref.current.textContent = value + suffix; }, delay);
+    // Animate the first number and keep everything around it, so "5/5",
+    // "0.1s", "$2M+" and "98%" all render as written.
+    const full = value + suffix;
+    const match = full.match(/^(\D*)(\d+(?:\.\d+)?)([\s\S]*)$/);
+    if (!match) {
+      setTimeout(() => { if (ref.current) ref.current.textContent = full; }, delay);
       return;
     }
+    const [, before, num, after] = match;
+    const numeric = parseFloat(num);
+    const decimals = num.includes(".") ? num.split(".")[1].length : 0;
 
     const duration = 1200;
     let start: number;
@@ -60,7 +66,7 @@ export const CountUp = ({ value, suffix = "", delay = 0 }: { value: string; suff
       if (!start) start = ts;
       const p = Math.min((ts - start) / duration, 1);
       const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = String(Math.round(eased * numeric)) + suffix;
+      el.textContent = before + (eased * numeric).toFixed(decimals) + after;
       if (p < 1) requestAnimationFrame(step);
     };
 

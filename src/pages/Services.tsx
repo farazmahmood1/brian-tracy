@@ -1,121 +1,66 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowUpRight, Zap, Brain, Layers, Rocket, Map, Palette, Smartphone, Megaphone, Search, PenTool, Code, RocketIcon, Target, TrendingUp, BarChart3 } from "lucide-react";
+import { ArrowUpRight, Zap, Layers, Network, Search, PenTool, Code, RocketIcon, Target } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useLenis } from "@/hooks/useLenis";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const services = [
   {
     number: "01",
-    title: "AI/ML Development",
+    title: "AI & Automation",
     description:
-      "Real‑world AI systems - from document intelligence to custom agents and workflows - integrated directly into your business.",
-    tags: ["LLMs", "Agents", "Workflows", "RAG"],
+      "Custom AI agents, LLM and RAG solutions, document intelligence, and workflow automation that remove manual work and plug straight into the tools your team already uses.",
+    tags: ["AI Agents", "LLMs & RAG", "Workflow Automation", "Document AI"],
     icon: Zap,
-    slug: "ai-ml",
-    highlight: false,
+    slug: "ai-automation",
+    highlight: true,
+    wide: true,
   },
   {
     number: "02",
-    title: "Enterprise Software",
+    title: "Custom Software Development",
     description:
-      "Intelligent internal platforms, dashboards, and automation systems that streamline operations and unlock growth at scale.",
-    tags: ["Dashboards", "Automation", "Internal Tools"],
+      "Web applications, SaaS platforms, mobile apps, client portals, and internal systems - built by one senior team, with full code ownership.",
+    tags: ["Web Apps", "SaaS", "Mobile", "MVPs"],
     icon: Layers,
-    slug: "enterprise",
-    highlight: true,
+    slug: "custom-software",
+    highlight: false,
+    wide: false,
   },
   {
     number: "03",
-    title: "SaaS Development",
+    title: "Systems Integration & Data",
     description:
-      "Revenue‑ready AI products and SaaS platforms engineered for speed, security, and effortless scalability from day one.",
-    tags: ["AI/ML", "SaaS", "Full-Stack", "APIs"],
-    icon: Brain,
-    slug: "saas",
+      "API and Xero integrations, data pipelines, and real-time dashboards that connect your systems and end double entry.",
+    tags: ["APIs", "Xero", "Data Pipelines", "Dashboards"],
+    icon: Network,
+    slug: "systems-integration",
     highlight: false,
+    wide: false,
   },
   {
     number: "04",
-    title: "MVP & POC Development",
+    title: "SEO & AI Search Visibility",
     description:
-      "From idea to production‑grade platform - lean MVPs and prototypes that prove your concept and attract investors fast.",
-    tags: ["Architecture", "MVP", "Scaling", "DevOps"],
-    icon: Rocket,
-    slug: "mvp",
+      "Technical SEO, local SEO, and generative engine optimisation to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
+    tags: ["Technical SEO", "Local SEO", "GEO"],
+    icon: Search,
+    slug: "seo",
     highlight: false,
+    wide: false,
   },
   {
     number: "05",
-    title: "Product Architecture & Technical Strategy",
+    title: "Performance Marketing",
     description:
-      "System design, AI strategy, and engineering direction that reduces risk and enables smarter decisions at every stage.",
-    tags: ["Strategy", "System Design", "CTO-as-a-Service"],
-    icon: Map,
-    slug: "strategy",
-    highlight: false,
-  },
-  {
-    number: "06",
-    title: "Mobile App Development",
-    description:
-      "Native iOS and Android apps, and cross‑platform solutions built for performance, polish, and real user delight.",
-    tags: ["iOS", "Android", "React Native", "Flutter"],
-    icon: Smartphone,
-    slug: "mobile",
-    highlight: false,
-  },
-  {
-    number: "07",
-    title: "Branding & UI/UX",
-    description:
-      "Brand systems, product design, and growth‑ready UX that drives adoption, conversion, and long‑term loyalty.",
-    tags: ["UI/UX", "Branding", "Prototyping", "Growth"],
-    icon: Palette,
-    slug: "ux-design",
-    highlight: false,
-  },
-  {
-    number: "08",
-    title: "Social Media Marketing",
-    description:
-      "Data‑driven social strategies, content creation, and paid campaigns that grow your audience and turn followers into customers.",
-    tags: ["Content", "Paid Ads", "Analytics", "Growth"],
-    icon: Megaphone,
-    slug: "social-media",
-    highlight: false,
-  },
-  {
-    number: "09",
-    title: "Paid Ads",
-    description:
-      "Intent-driven campaigns across Google, Meta, LinkedIn, TikTok, and Bing - engineered with API-level tracking and CRO landing pages that turn ad spend into booked revenue.",
-    tags: ["Google", "Meta", "LinkedIn", "ROAS"],
+      "Google, Meta, LinkedIn, and TikTok ads plus social media - with server-side tracking and landing pages that turn ad spend into qualified leads.",
+    tags: ["Google Ads", "Meta Ads", "Social", "CRO"],
     icon: Target,
-    slug: "paid-ads",
-    highlight: true,
-  },
-  {
-    number: "10",
-    title: "Google Ads",
-    description:
-      "Search, Performance Max, YouTube, and Local Service Ads built around high-intent keywords, API-level tracking, and conversion-tuned landing pages.",
-    tags: ["Search", "PMax", "YouTube", "LSA"],
-    icon: TrendingUp,
-    slug: "google-ads",
+    slug: "performance-marketing",
     highlight: false,
-  },
-  {
-    number: "11",
-    title: "Meta Ads",
-    description:
-      "Facebook and Instagram campaigns powered by creative-led targeting, server-side Conversion API, and full-funnel attribution that survives iOS 14+.",
-    tags: ["Facebook", "Instagram", "CAPI", "Creative"],
-    icon: BarChart3,
-    slug: "meta-ads",
-    highlight: false,
+    wide: false,
   },
 ];
 
@@ -161,7 +106,7 @@ const ServiceCard = ({
   const Icon = service.icon;
   const navigate = useNavigate();
   const hl = service.highlight;
-  const glowColor = hl ? "rgba(0,212,170,0.25)" : "hsl(var(--accent) / 0.22)";
+  const glowColor = hl ? "rgba(0,212,170,0.12)" : "hsl(var(--accent) / 0.1)";
 
   // Direct DOM writes via ref - zero React re-renders during mousemove
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -176,15 +121,15 @@ const ServiceCard = ({
   return (
     <motion.div
       ref={cardRef}
-      className={`relative rounded-3xl overflow-hidden flex flex-col cursor-pointer group border transition-all duration-300 ${
+      className={`relative rounded-3xl overflow-hidden flex flex-col cursor-pointer group border transition-all duration-300 ${service.wide ? "lg:col-span-2" : ""} ${
         hl
-          ? "border-[#00d4aa]/40 hover:border-[#48f0e7]/60"
+          ? "border-[#00d4aa]/20 hover:border-[#00d4aa]/40"
           : "bg-card border-border/40 hover:border-accent/40"
       }`}
       initial={{ opacity: 0, y: 60 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-      style={hl ? { background: "linear-gradient(to bottom, #050a12 0%, #126b66 100%)" } : undefined}
+      style={hl ? { background: "linear-gradient(160deg, #0a1317 0%, #0e2423 100%)" } : undefined}
       onClick={() => navigate(`/services/${service.slug}`)}
       onMouseMove={handleMouseMove}
       whileHover={{ scale: 1.01 }}
@@ -203,12 +148,12 @@ const ServiceCard = ({
       <div className="relative z-10 p-8 md:p-10 flex flex-col h-full">
         {/* Top row */}
         <div className="flex items-start justify-between mb-8">
-          <span className={`text-xs font-medium tracking-widest uppercase ${hl ? "text-[#00d4aa]" : "text-muted-foreground"}`}>
+          <span className={`text-xs font-medium tracking-widest uppercase ${hl ? "text-[#00d4aa]/80" : "text-muted-foreground"}`}>
             /{service.number}
           </span>
           <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
             hl
-              ? "border-[#00d4aa]/40 group-hover:bg-[#00d4aa] group-hover:border-[#00d4aa]"
+              ? "border-[#00d4aa]/25 group-hover:bg-[#00d4aa]/90 group-hover:border-[#00d4aa]/90"
               : "border-border/50 group-hover:bg-foreground group-hover:border-foreground"
           }`}>
             <Icon size={18} className={`transition-colors duration-300 ${hl ? "text-[#00d4aa] group-hover:text-[#050a12]" : "text-muted-foreground group-hover:text-background"}`} />
@@ -217,11 +162,13 @@ const ServiceCard = ({
 
         {/* Title */}
         <h3 className={`text-2xl md:text-3xl font-semibold leading-tight mb-4 transition-colors ${hl ? "text-white" : "group-hover:text-foreground"}`}>
-          {service.title}
+          <Link to={`/services/${service.slug}`} onClick={(e) => e.stopPropagation()}>
+            {service.title}
+          </Link>
         </h3>
 
         {/* Description */}
-        <p className={`leading-relaxed mb-8 flex-1 ${hl ? "text-[#48f0e7]/70" : "text-muted-foreground"}`}>
+        <p className={`leading-relaxed mb-8 flex-1 ${hl ? "text-white/65" : "text-muted-foreground"}`}>
           {service.description}
         </p>
 
@@ -233,7 +180,7 @@ const ServiceCard = ({
                 key={tag}
                 className={`px-3 py-1.5 rounded-full border text-xs ${
                   hl
-                    ? "border-[#00d4aa]/30 text-[#48f0e7] bg-[#126b66]/30"
+                    ? "border-[#00d4aa]/20 text-[#8fd6cb] bg-[#00d4aa]/[0.06]"
                     : "border-border/40 text-muted-foreground bg-background/40"
                 }`}
               >
@@ -241,7 +188,7 @@ const ServiceCard = ({
               </span>
             ))}
           </div>
-          <ArrowUpRight size={20} className={`shrink-0 transition-all duration-300 ${hl ? "text-[#00d4aa] group-hover:translate-x-1 group-hover:-translate-y-1" : "text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 group-hover:-translate-y-1"}`} />
+          <ArrowUpRight size={20} className={`shrink-0 transition-all duration-300 ${hl ? "text-[#00d4aa]/80 group-hover:translate-x-1 group-hover:-translate-y-1" : "text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 group-hover:-translate-y-1"}`} />
         </div>
       </div>
     </motion.div>
@@ -253,10 +200,10 @@ const Services = () => {
   const navigate = useNavigate();
 
   usePageMetadata({
-    title: "Services | Forrof",
+    title: "Software, AI & Growth Services for NZ & Australia | Forrof",
     description:
-      "Explore our comprehensive software, AI, and growth marketing services including AI development, SaaS platforms, paid ads, SEO, and email & LinkedIn outreach.",
-    keywords: "AI development, SaaS, paid ads, google ads, meta ads, email marketing, linkedin marketing, growth marketing, internal tools, automation, product design",
+      "AI & automation, custom software development, systems integration, SEO & AI search visibility, and performance marketing for New Zealand and Australian businesses.",
+    keywords: "AI automation, custom software development, systems integration, Xero integration, SEO services, AI search optimisation, performance marketing, Google Ads, software agency New Zealand, software agency Australia",
   });
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -351,7 +298,7 @@ const Services = () => {
               transition={{ delay: 0.8 }}
             >
               {[
-                { n: "11", label: "Core Services" },
+                { n: String(services.length), label: "Core Services" },
                 { n: "150+", label: "Projects Shipped" },
                 { n: "98%", label: "Client Satisfaction" },
               ].map((s) => (

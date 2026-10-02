@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const words =
-  "We build intelligent AI products, scalable SaaS platforms, and full-funnel marketing engines that turn ideas into measurable growth.".split(
+  "We build custom software, AI automation, and system integrations for New Zealand and Australian businesses - with deep expertise in LegalTech and Agriculture.".split(
     " "
   );
 
@@ -67,6 +67,18 @@ export const AboutSection = () => {
           <div className="relative">
             <WordByWordReveal words={words} />
 
+            <motion.ul
+              className="mt-10 space-y-3 text-base md:text-lg text-muted-foreground"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6 }}
+            >
+              <li>17-person senior team of engineers, AI specialists, and growth marketers</li>
+              <li>Live calls during NZ &amp; AU business hours - 12–5pm AEST, 2–5pm NZT</li>
+              <li>Built e-signing, legal AI, and farm management platforms in production</li>
+              <li>You own 100% of the code, data, and accounts</li>
+            </motion.ul>
+
             <motion.div
               className="mt-12"
               initial={{ opacity: 0, y: 30 }}
@@ -123,8 +135,8 @@ export const AboutSection = () => {
               className="absolute top-0 right-0 w-4/5 h-4/5 rounded-2xl lg:rounded-3xl overflow-hidden"
             >
               <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
-                alt="Team collaboration"
+                src={`${import.meta.env.VITE_SERVER}/bushel/cover.png`}
+                alt="Bushel farm management platform built by Forrof"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -140,7 +152,7 @@ export const AboutSection = () => {
             >
               <img
                 src={`${import.meta.env.VITE_SERVER}/about-image.jpeg`}
-                alt="Creative work"
+                alt="The Forrof software development team"
                 loading="lazy"
                 className="w-full h-full object-cover"
               />

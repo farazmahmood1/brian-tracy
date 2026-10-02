@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import Index from "./pages/Index";
 import { Header } from "./components/Header";
@@ -13,10 +13,9 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
-const AiMlService = lazy(() => import("./pages/services/AiMlService"));
+const ServicePage = lazy(() => import("./pages/services/ServicePages"));
 const SaasService = lazy(() => import("./pages/services/SaasService"));
 const MvpService = lazy(() => import("./pages/services/MvpService"));
-const UxDesignService = lazy(() => import("./pages/services/UxDesignService"));
 const EnterpriseService = lazy(() => import("./pages/services/EnterpriseService"));
 const StrategyService = lazy(() => import("./pages/services/StrategyService"));
 const MobileAppService = lazy(() => import("./pages/services/MobileAppService"));
@@ -28,13 +27,11 @@ const LinkedInAdsService = lazy(() => import("./pages/services/LinkedInAdsServic
 const TikTokAdsService = lazy(() => import("./pages/services/TikTokAdsService"));
 const BingAdsService = lazy(() => import("./pages/services/BingAdsService"));
 const YelpAdsService = lazy(() => import("./pages/services/YelpAdsService"));
-const IndustrialSectorPage = lazy(() => import("./pages/industries/IndustrialSectorPage"));
-const DecisionIntelligencePage = lazy(() => import("./pages/industries/DecisionIntelligencePage"));
 const FintechFinancePage = lazy(() => import("./pages/industries/FintechFinancePage"));
 const HealthWellnessPage = lazy(() => import("./pages/industries/HealthWellnessPage"));
 const LegalTechPage = lazy(() => import("./pages/industries/LegalTechPage"));
+const AgriculturePage = lazy(() => import("./pages/industries/AgriculturePage"));
 const TransportationPage = lazy(() => import("./pages/industries/TransportationPage"));
-const PaintingPage = lazy(() => import("./pages/industries/PaintingPage"));
 const SmallBusinessPage = lazy(() => import("./pages/industries/SmallBusinessPage"));
 const MidSizedBusinessPage = lazy(() => import("./pages/industries/MidSizedBusinessPage"));
 const GovernmentPage = lazy(() => import("./pages/industries/GovernmentPage"));
@@ -152,10 +149,19 @@ const App = () => (
                 </LayoutWrapper>
               }
             />
-            <Route path="/services/ai-ml" element={<LayoutWrapper><AiMlService /></LayoutWrapper>} />
+            <Route path="/services/ai-automation" element={<LayoutWrapper><ServicePage page="aiAutomation" /></LayoutWrapper>} />
+            <Route path="/services/custom-software" element={<LayoutWrapper><ServicePage page="customSoftware" /></LayoutWrapper>} />
+            <Route path="/services/systems-integration" element={<LayoutWrapper><ServicePage page="systemsIntegration" /></LayoutWrapper>} />
+            <Route path="/services/seo" element={<LayoutWrapper><ServicePage page="seoAiSearch" /></LayoutWrapper>} />
+            <Route path="/services/performance-marketing" element={<LayoutWrapper><ServicePage page="performanceMarketing" /></LayoutWrapper>} />
+            {/* Retired pages - permanent 301s for these also live in vercel.json */}
+            <Route path="/services/ai-ml" element={<Navigate to="/services/ai-automation" replace />} />
+            <Route path="/services/ux-design" element={<Navigate to="/services/custom-software" replace />} />
+            <Route path="/industries/industrial-sector" element={<Navigate to="/services" replace />} />
+            <Route path="/industries/decision-intelligence" element={<Navigate to="/services/systems-integration" replace />} />
+            <Route path="/industries/painting" element={<Navigate to="/services" replace />} />
             <Route path="/services/saas" element={<LayoutWrapper><SaasService /></LayoutWrapper>} />
             <Route path="/services/mvp" element={<LayoutWrapper><MvpService /></LayoutWrapper>} />
-            <Route path="/services/ux-design" element={<LayoutWrapper><UxDesignService /></LayoutWrapper>} />
             <Route path="/services/enterprise" element={<LayoutWrapper><EnterpriseService /></LayoutWrapper>} />
             <Route path="/services/strategy" element={<LayoutWrapper><StrategyService /></LayoutWrapper>} />
             <Route path="/services/mobile" element={<LayoutWrapper><MobileAppService /></LayoutWrapper>} />
@@ -167,13 +173,11 @@ const App = () => (
             <Route path="/services/tiktok-ads" element={<LayoutWrapper><TikTokAdsService /></LayoutWrapper>} />
             <Route path="/services/bing-ads" element={<LayoutWrapper><BingAdsService /></LayoutWrapper>} />
             <Route path="/services/yelp-ads" element={<LayoutWrapper><YelpAdsService /></LayoutWrapper>} />
-            <Route path="/industries/industrial-sector" element={<LayoutWrapper><IndustrialSectorPage /></LayoutWrapper>} />
-            <Route path="/industries/decision-intelligence" element={<LayoutWrapper><DecisionIntelligencePage /></LayoutWrapper>} />
             <Route path="/industries/fintech-finance" element={<LayoutWrapper><FintechFinancePage /></LayoutWrapper>} />
             <Route path="/industries/health-wellness" element={<LayoutWrapper><HealthWellnessPage /></LayoutWrapper>} />
             <Route path="/industries/legaltech" element={<LayoutWrapper><LegalTechPage /></LayoutWrapper>} />
+            <Route path="/industries/agriculture" element={<LayoutWrapper><AgriculturePage /></LayoutWrapper>} />
             <Route path="/industries/transportation" element={<LayoutWrapper><TransportationPage /></LayoutWrapper>} />
-            <Route path="/industries/painting" element={<LayoutWrapper><PaintingPage /></LayoutWrapper>} />
             <Route path="/industries/small-business" element={<LayoutWrapper><SmallBusinessPage /></LayoutWrapper>} />
             <Route path="/industries/mid-sized-business" element={<LayoutWrapper><MidSizedBusinessPage /></LayoutWrapper>} />
             <Route path="/industries/government" element={<LayoutWrapper><GovernmentPage /></LayoutWrapper>} />

@@ -1,43 +1,61 @@
-import {
-  motion,
-  useInView,
-} from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import { Check, ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 
+// All prices in USD. "market" is the typical NZ/AU agency range for comparison.
 const pricingPlans = [
   {
-    name: "Product Build",
-    price: "$5,490",
-    // period: "/month",
-    description: "Ideal for MVPs, platforms, and system builds",
+    name: "Fixed-Scope Project",
+    price: "$2,900",
+    period: "starting",
+    description: "Integrations, AI automations, MVPs, and client portals - delivered against a fixed quote.",
     features: [
-      "AI product or SaaS development",
-      "Platform & system architecture",
-      "Full‑stack engineering",
-      "AI integrations",
-      "Scalable foundations",
-      "Source code & documentation",
+      "Fixed price agreed before work starts",
+      "Discovery, design, build, and launch",
+      "Weekly demos during NZ & AU hours",
+      "Full source code and documentation",
+      "30 days of post-launch support",
+    ],
+    highlighted: true,
+  },
+  {
+    name: "Monthly Growth Retainer",
+    price: "$690",
+    period: "/month",
+    description: "SEO, AI search visibility, performance marketing, and ongoing support.",
+    features: [
+      "Monthly SEO or ad management plan",
+      "Tracking and reporting tied to enquiries",
+      "Ongoing maintenance and improvements",
+      "Month-to-month after initial setup",
+      "Dedicated account lead",
     ],
     highlighted: false,
   },
   {
-    name: "Product Partnership",
-    price: "$8,990",
-    period: "/month",
-    description: "Long‑term product & systems collaboration",
+    name: "Dedicated Team",
+    price: "$3,490",
+    period: "/month per developer",
+    description: "Senior engineers embedded in your roadmap, working your business hours.",
     features: [
-      "Everything in Product Build",
-      "Dedicated product engineers",
-      "Ongoing feature development",
-      "AI system evolution",
-      "Architecture & scaling support",
-      "Priority communication",
-      "Monthly product strategy calls",
+      "Full-time senior developers",
+      "Daily overlap with NZ & AU hours",
+      "Project lead and QA included",
+      "Scale the team up or down monthly",
+      "No recruitment or HR overheads",
     ],
-    highlighted: true,
+    highlighted: false,
   },
+];
+
+const servicePrices: { service: string; slug: string; price: string; unit: string; market: string | null }[] = [
+  { service: "AI & Automation", slug: "ai-automation", price: "From $3,900", unit: "per workflow", market: "$5,000–$15,000 typical" },
+  { service: "Custom Software Development", slug: "custom-software", price: "From $7,900", unit: "MVP / client portal", market: "$12,000–$18,000 typical" },
+  { service: "Systems Integration & Data", slug: "systems-integration", price: "From $2,900", unit: "per integration", market: null },
+  { service: "SEO & AI Search Visibility", slug: "seo", price: "From $890", unit: "per month", market: "$1,000–$3,300/mo typical" },
+  { service: "Performance Marketing", slug: "performance-marketing", price: "From $690", unit: "per month + ad spend", market: "$550–$1,300/mo or 10–20% typical" },
 ];
 
 export const PricingSection = () => {
@@ -58,11 +76,9 @@ export const PricingSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.span className="number-label">/05</motion.span>
+          <span className="number-label">/05</span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
-          <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
-            Pricing
-          </motion.span>
+          <span className="text-xs text-muted-foreground uppercase tracking-widest">Pricing</span>
         </motion.div>
 
         {/* Title Grid */}
@@ -72,13 +88,9 @@ export const PricingSection = () => {
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[0.95] pb-4"
               initial={{ y: "100%" }}
               animate={isInView ? { y: 0 } : {}}
-              transition={{
-                duration: 1.2,
-                ease: [0.25, 0.1, 0.25, 1],
-                delay: 0.2,
-              }}
+              transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
             >
-              Simple, transparent engagement models
+              Transparent Software &amp; Marketing Pricing
             </motion.h2>
           </div>
           <motion.div
@@ -88,170 +100,96 @@ export const PricingSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-md leading-relaxed mb-2">
-              Choose a structure that fits your product stage and growth goals.
+              Senior-level delivery at a fraction of typical New Zealand and Australian agency rates. All prices in USD,
+              with a fixed quote before any work begins.
             </p>
           </motion.div>
         </div>
 
-        {/* Pricing Cards with 3D Tilt Effect */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+        {/* Engagement models */}
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {pricingPlans.map((plan, index) => (
-            <Magnetic key={plan.name} strength={0.08}>
             <motion.div
-              className={`relative rounded-3xl p-10 md:p-12 overflow-hidden ${plan.highlighted
-                ? "bg-foreground text-background"
-                : "border border-border bg-card/50"
-                }`}
-              initial={{ opacity: 0, y: 80, rotateX: 10 }}
-              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-              transition={{
-                duration: 1,
-                delay: 0.5 + index * 0.2,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              whileHover={{
-                y: -15,
-                scale: 1.02,
-                transition: { duration: 0.4 },
-              }}
+              key={plan.name}
+              className={`relative rounded-3xl p-8 md:p-10 flex flex-col border ${
+                plan.highlighted ? "border-[#00d4aa]/25" : "border-border bg-card/50"
+              }`}
+              style={plan.highlighted ? { background: "linear-gradient(160deg, #0a1317 0%, #0e2423 100%)" } : undefined}
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, delay: 0.5 + index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              {/* Popular Badge with Pulse */}
-              {plan.highlighted && (
-                <motion.span
-                  className="absolute top-6 right-6 px-4 py-1.5 bg-background text-foreground text-xs font-semibold rounded-full"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ delay: 0.8 + index * 0.2, type: "spring" }}
-                >
-                  <motion.span
-                    animate={{ opacity: [1, 0.5, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    Popular
-                  </motion.span>
-                </motion.span>
-              )}
-
-              {/* Plan Name */}
-              <motion.h3
-                className="text-sm font-medium uppercase tracking-widest mb-6 opacity-60"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 0.6, y: 0 } : {}}
-                transition={{ delay: 0.6 + index * 0.2 }}
-              >
-                {plan.name}
-              </motion.h3>
-
-              {/* Price with Counter Animation */}
-              <div className="flex items-baseline gap-2 mb-4">
-                <motion.span
-                  className="text-6xl md:text-7xl font-bold"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{
-                    delay: 0.7 + index * 0.2,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
-                >
-                  {plan.price}
-                </motion.span>
-                {plan.period && (
-                  <motion.span
-                    className="text-xl opacity-60"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={isInView ? { opacity: 0.6, x: 0 } : {}}
-                    transition={{ delay: 0.8 + index * 0.2 }}
-                  >
-                    {plan.period}
-                  </motion.span>
-                )}
+              <h3 className="text-sm font-medium uppercase tracking-widest mb-6 text-muted-foreground">{plan.name}</h3>
+              <div className="flex items-baseline gap-2 mb-4 flex-wrap">
+                <span className="text-5xl md:text-6xl font-bold">{plan.price}</span>
+                <span className="text-base text-muted-foreground">{plan.period}</span>
               </div>
-
-              {/* Description */}
-              <motion.p
-                className={`text-sm mb-10 ${plan.highlighted ? "opacity-70" : "text-muted-foreground"
-                  }`}
-                initial={{ opacity: 0 }}
-                animate={
-                  isInView ? { opacity: plan.highlighted ? 0.7 : 1 } : {}
-                }
-                transition={{ delay: 0.8 + index * 0.2 }}
-              >
-                {plan.description}
-              </motion.p>
-
-              {/* Features with Staggered Animation */}
-              <ul className="space-y-4 mb-10">
-                {plan.features.map((feature, featureIndex) => (
-                  <motion.li
-                    key={feature}
-                    className="flex items-center gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{
-                      delay: 0.9 + index * 0.2 + featureIndex * 0.05,
-                    }}
-                  >
-                    <motion.div
-                      className={`w-5 h-5 rounded-full flex items-center justify-center ${plan.highlighted
-                        ? "bg-background/20"
-                        : "bg-foreground/10"
-                        }`}
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.3 }}
-                    >
+              <p className="text-sm text-muted-foreground mb-8 leading-relaxed">{plan.description}</p>
+              <ul className="space-y-3 mb-10 flex-1">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-center gap-3">
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center bg-foreground/10 shrink-0">
                       <Check size={12} />
-                    </motion.div>
-                    <span
-                      className={`text-sm ${plan.highlighted ? "opacity-90" : ""
-                        }`}
-                    >
-                      {feature}
                     </span>
-                  </motion.li>
+                    <span className="text-sm">{feature}</span>
+                  </li>
                 ))}
               </ul>
-
-              {/* CTA Button with Hover Effect */}
               <Magnetic strength={0.1}>
-                <motion.a
+                <a
                   href="#contact"
-                  className={`flex items-center justify-center gap-2 py-5 rounded-full font-medium overflow-hidden relative group ${plan.highlighted
-                    ? "bg-background text-foreground"
-                    : "bg-foreground text-background"
-                    }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className={`flex items-center justify-center gap-2 py-4 rounded-full font-medium transition-opacity hover:opacity-85 ${
+                    plan.highlighted ? "bg-[#00d4aa] text-[#050a12]" : "bg-foreground text-background"
+                  }`}
                 >
-                  <motion.span
-                    className={`absolute inset-0 ${plan.highlighted ? "bg-foreground" : "bg-background"
-                      }`}
-                    initial={{ y: "100%" }}
-                    whileHover={{ y: 0 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                  <span
-                    className={`relative z-10 transition-colors duration-300 ${plan.highlighted
-                      ? "group-hover:text-foreground"
-                      : "group-hover:text-background"
-                      }`}
-                  >
-                    Get Started
-                  </span>
-                  <ArrowUpRight
-                    size={18}
-                    className={`relative z-10 transition-colors duration-300 ${plan.highlighted
-                      ? "group-hover:text-foreground"
-                      : "group-hover:text-background"
-                      }`}
-                  />
-                </motion.a>
+                  Get a Fixed Quote
+                  <ArrowUpRight size={18} />
+                </a>
               </Magnetic>
             </motion.div>
-            </Magnetic>
           ))}
         </div>
+
+        {/* Starting prices by service - hidden for now
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 0.9 }}
+        >
+          <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-6">
+            Starting Prices by Service (USD)
+          </h3>
+          <div className="border-t border-border">
+            {servicePrices.map((row) => (
+              <Link
+                key={row.slug}
+                to={`/services/${row.slug}`}
+                className="group grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_auto] items-center gap-2 md:gap-6 py-5 border-b border-border"
+              >
+                <span className="text-lg md:text-xl font-semibold group-hover:translate-x-2 transition-transform duration-300">
+                  {row.service}
+                </span>
+                <span>
+                  <span className="text-lg font-semibold text-[#8fd6cb]">{row.price}</span>{" "}
+                  <span className="text-sm text-muted-foreground">{row.unit}</span>
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  {row.market ? (
+                    <>NZ/AU agencies: <span className="line-through decoration-muted-foreground/50">{row.market}</span></>
+                  ) : (
+                    "Fixed quote per system"
+                  )}
+                </span>
+                <ArrowUpRight size={18} className="hidden md:block text-muted-foreground group-hover:text-foreground transition-colors" />
+              </Link>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-4">
+            Market ranges are typical published NZ and Australian agency rates, converted to USD. Final pricing depends on
+            scope - every engagement starts with a fixed quote.
+          </p>
+        </motion.div>
+        */}
       </div>
     </section>
   );

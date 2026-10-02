@@ -2,57 +2,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { WarpTransition, WarpMode } from "@/components/WarpTransition";
-import {
-  ExternalLink,
-  ArrowUpRight,
-  Search,
-  Briefcase,
-  Lock,
-  Atom,
-  Server,
-  Wind,
-  Database,
-  PenTool,
-  Smartphone,
-  Code2,
-  Flame,
-  CreditCard,
-  Map,
-  Cpu,
-  Cloud,
-  Gamepad2,
-  Layers,
-  Globe,
-  Zap,
-  Rocket,
-  Layers as LayersIcon,
-} from "lucide-react";
+import { ArrowUpRight, Search, Briefcase, Lock, Rocket } from "lucide-react";
 import { Magnetic } from "@/components/AnimationComponents";
+import { TechLogo } from "@/components/TechLogo";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 
-// Icon mapping for tech stack
-const techIcons: Record<string, React.ElementType> = {
-  "React": Atom,
-  "React Native": Smartphone,
-  "Node.js": Server,
-  "Express": Server,
-  "Next.js": Cpu,
-  "TypeScript": Code2,
-  "JavaScript": Code2,
-  "Tailwind CSS": Wind,
-  "Framer Motion": LayersIcon,
-  "PostgreSQL": Database,
-  "MongoDB": Database,
-  "GraphQL": Globe,
-  "Firebase": Flame,
-  "AWS": Cloud,
-  "Stripe": CreditCard,
-  "Mapbox": Map,
-  "Unity": Gamepad2,
-  "Figma": PenTool,
-  "Encryption Libraries": Lock,
-  "SAAS": Cloud, // Fallback
-};
 import { projectsData } from "@/data/projects";
 
 const ProcessCard = ({
@@ -723,7 +677,6 @@ const ProjectDetails = () => {
 
           <div className="flex flex-wrap gap-4">
             {project.techStack.map((tech, index) => {
-              const Icon = techIcons[tech] || Zap;
               return (
                 <motion.div
                   key={tech}
@@ -735,7 +688,7 @@ const ProjectDetails = () => {
                   whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
                   title={tech}
                 >
-                  <Icon className="w-6 h-6 text-foreground" />
+                  <TechLogo name={tech} className="w-6 h-6" />
                   <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                     {tech}
                   </div>

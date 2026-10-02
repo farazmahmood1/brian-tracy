@@ -1,4 +1,31 @@
 {
+  "redirects": [
+    {
+      "source": "/services/ai-ml",
+      "destination": "/services/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/services/ux-design",
+      "destination": "/services/custom-software",
+      "permanent": true
+    },
+    {
+      "source": "/industries/industrial-sector",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/industries/decision-intelligence",
+      "destination": "/services/systems-integration",
+      "permanent": true
+    },
+    {
+      "source": "/industries/painting",
+      "destination": "/services",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

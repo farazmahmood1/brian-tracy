@@ -41,6 +41,13 @@ const countryMap: Record<string, string> = {
 const getCountryCode = (location: string): string =>
   countryMap[location] || "un";
 
+// Lead with the LegalTech and Agriculture case studies
+const featuredOrder = ["fyno", "bushel", "quidget-ai", "loopiq"];
+const featuredRank = (id: string) => {
+  const i = featuredOrder.indexOf(id);
+  return i === -1 ? featuredOrder.length : i;
+};
+
 export const ProjectsSection = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -49,7 +56,7 @@ export const ProjectsSection = () => {
 
   const filteredProjects = useMemo(() =>
     activeFilter === "All Projects" || !activeFilter
-      ? projectsData.slice(0, 4)
+      ? [...projectsData].sort((x, y) => featuredRank(x.id) - featuredRank(y.id)).slice(0, 4)
       : projectsData.filter((p) => p.category === activeFilter).slice(0, 4),
     [activeFilter]
   );
@@ -96,7 +103,7 @@ export const ProjectsSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
-              See how we help companies and innovators turn ideas into scalable products and technology.
+              Case studies from LegalTech, AgriTech, AI, and SaaS - real platforms we designed, built, and launched for our clients.
             </p>
             {/* Filter Tags */}
             <div className="flex flex-wrap gap-2">

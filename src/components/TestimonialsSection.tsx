@@ -14,8 +14,6 @@ const testimonials = [
     author: "Sarah Mitchell",
     role: "CEO",
     company: "Bushel",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
   },
   {
     quote:
@@ -23,8 +21,6 @@ const testimonials = [
     author: "Michael Chen",
     role: "Founder",
     company: "Curogram",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80",
   },
   {
     quote:
@@ -32,8 +28,6 @@ const testimonials = [
     author: "Emma Rodriguez",
     role: "Marketing Director",
     company: "Carbonmade",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80",
   },
   {
     quote:
@@ -41,8 +35,6 @@ const testimonials = [
     author: "Daniel Park",
     role: "Head of Growth",
     company: "SalesHero",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80",
   },
   {
     quote:
@@ -50,8 +42,6 @@ const testimonials = [
     author: "Jonathan Reeves",
     role: "Founder & CEO",
     company: "Signal Sigma",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&q=80",
   },
   {
     quote:
@@ -59,8 +49,6 @@ const testimonials = [
     author: "Priya Anand",
     role: "Co-Founder",
     company: "Quidget AI",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80",
   },
   {
     quote:
@@ -68,8 +56,6 @@ const testimonials = [
     author: "Marcus Whitmore",
     role: "VP Marketing",
     company: "FynoSign",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&q=80",
   },
   {
     quote:
@@ -77,8 +63,6 @@ const testimonials = [
     author: "Sophie Lambert",
     role: "Product Lead",
     company: "Loopiq",
-    image:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&q=80",
   },
   {
     quote:
@@ -86,8 +70,6 @@ const testimonials = [
     author: "Aaron Boyle",
     role: "Operations Director",
     company: "GreenWorks",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
   },
   {
     quote:
@@ -95,8 +77,6 @@ const testimonials = [
     author: "Brian Hollister",
     role: "Marketing Director",
     company: "Linkhorn Inspection Group",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80",
   },
   {
     quote:
@@ -104,8 +84,6 @@ const testimonials = [
     author: "Nate Beaumont",
     role: "Owner",
     company: "RedFish Inspections",
-    image:
-      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&q=80",
   },
 ];
 
@@ -283,15 +261,15 @@ export const TestimonialsSection = () => {
                     "{testimonials[current].quote}"
                   </blockquote>
                   <div className="flex items-center gap-4">
-                    <motion.img
-                      src={testimonials[current].image}
-                      alt={testimonials[current].author}
-                      loading="lazy"
-                      className="w-14 h-14 rounded-full object-cover grayscale"
+                    <motion.div
+                      aria-hidden
+                      className="w-14 h-14 rounded-full flex items-center justify-center text-base font-semibold tracking-wide bg-[#126b66]/15 text-[#126b66] border border-[#126b66]/30 shrink-0"
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.2 }}
-                    />
+                    >
+                      {testimonials[current].author.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                    </motion.div>
                     <div>
                       <p className="font-semibold text-lg">
                         {testimonials[current].author}
@@ -502,16 +480,16 @@ export const TestimonialsSection = () => {
             <div className="w-full h-px bg-foreground/20 mb-6" />
             <div className="flex items-baseline gap-2 mb-4">
               <span className="text-5xl font-bold">
-                <CountUp value={30} isInView={isInView} delay={bdMs} cycle={statsCycle} />
+                <CountUp value={6} isInView={isInView} delay={bdMs} cycle={statsCycle} />
               </span>
-              <span className="text-lg text-muted-foreground">/ 48 team members</span>
+              <span className="text-lg text-muted-foreground">/ 17 team members</span>
             </div>
             <div className="flex flex-wrap gap-2 mb-4">
-              {Array.from({ length: 48 }, (_, i) => (
+              {Array.from({ length: 17 }, (_, i) => (
                 <motion.div
                   key={i}
                   className={`w-[14px] h-[14px] rounded-full ${
-                    i < 30 ? "bg-[#126b66]" : "bg-[#126b66]/15"
+                    i < 6 ? "bg-[#126b66]" : "bg-[#126b66]/15"
                   }`}
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}

@@ -5,52 +5,43 @@ import {
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const services: { number: string; title: string; description: string; image: string; slug: string; trending?: boolean }[] = [
+const services: { number: string; title: string; description: string; tags: string[]; slug: string }[] = [
   {
     number: "01",
-    title: "AI/ML Development",
-    description: "Real‑world AI systems - from document intelligence to custom agents and workflows - integrated directly into your business.",
-    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=600&q=80",
-    slug: "ai-ml",
-    trending: true,
+    title: "AI & Automation",
+    description: "Custom AI agents, LLM and RAG solutions, document intelligence, and workflow automation that remove manual work and plug into the tools you already use.",
+    tags: ["AI Agents", "LLMs & RAG", "Workflow Automation"],
+    slug: "ai-automation",
   },
   {
     number: "02",
-    title: "Enterprise Software",
-    description: "Intelligent internal platforms, dashboards, and automation systems that streamline operations and unlock growth at scale.",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80",
-    slug: "enterprise",
+    title: "Custom Software Development",
+    description: "Web applications, SaaS platforms, mobile apps, client portals, and internal systems - built by one senior team, with full code ownership.",
+    tags: ["Web Apps", "SaaS", "Mobile Apps"],
+    slug: "custom-software",
   },
   {
     number: "03",
-    title: "SaaS Development",
-    description: "Revenue‑ready AI products and SaaS platforms engineered for speed, security, and effortless scalability from day one.",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
-    slug: "saas",
+    title: "Systems Integration & Data",
+    description: "API and Xero integrations, data pipelines, and real-time dashboards that connect your systems and end double entry for good.",
+    tags: ["API Integrations", "Xero", "Dashboards"],
+    slug: "systems-integration",
   },
   {
     number: "04",
-    title: "Mobile App Development",
-    description: "Native and cross‑platform iOS and Android apps engineered for performance, polish, and scale - shipped fast and built to retain users from the first launch.",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80",
-    slug: "mobile",
+    title: "SEO & AI Search Visibility",
+    description: "Technical SEO, local SEO, and AI search optimisation that put your business at the top of Google - and inside ChatGPT, Perplexity, and AI Overviews answers.",
+    tags: ["Technical SEO", "Local SEO", "GEO"],
+    slug: "seo",
   },
   {
     number: "05",
-    title: "Paid Ads",
-    description: "Intent-driven campaigns across Google, Meta, LinkedIn, and TikTok - engineered with API-level tracking and CRO landing pages that turn ad spend into booked revenue.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
-    slug: "paid-ads",
-    trending: true,
-  },
-  {
-    number: "06",
-    title: "Social Media Marketing",
-    description: "Data-driven social strategies, content creation, and paid campaigns that grow your audience and turn followers into qualified customers.",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
-    slug: "social-media",
+    title: "Performance Marketing",
+    description: "Google, Meta, LinkedIn, and TikTok ads plus social media - with server-side tracking and landing pages that turn ad spend into qualified leads.",
+    tags: ["Google Ads", "Meta Ads", "Social Media"],
+    slug: "performance-marketing",
   },
 ];
 
@@ -109,7 +100,7 @@ export const ServicesSection = () => {
                 delay: 0.2,
               }}
             >
-              Tech & Growth Solutions for Companies
+              Software, AI &amp; Growth Services for NZ &amp; Australia
             </motion.h2>
           </div>
           <motion.p
@@ -118,7 +109,7 @@ export const ServicesSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            We partner with founders and growing teams to build AI‑powered products, intelligent systems, scalable software platforms, and marketing engines that drive measurable revenue.
+            Five services, one senior team: we build the software and AI that run your business, connect the systems you already use, and bring in qualified leads through search and paid ads.
           </motion.p>
         </div>
 
@@ -127,39 +118,45 @@ export const ServicesSection = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.number}
-              className="group border-t border-border cursor-pointer"
+              className="group border-t border-border"
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
-              onClick={() => navigate(`/services/${service.slug}`)}
             >
-              <div className="py-6 md:py-8 flex items-start md:items-center justify-between gap-6">
-                <div className="flex items-start md:items-center gap-6 md:gap-16 flex-1">
-                  <span className="text-sm text-muted-foreground group-hover:text-foreground font-medium min-w-[40px] transition-colors duration-300">
-                    /{service.number}
-                  </span>
-                  <div className="md:overflow-visible">
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold group-hover:translate-x-7 transition-transform duration-500 inline-flex items-center gap-3">
-                      {service.title}
-                      {service.trending && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00d4aa]/15 text-[#00d4aa] font-semibold uppercase tracking-wider border border-[#00d4aa]/30 align-middle">
-                          Trending
-                        </span>
-                      )}
-                    </h3>
+              <Link to={`/services/${service.slug}`} className="block">
+                <div className="py-6 md:py-8 flex items-start md:items-center justify-between gap-6">
+                  <div className="flex items-start md:items-center gap-6 md:gap-16 flex-1">
+                    <span className="text-sm text-muted-foreground group-hover:text-foreground font-medium min-w-[40px] transition-colors duration-300">
+                      /{service.number}
+                    </span>
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6 flex-1">
+                      <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold group-hover:translate-x-7 transition-transform duration-500">
+                        {service.title}
+                      </h3>
+                      <ul className="flex flex-wrap gap-2 lg:ml-auto lg:mr-8" aria-label={`${service.title} services`}>
+                        {service.tags.map((tag) => (
+                          <li
+                            key={tag}
+                            className="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground group-hover:border-[#00d4aa]/40 group-hover:text-[#00d4aa] transition-colors duration-300"
+                          >
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="w-12 h-12 shrink-0 rounded-full border border-border group-hover:bg-foreground group-hover:border-foreground group-hover:rotate-45 flex items-center justify-center transition-all duration-400">
+                    <ArrowUpRight size={20} className="text-foreground group-hover:text-background transition-colors duration-300" />
                   </div>
                 </div>
-                <div className="w-12 h-12 rounded-full border border-border group-hover:bg-foreground group-hover:border-foreground group-hover:rotate-45 flex items-center justify-center transition-all duration-400">
-                  <ArrowUpRight size={20} className="text-foreground group-hover:text-background transition-colors duration-300" />
-                </div>
-              </div>
 
-              {/* Expandable description */}
-              <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
-                <p className="text-muted-foreground pb-8 pl-0 md:pl-[104px] max-w-2xl leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
+                {/* Expandable description */}
+                <div className="max-h-0 group-hover:max-h-[200px] overflow-hidden transition-all duration-500">
+                  <p className="text-muted-foreground pb-8 pl-0 md:pl-[104px] max-w-2xl leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+              </Link>
             </motion.div>
           ))}
           <motion.div
@@ -195,12 +192,11 @@ export const ServicesSection = () => {
 
       {/* SEO description */}
       <div className="sr-only">
-        <h3>Our Software and Digital Services</h3>
+        <h3>Software, AI and Growth Services for New Zealand and Australia</h3>
         <p>
-          Forrof is a full service software agency providing branding, UI UX design,
-          web development, SaaS development, SEO, digital marketing, cloud solutions,
-          automation, cybersecurity, and digital transformation services for startups
-          and growing businesses.
+          Forrof is a software, AI, and growth agency serving New Zealand and Australian businesses:
+          AI and automation, custom software development, systems integration and data,
+          SEO and AI search visibility, and performance marketing.
         </p>
       </div>
     </section>

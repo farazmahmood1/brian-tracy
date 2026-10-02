@@ -41,25 +41,22 @@ interface IndustryLink {
 }
 
 const industryLinks: IndustryLink[] = [
-  { name: "Industrial Sector", slug: "industrial-sector" },
-  { name: "Decision Intelligence", slug: "decision-intelligence" },
+  { name: "LegalTech & Law", slug: "legaltech" },
+  { name: "Agriculture & AgriTech", slug: "agriculture" },
   { name: "FinTech & Finance", slug: "fintech-finance" },
   { name: "Health & Wellness", slug: "health-wellness" },
-  { name: "LegalTech & Law", slug: "legaltech" },
   { name: "Logistics & Transportation", slug: "transportation" },
-  { name: "Painting", slug: "painting" },
 ];
 
 interface BusinessSizeLink {
   name: string;
   href: string;
-  popular?: boolean;
 }
 
 const businessSizeLinks: BusinessSizeLink[] = [
-  { name: "Startups, MVPs & POCs", href: "/services/mvp", popular: true },
+  { name: "Startups, MVPs & POCs", href: "/services/mvp" },
   { name: "Small Businesses", href: "/industries/small-business" },
-  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business", popular: true },
+  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business" },
   { name: "Enterprises", href: "/services/enterprise" },
   { name: "Government & Public Sector", href: "/industries/government" },
 ];
@@ -68,68 +65,33 @@ interface ServiceLink {
   name: string;
   slug: string;
   subs: string[];
-  trending?: boolean;
 }
 
 const serviceLinks: ServiceLink[] = [
   {
-    name: "AI/ML Development",
-    slug: "ai-ml",
-    subs: ["AI Consulting", "Custom AI and ML Solutions", "Proof of Value / AI Prototype", "Generative AI & LLM-based Solutions", "Predictive Analytics & Forecasting", "AI-Powered Product Integrations"],
-    trending: true,
+    name: "AI & Automation",
+    slug: "ai-automation",
+    subs: ["AI Agents & Assistants", "LLM & RAG Solutions", "Business Process Automation", "Document Intelligence", "Proof of Value / AI Prototype", "Predictive Analytics & ML"],
   },
   {
-    name: "Enterprise Software",
-    slug: "enterprise",
-    subs: ["Enterprise Innovation Labs", "CIO / CTO Offices", "Corporate Digital Ventures", "Regional Divisions and R&D", "Enterprise AI / Automation"],
+    name: "Custom Software Development",
+    slug: "custom-software",
+    subs: ["Web Application Development", "SaaS Product Development", "Mobile App Development", "Enterprise & Internal Software", "MVP & Proof of Concept", "Product Strategy & Architecture"],
   },
   {
-    name: "SaaS Development",
-    slug: "saas",
-    subs: ["Enterprise Application Development", "Custom AI/ML Solutions", "Digital Transformation", "Cross-platform SaaS Solutions", "End-to-end SaaS Product Development"],
+    name: "Systems Integration & Data",
+    slug: "systems-integration",
+    subs: ["API Integration Development", "Accounting & Xero Integrations", "Practice & Farm Software Integrations", "Data Pipelines & Warehousing", "BI Dashboards & Reporting", "Legacy System Modernisation"],
   },
   {
-    name: "MVP & POC",
-    slug: "mvp",
-    subs: ["Product Discovery & Analysis", "Rapid Prototyping & UX/UI", "Technical Feasibility Planning", "Lean Product Roadmap", "No-Code/Low-Code MVPs", "Pitch Deck & Investor Materials"],
+    name: "SEO & AI Search Visibility",
+    slug: "seo",
+    subs: ["Technical SEO", "AI Search Optimisation (GEO)", "Local SEO", "Content Strategy & Writing", "SEO Audits", "Schema & Structured Data"],
   },
   {
-    name: "Product Strategy",
-    slug: "strategy",
-    subs: ["Technical Due Diligence", "System Design & Architecture", "AI Strategy & Roadmapping", "CTO-as-a-Service", "Technology Stack Selection", "DevOps Consulting"],
-  },
-  {
-    name: "Mobile App Development",
-    slug: "mobile",
-    subs: ["iOS & Android Apps", "Cross-platform Development", "App UI/UX Design", "App Maintenance & Support"],
-  },
-  {
-    name: "Branding & UI/UX",
-    slug: "ux-design",
-    subs: ["Web-app Design", "Mobile Design", "Wireframing & Prototyping", "User Research", "UX Audit", "Ongoing Design Support"],
-  },
-  {
-    name: "Social Media Marketing",
-    slug: "social-media",
-    subs: ["Social Media Strategy", "Content Creation & Copywriting", "Community Management", "Paid Social Advertising", "Analytics & Reporting", "Influencer Marketing"],
-  },
-  {
-    name: "Paid Ads",
-    slug: "paid-ads",
-    subs: ["Google Search & PMax", "Paid Social (Meta, TikTok, LinkedIn)", "Retargeting & Remarketing", "Local Service Ads (LSA)", "Conversion Tracking & API", "Landing Page CRO"],
-    trending: true,
-  },
-  {
-    name: "Google Ads",
-    slug: "google-ads",
-    subs: ["Google Search Ads", "Performance Max (PMax)", "YouTube Ads", "Display & Discovery", "Local Service Ads", "Google Shopping"],
-    trending: true,
-  },
-  {
-    name: "Meta Ads",
-    slug: "meta-ads",
-    subs: ["Facebook & Instagram Ads", "Lookalike & Custom Audiences", "Creative Production & Testing", "Conversion API (CAPI)", "Retargeting Funnels", "Reporting & Attribution"],
-    trending: true,
+    name: "Performance Marketing",
+    slug: "performance-marketing",
+    subs: ["Google Ads", "Meta Ads", "LinkedIn Ads", "Social Media Marketing", "Landing Pages & CRO", "Conversion Tracking"],
   },
 ];
 
@@ -188,11 +150,6 @@ const ServiceItem = ({ service, onNavigate }: { service: ServiceLink; onNavigate
         >
           {service.name}
         </a>
-        {service.trending && (
-          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#00d4aa]/15 text-[#00d4aa] font-semibold uppercase tracking-wider border border-[#00d4aa]/30">
-            Trending
-          </span>
-        )}
         <button
           onMouseEnter={() => setOpen(true)}
           onClick={() => setOpen(!open)}
@@ -747,9 +704,6 @@ export const NavbarMenuIcon = () => {
                                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                               )}
                               {link.name}
-                              {link.popular && (
-                                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-accent/15 text-accent font-semibold uppercase tracking-wider">Popular</span>
-                              )}
                             </span>
                           </motion.a>
                         );

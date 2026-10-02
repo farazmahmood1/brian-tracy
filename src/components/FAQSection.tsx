@@ -6,34 +6,39 @@ import { useNavigate } from "react-router-dom";
 
 const faqs = [
   {
-    question: "What software, AI, and marketing services does Forrof provide?",
+    question: "What services does Forrof provide to New Zealand and Australian businesses?",
     answer:
-      "Forrof is a full-service agency. On the product side: custom software development, AI/ML solutions, SaaS platforms, mobile apps, branding, UI/UX design, and automation. On the growth side: Google Ads, Meta Ads, LinkedIn ads, TikTok ads, SEO, and social media marketing.",
+      "Forrof provides five core services: AI & automation (AI agents, LLM and RAG solutions, workflow automation), custom software development (web apps, SaaS, mobile apps, client portals), systems integration & data (API and Xero integrations, dashboards), SEO & AI search visibility, and performance marketing (Google, Meta, and LinkedIn ads). We specialise in LegalTech and Agriculture.",
   },
   {
-    question: "Do you run paid ad campaigns on Google, Meta, and LinkedIn?",
+    question: "Do you build software and AI for law firms?",
     answer:
-      "Yes. We manage end-to-end paid ad campaigns across Google (Search, PMax, YouTube, LSA), Meta (Facebook & Instagram with server-side Conversion API), LinkedIn, TikTok, and Microsoft Bing - with API-level conversion tracking and CRO-optimized landing pages built per ad group.",
+      "Yes. We have built e-signing platforms, AI assistants for legal professionals, and lawyer-client applications. We build client portals, document automation, and legal AI that integrate with practice management systems such as Actionstep, LEAP, and Smokeball - designed around NZ Law Society generative AI guidance, with human review and client confidentiality built in.",
   },
   {
-    question: "How long until we see ROI from your ad campaigns?",
+    question: "Do you work with farms and agribusinesses?",
     answer:
-      "Most clients see qualified leads within the first 2-3 weeks of launch. Strong ROAS typically stabilizes by month 2-3 once tracking is mature and we've identified winning audiences and creative. Scaling phase usually begins from month 3 onward as the algorithm learns from clean conversion signals.",
+      "Yes. We build and support farm management software, offline-ready field apps, equipment and agronomy data integrations (including John Deere and Climate FieldView), and automated compliance reporting for agribusinesses in New Zealand and Australia.",
   },
   {
-    question: "How much does custom software development cost at Forrof?",
+    question: "How much does custom software development cost?",
     answer:
-      "Pricing depends on project requirements, features, and complexity. Our custom software and web development projects typically start from $5,490, with monthly retainers available from $8,990 per month for ongoing design, development, and SEO services.",
+      "Prices are in USD. Fixed-scope projects such as an MVP or client portal start from $7,900, single system integrations from $2,900, and AI automation workflows from $3,900. Monthly SEO starts from $890, performance marketing management from $690 plus ad spend, and a dedicated developer from $3,490 per month. Every project starts with a fixed quote, so you know the cost before work begins.",
   },
   {
-    question: "Do you work with international and remote clients?",
+    question: "Can we meet during New Zealand and Australian business hours?",
     answer:
-      "Yes, Forrof works with international clients worldwide. We specialize in remote collaboration using modern communication tools to deliver web development, software, and digital solutions across different time zones.",
+      "Yes. We schedule live calls, demos, and support between 12pm and 5pm AEST (2pm-5pm NZT), with async updates in your inbox every morning. You get a dedicated project lead and a weekly progress demo.",
   },
   {
-    question: "Do you offer revisions and ongoing support?",
+    question: "Is our data secure and compliant with NZ and Australian privacy law?",
     answer:
-      "Yes, all our projects include revisions to ensure complete satisfaction. We also provide ongoing support, performance optimization, SEO maintenance, and feature enhancements after project delivery.",
+      "We design every system around the New Zealand Privacy Act 2020 and the Australian Privacy Principles - with encryption, role-based access, audit trails, and Australian data hosting options. AI solutions use enterprise APIs that do not train on your data.",
+  },
+  {
+    question: "Who owns the code and do you provide ongoing support?",
+    answer:
+      "You own 100% of the source code, data, and accounts from day one. After launch we offer ongoing support, maintenance, and feature development on a monthly plan - or a full handover to your own team.",
   },
 ];
 
@@ -82,7 +87,7 @@ export const FAQSection = () => {
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                Frequently Asked Questions About Our Product, AI & Marketing Services
+                Frequently Asked Questions About Software, AI & Growth Services in NZ & Australia
               </motion.h2>
             </div>
             <motion.p
@@ -204,11 +209,25 @@ export const FAQSection = () => {
         </div>
       </div>
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((f) => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          }),
+        }}
+      />
       <div className="sr-only">
-        <h3>Software Agency FAQ</h3>
+        <h3>Software, AI and Marketing Agency FAQ - New Zealand and Australia</h3>
         <p>
-          Learn more about Forrof’s software development, web development, UI UX design,
-          SEO services, pricing, timelines, and international client support.
+          Answers about Forrof's AI automation, custom software development, systems integration,
+          SEO, performance marketing, pricing, and support for law firms and agribusinesses in New Zealand and Australia.
         </p>
       </div>
     </section>

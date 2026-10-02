@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useRef, useMemo, Suspense, lazy, useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { LineReveal } from "./AnimationComponents";
+import { Link } from "react-router-dom";
 const HeroGlobe = lazy(() => import("./HeroGlobe"));
 
 const generateStars = (count: number) =>
@@ -151,7 +152,7 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
       {/* Main Content */}
       <div
         ref={contentRef}
-        className="relative z-20 px-4 md:px-8 lg:px-16 xl:px-20 w-full h-full flex flex-col justify-between pt-[18vh] pb-[6vh] md:pb-[8vh]"
+        className="relative z-20 px-4 md:px-8 lg:px-16 xl:px-20 w-full h-full flex flex-col justify-between gap-8 pt-[15vh] pb-[6vh] md:pb-[7vh]"
       >
         {/* Top - /01 label + heading + subtitle + CTA */}
         <div className="max-w-[1800px] mx-auto w-full">
@@ -180,7 +181,7 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 }}
             >
-              Space of Intelligent Software, AI & Marketing Systems
+              Software, AI & Growth · New Zealand & Australia
             </motion.span>
           </motion.div>
 
@@ -188,13 +189,13 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
             className="flex-shrink-0"
           >
             <motion.h1
-              className="text-[11vw] md:text-[6.5vw] lg:text-[4.5vw] font-bold leading-[1.05] tracking-[-0.03em]"
+              className="text-[10vw] md:text-[6vw] lg:text-[3.9vw] font-bold leading-[1.05] tracking-[-0.03em]"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
             >
               <span className="text-white">
-                Building Intelligent Software
+                Custom Software & AI Automation
               </span>
               <br />
               <span
@@ -203,9 +204,9 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
                   backgroundImage: "linear-gradient(135deg, #ffffff 0%, #48f0e7 40%, #00d4aa 70%, #126b66 100%)",
                 }}
               >
-                & Scalable Growth Engines
+                for New Zealand &amp;
                 <br />
-                for the AI Era
+                Australian Businesses
               </span>
             </motion.h1>
 
@@ -215,7 +216,7 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.8 }}
             >
-              Custom software, AI systems, and growth marketing - built to scale companies worldwide.
+              Custom software, AI automation, system integrations, and growth marketing - specialists in LegalTech and Agriculture, with live calls during NZ &amp; AU business hours.
             </motion.p>
 
               <motion.a
@@ -228,9 +229,30 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.1, duration: 0.8 }}
               >
-                Let's Talk
+                Book a Free Consultation
                 <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-700" />
               </motion.a>
+
+              <motion.div
+                className="flex flex-wrap gap-3 mt-5"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.3, duration: 0.8 }}
+              >
+                {[
+                  { label: "For Law Firms", href: "/industries/legaltech" },
+                  { label: "For Agriculture", href: "/industries/agriculture" },
+                ].map((niche) => (
+                  <Link
+                    key={niche.href}
+                    to={niche.href}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-white/80 text-xs font-medium hover:border-[#48f0e7]/60 hover:text-white transition-colors duration-300"
+                  >
+                    {niche.label}
+                    <ArrowUpRight size={13} />
+                  </Link>
+                ))}
+              </motion.div>
           </motion.div>
         </div>
 
@@ -246,14 +268,14 @@ export const HeroSection = ({ onGlobeReady }: HeroSectionProps = {}) => {
               transition={{ delay: 1.2, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <span className="text-white/90">
-                AI platforms, scalable SaaS, intelligent automation, or growth marketing -
+                Law firms, agribusinesses, and growing companies across NZ &amp; Australia -
               </span>{" "}
               <span className="text-white/40">
-                we build software that scales and campaigns that compound.
+                software that removes manual work.
               </span>
             </motion.p>
             <div className="flex gap-3 flex-wrap justify-end">
-              {["AI", "ML", "SaaS", "Paid Ads"].map((tag, i) => (
+              {["LegalTech", "AgriTech", "AI Automation", "Xero"].map((tag, i) => (
                 <motion.span
                   key={tag}
                   className="px-5 py-2 border-2 border-[#48f0e7]/40 text-white/80 rounded-full text-[11px] uppercase tracking-[0.2em] hover:border-[#48f0e7]/70 hover:text-[#48f0e7] transition-colors duration-300"

@@ -10,32 +10,44 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useCallback } from "react";
 import { SOCIAL_LINKS } from "@/constants/links";
 
-const serviceLinks: { name: string; href: string; trending?: boolean }[] = [
-  { name: "AI/ML Development", href: "/services/ai-ml", trending: true },
-  { name: "Enterprise Software", href: "/services/enterprise" },
-  { name: "SaaS Development", href: "/services/saas" },
-  { name: "MVP & POC", href: "/services/mvp" },
-  { name: "Product Strategy", href: "/services/strategy" },
-  { name: "Paid Ads", href: "/services/paid-ads", trending: true },
-  { name: "Mobile App Development", href: "/services/mobile" },
-  { name: "Branding & UI/UX", href: "/services/ux-design" },
-  { name: "Social Media Marketing", href: "/services/social-media" },
+const serviceLinks = [
+  { name: "AI & Automation", href: "/services/ai-automation" },
+  { name: "Custom Software Development", href: "/services/custom-software" },
+  { name: "Systems Integration & Data", href: "/services/systems-integration" },
+  { name: "SEO & AI Search Visibility", href: "/services/seo" },
+  { name: "Performance Marketing", href: "/services/performance-marketing" },
+];
+
+// Core niches - shown as the highlighted band above the link columns
+const focusIndustries = [
+  {
+    label: "LegalTech & Law Firms",
+    desc: "Software, AI, and automation for New Zealand and Australian law firms - e-signing, client portals, legal AI assistants, and practice integrations.",
+    href: "/industries/legaltech",
+    cta: "Explore LegalTech",
+    proof: { name: "FynoSign case study", href: "/project/fyno" },
+  },
+  {
+    label: "Agriculture & AgriTech",
+    desc: "Farm software, automation, and ongoing support for agribusinesses - farm management platforms, equipment and data integrations, and compliance reporting.",
+    href: "/industries/agriculture",
+    cta: "Explore Agriculture",
+    proof: { name: "Bushel case study", href: "/project/bushel" },
+  },
 ];
 
 const industryLinks = [
-  { name: "Industrial Sector", href: "/industries/industrial-sector" },
-  { name: "Decision Intelligence", href: "/industries/decision-intelligence" },
+  { name: "LegalTech & Law", href: "/industries/legaltech" },
+  { name: "Agriculture & AgriTech", href: "/industries/agriculture" },
   { name: "FinTech & Finance", href: "/industries/fintech-finance" },
   { name: "Health & Wellness", href: "/industries/health-wellness" },
-  { name: "LegalTech & Law", href: "/industries/legaltech" },
   { name: "Logistics & Transportation", href: "/industries/transportation" },
-  { name: "Painting", href: "/industries/painting" },
 ];
 
 const businessSizeLinks = [
-  { name: "Startups, MVPs & POCs", href: "/services/mvp", popular: true },
+  { name: "Startups, MVPs & POCs", href: "/services/mvp" },
   { name: "Small Businesses", href: "/industries/small-business" },
-  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business", popular: true },
+  { name: "Mid-Sized Businesses", href: "/industries/mid-sized-business" },
   { name: "Enterprises", href: "/services/enterprise" },
   { name: "Government & Public Sector", href: "/industries/government" },
 ];
@@ -108,6 +120,54 @@ export const Footer = () => {
           </h2>
         </motion.div>
 
+        {/* Focus industries */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-sm font-semibold uppercase tracking-widest mb-6">
+            Specialists for New Zealand &amp; Australia
+          </p>
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            {focusIndustries.map((item) => (
+              <div
+                key={item.label}
+                className="group relative rounded-2xl border border-[#00d4aa]/20 hover:border-[#00d4aa]/40 p-6 md:p-8 transition-colors duration-300"
+                style={{ background: "linear-gradient(160deg, #0a1317 0%, #0d1f1f 100%)" }}
+              >
+                <span className="text-[10px] uppercase tracking-[0.25em] text-[#00d4aa]/80 font-semibold block mb-3">
+                  Core Focus
+                </span>
+                <h3 className="text-2xl md:text-3xl font-semibold mb-3">{item.label}</h3>
+                <p className="text-sm text-white/60 leading-relaxed mb-6 max-w-xl">{item.desc}</p>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                  <a
+                    href={item.href}
+                    onClick={(e) => { e.preventDefault(); handleNav(item.href); }}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#8fd6cb] hover:text-white transition-colors"
+                  >
+                    {item.cta}
+                    <ArrowUpRight size={14} />
+                  </a>
+                  {item.proof && (
+                    <a
+                      href={item.proof.href}
+                      onClick={(e) => { e.preventDefault(); handleNav(item.proof!.href); }}
+                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {item.proof.name}
+                      <ArrowUpRight size={12} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Main Footer Content - 5 columns matching navbar */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-8 mb-16">
           {/* Services */}
@@ -127,11 +187,6 @@ export const Footer = () => {
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 inline-flex items-center gap-1.5 group"
                   >
                     {link.name}
-                    {link.trending && (
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#00d4aa]/15 text-[#00d4aa] font-semibold uppercase tracking-wider border border-[#00d4aa]/30">
-                        Trending
-                      </span>
-                    )}
                     <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </li>
@@ -180,9 +235,6 @@ export const Footer = () => {
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 inline-flex items-center gap-1.5 group"
                   >
                     {link.name}
-                    {link.popular && (
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-accent/15 text-accent font-semibold uppercase tracking-wider">Popular</span>
-                    )}
                     <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </li>
@@ -224,7 +276,7 @@ export const Footer = () => {
           >
             <p className="text-sm font-semibold uppercase tracking-widest mb-6">Connect</p>
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-              We engineer intelligent software products that turn technology into a long-term growth engine.
+              Software, AI, and growth for New Zealand and Australian businesses - with a focus on legal and agriculture.
             </p>
             <div className="flex gap-3 mb-6">
               {socialLinks.map((social) => (

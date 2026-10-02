@@ -4,21 +4,18 @@ import {
   useInView,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown, Send, ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { Check, ChevronDown, Send, ArrowUpRight, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 
 type ServiceOption = { value: string; label: string };
 
 const serviceOptions: ServiceOption[] = [
-  { value: "paid-ads", label: "Paid Ads (Google, Meta, LinkedIn)" },
-  { value: "google-ads", label: "Google Ads" },
-  { value: "meta-ads", label: "Meta Ads" },
-  { value: "social-media", label: "Social Media Marketing" },
-  { value: "seo", label: "SEO" },
-  { value: "software", label: "Custom Software & Web" },
-  { value: "ai-ml", label: "AI / ML Development" },
-  { value: "saas", label: "SaaS Development" },
+  { value: "ai-automation", label: "AI & Automation" },
+  { value: "custom-software", label: "Custom Software Development" },
+  { value: "systems-integration", label: "Systems Integration & Data" },
+  { value: "seo", label: "SEO & AI Search Visibility" },
+  { value: "performance-marketing", label: "Performance Marketing" },
   { value: "not-sure", label: "Not sure yet - let's talk" },
 ];
 
@@ -178,8 +175,9 @@ export const ContactSection = () => {
 
   const contactInfo = [
     { icon: Mail, label: "Email", value: "hello@forrof.io" },
-    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-    { icon: MapPin, label: "Location", value: "New York, NY" },
+    { icon: Phone, label: "Phone", value: "+1 (914) 899-0442" },
+    { icon: MapPin, label: "Office", value: "312 W 2nd St Unit #A8583, Casper, WY 82601, USA" },
+    { icon: Clock, label: "NZ & AU Hours", value: "Live calls 12–5pm AEST · 2–5pm NZT" },
   ];
 
   return (
