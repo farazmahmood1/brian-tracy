@@ -13,9 +13,10 @@ import { toast } from 'sonner';
 import type { BlogPost } from '@/types/api';
 import ReactQuill from 'react-quill-new';
 import "react-quill-new/dist/quill.snow.css";
+import { looksLikeMarkdown, markdownToHtml } from '@/lib/markdownToHtml';
 
 export default function AdminBlogs() {
-    const quillRef = useRef(null);
+    const quillRef = useRef<ReactQuill>(null);
     const [blogs, setBlogs] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -37,6 +38,19 @@ export default function AdminBlogs() {
         metaDescription: '',
         metaKeywords: '',
     });
+
+    // Markdown pasted into the editor (for example from a blog draft file) is converted to
+    // real headings, lists and links. Runs before Quill's own paste handling.
+    const handleContentPaste = (e: React.ClipboardEvent) => {
+        const text = e.clipboardData.getData('text/plain');
+        const editor = quillRef.current?.getEditor();
+        if (!editor || !looksLikeMarkdown(text)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const range = editor.getSelection(true);
+        if (range.length) editor.deleteText(range.index, range.length);
+        editor.clipboard.dangerouslyPasteHTML(range.index, markdownToHtml(text), 'user');
+    };
 
     const fetchBlogs = async () => {
         try {
@@ -240,8 +254,9 @@ export default function AdminBlogs() {
 
                             <div className="space-y-2">
                                 <Label>Content</Label>
-                                <div className="h-[300px] mb-12">
+                                <div className="h-[300px] mb-12" onPasteCapture={handleContentPaste}>
                                     <ReactQuill
+                                        ref={quillRef}
                                         theme="snow"
                                         value={formData.content}
                                         onChange={(content) => setFormData({ ...formData, content })}
