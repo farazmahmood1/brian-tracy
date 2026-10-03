@@ -1,26 +1,23 @@
 import { ServicePageTemplate, TerminalBlock, type ServicePageContent } from "@/components/ServicePageTemplate";
+import { seo } from "@/constants/seo";
 import { WireSphere3D } from "@/components/AiMlVisuals";
 
 const agriculture: ServicePageContent = {
   slug: "agriculture",
   name: "Agriculture & AgriTech Software",
   section: { label: "Industries", path: "/industries" },
-  meta: {
-    title: "Agriculture & AgriTech Software Development NZ & Australia | Farm Software, Automation & Support | Forrof",
-    description: "Agriculture software development, automation, and ongoing support for New Zealand and Australian farms and agribusinesses - farm management platforms, offline field apps, John Deere and Climate FieldView integrations, and compliance reporting.",
-    keywords: "agriculture software development, AgriTech New Zealand, farm management software Australia, farm software development, agritech software company, farm app development, John Deere API integration, Climate FieldView integration, Freshwater Farm Plan software, farm compliance reporting, agribusiness automation",
-  },
+  meta: seo("/industries/agriculture"),
   hero: {
     heading: "Agriculture & AgriTech Software",
-    intro: "Farm management platforms, offline-ready field apps, equipment and data integrations, automation, and ongoing support - for farms and agribusinesses across New Zealand and Australia.",
+    intro: "Farm management platforms, offline-ready field apps, equipment and data integrations, automation and ongoing support for farms and agribusinesses.",
     cta: "Book a Free AgriTech Consultation",
   },
   valueProp: {
     heading: "Farm Software That Works the Way You Farm",
-    intro: "Most farms already juggle several systems that don't talk to each other. We connect them, automate the paperwork, and build tools that work in the paddock - not just in the office.",
+    intro: "Most farms already juggle several systems that don't talk to each other. We connect them, automate the paperwork, and build tools that work in the field as well as the office.",
     problems: [
       "Re-entering the same data into farm, equipment, accounting, and compliance systems?",
-      "Compliance reporting - like Freshwater Farm Plans - eating hours of paperwork every season?",
+      "Compliance and audit reporting eating hours of paperwork every season?",
       "Field apps that stop working the moment you lose rural coverage?",
       "Unsure whether new technology will actually pay back on your operation?",
       "Software vendors who disappear after launch, leaving no one to support your team?",
@@ -35,18 +32,18 @@ const agriculture: ServicePageContent = {
   },
   services: {
     heading: "Agriculture Software, Automation & Support Services",
-    intro: "From a single integration to a full farm management platform - designed for New Zealand and Australian conditions, and supported long after launch.",
+    intro: "From a single integration to a full farm management platform - designed for real farm conditions and supported long after launch.",
     cards: [
       { title: "Farm Management Platforms", desc: "Field, stock, contract, and financial records in one system - like the Bushel farm management platform we helped build for grain farmers." },
       { title: "Equipment & Agronomy Integrations", desc: "Connect John Deere Operations Center, Climate FieldView, and other farm platforms with your records and reporting." },
-      { title: "Offline-Ready Field Apps", desc: "iOS and Android apps for recording paddock work, spraying, inspections, and stock movements - even without coverage." },
+      { title: "Offline-Ready Field Apps", desc: "iOS and Android apps for recording field work, spraying, inspections, and stock movements - even without coverage." },
       { title: "Compliance & Reporting Automation", desc: "Automated reports for environmental, food safety, and processor requirements, built from the data you already capture." },
       { title: "Supply Chain & Traceability", desc: "Track produce and stock from farm to processor with a full audit trail for buyers and auditors." },
       { title: "AgriTech Support & Maintenance", desc: "Ongoing support, monitoring, updates, and user help for farm software and agritech products." },
     ],
   },
   visual: {
-    heading: "Built for the Paddock and the Office",
+    heading: "Built for the Field and the Office",
     desc: "Offline sync, simple interfaces for field staff, and reliable integrations behind the scenes - so the system gets used every day, not just set up once.",
     terminal: (
       <TerminalBlock
@@ -91,7 +88,7 @@ const agriculture: ServicePageContent = {
     { title: "Real AgriTech Experience", desc: "We helped build Bushel's farm management platform, integrating John Deere Operations Center, Climate FieldView, and a network of grain facilities." },
     { title: "Dedicated Support Team", desc: "Our agriculture team handles operations and support, so your software stays reliable through every season." },
     { title: "Designed for Rural Conditions", desc: "Offline-first apps, simple interfaces for field staff, and integrations that remove double entry." },
-    { title: "Live Calls in NZ & AU Hours", desc: "Calls, demos, and support between 12-5pm AEST and 2-5pm NZT." },
+    { title: "Calls in Your Time Zone", desc: "Calls, demos and support are scheduled inside your working day, wherever you farm." },
     { title: "Fixed-Price Pilots", desc: "Start small on one workflow, prove the return, then scale - no large upfront commitment." },
   ],
   sideVisual: <WireSphere3D className="h-[500px] w-full" />,
@@ -101,12 +98,12 @@ const agriculture: ServicePageContent = {
       { title: "Dairy", points: [
         "Herd and milking data: Bring herd, milk, and health records together in one view.",
         "Compliance reporting: Automate environmental and processor reporting from existing records.",
-        "Staff task apps: Simple mobile checklists for shed and paddock work.",
+        "Staff task apps: Simple mobile checklists for barn and field work.",
       ] },
-      { title: "Horticulture & Kiwifruit", points: [
-        "Orchard management: Block-level records for spraying, labour, and harvest.",
-        "Packhouse and traceability: Track fruit from block to packhouse with full audit trails.",
-        "Seasonal labour tools: Rostering, timesheets, and onboarding for seasonal staff.",
+      { title: "Horticulture & Orchards", points: [
+        "Orchard management: Block-level records for spraying, labor, and harvest.",
+        "Packing and traceability: Track fruit from block to packing facility with full audit trails.",
+        "Seasonal labor tools: Rostering, timesheets, and onboarding for seasonal staff.",
       ] },
       { title: "Viticulture & Wine", points: [
         "Vineyard records: Spray diaries, canopy work, and harvest data per block.",
@@ -119,7 +116,7 @@ const agriculture: ServicePageContent = {
         "Grazing and feed planning: Data-driven planning across blocks and seasons.",
       ] },
       { title: "Arable & Grain", points: [
-        "Field profitability: Track costs, yields, and contracts per paddock - like the Bushel platform.",
+        "Field profitability: Track costs, yields, and contracts per field - like the Bushel platform.",
         "Equipment data: Pull machinery and agronomy data from John Deere and Climate FieldView.",
         "Grain contracts: Manage contracts, deliveries, and settlements digitally.",
       ] },
@@ -134,7 +131,7 @@ const agriculture: ServicePageContent = {
     steps: [
       { num: "01", title: "Farm Workflow Review", desc: "We walk through how data and paperwork move across your operation today and find the biggest time savings." },
       { num: "02", title: "Fixed-Price Pilot", desc: "We build or integrate one high-value workflow first, with clear success measures." },
-      { num: "03", title: "Field Testing", desc: "Your team uses it in real conditions - in the paddock, shed, and office - and we refine it." },
+      { num: "03", title: "Field Testing", desc: "Your team uses it in real conditions - in the field, the barn and the office - and we refine it." },
       { num: "04", title: "Roll Out", desc: "We extend the solution across teams, sites, and systems." },
       { num: "05", title: "Training", desc: "Simple training and guides for owners, managers, and field staff." },
       { num: "06", title: "Ongoing Support", desc: "Monitoring, updates, and support through every season." },
@@ -142,7 +139,7 @@ const agriculture: ServicePageContent = {
     note: "* Most pilots are scoped around one season-critical workflow and delivered in weeks.",
   },
   faqs: [
-    { q: "Do you build software for New Zealand and Australian farms?", a: "Yes. We build and support farm management software, field apps, integrations, and compliance reporting tools for farms and agribusinesses in New Zealand and Australia." },
+    { q: "What kind of agriculture software do you build?", a: "Farm management platforms, offline field apps, equipment and agronomy integrations, compliance reporting tools and supply chain traceability systems, for farms, agribusinesses and agritech companies." },
     { q: "Can you integrate with John Deere and Climate FieldView?", a: "Yes. We have integrated John Deere Operations Center and Climate FieldView into a farm management platform, and can connect them with your records, reporting, and accounting." },
     { q: "Will the app work without mobile coverage?", a: "Yes. We build offline-first field apps that store records on the device and sync automatically once coverage returns." },
     { q: "Do you provide ongoing support after launch?", a: "Yes. Our agriculture team provides ongoing support, maintenance, and improvements on a monthly plan, so your software keeps working season after season." },

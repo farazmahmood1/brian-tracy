@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { useNavigate } from "react-router-dom";
 import { projectsData } from "@/data/projects";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 
 const projectFilters = [
   "All Projects",
@@ -114,11 +115,7 @@ const ProjectsPage = () => {
   const filterRef = useRef<HTMLDivElement>(null);
   const filterInView = useInView(filterRef, { once: true, margin: "-50px" });
 
-  usePageMetadata({
-    title: "Projects – Forrof",
-    description:
-      "Explore our finest work across branding, design, and digital solutions. See how we help businesses grow with premium web experiences.",
-  });
+  usePageMetadata(seo("/projects"));
 
   const [activeFilter, setActiveFilter] = useState("All Projects");
 
@@ -166,7 +163,7 @@ const ProjectsPage = () => {
                 backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
               }}
             >
-              Our Portfolio
+              Case Studies
             </motion.h1>
           </div>
           <motion.p
@@ -176,8 +173,8 @@ const ProjectsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            Explore our finest work across branding, design, and digital
-            solutions.
+            Software we have designed, built and launched: an e-signature platform for legal
+            documents, a farm management system, AI assistants and SaaS products.
           </motion.p>
         </div>
       </section>
@@ -278,8 +275,8 @@ const ProjectsPage = () => {
             Ready to start your project?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Let's create something amazing together. Get in touch with our team
-            today.
+            Tell us what you need built. You get a fixed quote and a start date,
+            usually within two working days.
           </p>
           <Magnetic strength={0.15}>
             <motion.a

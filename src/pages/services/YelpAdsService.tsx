@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -52,11 +53,7 @@ const whyUsItems = [
 ];
 
 export default function YelpAdsService() {
-  usePageMetadata({
-    title: "Yelp Ads & Local Service Ads Agency | Forrof",
-    description: "Yelp Ads and Google Local Service Ads management for local service businesses - tuned bidding, profile optimization, and call tracking that ties spend to booked jobs.",
-    keywords: "yelp ads agency, yelp advertising, local service ads, lsa, google lsa, local seo, local service marketing, home services advertising, local ppc",
-  });
+  usePageMetadata(seo("/services/yelp-ads"));
 
   const navigate = useNavigate();
   const [expandedWhy, setExpandedWhy] = useState<number | null>(null);

@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SaasTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -26,7 +27,7 @@ const serviceCards = [
 const features = [
   { num: "01", title: "Rapid Launch", desc: "Ship a working MVP in as little as 4 weeks so you can start acquiring users and validating assumptions fast." },
   { num: "02", title: "Modular Architecture", desc: "Build once, evolve easily. Every feature is an independent module you can swap, extend, or deprecate without rework." },
-  { num: "03", title: "Enterprise Security", desc: "SSO/SAML, end-to-end encryption, role-based access control, and SOC 2-ready audit trails by default." },
+  { num: "03", title: "Enterprise Security", desc: "SSO/SAML, encryption in transit and at rest, role-based access control and audit trails as standard." },
   { num: "04", title: "Cloud-Native Approach", desc: "Containers, Kubernetes, and managed cloud services for elastic scaling and zero-downtime deployments." },
   { num: "05", title: "Product Analytics Built-in", desc: "Event tracking, funnel analysis, and retention dashboards embedded from day one so you ship with insight." },
   { num: "06", title: "Dedicated Team", desc: "A cross-functional squad - PM, designer, engineers, QA - aligned to your roadmap and delivery cadence." },
@@ -45,17 +46,17 @@ const domains = [
   {
     num: "01",
     title: "Logistics & Transportation",
-    desc: "We build route optimisation engines, real-time fleet tracking, driver management portals, and end-to-end supply chain visibility platforms. Integrations with shipping carriers, warehouse systems, and ERP ensure seamless operations from dispatch to delivery.",
+    desc: "We build route optimization engines, real-time fleet tracking, driver management portals, and end-to-end supply chain visibility platforms. We integrate with carriers, warehouse systems and ERP so a job is entered once, from dispatch to delivery.",
   },
   {
     num: "02",
     title: "Legal Tech",
-    desc: "Our legal tech platforms cover case management, document automation, time tracking, client billing, and compliance workflows. We build secure, GDPR-compliant systems tailored to law firms, courts, and legal service providers of all sizes.",
+    desc: "Our legal tech platforms cover case management, document automation, time tracking, client billing, and compliance workflows. We build them around your privacy and confidentiality obligations, and integrate with Clio, Actionstep, LEAP and Smokeball.",
   },
   {
     num: "03",
     title: "Health & Wellness",
-    desc: "HIPAA-compliant platforms for appointment booking, telehealth consultations, patient records, prescription management, and care coordination. We integrate with major EHR systems and build patient engagement tools that measurably improve outcomes.",
+    desc: "Platforms for appointment booking, telehealth, patient records and care coordination, designed around the health privacy rules that apply to you, including HIPAA. We integrate with practice management systems through their APIs or HL7 FHIR.",
   },
   {
     num: "04",
@@ -65,7 +66,7 @@ const domains = [
   {
     num: "05",
     title: "Food & Restaurant Management",
-    desc: "Full-stack restaurant tech - POS integrations, online ordering, kitchen display systems, inventory management, staff scheduling, and loyalty programmes. We build for independent restaurants and multi-location franchise operations alike.",
+    desc: "Full-stack restaurant tech - POS integrations, online ordering, kitchen display systems, inventory management, staff scheduling, and loyalty programs. We build for independent restaurants and multi-location franchise operations alike.",
   },
   {
     num: "06",
@@ -79,34 +80,30 @@ const customerStories = [
     id: "carbonmade",
     title: "Carbonmade",
     subtitle: "Creative Portfolio Platform",
-    desc: "Product design and scaling for Carbonmade - a leading portfolio platform that has empowered over 100,000 creative professionals to showcase their work and grow their businesses.",
+    desc: "Product design and engineering for Carbonmade, a portfolio website builder for designers, illustrators and photographers, with a no-code editor and high-resolution media hosting.",
     tags: ["Product Design", "SaaS", "Creative Tools"],
-    stat: "100K+ Creatives",
+    stat: "No-Code Builder",
   },
   {
     id: "loopiq",
     title: "Loopiq",
     subtitle: "Customer Engagement SaaS",
-    desc: "End-to-end SaaS development for Loopiq - a customer engagement platform with real-time analytics and automated workflows, now serving 5,000+ businesses with a 38% improvement in engagement metrics.",
+    desc: "SaaS development for Loopiq, a customer engagement platform with journey mapping, automated workflows and analytics dashboards for marketing and customer success teams.",
     tags: ["SaaS Development", "Analytics", "Automation"],
-    stat: "5,000+ Businesses",
+    stat: "Workflow Automation",
   },
   {
     id: "curogram",
     title: "Curogram",
     subtitle: "Healthcare Communication Platform",
-    desc: "HIPAA-compliant communication platform connecting patients and providers - serving 50,000+ patients in its first year with a 35% reduction in wait times and SOC 2 certification achieved.",
-    tags: ["Healthcare", "HIPAA", "Platform Engineering"],
-    stat: "50K+ Patients",
+    desc: "A patient communication platform for medical practices: two-way SMS, appointment reminders, online intake forms, telemedicine and text-to-pay, integrated with clinic record systems.",
+    tags: ["Healthcare", "Telemedicine", "Platform Engineering"],
+    stat: "Telemedicine + SMS",
   },
 ];
 
 export default function SaasService() {
-  usePageMetadata({
-    title: "SaaS Development Services | Forrof",
-    description: "SaaS development services engineered for speed, security, and effortless scalability. Become a leader in your niche from day one.",
-    keywords: "SaaS development, enterprise SaaS, cloud-native, MVP development, SaaS architecture, scalable software",
-  });
+  usePageMetadata(seo("/services/saas"));
 
   const navigate = useNavigate();
   const [openDomain, setOpenDomain] = useState<number | null>(null);
@@ -185,7 +182,7 @@ export default function SaasService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              SaaS Development Services That Power Scalable Software Solutions. Become a leader in your niche with SaaS development services engineered for speed, security, and effortless scalability from day one.
+              We design, build and run SaaS products for founders and product teams: multi-tenant architecture, Stripe billing, roles and analytics, from first MVP to paying customers.
             </motion.p>
         </div>
       </motion.section>

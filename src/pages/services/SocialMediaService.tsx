@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -12,25 +13,25 @@ const services = [
   { num: "01", title: "Social Media Strategy", desc: "A data-backed playbook built around your brand goals, target audience, and competitive landscape - covering platform mix, content pillars, posting cadence, and measurable KPIs." },
   { num: "02", title: "Content Creation & Copywriting", desc: "Scroll-stopping visuals, short-form video, carousels, and on-brand copy crafted by specialists who understand how each platform's algorithm rewards authenticity and consistency." },
   { num: "03", title: "Community Management", desc: "Real-time moderation, comment responses, DM handling, and proactive community building that turns followers into loyal advocates and keeps your brand voice consistent at every touchpoint." },
-  { num: "04", title: "Paid Social Advertising", desc: "Full-funnel paid campaigns across Meta, LinkedIn, TikTok, and more - precision audience targeting, creative testing, budget optimisation, and weekly performance reporting that ties spend directly to revenue." },
+  { num: "04", title: "Paid Social Advertising", desc: "Full-funnel paid campaigns across Meta, LinkedIn, TikTok, and more - precision audience targeting, creative testing, budget optimization, and weekly performance reporting that ties spend directly to revenue." },
   { num: "05", title: "Analytics & Performance Reporting", desc: "Custom dashboards tracking reach, engagement, follower growth, conversion attribution, and ROI - delivered as clear executive reports that show exactly what is working and what to do next." },
   { num: "06", title: "Influencer & Partnership Marketing", desc: "End-to-end influencer identification, brief creation, contract management, and campaign tracking to amplify your message through trusted voices your target audience already follows." },
 ];
 
 const platforms = [
-  { num: "01", title: "Instagram", desc: "Feed posts, Reels, Stories, and collaborations engineered for visual brands - optimised for both organic reach and paid discovery campaigns." },
+  { num: "01", title: "Instagram", desc: "Feed posts, Reels, Stories, and collaborations engineered for visual brands - optimized for both organic reach and paid discovery campaigns." },
   { num: "02", title: "LinkedIn", desc: "Thought leadership content, executive personal branding, and B2B lead-generation campaigns that position your brand as an authority in your industry." },
   { num: "03", title: "TikTok", desc: "Trend-aware short-form video production and paid TikTok Ads that reach high-intent audiences with content designed natively for the platform's unique culture." },
-  { num: "04", title: "Facebook", desc: "Community management, targeted Meta ad campaigns, and retargeting funnels that leverage Facebook's unmatched audience segmentation for scalable reach." },
+  { num: "04", title: "Facebook", desc: "Community management, targeted Meta ad campaigns, and retargeting that uses Facebook's detailed audience targeting to reach the right local customers." },
   { num: "05", title: "X (Twitter)", desc: "Real-time brand presence, reactive content strategy, and conversation monitoring that keeps your brand relevant and visible in fast-moving industry discussions." },
-  { num: "06", title: "YouTube", desc: "Long-form and Shorts strategy, SEO-optimised video production, and YouTube Ads that build a lasting content library driving discovery and retention." },
+  { num: "06", title: "YouTube", desc: "Long-form and Shorts strategy, SEO-optimized video production, and YouTube Ads that build a lasting content library driving discovery and retention." },
 ];
 
 const processSteps = [
-  { num: "01", title: "Audit & Strategy", desc: "We analyse your current presence, benchmark against competitors, and deliver a clear social strategy tied to specific business objectives and audience insights." },
-  { num: "02", title: "Content Planning", desc: "Monthly content calendars, platform-specific creative briefs, and campaign timelines planned and approved in advance so execution is always seamless and on schedule." },
+  { num: "01", title: "Audit & Strategy", desc: "We analyze your current presence, benchmark against competitors, and deliver a clear social strategy tied to specific business objectives and audience insights." },
+  { num: "02", title: "Content Planning", desc: "Monthly content calendars, platform-specific creative briefs, and campaign timelines planned and approved in advance, so nothing is posted in a rush." },
   { num: "03", title: "Execution & Management", desc: "Daily publishing, community engagement, paid campaign management, and creative production handled end-to-end - you stay focused on your business while we run your channels." },
-  { num: "04", title: "Reporting & Optimisation", desc: "Regular performance reviews covering all key metrics with clear interpretation and actionable recommendations to continuously improve results month over month." },
+  { num: "04", title: "Reporting & Optimization", desc: "Regular performance reviews covering all key metrics with clear interpretation and actionable recommendations to continuously improve results month over month." },
 ];
 
 const whyUsItems = [
@@ -42,7 +43,7 @@ const whyUsItems = [
   {
     num: "02",
     title: "Brand Voice Consistency",
-    desc: "A unified tone, visual identity, and messaging framework applied consistently across every platform, campaign, and community interaction - so your brand feels instantly recognisable whether someone finds you on LinkedIn, TikTok, or anywhere in between.",
+    desc: "A unified tone, visual identity, and messaging framework applied consistently across every platform, campaign, and community interaction - so your brand feels instantly recognizable whether someone finds you on LinkedIn, TikTok, or anywhere in between.",
   },
   {
     num: "03",
@@ -79,11 +80,7 @@ const clientWins = [
 ];
 
 export default function SocialMediaService() {
-  usePageMetadata({
-    title: "Social Media Marketing Services | Forrof",
-    description: "Full-service social media marketing that grows your audience, builds brand authority, and drives measurable business results across Instagram, LinkedIn, TikTok, and beyond.",
-    keywords: "social media marketing, social media strategy, content creation, community management, paid social advertising, influencer marketing, Instagram marketing, LinkedIn marketing, TikTok advertising",
-  });
+  usePageMetadata(seo("/services/social-media"));
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -190,7 +187,7 @@ export default function SocialMediaService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              We grow your brand presence, deepen audience engagement, and turn social channels into consistent revenue drivers - with strategy, content, and paid campaigns that actually perform.
+              Strategy, content and community management on LinkedIn, Instagram, Facebook and TikTok. We plan around the inquiries you want, and report on those.
             </motion.p>
         </div>
       </motion.section>

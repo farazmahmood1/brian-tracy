@@ -81,12 +81,12 @@ const serviceLinks: ServiceLink[] = [
   {
     name: "Systems Integration & Data",
     slug: "systems-integration",
-    subs: ["API Integration Development", "Accounting & Xero Integrations", "Practice & Farm Software Integrations", "Data Pipelines & Warehousing", "BI Dashboards & Reporting", "Legacy System Modernisation"],
+    subs: ["API Integration Development", "Accounting & Xero Integrations", "Practice & Farm Software Integrations", "Data Pipelines & Warehousing", "BI Dashboards & Reporting", "Legacy System Modernization"],
   },
   {
     name: "SEO & AI Search Visibility",
     slug: "seo",
-    subs: ["Technical SEO", "AI Search Optimisation (GEO)", "Local SEO", "Content Strategy & Writing", "SEO Audits", "Schema & Structured Data"],
+    subs: ["Technical SEO", "AI Search Optimization (GEO)", "Local SEO", "Content Strategy & Writing", "SEO Audits", "Schema & Structured Data"],
   },
   {
     name: "Performance Marketing",

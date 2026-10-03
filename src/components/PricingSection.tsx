@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Check, ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "./AnimationComponents";
 
-// All prices in USD. "market" is the typical NZ/AU agency range for comparison.
+// All prices in USD. "market" is a typical agency range for comparison.
 const pricingPlans = [
   {
     name: "Fixed-Scope Project",
@@ -14,7 +14,7 @@ const pricingPlans = [
     features: [
       "Fixed price agreed before work starts",
       "Discovery, design, build, and launch",
-      "Weekly demos during NZ & AU hours",
+      "Weekly demos in your time zone",
       "Full source code and documentation",
       "30 days of post-launch support",
     ],
@@ -27,7 +27,7 @@ const pricingPlans = [
     description: "SEO, AI search visibility, performance marketing, and ongoing support.",
     features: [
       "Monthly SEO or ad management plan",
-      "Tracking and reporting tied to enquiries",
+      "Tracking and reporting tied to inquiries",
       "Ongoing maintenance and improvements",
       "Month-to-month after initial setup",
       "Dedicated account lead",
@@ -41,7 +41,7 @@ const pricingPlans = [
     description: "Senior engineers embedded in your roadmap, working your business hours.",
     features: [
       "Full-time senior developers",
-      "Daily overlap with NZ & AU hours",
+      "Daily overlap with your working hours",
       "Project lead and QA included",
       "Scale the team up or down monthly",
       "No recruitment or HR overheads",
@@ -100,7 +100,7 @@ export const PricingSection = () => {
             transition={{ duration: 1, delay: 0.6 }}
           >
             <p className="text-xl text-muted-foreground max-w-md leading-relaxed mb-2">
-              Senior-level delivery at a fraction of typical New Zealand and Australian agency rates. All prices in USD,
+              Senior-level delivery at a fraction of typical agency rates. All prices in USD,
               with a fixed quote before any work begins.
             </p>
           </motion.div>
@@ -175,7 +175,7 @@ export const PricingSection = () => {
                 </span>
                 <span className="text-sm text-muted-foreground">
                   {row.market ? (
-                    <>NZ/AU agencies: <span className="line-through decoration-muted-foreground/50">{row.market}</span></>
+                    <>Typical agencies: <span className="line-through decoration-muted-foreground/50">{row.market}</span></>
                   ) : (
                     "Fixed quote per system"
                   )}
@@ -185,7 +185,7 @@ export const PricingSection = () => {
             ))}
           </div>
           <p className="text-xs text-muted-foreground mt-4">
-            Market ranges are typical published NZ and Australian agency rates, converted to USD. Final pricing depends on
+            Market ranges are typical published agency rates in USD. Final pricing depends on
             scope - every engagement starts with a fixed quote.
           </p>
         </motion.div>

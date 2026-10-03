@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -23,7 +24,7 @@ const platforms: { num: string; title: string; desc: string; slug?: string }[] =
   { num: "03", title: "LinkedIn Ads", desc: "B2B-grade campaigns targeting senior decision-makers by company, role, and industry - for high-ticket services where one closed account pays for the whole quarter.", slug: "linkedin-ads" },
   { num: "04", title: "TikTok Ads", desc: "Short-form video campaigns that engage cold audiences with native, scroll-friendly creative - generating affordable leads from a channel most competitors are still ignoring.", slug: "tiktok-ads" },
   { num: "05", title: "Microsoft (Bing) Ads", desc: "Untapped audiences at lower CPCs - Bing campaigns deliver Google-level intent at a fraction of the cost, especially for B2B and 35+ demographics.", slug: "bing-ads" },
-  { num: "06", title: "Yelp & Local Service Ads", desc: "Top-rated local placement when buyers are ready to book - strategic bidding, optimized profiles, and verified listings that own the moment of decision.", slug: "yelp-ads" },
+  { num: "06", title: "Yelp & Local Service Ads", desc: "Local placement when buyers are ready to book: tuned bidding, optimized profiles and call tracking that ties spend to booked jobs.", slug: "yelp-ads" },
 ];
 
 const processSteps = [
@@ -91,11 +92,7 @@ const whyUsItems = [
 ];
 
 export default function PaidAdsService() {
-  usePageMetadata({
-    title: "Paid Ads Agency | Google, Meta, LinkedIn & TikTok | Forrof",
-    description: "Intent-driven paid ad campaigns across Google, Meta, LinkedIn, TikTok, and Bing - engineered with API-level tracking and CRO landing pages that turn ad spend into booked revenue.",
-    keywords: "paid ads agency, ppc agency, google ads, meta ads, facebook ads, linkedin ads, tiktok ads, performance marketing, paid media, paid search, paid social, ROAS, conversion tracking",
-  });
+  usePageMetadata(seo("/services/paid-ads"));
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -193,7 +190,7 @@ export default function PaidAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Intent-driven campaigns across Google, Meta, LinkedIn, TikTok, and Bing - engineered with API-level tracking and CRO landing pages that turn ad spend into booked revenue.
+              Google, Meta, LinkedIn and TikTok campaigns, with conversion tracking wired into your CRM so you can see which ads bring in paying customers.
             </motion.p>
         </div>
       </motion.section>
@@ -500,7 +497,7 @@ export default function PaidAdsService() {
             animate={ctaInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            Stop guessing. Start scaling.
+            Find out which ads bring in customers.
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, y: 40 }}

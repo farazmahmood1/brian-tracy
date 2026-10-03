@@ -19,7 +19,6 @@ export default function AdminLogin() {
         setIsLoading(true);
         try {
             await api.auth.login({ email, password });
-            localStorage.setItem('admin_logged_in', 'true');
             toast.success('Logged in successfully');
             navigate('/admin/dashboard');
         } catch (error) {

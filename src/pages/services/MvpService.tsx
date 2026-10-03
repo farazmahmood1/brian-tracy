@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { MvpTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -42,11 +43,7 @@ const faqs = [
 ];
 
 export default function MvpService() {
-  usePageMetadata({
-    title: "MVP & POC Development Services | Forrof",
-    description: "We help startups and businesses validate ideas fast and cost-effectively by building lean MVPs and prototypes that showcase core features and attract investors.",
-    keywords: "MVP development, proof of concept, startup development, rapid prototyping, lean MVP, product validation",
-  });
+  usePageMetadata(seo("/services/mvp"));
 
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -114,7 +111,7 @@ export default function MvpService() {
                 backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
               }}
             >
-              MVP &amp; POC Development
+              MVP Development for Startups
             </motion.h1>
           </div>
           <motion.p
@@ -124,7 +121,7 @@ export default function MvpService() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            We help startups and businesses validate ideas fast and cost-effectively by building lean MVPs and prototypes that showcase core features, gather user feedback, attract investors, and speed up time-to-market.
+            A working MVP in 6 to 12 weeks, at a fixed price from USD 7,900. For founders who need something real to show customers and investors.
           </motion.p>
           <motion.div
             className="mt-10"
@@ -197,7 +194,7 @@ export default function MvpService() {
             >
               <h3 className="text-2xl font-bold mb-5">Reliable PoC</h3>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                Bring your vision to life with robust POCs that demonstrate feasibility and unlock new opportunities, all built with scalability and future growth in mind.
+                A proof of concept answers one question: will this work? We build the smallest thing that proves it, on foundations you can keep if the answer is yes.
               </p>
             </motion.div>
           </div>
@@ -252,7 +249,7 @@ export default function MvpService() {
               animate={sec2InView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Forrof provides services that support seamless growth, operational efficiency, and continuous innovation.
+              Everything a founder needs to get from idea to first customers, from one team.
             </motion.p>
           </div>
 

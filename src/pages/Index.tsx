@@ -5,7 +5,7 @@ import { OurClientsSection } from "@/components/OurClientsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { AboutSection } from "@/components/AboutSection";
 // import { BusinessScaleSection } from "@/components/BusinessScaleSection";
-import { PricingSection } from "@/components/PricingSection";
+// import { PricingSection } from "@/components/PricingSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { InsightsSection } from "@/components/InsightsSection";
@@ -14,17 +14,14 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { useLenis } from "@/hooks/useLenis";
 import { useEffect, useState } from "react";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 
 let homeShown = false;
 
 const Index = () => {
   useLenis();
 
-  usePageMetadata({
-    title: "Forrof | Custom Software, AI Automation & SEO for New Zealand & Australia",
-    description: "Forrof builds custom software, AI automation, Xero and system integrations, and runs SEO and Google Ads for New Zealand and Australian businesses - specialists in LegalTech and Agriculture.",
-    keywords: "custom software development New Zealand, software development company Australia, AI automation agency, legal software development, law firm software, LegalTech, agriculture software, AgriTech, farm management software, Xero integration, systems integration, SEO agency New Zealand, Google Ads agency Australia",
-  });
+  usePageMetadata(seo("/"));
 
   const [isLoading, setIsLoading] = useState(!homeShown);
   const [globeReady, setGlobeReady] = useState(homeShown);
@@ -67,7 +64,7 @@ const Index = () => {
         <ProjectsSection />
         <AboutSection />
         {/* <BusinessScaleSection /> */}
-        <PricingSection />
+        {/* <PricingSection /> */}
         <MarqueeSection />
         <TestimonialsSection />
         <FAQSection />

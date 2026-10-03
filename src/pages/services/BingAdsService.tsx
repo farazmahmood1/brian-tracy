@@ -5,13 +5,14 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
 const services = [
   { num: "01", title: "Bing Search Ads", desc: "Keyword-targeted search campaigns on Bing, Yahoo, AOL, and DuckDuckGo - reaching the 1 billion+ searches per day that happen outside Google, often at 30-50% lower CPCs." },
   { num: "02", title: "Microsoft Audience Network", desc: "Display campaigns across MSN, Outlook.com, Microsoft Edge, and partner sites - native ads with strong B2B and 35+ demographic reach." },
-  { num: "03", title: "LinkedIn Profile Targeting", desc: "Microsoft's exclusive LinkedIn integration - target search ads by job title, company, and industry without paying LinkedIn's premium CPMs. The B2B PPC unlock." },
+  { num: "03", title: "LinkedIn Profile Targeting", desc: "Microsoft's exclusive LinkedIn integration - target search ads by job title, company, and industry without paying LinkedIn's premium CPMs." },
   { num: "04", title: "Google Ads Import", desc: "Mirror your Google Ads campaigns to Microsoft Ads in minutes, then refine for Bing's audience differences - capturing incremental volume at lower cost without rebuilding." },
   { num: "05", title: "Bing Shopping & Product Ads", desc: "Product feed campaigns with Microsoft Merchant Center setup - reaching shoppers on Bing and Yahoo who often have higher purchase intent and AOV than Google equivalents." },
   { num: "06", title: "Conversion Tracking & Reporting", desc: "UET tag implementation, offline conversion imports, and weekly reporting tied back to revenue - so you see exactly where Microsoft Ads complements your Google budget." },
@@ -42,7 +43,7 @@ const whyUsItems = [
   {
     num: "02",
     title: "LinkedIn Profile Targeting",
-    desc: "Microsoft Ads is the only paid search platform that lets you layer LinkedIn job title, company, and industry targeting on top of search keywords. For B2B service businesses, this is the unlock - high-intent search traffic filtered to actual decision-makers only.",
+    desc: "Microsoft Ads is the only paid search platform that lets you layer LinkedIn job title, company, and industry targeting on top of search keywords. For B2B service businesses this is the main advantage: high-intent search traffic filtered to actual decision-makers only.",
   },
   {
     num: "03",
@@ -52,11 +53,7 @@ const whyUsItems = [
 ];
 
 export default function BingAdsService() {
-  usePageMetadata({
-    title: "Microsoft (Bing) Ads Agency | Lower CPCs, B2B Focus | Forrof",
-    description: "Microsoft Ads management across Bing, Yahoo, and the Audience Network - lower CPCs than Google, exclusive LinkedIn Profile Targeting, and B2B-friendly audiences.",
-    keywords: "microsoft ads agency, bing ads agency, bing ads management, microsoft advertising, linkedin profile targeting, b2b paid search, microsoft audience network, msn ads",
-  });
+  usePageMetadata(seo("/services/bing-ads"));
 
   const navigate = useNavigate();
   const [expandedWhy, setExpandedWhy] = useState<number | null>(null);
@@ -128,7 +125,7 @@ export default function BingAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Untapped audiences at lower CPCs - Bing campaigns deliver Google-level intent at a fraction of the cost, especially for B2B and 35+ demographics.
+              Microsoft Ads management. Bing reaches desktop and office users with the same search intent as Google, usually at a lower cost per click.
             </motion.p>
         </div>
       </motion.section>
@@ -301,7 +298,7 @@ export default function BingAdsService() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <h3 className="text-2xl md:text-3xl font-bold mb-6">The Channel Most Agencies Ignore</h3>
-              <p className="text-muted-foreground leading-relaxed">Microsoft Ads delivers Google-quality intent at often half the CPC, with exclusive LinkedIn Profile Targeting for B2B - the unlock most agencies forget to even mention.</p>
+              <p className="text-muted-foreground leading-relaxed">Microsoft Ads delivers Google-quality intent at often half the CPC, with LinkedIn Profile Targeting for B2B, which most agencies never mention.</p>
             </motion.div>
           </div>
         </div>

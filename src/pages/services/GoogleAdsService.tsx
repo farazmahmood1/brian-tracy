@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -37,7 +38,7 @@ const whyUsItems = [
   {
     num: "01",
     title: "500+ Negative Keyword Library",
-    desc: "Years of running Google Ads for service businesses means we already know what doesn't work. Our negative keyword library is applied from the moment your campaign launches, automatically cutting out tire-kickers, job seekers, and competitor research traffic before they ever click.",
+    desc: "Years of running Google Ads for service businesses means we already know what doesn't work. Our negative keyword library is applied from the moment your campaign launches, automatically cutting out tyre-kickers, job seekers, and competitor research traffic before they ever click.",
   },
   {
     num: "02",
@@ -52,11 +53,7 @@ const whyUsItems = [
 ];
 
 export default function GoogleAdsService() {
-  usePageMetadata({
-    title: "Google Ads Agency | Search, PMax, YouTube, LSA | Forrof",
-    description: "Google Ads management built around high-intent keywords, API-level tracking, and conversion-optimized landing pages - turning Google search traffic into booked revenue.",
-    keywords: "google ads agency, google ads management, ppc agency, search ads, performance max, pmax, local service ads, lsa, youtube ads, google ppc, ROAS",
-  });
+  usePageMetadata(seo("/services/google-ads"));
 
   const navigate = useNavigate();
   const [expandedWhy, setExpandedWhy] = useState<number | null>(null);
@@ -128,7 +125,7 @@ export default function GoogleAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              High-intent Google campaigns built on tight keyword targeting, API-level conversion tracking, and CRO-tuned landing pages - so every click works harder.
+              Google Ads built on tight keyword targeting, conversion tracking that reaches your CRM, and landing pages built by our own developers.
             </motion.p>
         </div>
       </motion.section>

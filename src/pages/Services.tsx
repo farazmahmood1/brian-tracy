@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { ArrowUpRight, Zap, Layers, Network, Search, PenTool, Code, RocketIcon, Target } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useLenis } from "@/hooks/useLenis";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -44,7 +45,7 @@ const services = [
     number: "04",
     title: "SEO & AI Search Visibility",
     description:
-      "Technical SEO, local SEO, and generative engine optimisation to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
+      "Technical SEO, local SEO, and generative engine optimization to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
     tags: ["Technical SEO", "Local SEO", "GEO"],
     icon: Search,
     slug: "seo",
@@ -199,12 +200,7 @@ const Services = () => {
   useLenis();
   const navigate = useNavigate();
 
-  usePageMetadata({
-    title: "Software, AI & Growth Services for NZ & Australia | Forrof",
-    description:
-      "AI & automation, custom software development, systems integration, SEO & AI search visibility, and performance marketing for New Zealand and Australian businesses.",
-    keywords: "AI automation, custom software development, systems integration, Xero integration, SEO services, AI search optimisation, performance marketing, Google Ads, software agency New Zealand, software agency Australia",
-  });
+  usePageMetadata(seo("/services"));
 
   const heroRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);

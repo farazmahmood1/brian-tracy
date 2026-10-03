@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { GlowCard, CountUp } from "@/components/InteractiveElements";
 import { TechLogo } from "@/components/TechLogo";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 
 /* ───────────────────────── DATA ───────────────────────── */
@@ -12,9 +13,9 @@ import { useNavigate } from "react-router-dom";
 const challenges = [
   {
     problem: "Double entry across disconnected tools",
-    problemDesc: "Matter details re-typed between intake forms, Actionstep, LEAP or Smokeball, Xero, and email - wasting billable hours and creating errors.",
+    problemDesc: "Matter details re-typed between intake forms, your practice management system, accounting software and email, wasting billable hours and creating errors.",
     solution: "Practice management integrations",
-    solutionDesc: "We connect your practice management system with Xero, e-signing, document storage, and intake forms, so every record updates once and flows everywhere.",
+    solutionDesc: "We connect practice management systems such as Clio, Actionstep, LEAP and Smokeball with accounting, e-signing, document storage and intake forms, so every record is entered once.",
   },
   {
     problem: "Manual documents and signatures",
@@ -25,38 +26,32 @@ const challenges = [
   {
     problem: "Using AI without risking client confidentiality",
     problemDesc: "Staff are already pasting client information into public AI tools, with no firm policy, audit trail, or accuracy checks.",
-    solution: "Private legal AI, built to NZLS guidance",
-    solutionDesc: "Private AI assistants that cite their sources, keep a human in the loop, never train on your data, and align with NZ Law Society generative AI guidance and the Australian Privacy Principles.",
+    solution: "Private legal AI with a lawyer in the loop",
+    solutionDesc: "Private AI assistants that cite their sources, keep a human in the loop, never train on your data, and follow bar association and law society guidance on generative AI.",
   },
 ];
 
 const whoWeServe = [
-  { title: "Small & Mid-Sized Law Firms", desc: "Firms of 2-50 lawyers across New Zealand and Australia that want to automate admin, improve client service, and get more from their practice management system." },
+  { title: "Small & Mid-Sized Law Firms", desc: "Firms of 2 to 50 lawyers that want to automate admin, improve client service and get more from their practice management system." },
   { title: "Property & Conveyancing Practices", desc: "Intake, document, and settlement workflows that integrate with your practice management system and cut repetitive conveyancing admin." },
   { title: "Family, Immigration & Personal Injury Firms", desc: "Client portals, intake automation, and document collection for high-volume, client-facing practice areas." },
-  { title: "In-house Legal Teams", desc: "Contract management, matter tracking, and approval workflows for corporate legal and compliance teams." },
-  { title: "Barristers & Boutique Practices", desc: "Lightweight tools for research, document review, and scheduling - without enterprise software overheads." },
-  { title: "LegalTech Startups", desc: "MVP development, AI integration, and scalable architecture for founders building products for the NZ and Australian legal market." },
+  { title: "LegalTech Startups", desc: "MVP development, AI integration, and scalable architecture for founders building products for the legal market." },
 ];
 
 const services = [
-  { title: "Practice Management Integrations", desc: "Connect Actionstep, LEAP, Smokeball, and other practice management systems with Xero, e-signing, intake forms, and document storage via their APIs." },
+  { title: "Practice Management Integrations", desc: "Connect Clio, Actionstep, LEAP, Smokeball and other practice management systems with accounting, e-signing, intake forms and document storage through their APIs." },
   { title: "Client Portals & Intake Automation", desc: "Secure, branded portals for onboarding, document sharing, matter updates, and messaging - with automated intake and conflict-check data capture." },
   { title: "Legal AI Assistants", desc: "Private AI chatbots that answer questions over your precedents, templates, and firm knowledge - with citations lawyers can verify." },
   { title: "Document Automation & E-Signing", desc: "Template-driven drafting and legally binding electronic signatures that remove hours of manual document work every week." },
-  { title: "Contract Review & Clause Extraction", desc: "AI-assisted review that flags risky clauses, missing terms, and key dates across large document sets - with lawyer sign-off." },
-  { title: "Custom Legal Software", desc: "Bespoke matter, workflow, and reporting tools when off-the-shelf software does not fit how your firm works." },
-  { title: "Law Firm SEO & Google Ads", desc: "Practice-area pages, local SEO, and Google Ads campaigns that bring in enquiries from people searching for a lawyer in your city." },
-  { title: "AI & Automation Compliance Check", desc: "A technical audit of where your systems use AI or automated decision-making - ahead of Australia's December 2026 Privacy Act transparency requirements." },
+  { title: "Law Firm SEO & Google Ads", desc: "Practice-area pages, local SEO, and Google Ads campaigns that bring in inquiries from people searching for a lawyer in your city." },
+  { title: "AI Readiness Audit", desc: "A technical review of where AI can safely save time in your firm, which data it would touch, and the controls needed before anything goes live." },
 ];
 
 const useCases = [
   { title: "Automated Client Intake", desc: "Online intake forms that capture client details, collect conflict-check data, and create the matter in your practice management system automatically." },
   { title: "Client Portal for Matter Updates", desc: "Clients check progress, upload documents, and sign forms in one secure place - fewer 'any update?' phone calls and emails." },
-  { title: "Firm Knowledge Assistant", desc: "An AI assistant trained on your precedents and internal guides, so junior staff find answers in seconds instead of interrupting partners." },
-  { title: "Practice Management + Xero Sync", desc: "Invoices, payments, and client records kept in sync between your practice management system and Xero, with no double entry." },
+  { title: "Practice Management + Accounting Sync", desc: "Invoices, payments and client records kept in sync between your practice management system and accounting software such as Xero or QuickBooks." },
   { title: "E-Signature Workflows", desc: "Send, sign, and file engagement letters and agreements digitally, with a full audit trail - the core of our FynoSign platform." },
-  { title: "Contract Review Pipeline", desc: "Upload a contract set and receive a clause-by-clause summary, risk flags, and key dates - reviewed and approved by your lawyers." },
 ];
 
 const technologies = [
@@ -72,35 +67,28 @@ const dataSecurity = [
   "Role-based access control and matter-level permissions",
   "Comprehensive audit trails",
   "Two-factor authentication (2FA)",
-  "Australian data hosting options",
+  "Hosting in the region you choose",
 ];
 
 const regulatoryCompliance = [
-  "NZ Privacy Act 2020",
-  "Australian Privacy Principles",
-  "NZLS AI Guidance",
-  "Notifiable Data Breaches",
-  "ADM Transparency (Dec 2026)",
-  "Client Confidentiality",
+  "GDPR & CCPA data handling",
+  "Data residency",
+  "Audit trails",
+  "Breach notification support",
+  "AI guidance for lawyers",
+  "Client confidentiality",
 ];
 
 const whyChooseUs = [
   { title: "Real legal products in production", desc: "We have built an e-signature platform (FynoSign), an AI chatbot for legal professionals, and a complete lawyer-client application.", stat: "3", statLabel: "Legal Platforms Built" },
-  { title: "Built around your practice software", desc: "We integrate with Actionstep, LEAP, Smokeball, and Xero instead of asking your firm to change systems.", stat: "0", statLabel: "Systems Replaced" },
-  { title: "Live calls in NZ & AU hours", desc: "Calls, demos, and support between 12-5pm AEST and 2-5pm NZT, with a dedicated project lead.", stat: "5h", statLabel: "Daily Overlap" },
+  { title: "Built around your practice software", desc: "We integrate with Clio, Actionstep, LEAP, Smokeball and your accounting software instead of asking your firm to change systems.", stat: "0", statLabel: "Systems Replaced" },
   { title: "Fixed-price first projects", desc: "Start with a fixed-scope integration, portal, or AI pilot - so you see results before committing to more.", stat: "100%", statLabel: "Fixed Quotes" },
-  { title: "Rated on Clutch", desc: "Clients rate our value for cost 5/5 on Clutch.", stat: "5/5", statLabel: "Cost Rating" },
-  { title: "Privacy-first AI", desc: "Enterprise AI APIs that never train on your data, with human review built into every legal AI workflow.", stat: "0", statLabel: "Training on Your Data" },
 ];
 
 /* ─────────────────────── PAGE ─────────────────────── */
 
 export default function LegalTechPage() {
-  usePageMetadata({
-    title: "Legal Software & AI for Law Firms in NZ & Australia | Forrof",
-    description: "Legal software development, practice management integrations (Actionstep, LEAP, Smokeball, Xero), client portals, and private legal AI for New Zealand and Australian law firms.",
-    keywords: "legal software development New Zealand, law firm software Australia, LegalTech NZ, Actionstep integration, LEAP integration, Smokeball integration, legal AI, client portal for law firms, document automation, e-signature, law firm automation",
-  });
+  usePageMetadata(seo("/industries/legaltech"));
 
   const navigate = useNavigate();
   const [activeChallenge, setActiveChallenge] = useState(0);
@@ -156,11 +144,11 @@ export default function LegalTechPage() {
               animate={{ y: 0, backgroundPosition: "100% 50%" }}
               transition={{ y: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }, backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 } }}
             >
-              Legal Software &amp; AI for NZ &amp; Australian Law Firms
+              Legal Software Development &amp; AI for Law Firms
             </motion.h1>
           </div>
           <motion.p className="text-lg md:text-2xl max-w-3xl leading-relaxed mt-10" style={{ color: "#48f0e7" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-            Practice management integrations, client portals, document automation, and private legal AI - built around Actionstep, LEAP, Smokeball, and Xero, by the team behind the FynoSign e-signature platform.
+            Client portals, document automation, e-signature and private legal AI that work with your practice management system. Built by the team behind the FynoSign e-signature platform.
           </motion.p>
           <motion.div className="mt-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
             <Magnetic>
@@ -254,7 +242,7 @@ export default function LegalTechPage() {
             Whom Do We Serve?
           </motion.h2>
           <motion.p className="text-lg text-muted-foreground max-w-3xl mb-16 leading-relaxed" initial={{ opacity: 0, y: 20 }} animate={sec2InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
-            We work with law firms and legal teams across New Zealand and Australia - from boutique practices to in-house legal departments.
+            We work with law firms and legal teams of every size, from boutique practices to in-house legal departments.
           </motion.p>
 
           <div className="space-y-0">
@@ -304,7 +292,7 @@ export default function LegalTechPage() {
               Legal Software Development Services
             </motion.h2>
             <motion.p className="text-lg text-muted-foreground leading-relaxed self-end" initial={{ opacity: 0, y: 30 }} animate={sec3InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
-              Software, AI, and growth services designed for how New Zealand and Australian law firms actually work.
+              Software, AI and growth services designed around how law firms actually work.
             </motion.p>
           </div>
 
@@ -382,7 +370,7 @@ export default function LegalTechPage() {
             Privacy, Security &amp; Technologies
           </motion.h2>
           <motion.p className="text-lg text-muted-foreground max-w-3xl mb-16 leading-relaxed" initial={{ opacity: 0, y: 20 }} animate={sec5InView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
-            Every solution is designed around the NZ Privacy Act 2020, the Australian Privacy Principles, and your professional confidentiality obligations.
+            Every solution is designed around the privacy laws that apply to your firm and your professional confidentiality obligations.
           </motion.p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">

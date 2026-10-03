@@ -3,13 +3,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { LayoutDashboard, Briefcase, FileText, LogOut, Users } from 'lucide-react';
 import { toast } from 'sonner';
+import { authToken } from '@/services/api';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const location = useLocation();
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('admin_logged_in');
+        authToken.clear();
         toast.success('Logged out successfully');
         navigate('/admin/login');
     };

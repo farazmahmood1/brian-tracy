@@ -7,6 +7,7 @@ import { BusinessScaleSection } from "@/components/BusinessScaleSection";
 import { ContactSection } from "@/components/ContactSection";
 import { OurClientsSection } from "@/components/OurClientsSection";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useLenis } from "@/hooks/useLenis";
 import { Link } from "react-router-dom";
 
@@ -195,13 +196,7 @@ const TestimonialCard = ({ t, i, total }: { t: typeof testimonials[0]; i: number
 const About = () => {
   useLenis();
 
-  usePageMetadata({
-    title: "About Us | Forrof - Full-Service Software Company",
-    description:
-      "Learn about Forrof - a full-service software company helping businesses scale with modern, future-ready technology from AI systems to enterprise platforms.",
-    keywords:
-      "about forrof, software company, AI development, enterprise solutions, digital agency, Quebec Canada",
-  });
+  usePageMetadata(seo("/about"));
 
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-10%" });
@@ -251,7 +246,7 @@ const About = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                We Build{" "}
+                Software &amp; AI{" "}
                 <span
                   style={{
                     background: "linear-gradient(135deg, #ffffff 0%, #48f0e7 30%, #00d4aa 60%, #126b66 100%)",
@@ -261,7 +256,7 @@ const About = () => {
                     backgroundSize: "200% 200%",
                   }}
                 >
-                  What's Next
+                  That Ships
                 </span>
               </motion.h1>
             </div>
@@ -271,8 +266,8 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              A full-service software company helping businesses scale with modern,
-              future-ready technology - from AI systems to enterprise platforms.
+              We are 17 engineers, AI specialists and marketers. Most of our work is for
+              law firms, agribusinesses and growing companies, and we schedule calls inside your working day.
             </motion.p>
           </div>
         </div>
@@ -293,7 +288,7 @@ const About = () => {
                     <span className="w-2 h-2 rounded-full bg-[#00d4aa] animate-pulse" />
                     <span className="text-[10px] text-accent uppercase tracking-widest font-medium">Office</span>
                   </div>
-                  <p className="text-sm md:text-base font-semibold">New York, USA</p>
+                  <p className="text-sm md:text-base font-semibold">Casper, Wyoming, USA</p>
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -303,7 +298,7 @@ const About = () => {
                   <p className="text-sm md:text-base font-semibold">Lahore, Pakistan</p>
                 </div>
                 <div className="pt-2 border-t border-foreground/10">
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Available Worldwide</span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Working with clients worldwide</span>
                 </div>
               </div>
             </Reveal>
@@ -463,15 +458,15 @@ const About = () => {
             >
               <h3 className="text-sm font-semibold mb-6 md:mb-8 pb-3 border-b border-foreground/10">People per Project</h3>
               <div className="mb-6">
-                <span className="text-5xl font-bold text-accent">30</span>
-                <span className="text-xl text-muted-foreground ml-2">/ 48 team members</span>
+                <span className="text-5xl font-bold text-accent">6</span>
+                <span className="text-xl text-muted-foreground ml-2">/ 17 team members</span>
               </div>
-              {/* Dot grid - 30 filled, 18 empty */}
+              {/* Dot grid - 6 filled, 11 empty */}
               <div className="grid grid-cols-10 gap-2 mb-6">
-                {Array.from({ length: 48 }, (_, i) => (
+                {Array.from({ length: 17 }, (_, i) => (
                   <motion.div
                     key={i}
-                    className={`w-3 h-3 rounded-full ${i < 30 ? "bg-accent" : "bg-foreground/10"}`}
+                    className={`w-3 h-3 rounded-full ${i < 6 ? "bg-accent" : "bg-foreground/10"}`}
                     initial={{ scale: 0 }}
                     animate={chartsInView ? { scale: 1 } : {}}
                     transition={{ duration: 0.3, delay: 0.5 + i * 0.02 }}
@@ -502,7 +497,7 @@ const About = () => {
                 viewport={{ once: true }}
               >
                 <span className="w-8 h-px bg-accent/40" />
-                Trusted by industry leaders
+                Client feedback
               </motion.p>
               <motion.h2
                 className="text-2xl md:text-3xl lg:text-5xl font-bold leading-[1.1] tracking-tight"
@@ -511,7 +506,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                Our customers have no margin for error.
+                What it is like to work with us.
               </motion.h2>
             </div>
 
@@ -600,20 +595,20 @@ const About = () => {
               {
                 num: "01",
                 title: "Our Mission",
-                desc: "To empower businesses with cutting-edge technology solutions, unlocking their growth potential by connecting them with passionate and skilled engineers.",
-                tags: ["Innovation", "Growth", "Partnership"],
+                desc: "Give growing businesses a senior software team they can afford, reach during their own working day, and rely on after launch.",
+                tags: ["Senior team", "Your time zone", "Long-term support"],
               },
               {
                 num: "02",
                 title: "Our Vision",
-                desc: "We envision transforming IT systems into smart, agile, and AI-driven digital assets - shaping a future where technology meets the dynamic demands of a connected world.",
-                tags: ["AI-Driven", "Adaptive", "Future-Ready"],
+                desc: "To be the team a law firm or a farm calls first when a process is eating hours every week and nobody has had time to fix it.",
+                tags: ["LegalTech", "AgriTech", "Automation"],
               },
               {
                 num: "03",
                 title: "Our Values",
-                desc: "We lead with transparency, deliver with ownership, and grow through collaboration. Every decision is guided by integrity and a relentless focus on impact.",
-                tags: ["Transparency", "Ownership", "Integrity"],
+                desc: "We quote a fixed price before we start. We show working software every week. You own the code. If something is not going to work, we say so early.",
+                tags: ["Fixed quotes", "Weekly demos", "You own the code"],
               },
             ].map((card, i) => (
               <MissionCard key={card.title} card={card} index={i} isInView={missionInView} />
@@ -705,7 +700,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            We're a team of 48 engineers, designers, and strategists building the future of software. Come work on challenging problems with talented people.
+            We're a team of 17 engineers, AI specialists and marketers working with clients around the world. If you like shipping real products for real businesses, have a look at our open roles.
           </motion.p>
           <motion.div
             className="flex items-center justify-center gap-4 flex-wrap"

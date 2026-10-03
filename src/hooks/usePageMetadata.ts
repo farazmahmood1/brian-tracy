@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { DEFAULT_METADATA } from "@/constants/metadata";
+import { SITE_URL, canonicalFor } from "@/constants/seo";
 
 interface PageMetadata {
     title?: string;
@@ -8,97 +9,77 @@ interface PageMetadata {
     url?: string;
     type?: string;
     keywords?: string;
+    /** Ask search engines not to index this page (404s, admin, thin pages) */
+    noindex?: boolean;
 }
 
-export const usePageMetadata = ({
-    title,
-    description,
-    image,
-    url,
-    type,
-    keywords,
-}: PageMetadata) => {
-    const metadata = useRef({
-        title: title || DEFAULT_METADATA.title,
-        description: description || DEFAULT_METADATA.description,
-        image: image || DEFAULT_METADATA.image,
-        url: url || window.location.href,
-        type: type || DEFAULT_METADATA.type,
-        keywords: keywords || "",
-    });
+const setMeta = (attr: "name" | "property", key: string, content: string) => {
+    let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+    if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+    }
+    el.setAttribute("content", content);
+};
 
-    // Update ref if props change
+const setLink = (rel: string, href: string, hreflang?: string) => {
+    const selector = hreflang ? `link[rel="${rel}"][hreflang="${hreflang}"]` : `link[rel="${rel}"]:not([hreflang])`;
+    let el = document.head.querySelector<HTMLLinkElement>(selector);
+    if (!el) {
+        el = document.createElement("link");
+        el.setAttribute("rel", rel);
+        if (hreflang) el.setAttribute("hreflang", hreflang);
+        document.head.appendChild(el);
+    }
+    el.setAttribute("href", href);
+};
+
+// One English version of each page, served to every region.
+export const HREFLANGS = ["en", "x-default"];
+
+export const usePageMetadata = ({ title, description, image, url, type, keywords, noindex }: PageMetadata) => {
     useEffect(() => {
-        metadata.current = {
-            title: title || DEFAULT_METADATA.title,
-            description: description || DEFAULT_METADATA.description,
-            image: image || DEFAULT_METADATA.image,
-            url: url || window.location.href,
-            type: type || DEFAULT_METADATA.type,
-            keywords: keywords || "",
-        };
-    }, [title, description, image, url, type, keywords]);
+        const pageTitle = title || DEFAULT_METADATA.title;
+        const pageDescription = description || DEFAULT_METADATA.description;
+        const pageImage = image || DEFAULT_METADATA.image;
+        const canonical = url || canonicalFor(window.location.pathname);
 
-    useEffect(() => {
-        const { title, description, image, url, type, keywords } = metadata.current;
+        document.title = pageTitle;
+        setMeta("name", "description", pageDescription);
+        setMeta("name", "keywords", keywords || "");
+        setMeta(
+            "name",
+            "robots",
+            noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        );
 
-        // Update Title
-        document.title = title;
+        // Canonical + regional alternates - without these every route inherits the homepage canonical
+        setLink("canonical", canonical);
+        HREFLANGS.forEach((lang) => setLink("alternate", canonical, lang));
 
-        // Helper to update meta tags
-        const updateMeta = (selector: string, attribute: string, value: string) => {
-            let element = document.querySelector(selector);
-            if (!element) {
-                element = document.createElement("meta");
-                // Parse selector to attribute
-                if (selector.startsWith('meta[name="')) {
-                    element.setAttribute("name", selector.match(/name="([^"]+)"/)?.[1] || "");
-                } else if (selector.startsWith('meta[property="')) {
-                    element.setAttribute("property", selector.match(/property="([^"]+)"/)?.[1] || "");
-                }
-                document.head.appendChild(element);
-            }
-            element.setAttribute(attribute, value);
-        };
+        setMeta("property", "og:title", pageTitle);
+        setMeta("property", "og:description", pageDescription);
+        setMeta("property", "og:image", pageImage);
+        setMeta("property", "og:url", canonical);
+        setMeta("property", "og:type", type || DEFAULT_METADATA.type);
 
-        // Update Meta Tags
-        updateMeta('meta[name="description"]', "content", description);
-        if (keywords) {
-            updateMeta('meta[name="keywords"]', "content", keywords);
-        } else {
-            const el = document.querySelector('meta[name="keywords"]');
-            if (el) el.setAttribute("content", "");
-        }
-
-        // Open Graph
-        updateMeta('meta[property="og:title"]', "content", title);
-        updateMeta('meta[property="og:description"]', "content", description);
-        updateMeta('meta[property="og:image"]', "content", image);
-        updateMeta('meta[property="og:url"]', "content", url);
-        updateMeta('meta[property="og:type"]', "content", type);
-
-        // Twitter
-        updateMeta('meta[name="twitter:card"]', "content", DEFAULT_METADATA.twitterCard);
-        updateMeta('meta[name="twitter:title"]', "content", title);
-        updateMeta('meta[name="twitter:description"]', "content", description);
-        updateMeta('meta[name="twitter:image"]', "content", image);
+        setMeta("name", "twitter:card", DEFAULT_METADATA.twitterCard);
+        setMeta("name", "twitter:title", pageTitle);
+        setMeta("name", "twitter:description", pageDescription);
+        setMeta("name", "twitter:image", pageImage);
 
         return () => {
-            // Restore defaults on cleanup
+            // Restore defaults so a page without its own metadata never shows a stale title
             document.title = DEFAULT_METADATA.title;
-            updateMeta('meta[name="description"]', "content", DEFAULT_METADATA.description);
-            const el = document.querySelector('meta[name="keywords"]');
-            if (el) el.setAttribute("content", "");
-
-            updateMeta('meta[property="og:title"]', "content", DEFAULT_METADATA.title);
-            updateMeta('meta[property="og:description"]', "content", DEFAULT_METADATA.description);
-            updateMeta('meta[property="og:image"]', "content", DEFAULT_METADATA.image);
-            updateMeta('meta[property="og:url"]', "content", "https://forrof.io/");
-            updateMeta('meta[property="og:type"]', "content", DEFAULT_METADATA.type);
-
-            updateMeta('meta[name="twitter:title"]', "content", DEFAULT_METADATA.title);
-            updateMeta('meta[name="twitter:description"]', "content", DEFAULT_METADATA.description);
-            updateMeta('meta[name="twitter:image"]', "content", DEFAULT_METADATA.image);
+            setMeta("name", "description", DEFAULT_METADATA.description);
+            setMeta("name", "keywords", "");
+            setLink("canonical", `${SITE_URL}/`);
+            setMeta("property", "og:title", DEFAULT_METADATA.title);
+            setMeta("property", "og:description", DEFAULT_METADATA.description);
+            setMeta("property", "og:url", `${SITE_URL}/`);
+            setMeta("name", "twitter:title", DEFAULT_METADATA.title);
+            setMeta("name", "twitter:description", DEFAULT_METADATA.description);
         };
-    }, [title, description, image, url, type, keywords]);
+    }, [title, description, image, url, type, keywords, noindex]);
 };

@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { GlowCard } from "@/components/InteractiveElements";
 import { StrategyTerminalBlock } from "@/components/AiMlVisuals";
@@ -31,11 +32,7 @@ const processSteps = [
 ];
 
 export default function StrategyService() {
-  usePageMetadata({
-    title: "Product Architecture & Technical Strategy | Forrof",
-    description: "We partner with teams on system design, AI strategy, and engineering direction to reduce risk and build smarter.",
-    keywords: "technical strategy, product architecture, CTO as a service, system design, AI roadmap, engineering consulting",
-  });
+  usePageMetadata(seo("/services/strategy"));
 
   const navigate = useNavigate();
 
@@ -94,7 +91,7 @@ export default function StrategyService() {
                   backgroundPosition: { duration: 3, ease: "easeInOut", delay: 1 },
                 }}
               >
-                Product Architecture &amp; Technical Strategy
+                Technical Strategy &amp; CTO-as-a-Service
               </motion.h1>
             </div>
             <motion.p
@@ -104,7 +101,7 @@ export default function StrategyService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              We partner with founders and engineering leaders on system design, AI strategy, and technical direction - reducing risk and enabling smarter, faster decisions at every stage of growth.
+              System design, technical due diligence and fractional CTO support for companies facing a big technology decision. You get a senior engineer's honest view before you spend the money.
             </motion.p>
         </div>
       </motion.section>

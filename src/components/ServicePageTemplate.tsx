@@ -22,13 +22,16 @@ export interface ServicePageContent {
   techStack: { intro: string; items: { name: string; desc: string }[] };
   whyUs: { title: string; desc: string }[];
   sideVisual: ReactNode;
-  industries: { heading: string; items: { title: string; points: string[] }[] };
+  industries: { label?: string; heading: string; items: { title: string; points: string[] }[] };
   process: { steps: { num: string; title: string; desc: string }[]; note?: string };
   faqs: { q: string; a: string }[];
   cta: { heading: string; label: string };
 }
 
 const SITE_URL = "https://forrof.io";
+
+// How many items each section shows. The content files may hold more.
+const LIMITS = { problems: 4, techStack: 4, whyUs: 4, industries: 4, faqs: 3 };
 
 /* Decorative terminal panel. Lines starting with "$" or "✓" are highlights,
    lines starting with "⬡" are group headings, everything else is a row. */
@@ -129,10 +132,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
         description: c.meta.description,
         url: pageUrl,
         provider: { "@type": "Organization", name: "Forrof", url: SITE_URL },
-        areaServed: [
-          { "@type": "Country", name: "New Zealand" },
-          { "@type": "Country", name: "Australia" },
-        ],
+        areaServed: "Worldwide",
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: c.name,
@@ -144,7 +144,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
       },
       {
         "@type": "FAQPage",
-        mainEntity: c.faqs.map((f) => ({
+        mainEntity: c.faqs.slice(0, LIMITS.faqs).map((f) => ({
           "@type": "Question",
           name: f.q,
           acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -161,7 +161,12 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
     ],
   };
 
-  const answer = c.valueProp.answers[Math.min(activeProblem, c.valueProp.answers.length - 1)];
+  const problems = c.valueProp.problems.slice(0, LIMITS.problems);
+  const answers = c.valueProp.answers.slice(0, LIMITS.problems);
+  const techItems = c.techStack.items.slice(0, LIMITS.techStack);
+  const whyUs = c.whyUs.slice(0, LIMITS.whyUs);
+  const industryItems = c.industries.items.slice(0, LIMITS.industries);
+  const answer = answers[Math.min(activeProblem, answers.length - 1)];
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -269,7 +274,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
             >
               <h3 className="text-sm font-semibold mb-8 uppercase tracking-widest text-muted-foreground">Key Problems We Solve</h3>
               <ul className="space-y-3">
-                {c.valueProp.problems.map((problem, i) => (
+                {problems.map((problem, i) => (
                   <li
                     key={i}
                     className={`flex items-start gap-4 p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
@@ -314,7 +319,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
                 </motion.div>
               </AnimatePresence>
               <div className="mt-6 flex gap-2">
-                {c.valueProp.answers.map((_, i) => (
+                {answers.map((_, i) => (
                   <button
                     key={i}
                     aria-label={`Show point ${i + 1}`}
@@ -450,7 +455,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
             </motion.p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {c.techStack.items.map((tech, i) => (
+            {techItems.map((tech, i) => (
               <motion.div
                 key={tech.name}
                 initial={{ opacity: 0, y: 40 }}
@@ -484,7 +489,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
           </motion.h2>
           <div className="grid lg:grid-cols-[1fr_0.6fr] gap-12 lg:gap-16 items-start">
             <div>
-              {c.whyUs.map((item, i) => (
+              {whyUs.map((item, i) => (
                 <motion.div
                   key={item.title}
                   className="border-t border-border group py-8"
@@ -513,7 +518,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
       {/* /05 INDUSTRIES */}
       <section ref={refs.industries} className="section-forced-light section-padding py-32 relative overflow-hidden">
         <div className="max-w-[1800px] mx-auto">
-          <SectionLabel num="/05" label="Industries" inView={inView.industries} />
+          <SectionLabel num="/05" label={c.industries.label ?? "Industries"} inView={inView.industries} />
           <motion.h2
             className="text-4xl md:text-6xl font-bold tracking-tighter mb-16 max-w-4xl"
             initial={{ opacity: 0, y: 40 }}
@@ -523,7 +528,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
             {c.industries.heading}
           </motion.h2>
           <div className="space-y-0">
-            {c.industries.items.map((industry, i) => {
+            {industryItems.map((industry, i) => {
               const isOpen = openIndustry === i;
               return (
                 <motion.div
@@ -606,7 +611,7 @@ export const ServicePageTemplate = ({ content: c }: { content: ServicePageConten
               {c.name} FAQs
             </motion.h2>
             <div>
-              {c.faqs.map((faq, i) => {
+              {c.faqs.slice(0, LIMITS.faqs).map((faq, i) => {
                 const isOpen = openFaq === i;
                 return (
                   <div key={faq.q} className="border-t border-border">

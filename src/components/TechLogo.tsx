@@ -8,7 +8,7 @@ import {
   SiSolidity, SiIpfs, SiWeb3Dotjs, SiClaude, SiLangchain, SiPytorch, SiHuggingface, SiMake,
   SiZapier, SiXero, SiFastapi, SiSnowflake, SiApacheairflow, SiApachekafka, SiLooker,
   SiGooglesearchconsole, SiGoogleanalytics, SiSemrush, SiGoogletagmanager, SiWordpress,
-  SiPerplexity, SiGoogleads, SiMeta, SiTiktok,
+  SiPerplexity, SiGoogleads, SiMeta, SiTiktok, SiShopify, SiGooglemaps, SiMyob, SiSquare, SiQuickbooks,
 } from "react-icons/si";
 import { FaAws, FaJava, FaLinkedin } from "react-icons/fa6";
 import { RiOpenaiFill } from "react-icons/ri";
@@ -21,8 +21,8 @@ import {
 
 type IconComponent = ComponentType<{ className?: string; style?: CSSProperties }>;
 
-// `color` is the brand colour. Brands whose mark is black or near-black have no
-// colour so they inherit the surrounding text colour and stay visible on dark backgrounds.
+// `color` is the brand color. Brands whose mark is black or near-black have no
+// color so they inherit the surrounding text color and stay visible on dark backgrounds.
 const logos: Record<string, { icon: IconComponent; color?: string }> = {
   // Frontend
   "React": { icon: SiReact, color: "#61DAFB" },
@@ -84,6 +84,11 @@ const logos: Record<string, { icon: IconComponent; color?: string }> = {
   "Zapier": { icon: SiZapier, color: "#FF4F00" },
   // Integration & data
   "Xero": { icon: SiXero, color: "#13B5EA" },
+  "MYOB": { icon: SiMyob, color: "#6100A5" },
+  "QuickBooks": { icon: SiQuickbooks, color: "#2CA01C" },
+  "Shopify": { icon: SiShopify, color: "#7AB55C" },
+  "Square": { icon: SiSquare },
+  "Google Maps": { icon: SiGooglemaps, color: "#4285F4" },
   "FastAPI": { icon: SiFastapi, color: "#009688" },
   "Snowflake": { icon: SiSnowflake, color: "#29B5E8" },
   "Apache Airflow": { icon: SiApacheairflow, color: "#017CEE" },

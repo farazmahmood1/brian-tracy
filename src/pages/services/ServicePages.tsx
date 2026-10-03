@@ -1,4 +1,5 @@
 import { ServicePageTemplate, TerminalBlock, type ServicePageContent } from "@/components/ServicePageTemplate";
+import { seo } from "@/constants/seo";
 import {
   AiCodeBlock, SaasTerminalBlock, DnaHelix3D, AppFrame3D, DataCube3D, OrbitRings3D, SocialGraph3D,
 } from "@/components/AiMlVisuals";
@@ -13,7 +14,7 @@ const stats = [
 
 const sharedWhyUs = {
   ownership: { title: "Full Ownership, No Lock-In", desc: "You own the code, data, accounts, and models. Everything we build is documented and handed over - no hidden dependencies on us." },
-  timezone: { title: "Working Hours That Overlap With NZ & AU", desc: "Our team schedules daily overlap with New Zealand and Australian business hours, so you get same-day answers, live calls, and weekly demos." },
+  timezone: { title: "Working Hours That Overlap With Yours", desc: "We schedule daily overlap with your business hours wherever you are, so you get same-day answers, live calls and weekly demos." },
   transparent: { title: "Transparent, Fixed-Scope Pricing", desc: "Clear scopes, milestones, and pricing before work begins. You always know what you're paying for and what's being delivered next." },
   senior: { title: "Senior-Led Delivery", desc: "Every engagement is led by senior engineers and strategists who have shipped products in legal, agriculture, fintech, health, and education." },
 };
@@ -21,19 +22,15 @@ const sharedWhyUs = {
 const aiAutomation: ServicePageContent = {
   slug: "ai-automation",
   name: "AI & Automation",
-  meta: {
-    title: "AI & Automation Services NZ & Australia | AI Agents, LLMs & Workflow Automation | Forrof",
-    description: "AI development and business automation for New Zealand and Australian companies - custom AI agents, LLM and RAG solutions, document intelligence, and workflow automation that cut manual work and reach production.",
-    keywords: "AI automation services, AI development New Zealand, AI agency Australia, AI agents, LLM development, RAG, workflow automation, business process automation, document automation, machine learning",
-  },
+  meta: seo("/services/ai-automation"),
   hero: {
     heading: "AI & Automation",
     intro: "Custom AI agents, LLM solutions, and workflow automation that remove manual work and plug straight into the tools your team already uses.",
     cta: "Book an AI Consultation",
   },
   valueProp: {
-    heading: "Your Business Deserves More Than Generic AI",
-    intro: "Most AI projects stall at the demo stage. We build AI and automation that understands your data, fits your workflow, and goes live in production.",
+    heading: "AI That Does Real Work in Your Business",
+    intro: "Most AI projects stop at a demo. Ours are built on your own documents and data, connected to the tools your team uses, and put into daily use.",
     problems: [
       "Your team spends hours on repetitive admin, data entry, and copy-paste between systems?",
       "Sitting on documents and data, but can't search or extract insights from them?",
@@ -46,7 +43,7 @@ const aiAutomation: ServicePageContent = {
       { title: "Document Intelligence & RAG", desc: "We turn contracts, PDFs, emails, and records into a searchable knowledge base your team can question in plain English, with answers that cite their sources." },
       { title: "AI Strategy & Use-Case Discovery", desc: "A short discovery sprint ranks your use cases by value and feasibility, so you invest in the two or three that will pay back first." },
       { title: "Production-Grade Delivery", desc: "Monitoring, evaluation, guardrails, and cost controls are built in from day one - not bolted on after a proof of concept." },
-      { title: "Private & Compliant by Design", desc: "We design around the NZ Privacy Act 2020 and Australian Privacy Principles, with data residency, access controls, and audit trails as standard." },
+      { title: "Private & Compliant by Design", desc: "We design around the privacy rules that apply to you, such as GDPR, CCPA and HIPAA, with data residency, access controls and audit trails as standard." },
     ],
   },
   services: {
@@ -56,14 +53,14 @@ const aiAutomation: ServicePageContent = {
       { title: "AI Agents & Assistants", desc: "Custom AI agents that answer questions, draft documents, triage requests, and take actions across your systems - trained on your own knowledge." },
       { title: "LLM & RAG Solutions", desc: "Retrieval-augmented generation over your documents and data, using OpenAI, Claude, or open-source models - accurate, cited, and access-controlled." },
       { title: "Business Process Automation", desc: "End-to-end automation of intake, approvals, invoicing, reporting, and data entry - connecting your CRM, email, accounting, and practice tools." },
-      { title: "Document Intelligence", desc: "Extract, classify, and summarise information from contracts, forms, invoices, and records - turning unstructured documents into structured data." },
+      { title: "Document Intelligence", desc: "Extract, classify, and summarize information from contracts, forms, invoices, and records - turning unstructured documents into structured data." },
       { title: "Proof of Value / AI Prototype", desc: "A working AI prototype in 4-6 weeks that tests your hypothesis with real data before you commit to a full build." },
       { title: "Predictive Analytics & ML", desc: "Custom machine learning models for forecasting, scoring, and anomaly detection - deployed with monitoring and retraining pipelines." },
     ],
   },
   visual: {
-    heading: "Production-Ready from Day One",
-    desc: "Our AI doesn't just work in a notebook - it ships with evaluation, monitoring, guardrails, and CI/CD, so it stays accurate and affordable as usage grows.",
+    heading: "Built to Run Every Day",
+    desc: "Every AI system we ship is tested against real examples, monitored for accuracy and cost, and limited to the tasks you approve. When it is unsure, it hands over to a person.",
     terminal: <AiCodeBlock />,
   },
   stats,
@@ -94,7 +91,7 @@ const aiAutomation: ServicePageContent = {
       { title: "LegalTech & Law Firms", points: [
         "Legal AI assistants: Chatbots that answer questions over precedents, templates, and firm knowledge - with citations lawyers can verify.",
         "Contract review & clause extraction: Flag risky clauses, missing terms, and key dates across hundreds of documents in minutes.",
-        "Client intake automation: Capture, qualify, and route new enquiries automatically, with conflict-check data ready for review.",
+        "Client intake automation: Capture, qualify, and route new inquiries automatically, with conflict-check data ready for review.",
       ] },
       { title: "Agriculture & AgriTech", points: [
         "Yield and demand forecasting: ML models that use weather, soil, and historical data to plan harvests, inputs, and logistics.",
@@ -102,17 +99,17 @@ const aiAutomation: ServicePageContent = {
         "Computer vision: Detect crop disease, count stock, and grade produce from drone, camera, or phone images.",
       ] },
       { title: "Education & EdTech", points: [
-        "Adaptive learning: AI that personalises content difficulty and pacing to each learner.",
+        "Adaptive learning: AI that personalizes content difficulty and pacing to each learner.",
         "Automated feedback: NLP models that assess written work and deliver instant, consistent feedback.",
         "Student retention prediction: Spot at-risk learners early from engagement signals.",
       ] },
       { title: "FinTech & Finance", points: [
-        "Fraud and anomaly detection: Behavioural models that flag unusual transactions in real time.",
+        "Fraud and anomaly detection: Behavioral models that flag unusual transactions in real time.",
         "Document processing: Automate KYC, loan, and invoice processing with extraction and validation.",
         "Forecasting: Cash-flow and risk forecasting from historical and alternative data.",
       ] },
       { title: "Health & Wellness", points: [
-        "Clinical note summarisation: Turn unstructured notes and referrals into structured, searchable records.",
+        "Clinical note summarization: Turn unstructured notes and referrals into structured, searchable records.",
         "Patient triage assistants: AI-assisted intake that routes patients to the right care faster.",
         "Operational forecasting: Predict demand and no-shows to plan staff and appointments.",
       ] },
@@ -132,28 +129,24 @@ const aiAutomation: ServicePageContent = {
   faqs: [
     { q: "How much does an AI or automation project cost?", a: "Most clients start with a fixed-price discovery or proof of value, typically delivered in 4-6 weeks. Full builds are scoped and priced after that, so you only invest further once the value is proven." },
     { q: "Is our data safe when using AI models like ChatGPT or Claude?", a: "Yes. We use enterprise API terms that exclude your data from model training, apply strict access controls, and can deploy open-source models in your own cloud when data must not leave your environment." },
-    { q: "Do you work with businesses in New Zealand and Australia?", a: "Yes - New Zealand and Australia are our focus markets. We schedule overlapping hours for calls and design around the NZ Privacy Act 2020 and the Australian Privacy Principles." },
+    { q: "How long does it take to automate a workflow?", a: "A single workflow usually goes live in 3 to 6 weeks, including testing with real examples. Larger programs are delivered one workflow at a time, so you see value from the first release." },
     { q: "Can AI integrate with the software we already use?", a: "Usually, yes. We connect AI and automations to CRMs, accounting software like Xero, practice management systems, email, and document storage through their APIs." },
   ],
-  cta: { heading: "Ready to put AI to work in your business?", label: "Book an AI Consultation" },
+  cta: { heading: "Which task would you hand to AI first?", label: "Book an AI Consultation" },
 };
 
 const customSoftware: ServicePageContent = {
   slug: "custom-software",
   name: "Custom Software Development",
-  meta: {
-    title: "Custom Software Development NZ & Australia | Web, SaaS & Mobile Apps | Forrof",
-    description: "Custom software development for New Zealand and Australian businesses - web applications, SaaS platforms, mobile apps, client portals, and internal systems built by a senior team, with full code ownership.",
-    keywords: "custom software development, software development company New Zealand, software developers Australia, web application development, SaaS development, mobile app development, client portal development, MVP development",
-  },
+  meta: seo("/services/custom-software"),
   hero: {
     heading: "Custom Software Development",
     intro: "Web platforms, SaaS products, mobile apps, and internal systems - designed, built, and scaled by one senior team, from first sprint to production.",
     cta: "Start Your Project",
   },
   valueProp: {
-    heading: "Software Built Around How You Actually Work",
-    intro: "Off-the-shelf tools force your team to work around them. We build software that fits your process - and grows with your business.",
+    heading: "Software That Fits How You Work",
+    intro: "Off-the-shelf tools make your team work around them. We build software around your process, and we keep improving it as the business grows.",
     problems: [
       "Running the business on spreadsheets, email threads, and disconnected tools?",
       "Off-the-shelf software doesn't fit your workflow - and the workarounds keep growing?",
@@ -166,7 +159,7 @@ const customSoftware: ServicePageContent = {
       { title: "Workflow-First Design", desc: "We start with how your team works today, then design software that removes the workarounds instead of adding new ones." },
       { title: "Predictable Delivery", desc: "Fixed-scope milestones, weekly demos, and a shared board mean you always know what's done, what's next, and what it costs." },
       { title: "MVP in Weeks, Not Months", desc: "A lean, production-grade MVP that gets real customer feedback quickly - built on foundations that scale when it works." },
-      { title: "Legacy Modernisation", desc: "We modernise module by module, so the business keeps running while old systems are replaced safely." },
+      { title: "Legacy Modernization", desc: "We modernize module by module, so the business keeps running while old systems are replaced safely." },
     ],
   },
   services: {
@@ -175,15 +168,15 @@ const customSoftware: ServicePageContent = {
     cards: [
       { title: "Web Application Development", desc: "Fast, secure web applications and client portals built with React, Next.js, and Node.js - responsive on every device." },
       { title: "SaaS Product Development", desc: "Multi-tenant SaaS platforms with subscriptions, billing, roles, and analytics - engineered to scale from day one.", slug: "saas" },
-      { title: "Mobile App Development", desc: "iOS and Android apps with React Native, Flutter, Swift, and Kotlin - from first release to App Store optimisation.", slug: "mobile" },
+      { title: "Mobile App Development", desc: "iOS and Android apps with React Native, Flutter, Swift, and Kotlin - from first release to App Store optimization.", slug: "mobile" },
       { title: "Enterprise & Internal Software", desc: "Dashboards, workflow systems, and internal tools that streamline operations and replace spreadsheets.", slug: "enterprise" },
       { title: "MVP & Proof of Concept", desc: "Lean MVPs and prototypes that validate your idea with real users and investors - fast.", slug: "mvp" },
       { title: "Product Strategy & Architecture", desc: "System design, technical due diligence, and CTO-as-a-service to de-risk big decisions.", slug: "strategy" },
     ],
   },
   visual: {
-    heading: "Engineered to Scale",
-    desc: "Clean architecture, automated testing, CI/CD, and cloud infrastructure come standard - so your software stays fast, secure, and easy to extend.",
+    heading: "Easy to Maintain, Ready to Grow",
+    desc: "Automated tests, code review, continuous deployment and documented architecture are part of every build. The next developer, ours or yours, can pick it up without guesswork.",
     terminal: <SaasTerminalBlock />,
   },
   stats,
@@ -197,7 +190,7 @@ const customSoftware: ServicePageContent = {
       { name: "React Native", desc: "Cross-platform iOS and Android apps from a single codebase." },
       { name: "Flutter", desc: "Visually rich, natively compiled mobile apps from one codebase." },
       { name: "PostgreSQL", desc: "Reliable, secure relational data for transactional and reporting workloads." },
-      { name: "AWS", desc: "Secure, scalable cloud hosting with data residency options in Australia." },
+      { name: "AWS", desc: "Secure, scalable cloud hosting in the region you choose." },
     ],
   },
   whyUs: [
@@ -219,7 +212,7 @@ const customSoftware: ServicePageContent = {
       { title: "Agriculture & AgriTech", points: [
         "Farm management platforms: Field, stock, and financial records in one system - like the Bushel platform we helped build.",
         "Mobile field apps: Offline-ready apps for recording work, inspections, and compliance data on the farm.",
-        "Supply-chain and traceability systems: Track produce from paddock to processor with full audit trails.",
+        "Supply-chain and traceability systems: Track produce from field to processor with full audit trails.",
       ] },
       { title: "Education & EdTech", points: [
         "Learning platforms: Course delivery, assessments, and progress tracking for learners and educators.",
@@ -253,27 +246,23 @@ const customSoftware: ServicePageContent = {
     { q: "How much does custom software development cost?", a: "It depends on scope. Most projects start with a short paid discovery that produces a fixed-scope estimate, so you know the cost and timeline before development begins." },
     { q: "How long does it take to build custom software?", a: "An MVP typically takes 6-12 weeks. Larger platforms are delivered in phases, with usable releases every few weeks rather than one big launch." },
     { q: "Do we own the source code?", a: "Yes. You own all source code, designs, data, and accounts from day one. Everything is documented so any team can maintain it." },
-    { q: "Can you work with our existing systems?", a: "Yes. We integrate new software with your existing tools - accounting, CRM, practice management, and more - and can modernise legacy systems step by step." },
+    { q: "Can you work with our existing systems?", a: "Yes. We integrate new software with your existing tools - accounting, CRM, practice management, and more - and can modernize legacy systems step by step." },
   ],
-  cta: { heading: "Let's build software that fits your business.", label: "Start Your Project" },
+  cta: { heading: "Tell us what you need built.", label: "Start Your Project" },
 };
 
 const systemsIntegration: ServicePageContent = {
   slug: "systems-integration",
   name: "Systems Integration & Data",
-  meta: {
-    title: "Systems Integration & Data Services NZ & Australia | API Integration, Xero & Dashboards | Forrof",
-    description: "Systems integration and data services for New Zealand and Australian businesses - API integrations, Xero and practice management integrations, data pipelines, and reporting dashboards that connect the tools you already use.",
-    keywords: "systems integration, API integration services, Xero integration, data integration New Zealand, data engineering Australia, business intelligence dashboards, data pipelines, legacy system integration, software integration",
-  },
+  meta: seo("/services/systems-integration"),
   hero: {
     heading: "Systems Integration & Data",
     intro: "Connect the software you already use, eliminate double entry, and get one reliable view of your business - in real time.",
     cta: "Plan Your Integration",
   },
   valueProp: {
-    heading: "Your Tools Should Talk to Each Other",
-    intro: "Most businesses run on a patchwork of apps that don't share data. We connect them, so information flows automatically and reporting is always accurate.",
+    heading: "Enter It Once, Use It Everywhere",
+    intro: "Most businesses run on five or six apps that do not share data. We connect them, so details are typed once and every report shows the same numbers.",
     problems: [
       "Re-typing the same data into your CRM, accounting, and practice software?",
       "Reports take days to compile from spreadsheets - and the numbers don't match?",
@@ -283,8 +272,8 @@ const systemsIntegration: ServicePageContent = {
     ],
     answers: [
       { title: "Automated Data Sync", desc: "We connect your systems through their APIs so records, invoices, and contacts update everywhere automatically - no double entry, no errors." },
-      { title: "Single Source of Truth", desc: "We centralise data from every system into a clean, governed data store, so every report uses the same numbers." },
-      { title: "Custom, Reliable Integrations", desc: "When off-the-shelf connectors fall short, we build robust custom integrations with retries, alerts, and logging." },
+      { title: "Single Source of Truth", desc: "We centralize data from every system into a clean, governed data store, so every report uses the same numbers." },
+      { title: "Custom, Reliable Integrations", desc: "When off-the-shelf connectors fall short, we build custom integrations with retries, alerts and logging, so a failed sync is caught the same day." },
       { title: "Real-Time Dashboards", desc: "Live dashboards for revenue, operations, and KPIs - built for leaders who need answers, not spreadsheets." },
       { title: "Legacy System Bridges", desc: "We wrap legacy systems in modern APIs, so they can connect to new tools while you plan a safe migration." },
     ],
@@ -296,9 +285,9 @@ const systemsIntegration: ServicePageContent = {
       { title: "API Integration Development", desc: "Custom integrations between your CRM, accounting, e-commerce, and operational systems - with monitoring and error handling." },
       { title: "Accounting & Xero Integrations", desc: "Sync invoices, payments, payroll, and contacts between Xero and the rest of your stack." },
       { title: "Practice & Farm Software Integrations", desc: "Connect legal practice management or farm management software with accounting, CRM, and reporting tools." },
-      { title: "Data Pipelines & Warehousing", desc: "Automated pipelines that collect, clean, and centralise data from every system into one warehouse." },
+      { title: "Data Pipelines & Warehousing", desc: "Automated pipelines that collect, clean, and centralize data from every system into one warehouse." },
       { title: "BI Dashboards & Reporting", desc: "Real-time dashboards and automated reports for leadership, finance, and operations teams." },
-      { title: "Legacy System Modernisation", desc: "Modern APIs around legacy systems, data migration, and step-by-step replacement without downtime." },
+      { title: "Legacy System Modernization", desc: "Modern APIs around legacy systems, data migration, and step-by-step replacement without downtime." },
     ],
   },
   visual: {
@@ -327,7 +316,7 @@ const systemsIntegration: ServicePageContent = {
   },
   stats,
   techStack: {
-    intro: "We integrate with the platforms NZ and Australian businesses rely on, using proven data tools that scale from a single sync to a full data platform.",
+    intro: "We integrate with the accounting, CRM and operational platforms your business already relies on, using data tools that scale from a single sync to a full data platform.",
     items: [
       { name: "Xero", desc: "Accounting integrations for invoices, payments, payroll, and reconciliation." },
       { name: "Node.js", desc: "Lightweight, reliable integration services and API gateways." },
@@ -357,7 +346,7 @@ const systemsIntegration: ServicePageContent = {
       ] },
       { title: "Agriculture & AgriTech", points: [
         "Equipment and field data: Integrate machinery and agronomy platforms like John Deere and Climate FieldView into one view.",
-        "Farm financials: Connect farm records with accounting so profitability is visible per paddock or block.",
+        "Farm financials: Connect farm records with accounting so profitability is visible per field or block.",
         "Supply-chain data: Share data with processors, buyers, and auditors automatically.",
       ] },
       { title: "FinTech & Finance", points: [
@@ -368,7 +357,7 @@ const systemsIntegration: ServicePageContent = {
       { title: "Health & Wellness", points: [
         "Practice system integrations: Connect booking, records, and billing systems securely.",
         "Patient data consolidation: One accurate record across multiple systems.",
-        "Operational reporting: Live dashboards for appointments, utilisation, and revenue.",
+        "Operational reporting: Live dashboards for appointments, utilization, and revenue.",
       ] },
       { title: "Logistics & Transportation", points: [
         "Fleet and tracking integrations: Combine GPS, telematics, and dispatch data in one place.",
@@ -394,55 +383,51 @@ const systemsIntegration: ServicePageContent = {
     { q: "What happens when an integration fails?", a: "Every integration we build includes retries, logging, and alerts. If something fails, it's flagged immediately and resolved before data falls out of sync." },
     { q: "How long does an integration project take?", a: "A single integration typically takes 2-6 weeks. Multi-system data platforms are delivered in phases, with value delivered from the first phase." },
   ],
-  cta: { heading: "Connect your systems. Trust your data.", label: "Plan Your Integration" },
+  cta: { heading: "Which two systems should talk first?", label: "Plan Your Integration" },
 };
 
 const seoAiSearch: ServicePageContent = {
   slug: "seo",
   name: "SEO & AI Search Visibility",
-  meta: {
-    title: "SEO & AI Search Visibility Services NZ & Australia | Technical SEO, Local SEO & GEO | Forrof",
-    description: "SEO and AI search visibility services for New Zealand and Australian businesses - technical SEO, local SEO, content strategy, and generative engine optimisation (GEO) to rank in Google and get cited by ChatGPT, Perplexity, and AI Overviews.",
-    keywords: "SEO services New Zealand, SEO agency Australia, AI search optimisation, generative engine optimisation, GEO, local SEO, technical SEO, law firm SEO, AI Overviews, ChatGPT SEO",
-  },
+  meta: seo("/services/seo"),
   hero: {
     heading: "SEO & AI Search Visibility",
     intro: "Rank on Google and get recommended by ChatGPT, Perplexity, and Google's AI Overviews - with technical SEO, content, and local search done properly.",
     cta: "Get a Free SEO Audit",
   },
   valueProp: {
-    heading: "Be Found Where Your Customers Search",
-    intro: "Search has changed. Buyers now ask Google and AI assistants for recommendations. We make sure your business is the answer they get.",
+    heading: "Show Up When Customers Are Looking",
+    intro: "People now ask ChatGPT and Google's AI for a recommendation, as well as typing a search. We work on both, so your business is named in the answer and listed in the results.",
     problems: [
       "Competitors outrank you on Google for the services you offer?",
       "Your business never appears when people ask ChatGPT or Perplexity for a recommendation?",
-      "Website traffic is flat - or it doesn't turn into enquiries?",
+      "Website traffic is flat - or it doesn't turn into inquiries?",
       "Not showing in the Google Maps local pack for your city?",
       "Paying for SEO but can't see what's being done or what it's delivering?",
     ],
     answers: [
       { title: "Search-Led Content Strategy", desc: "We find the searches your buyers make, then create pages and articles that answer them better than anyone else." },
-      { title: "AI Search Optimisation (GEO)", desc: "We structure your content, schema, and brand mentions so AI assistants understand, trust, and cite your business." },
-      { title: "Conversion-Focused SEO", desc: "We optimise for enquiries, not just traffic - with landing pages, calls to action, and tracking that connect rankings to revenue." },
-      { title: "Local SEO", desc: "Google Business Profile optimisation, local citations, and location pages that win the map pack in NZ and Australian cities." },
-      { title: "Transparent Monthly Reporting", desc: "Clear reports on rankings, traffic, AI visibility, and enquiries - plus exactly what we did and what's next." },
+      { title: "AI Search Optimization (GEO)", desc: "We structure your content, schema, and brand mentions so AI assistants understand, trust, and cite your business." },
+      { title: "Conversion-Focused SEO", desc: "We optimize for inquiries, not just traffic - with landing pages, calls to action, and tracking that connect rankings to revenue." },
+      { title: "Local SEO", desc: "Google Business Profile optimization, local citations, and location pages that win the map pack in the cities you serve." },
+      { title: "Transparent Monthly Reporting", desc: "Clear reports on rankings, traffic, AI visibility, and inquiries - plus exactly what we did and what's next." },
     ],
   },
   services: {
     heading: "SEO & AI Search Services",
-    intro: "A complete search programme - technical foundations, content, local presence, and AI visibility - managed by one team.",
+    intro: "A complete search program - technical foundations, content, local presence, and AI visibility - managed by one team.",
     cards: [
       { title: "Technical SEO", desc: "Site speed, Core Web Vitals, crawlability, indexing, and structured data fixed so search engines can understand every page." },
-      { title: "AI Search Optimisation (GEO)", desc: "Optimisation for ChatGPT, Perplexity, Gemini, and Google AI Overviews - so your brand is cited in AI answers." },
+      { title: "AI Search Optimization (GEO)", desc: "Optimization for ChatGPT, Perplexity, Gemini, and Google AI Overviews - so your brand is cited in AI answers." },
       { title: "Local SEO", desc: "Google Business Profile, reviews, citations, and location pages to rank in local search and Maps." },
-      { title: "Content Strategy & Writing", desc: "Keyword research, topic clusters, and expert content that ranks and converts readers into enquiries." },
-      { title: "SEO Audits", desc: "A detailed audit of technical, content, and competitor gaps - with a prioritised action plan." },
-      { title: "Schema & Structured Data", desc: "Rich results and machine-readable data for services, FAQs, reviews, and your organisation." },
+      { title: "Content Strategy & Writing", desc: "Keyword research, topic clusters, and expert content that ranks and converts readers into inquiries." },
+      { title: "SEO Audits", desc: "A detailed audit of technical, content, and competitor gaps - with a prioritized action plan." },
+      { title: "Schema & Structured Data", desc: "Rich results and machine-readable data for services, FAQs, reviews, and your organization." },
     ],
   },
   visual: {
     heading: "Visibility You Can Measure",
-    desc: "We track rankings, organic traffic, AI citations, and enquiries - so you can see exactly how search is contributing to your pipeline.",
+    desc: "We track rankings, organic traffic, AI citations, and inquiries - so you can see exactly how search is contributing to your pipeline.",
     terminal: (
       <TerminalBlock
         lines={[
@@ -455,10 +440,10 @@ const seoAiSearch: ServicePageContent = {
           "",
           "⬡ Visibility",
           "  ├── Google Rankings ........... ✓ tracked",
-          "  ├── Local Map Pack ............ ✓ optimised",
+          "  ├── Local Map Pack ............ ✓ optimized",
           "  └── AI Answer Citations ....... ✓ monitored",
           "",
-          "✓ Report ready | Enquiries attributed",
+          "✓ Report ready | Inquiries attributed",
         ]}
       />
     ),
@@ -468,18 +453,18 @@ const seoAiSearch: ServicePageContent = {
     intro: "We use industry-standard SEO platforms and track visibility across both traditional search engines and AI assistants.",
     items: [
       { name: "Google Search Console", desc: "Indexing, rankings, and search performance data straight from Google." },
-      { name: "Google Analytics", desc: "Traffic and conversion tracking that ties organic search to enquiries." },
+      { name: "Google Analytics", desc: "Traffic and conversion tracking that ties organic search to inquiries." },
       { name: "Semrush", desc: "Keyword research, competitor analysis, and rank tracking." },
       { name: "Google Tag Manager", desc: "Accurate conversion and event tracking across your site." },
       { name: "ChatGPT", desc: "Monitoring how AI assistants describe and recommend your business." },
       { name: "Perplexity", desc: "Tracking citations in answer engines that link back to sources." },
-      { name: "WordPress", desc: "SEO-ready content management and technical optimisation." },
+      { name: "WordPress", desc: "SEO-ready content management and technical optimization." },
       { name: "Next.js", desc: "Fast, server-rendered websites built for search performance." },
     ],
   },
   whyUs: [
     { title: "Developers and Marketers in One Team", desc: "Most SEO agencies can't fix the technical issues they find. Our engineers implement fixes directly - no waiting on another vendor." },
-    { title: "Early Adopters of AI Search", desc: "We optimise for AI assistants and answer engines, not just ten blue links - so you're visible where search is heading." },
+    { title: "Early Adopters of AI Search", desc: "We optimize for AI assistants and answer engines, not just ten blue links - so you're visible where search is heading." },
     sharedWhyUs.timezone,
     sharedWhyUs.transparent,
     { title: "No Long Lock-In Contracts", desc: "Month-to-month engagements after the initial setup - we earn your business with results." },
@@ -495,13 +480,13 @@ const seoAiSearch: ServicePageContent = {
       ] },
       { title: "Agriculture & AgriTech", points: [
         "Product and service visibility: Rank for the equipment, services, and solutions farmers search for.",
-        "Regional SEO: Reach rural customers across New Zealand and Australian regions.",
+        "Regional SEO: Reach rural customers in the regions you supply.",
         "AgriTech thought leadership: Content that builds credibility with buyers and investors.",
       ] },
       { title: "Professional Services", points: [
         "Service pages built to convert: Clear, expert pages for each service you offer.",
         "Review and reputation growth: More reviews and better visibility in local search.",
-        "Lead tracking: Attribute calls and form enquiries to organic search.",
+        "Lead tracking: Attribute calls and form inquiries to organic search.",
       ] },
       { title: "SaaS & Technology", points: [
         "Product-led content: Pages that rank for problems your product solves.",
@@ -518,39 +503,35 @@ const seoAiSearch: ServicePageContent = {
   process: {
     steps: [
       { num: "01", title: "Audit & Benchmark", desc: "A full technical, content, local, and AI-visibility audit benchmarked against your competitors." },
-      { num: "02", title: "Strategy & Roadmap", desc: "A prioritised plan of keywords, pages, and fixes focused on the searches that drive enquiries." },
+      { num: "02", title: "Strategy & Roadmap", desc: "A prioritized plan of keywords, pages, and fixes focused on the searches that drive inquiries." },
       { num: "03", title: "Technical Fixes", desc: "Our engineers fix speed, indexing, and structured-data issues directly in your site." },
-      { num: "04", title: "Content & Local", desc: "New and improved pages, Google Business Profile optimisation, and citations." },
+      { num: "04", title: "Content & Local", desc: "New and improved pages, Google Business Profile optimization, and citations." },
       { num: "05", title: "Authority & AI Visibility", desc: "Digital PR, mentions, and structured content that build trust with search engines and AI." },
-      { num: "06", title: "Report & Refine", desc: "Monthly reporting on rankings, traffic, AI citations, and enquiries - and a plan for next month." },
+      { num: "06", title: "Report & Refine", desc: "Monthly reporting on rankings, traffic, AI citations, and inquiries - and a plan for next month." },
     ],
     note: "* SEO compounds over time - most clients see meaningful movement within 3-6 months.",
   },
   faqs: [
-    { q: "What is AI search optimisation (GEO)?", a: "Generative engine optimisation (GEO) makes your business more likely to be cited when people ask AI assistants like ChatGPT, Perplexity, or Google's AI Overviews for recommendations. It combines clear, well-structured content, schema markup, and trusted mentions across the web." },
+    { q: "What is AI search optimization (GEO)?", a: "Generative engine optimization (GEO) makes your business more likely to be cited when people ask AI assistants like ChatGPT, Perplexity, or Google's AI Overviews for recommendations. It combines clear, well-structured content, schema markup, and trusted mentions across the web." },
     { q: "How long does SEO take to work?", a: "Technical fixes can show results within weeks, but most businesses see meaningful ranking and traffic growth within 3-6 months, compounding over time." },
-    { q: "Do you offer local SEO for New Zealand and Australian cities?", a: "Yes. We optimise Google Business Profiles, local citations, reviews, and location pages for cities across New Zealand and Australia." },
+    { q: "Do you offer local SEO?", a: "Yes. We optimize Google Business Profiles, local citations, reviews and location pages, so you appear in Google Maps and the local pack for each city or neighborhood you serve." },
     { q: "Can you implement technical SEO fixes on our website?", a: "Yes. Our team includes developers, so we implement technical fixes directly rather than handing you a list of recommendations." },
   ],
-  cta: { heading: "Be the answer your customers find.", label: "Get a Free SEO Audit" },
+  cta: { heading: "See where you rank today.", label: "Get a Free SEO Audit" },
 };
 
 const performanceMarketing: ServicePageContent = {
   slug: "performance-marketing",
   name: "Performance Marketing",
-  meta: {
-    title: "Performance Marketing Agency NZ & Australia | Google Ads, Meta Ads & Social Media | Forrof",
-    description: "Performance marketing for New Zealand and Australian businesses - Google Ads, Meta, LinkedIn, and TikTok campaigns plus social media marketing, with server-side tracking and landing pages that turn ad spend into qualified leads.",
-    keywords: "performance marketing agency, Google Ads agency New Zealand, PPC agency Australia, Meta ads, LinkedIn ads, social media marketing, paid social, lead generation, conversion tracking, landing page optimisation",
-  },
+  meta: seo("/services/performance-marketing"),
   hero: {
     heading: "Performance Marketing",
     intro: "Paid ads and social media built around one goal - turning ad spend into qualified, booked revenue, with tracking you can trust.",
     cta: "Get a Free Ad Account Audit",
   },
   valueProp: {
-    heading: "Ad Spend Should Produce Revenue, Not Just Clicks",
-    intro: "We run paid media like engineers - every campaign is tracked, tested, and tied back to enquiries and revenue.",
+    heading: "Know What Every Ad Dollar Brings In",
+    intro: "Our developers set up the tracking before we spend anything, so every campaign is measured by the inquiries and sales it produces.",
     problems: [
       "Spending on Google or Meta ads but can't tell which campaigns bring in customers?",
       "Leads are coming in, but they're the wrong fit or never convert?",
@@ -562,7 +543,7 @@ const performanceMarketing: ServicePageContent = {
       { title: "Revenue-Level Tracking", desc: "Server-side tracking and CRM integration connect every click to the leads and revenue it produced." },
       { title: "Intent-Based Targeting", desc: "We focus budget on high-intent searches and audiences, and exclude the clicks that never convert." },
       { title: "Continuous Testing", desc: "Structured creative, audience, and landing-page tests that steadily lower cost per qualified lead." },
-      { title: "Social That Builds Pipeline", desc: "Content and paid social planned around your buyers - building trust that turns into enquiries." },
+      { title: "Social That Builds Pipeline", desc: "Content and paid social planned around your buyers - building trust that turns into inquiries." },
       { title: "Tracking That Survives Privacy Changes", desc: "Conversion APIs and first-party data setups that keep reporting accurate after iOS and cookie changes." },
     ],
   },
@@ -575,16 +556,16 @@ const performanceMarketing: ServicePageContent = {
       { title: "Meta Ads", desc: "Facebook and Instagram campaigns with creative testing and Conversion API.", slug: "meta-ads" },
       { title: "LinkedIn Ads", desc: "B2B campaigns targeting decision-makers by role, industry, and company size.", slug: "linkedin-ads" },
       { title: "Social Media Marketing", desc: "Strategy, content creation, and community management that grow an engaged audience.", slug: "social-media" },
-      { title: "Landing Pages & CRO", desc: "Fast, conversion-focused landing pages and ongoing tests that lift enquiry rates." },
+      { title: "Landing Pages & CRO", desc: "Fast, conversion-focused landing pages and ongoing tests that lift inquiry rates." },
     ],
   },
   visual: {
-    heading: "Every Dollar Accounted For",
+    heading: "Reports You Can Act On",
     desc: "We connect ad platforms, analytics, and your CRM, so you see cost per qualified lead and return on ad spend - not just clicks and impressions.",
     terminal: (
       <TerminalBlock
         lines={[
-          "$ forrof campaign --optimise --track revenue",
+          "$ forrof campaign --optimize --track revenue",
           "",
           "⬡ Channels",
           "  ├── Google Search & PMax ...... ✓ live",
@@ -617,7 +598,7 @@ const performanceMarketing: ServicePageContent = {
   },
   whyUs: [
     { title: "Engineering-Grade Tracking", desc: "Our developers set up server-side tracking and CRM integrations most agencies can't - so your data is accurate." },
-    { title: "Focused on Qualified Leads", desc: "We optimise for enquiries that turn into customers, not vanity metrics like clicks and impressions." },
+    { title: "Focused on Qualified Leads", desc: "We optimize for inquiries that turn into customers, not vanity metrics like clicks and impressions." },
     sharedWhyUs.timezone,
     sharedWhyUs.transparent,
     { title: "You Own Your Ad Accounts", desc: "Campaigns run in your accounts, so you keep all data, history, and audiences." },
@@ -632,22 +613,22 @@ const performanceMarketing: ServicePageContent = {
         "Retargeting: Stay visible while prospects compare firms.",
       ] },
       { title: "Agriculture & AgriTech", points: [
-        "Regional targeting: Reach farmers and agribusinesses across rural NZ and Australia.",
+        "Regional targeting: Reach farmers and agribusinesses in the regions you sell to.",
         "B2B lead generation: LinkedIn and search campaigns for agritech and rural service providers.",
         "Seasonal campaigns: Budgets aligned with planting, harvest, and buying cycles.",
       ] },
       { title: "SaaS & Technology", points: [
-        "Demo and trial acquisition: Campaigns optimised for qualified sign-ups.",
+        "Demo and trial acquisition: Campaigns optimized for qualified sign-ups.",
         "LinkedIn ABM: Target the companies and roles that buy your product.",
         "Full-funnel attribution: Connect ad spend to pipeline and revenue.",
       ] },
       { title: "Professional Services", points: [
         "Local lead generation: Google Ads and Local Service Ads for service-area businesses.",
-        "Landing page optimisation: Pages built to turn clicks into bookings.",
+        "Landing page optimization: Pages built to turn clicks into bookings.",
         "Reputation and social proof: Social content that builds trust.",
       ] },
       { title: "E-commerce & Retail", points: [
-        "Shopping and Performance Max: Product campaigns optimised for ROAS.",
+        "Shopping and Performance Max: Product campaigns optimized for ROAS.",
         "Creative testing: Rapid iteration on ads that sell.",
         "Retention campaigns: Bring past customers back with targeted offers.",
       ] },
@@ -659,18 +640,18 @@ const performanceMarketing: ServicePageContent = {
       { num: "02", title: "Strategy & Targeting", desc: "We define your ideal customers, channels, budgets, and success metrics." },
       { num: "03", title: "Creative & Landing Pages", desc: "Ads and landing pages designed to convert your specific audience." },
       { num: "04", title: "Launch", desc: "Campaigns go live with structured tests and clear budget controls." },
-      { num: "05", title: "Optimise", desc: "Weekly optimisation of bids, audiences, creative, and pages based on lead quality." },
+      { num: "05", title: "Optimize", desc: "Weekly optimization of bids, audiences, creative, and pages based on lead quality." },
       { num: "06", title: "Report & Scale", desc: "Monthly reporting on cost per qualified lead and ROAS - and scaling what works." },
     ],
-    note: "* Most accounts see clear improvements within the first 60-90 days of optimisation.",
+    note: "* Most accounts see clear improvements within the first 60-90 days of optimization.",
   },
   faqs: [
     { q: "How much should we spend on Google Ads or Meta Ads?", a: "It depends on your market and goals. We recommend a starting budget based on your cost per lead targets and competition, then scale spend as campaigns prove profitable." },
-    { q: "Do you manage campaigns for New Zealand and Australian businesses?", a: "Yes. We run campaigns targeting New Zealand and Australian audiences, with ads, landing pages, and reporting tailored to each market." },
+    { q: "Which ad platforms do you manage?", a: "Google Ads (Search, Performance Max, YouTube), Meta (Facebook and Instagram), LinkedIn, TikTok and Microsoft Ads. We recommend the one or two platforms where your buyers actually are, rather than spreading budget across all of them." },
     { q: "Will we own our ad accounts and data?", a: "Yes. Campaigns run in accounts you own, so you keep all data, audiences, and history if you ever change providers." },
     { q: "How do you measure success?", a: "We focus on cost per qualified lead, conversion rate, and return on ad spend - connected to your CRM wherever possible, rather than clicks or impressions alone." },
   ],
-  cta: { heading: "Stop guessing. Start scaling.", label: "Get a Free Ad Account Audit" },
+  cta: { heading: "Find out where your ad budget is going.", label: "Get a Free Ad Account Audit" },
 };
 
 export const servicePages = { aiAutomation, customSoftware, systemsIntegration, seoAiSearch, performanceMarketing };

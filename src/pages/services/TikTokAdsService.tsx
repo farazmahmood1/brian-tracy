@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -52,11 +53,7 @@ const whyUsItems = [
 ];
 
 export default function TikTokAdsService() {
-  usePageMetadata({
-    title: "TikTok Ads Agency | Spark Ads, Creative & Strategy | Forrof",
-    description: "TikTok Ads management with native creative production, Spark Ads, and Events API tracking - turning short-form video into qualified leads and tracked revenue.",
-    keywords: "tiktok ads agency, tiktok ads management, spark ads, tiktok marketing, short-form video ads, ugc ads, tiktok creative, tiktok pixel, events api, tiktok b2c",
-  });
+  usePageMetadata(seo("/services/tiktok-ads"));
 
   const navigate = useNavigate();
   const [expandedWhy, setExpandedWhy] = useState<number | null>(null);
@@ -128,7 +125,7 @@ export default function TikTokAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Short-form video campaigns that engage cold audiences with native, scroll-friendly creative - generating affordable leads from a channel most competitors are still ignoring.
+              Short-form video ads made to look like the content people already watch. A cheaper source of leads on a channel many competitors still ignore.
             </motion.p>
         </div>
       </motion.section>

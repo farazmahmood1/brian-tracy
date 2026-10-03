@@ -177,7 +177,7 @@ export const ContactSection = () => {
     { icon: Mail, label: "Email", value: "hello@forrof.io" },
     { icon: Phone, label: "Phone", value: "+1 (914) 899-0442" },
     { icon: MapPin, label: "Office", value: "312 W 2nd St Unit #A8583, Casper, WY 82601, USA" },
-    { icon: Clock, label: "NZ & AU Hours", value: "Live calls 12–5pm AEST · 2–5pm NZT" },
+    { icon: Clock, label: "Response Time", value: "Within one business day, calls in your time zone" },
   ];
 
   return (
@@ -194,7 +194,7 @@ export const ContactSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.span className="number-label">/09</motion.span>
+          <motion.span className="number-label">/08</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             Contact

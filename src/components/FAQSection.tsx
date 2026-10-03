@@ -6,39 +6,29 @@ import { useNavigate } from "react-router-dom";
 
 const faqs = [
   {
-    question: "What services does Forrof provide to New Zealand and Australian businesses?",
+    question: "What services does Forrof provide?",
     answer:
-      "Forrof provides five core services: AI & automation (AI agents, LLM and RAG solutions, workflow automation), custom software development (web apps, SaaS, mobile apps, client portals), systems integration & data (API and Xero integrations, dashboards), SEO & AI search visibility, and performance marketing (Google, Meta, and LinkedIn ads). We specialise in LegalTech and Agriculture.",
+      "Five services: AI and automation, custom software development, systems integration, SEO and AI search visibility, and performance marketing. We specialize in LegalTech and Agriculture.",
   },
   {
     question: "Do you build software and AI for law firms?",
     answer:
-      "Yes. We have built e-signing platforms, AI assistants for legal professionals, and lawyer-client applications. We build client portals, document automation, and legal AI that integrate with practice management systems such as Actionstep, LEAP, and Smokeball - designed around NZ Law Society generative AI guidance, with human review and client confidentiality built in.",
+      "Yes. We have built an e-signing platform, an AI assistant for legal professionals and a lawyer-client application. We also build client portals and document automation that integrate with Clio, Actionstep, LEAP and Smokeball.",
   },
   {
     question: "Do you work with farms and agribusinesses?",
     answer:
-      "Yes. We build and support farm management software, offline-ready field apps, equipment and agronomy data integrations (including John Deere and Climate FieldView), and automated compliance reporting for agribusinesses in New Zealand and Australia.",
+      "Yes. We build and support farm management software, offline field apps, John Deere and Climate FieldView integrations, and automated compliance reporting.",
   },
   {
     question: "How much does custom software development cost?",
     answer:
-      "Prices are in USD. Fixed-scope projects such as an MVP or client portal start from $7,900, single system integrations from $2,900, and AI automation workflows from $3,900. Monthly SEO starts from $890, performance marketing management from $690 plus ad spend, and a dedicated developer from $3,490 per month. Every project starts with a fixed quote, so you know the cost before work begins.",
-  },
-  {
-    question: "Can we meet during New Zealand and Australian business hours?",
-    answer:
-      "Yes. We schedule live calls, demos, and support between 12pm and 5pm AEST (2pm-5pm NZT), with async updates in your inbox every morning. You get a dedicated project lead and a weekly progress demo.",
-  },
-  {
-    question: "Is our data secure and compliant with NZ and Australian privacy law?",
-    answer:
-      "We design every system around the New Zealand Privacy Act 2020 and the Australian Privacy Principles - with encryption, role-based access, audit trails, and Australian data hosting options. AI solutions use enterprise APIs that do not train on your data.",
+      "Prices are in USD. An MVP or client portal starts from $7,900, a single integration from $2,900 and an AI automation workflow from $3,900. Every project starts with a fixed quote.",
   },
   {
     question: "Who owns the code and do you provide ongoing support?",
     answer:
-      "You own 100% of the source code, data, and accounts from day one. After launch we offer ongoing support, maintenance, and feature development on a monthly plan - or a full handover to your own team.",
+      "You own all source code, data and accounts from day one. After launch we offer monthly support, or a full handover to your own team.",
   },
 ];
 
@@ -62,7 +52,7 @@ export const FAQSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <motion.span className="number-label">/07</motion.span>
+          <motion.span className="number-label">/06</motion.span>
           <LineReveal className="h-px bg-border flex-1" delay={0.3} />
           <motion.span className="text-xs text-muted-foreground uppercase tracking-widest">
             FAQ
@@ -87,7 +77,7 @@ export const FAQSection = () => {
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                Frequently Asked Questions About Software, AI & Growth Services in NZ & Australia
+                Frequently Asked Questions About Our Software, AI & Marketing Services
               </motion.h2>
             </div>
             <motion.p
@@ -224,10 +214,10 @@ export const FAQSection = () => {
         }}
       />
       <div className="sr-only">
-        <h3>Software, AI and Marketing Agency FAQ - New Zealand and Australia</h3>
+        <h3>Software Development, AI Automation and Marketing Agency FAQ</h3>
         <p>
           Answers about Forrof's AI automation, custom software development, systems integration,
-          SEO, performance marketing, pricing, and support for law firms and agribusinesses in New Zealand and Australia.
+          SEO, performance marketing, pricing and support for law firms, agribusinesses and growing companies.
         </p>
       </div>
     </section>

@@ -1,0 +1,212 @@
+{
+  "/": {
+    "title": "Forrof | Custom Software Development & AI Automation Agency",
+    "description": "Forrof builds custom software, AI automation and system integrations, and runs SEO and paid ads for law firms, agribusinesses and growing companies. Fixed quotes, senior team.",
+    "keywords": "custom software development company, AI automation agency, software development agency, legal software development, farm management software, systems integration, SEO agency, Google Ads agency",
+    "priority": 1.0
+  },
+  "/about": {
+    "title": "About Forrof | Software, AI & Growth Marketing Team",
+    "description": "Meet Forrof: a 17-person team of engineers, AI specialists and marketers building software and automation for law firms, agribusinesses and growing companies.",
+    "keywords": "about Forrof, software development team, software agency, LegalTech developers, AgriTech developers, AI engineers, dedicated development team",
+    "priority": 0.8
+  },
+  "/services": {
+    "title": "Software Development, AI, SEO & Paid Ads Services | Forrof",
+    "description": "Five services from one team: AI automation, custom software development, systems integration, SEO and paid ads. Every project starts with a fixed quote.",
+    "keywords": "software development services, AI automation services, systems integration services, SEO services, Google Ads management, performance marketing",
+    "priority": 0.9
+  },
+  "/services/ai-automation": {
+    "title": "AI Automation Services | AI Agents & Workflow Automation | Forrof",
+    "description": "AI agents, document automation, RAG assistants and workflow automation built on OpenAI and Claude. Private by design, connected to your tools, live in weeks.",
+    "keywords": "AI automation services, AI automation agency, AI agent development, workflow automation, document automation, RAG chatbot development, business process automation, LLM development",
+    "priority": 0.9
+  },
+  "/services/custom-software": {
+    "title": "Custom Software Development Company | Web, SaaS & Mobile | Forrof",
+    "description": "Web applications, client portals, SaaS products and mobile apps built by a senior team. Fixed quote, weekly demos, and you own the code.",
+    "keywords": "custom software development company, custom software development services, web application development, client portal development, SaaS development, mobile app development",
+    "priority": 0.9
+  },
+  "/services/systems-integration": {
+    "title": "Systems Integration Services | API & Xero Integration | Forrof",
+    "description": "Connect your accounting, CRM and operational software so data is entered once. API integrations, Xero and QuickBooks sync, data pipelines and live dashboards.",
+    "keywords": "systems integration services, API integration services, Xero integration, QuickBooks integration, data integration, business intelligence dashboards, data pipelines",
+    "priority": 0.9
+  },
+  "/services/seo": {
+    "title": "SEO & AI Search Optimization Services (GEO) | Forrof",
+    "description": "Technical SEO, local SEO and generative engine optimization. Rank on Google and get cited by ChatGPT, Perplexity and AI Overviews. Fixes implemented by our own developers.",
+    "keywords": "SEO services, SEO agency, AI search optimization, generative engine optimization, GEO, local SEO services, technical SEO, law firm SEO",
+    "priority": 0.9
+  },
+  "/services/performance-marketing": {
+    "title": "Performance Marketing Agency | Google, Meta & LinkedIn Ads | Forrof",
+    "description": "Google, Meta and LinkedIn ads managed with server-side tracking, so you see cost per qualified lead and return on ad spend, not just clicks.",
+    "keywords": "performance marketing agency, Google Ads management, Meta ads agency, LinkedIn ads B2B, PPC management, lead generation agency, conversion tracking",
+    "priority": 0.9
+  },
+  "/services/saas": {
+    "title": "SaaS Development Company | MVP to Scale | Forrof",
+    "description": "SaaS product development: multi-tenant architecture, Stripe billing, roles and analytics, from a first MVP to a product with paying customers.",
+    "keywords": "SaaS development company, SaaS development services, SaaS product development, multi-tenant SaaS, Stripe billing integration, SaaS MVP development",
+    "priority": 0.7
+  },
+  "/services/enterprise": {
+    "title": "Enterprise Software Development Services | Forrof",
+    "description": "Internal platforms, dashboards and workflow systems for established organizations. Modernize legacy systems in stages without stopping the business.",
+    "keywords": "enterprise software development, internal tools development, legacy system modernization, workflow software, enterprise application development",
+    "priority": 0.7
+  },
+  "/services/mobile": {
+    "title": "Mobile App Development Company | iOS & Android | Forrof",
+    "description": "iOS and Android apps built in React Native, Flutter, Swift and Kotlin. Offline-ready, tested on real devices, App Store and Play Store launch included.",
+    "keywords": "mobile app development company, iOS app development, Android app development, React Native development, Flutter app development, cross-platform app development",
+    "priority": 0.7
+  },
+  "/services/mvp": {
+    "title": "MVP Development Company for Startups | Forrof",
+    "description": "Launch a working MVP in 6 to 12 weeks. Fixed-price MVP and proof-of-concept development for founders, from USD 7,900.",
+    "keywords": "MVP development company, MVP development services, startup software development, proof of concept development, fixed price MVP",
+    "priority": 0.7
+  },
+  "/services/strategy": {
+    "title": "CTO as a Service & Technical Strategy Consulting | Forrof",
+    "description": "System design, technical due diligence and fractional CTO support for companies facing a big technology decision.",
+    "keywords": "CTO as a service, fractional CTO, technical due diligence, software architecture consulting, technology strategy consulting",
+    "priority": 0.6
+  },
+  "/services/paid-ads": {
+    "title": "Paid Ads Agency | Google, Meta, LinkedIn & TikTok Ads | Forrof",
+    "description": "Paid ad campaigns on Google, Meta, LinkedIn and TikTok, with conversion tracking wired to your CRM so you can see which ads bring in customers.",
+    "keywords": "paid ads agency, PPC agency, paid media agency, Google Ads, Meta ads, LinkedIn ads, conversion tracking",
+    "priority": 0.7
+  },
+  "/services/google-ads": {
+    "title": "Google Ads Management Agency | Search, PMax & YouTube | Forrof",
+    "description": "Google Ads management: Search, Performance Max and YouTube, with landing pages and conversion tracking built by our own developers.",
+    "keywords": "Google Ads management, Google Ads agency, PPC management services, Performance Max, Google Ads specialist",
+    "priority": 0.7
+  },
+  "/services/meta-ads": {
+    "title": "Meta Ads Agency | Facebook & Instagram Ads Management | Forrof",
+    "description": "Facebook and Instagram ads with regular creative testing and Conversions API tracking that still works after iOS privacy changes.",
+    "keywords": "Meta ads agency, Facebook ads agency, Instagram ads management, Conversions API, paid social agency",
+    "priority": 0.7
+  },
+  "/services/linkedin-ads": {
+    "title": "LinkedIn Ads Agency for B2B Lead Generation | Forrof",
+    "description": "LinkedIn Ads for B2B companies. Target by job title, industry and company size, and track leads through to closed revenue.",
+    "keywords": "LinkedIn ads agency, B2B lead generation, LinkedIn advertising services, account based marketing",
+    "priority": 0.6
+  },
+  "/services/tiktok-ads": {
+    "title": "TikTok Ads Agency | Spark Ads & Creative | Forrof",
+    "description": "TikTok ad campaigns with native creative, Spark Ads and Events API tracking that ties short-form video to real sales.",
+    "keywords": "TikTok ads agency, TikTok advertising services, Spark Ads, TikTok ads management",
+    "priority": 0.5
+  },
+  "/services/bing-ads": {
+    "title": "Microsoft Ads (Bing) Management Agency | Forrof",
+    "description": "Microsoft Ads management. Reach desktop and B2B searchers on Bing with the same intent as Google, usually at a lower cost per click.",
+    "keywords": "Microsoft Ads management, Bing Ads agency, Bing advertising, B2B search ads",
+    "priority": 0.5
+  },
+  "/services/yelp-ads": {
+    "title": "Yelp Ads & Local Service Ads Management | Forrof",
+    "description": "Yelp Ads and Google Local Service Ads management for local service businesses, with call tracking that ties spend to booked jobs.",
+    "keywords": "Yelp ads management, local service ads, local lead generation",
+    "priority": 0.5
+  },
+  "/services/social-media": {
+    "title": "Social Media Marketing Agency | Strategy & Content | Forrof",
+    "description": "Social media strategy, content and community management on LinkedIn, Instagram, Facebook and TikTok, planned around the enquiries you want.",
+    "keywords": "social media marketing agency, social media management, LinkedIn content marketing, Instagram marketing, social media strategy",
+    "priority": 0.7
+  },
+  "/industries/legaltech": {
+    "title": "Legal Software Development & AI for Law Firms | Forrof",
+    "description": "Client portals, document automation, e-signature, private legal AI and practice management integrations (Clio, Actionstep, LEAP, Smokeball) for law firms.",
+    "keywords": "legal software development, law firm software, LegalTech development company, legal AI, client portal for law firms, document automation, e-signature software, practice management integration, Clio integration",
+    "priority": 0.9
+  },
+  "/industries/agriculture": {
+    "title": "Agriculture Software Development | Farm Management & AgriTech | Forrof",
+    "description": "Farm management software, offline field apps, John Deere and Climate FieldView integrations, compliance reporting and ongoing support for farms and agribusinesses.",
+    "keywords": "agriculture software development, farm management software, AgriTech software development company, farm app development, John Deere API integration, Climate FieldView integration, farm compliance reporting",
+    "priority": 0.9
+  },
+  "/industries/fintech-finance": {
+    "title": "FinTech Software Development Company | Forrof",
+    "description": "Payment, lending, investment and reporting software for finance businesses, with tested money paths, audit logs and Stripe, Xero and open banking integrations.",
+    "keywords": "fintech software development company, fintech app development, payment platform development, lending software development, open banking integration, investment platform development",
+    "priority": 0.7
+  },
+  "/industries/health-wellness": {
+    "title": "Healthcare Software Development Company | Forrof",
+    "description": "Patient apps, clinic systems, telehealth and wellness products for health providers, designed around patient privacy from the first screen.",
+    "keywords": "healthcare software development company, health app development, telehealth software development, clinic management software, patient engagement software",
+    "priority": 0.7
+  },
+  "/industries/transportation": {
+    "title": "Logistics & Transportation Software Development | Forrof",
+    "description": "Dispatch, driver apps, proof of delivery, tracking and warehouse software for transport and logistics operators, integrated with your telematics and accounting.",
+    "keywords": "logistics software development, transportation software development, fleet management software, proof of delivery app, route optimization software, warehouse management software",
+    "priority": 0.7
+  },
+  "/industries/small-business": {
+    "title": "Software & Automation for Small Business | Forrof",
+    "description": "Websites, automations, apps and accounting integrations for small businesses. Fixed quotes from USD 2,900 and plain-English communication.",
+    "keywords": "small business software development, small business automation, small business IT services, accounting software integration, affordable software development",
+    "priority": 0.7
+  },
+  "/industries/mid-sized-business": {
+    "title": "Custom Software for Mid-Sized Businesses | Forrof",
+    "description": "Custom platforms, integrations and a dedicated development team for mid-sized companies that have outgrown spreadsheets and off-the-shelf software.",
+    "keywords": "software for mid-sized business, custom ERP development, dedicated development team, business systems integration, legacy modernization",
+    "priority": 0.7
+  },
+  "/industries/government": {
+    "title": "Public Sector Software Development | Accessible Web | Forrof",
+    "description": "Accessible websites, online forms and internal tools for councils, public organizations and their suppliers, built and tested to WCAG 2.2 AA.",
+    "keywords": "public sector software development, government software development, WCAG accessible web development, online forms for government, digital services",
+    "priority": 0.5
+  },
+  "/projects": {
+    "title": "Software Development Case Studies | LegalTech, AgriTech, AI | Forrof",
+    "description": "See what Forrof has built: the FynoSign e-signature platform, Bushel farm management software, AI assistants and SaaS products, with the stack and approach for each.",
+    "keywords": "software development case studies, LegalTech case study, AgriTech case study, e-signature platform, farm management software case study, AI assistant case study",
+    "priority": 0.8
+  },
+  "/articles": {
+    "title": "Articles on AI Automation, Software & SEO | Forrof",
+    "description": "Practical articles on AI automation, legal and farm software, system integrations, SEO and paid ads, written for business owners and operators.",
+    "keywords": "AI automation articles, legal technology blog, AgriTech blog, software development blog, SEO guides",
+    "priority": 0.7
+  },
+  "/careers": {
+    "title": "Careers at Forrof | Engineering, AI & Marketing Jobs",
+    "description": "Join Forrof's remote team building software and AI for law firms, agribusinesses and growing companies. See open engineering, AI and marketing roles.",
+    "keywords": "Forrof careers, remote software engineering jobs, AI engineer jobs, marketing jobs",
+    "priority": 0.5
+  },
+  "/contact": {
+    "title": "Contact Forrof | Book a Free Consultation",
+    "description": "Talk to Forrof about custom software, AI automation, integrations, SEO or paid ads. We reply within one business day and schedule calls in your time zone.",
+    "keywords": "contact Forrof, software development quote, free consultation, AI automation consultation",
+    "priority": 0.8
+  },
+  "/privacy-policy": {
+    "title": "Privacy Policy | Forrof",
+    "description": "How Forrof collects, uses and protects your personal information.",
+    "keywords": "",
+    "priority": 0.2
+  },
+  "/terms-and-policy": {
+    "title": "Terms of Service | Forrof",
+    "description": "The terms that apply when you use the Forrof website and services.",
+    "keywords": "",
+    "priority": 0.2
+  }
+}

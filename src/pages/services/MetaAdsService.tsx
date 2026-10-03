@@ -5,6 +5,7 @@ import { LineReveal, Magnetic } from "@/components/AnimationComponents";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { GlowCard } from "@/components/InteractiveElements";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { seo } from "@/constants/seo";
 import { useNavigate } from "react-router-dom";
 import { SocialMediaTerminalBlock } from "@/components/AiMlVisuals";
 
@@ -52,11 +53,7 @@ const whyUsItems = [
 ];
 
 export default function MetaAdsService() {
-  usePageMetadata({
-    title: "Meta Ads Agency | Facebook & Instagram Ads | Forrof",
-    description: "Meta Ads management across Facebook, Instagram, and Messenger - with creative-led targeting, server-side Conversion API, and full-funnel attribution that survives iOS 14+.",
-    keywords: "meta ads agency, facebook ads agency, instagram ads agency, meta ads management, facebook ads management, conversion api, capi, ios 14 tracking, meta marketing, social ads",
-  });
+  usePageMetadata(seo("/services/meta-ads"));
 
   const navigate = useNavigate();
   const [expandedWhy, setExpandedWhy] = useState<number | null>(null);
@@ -128,7 +125,7 @@ export default function MetaAdsService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Facebook and Instagram campaigns powered by creative-led targeting, server-side Conversion API, and full-funnel attribution that actually survives iOS 14+.
+              Facebook and Instagram ads with regular creative testing and server-side Conversions API tracking that still works after iOS privacy changes.
             </motion.p>
         </div>
       </motion.section>
@@ -152,7 +149,7 @@ export default function MetaAdsService() {
             animate={sec1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            Every Meta Surface, Optimised
+            Every Meta Surface, Optimized
           </motion.h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
