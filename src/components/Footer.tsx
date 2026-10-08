@@ -25,7 +25,7 @@ const focusIndustries = [
     desc: "E-signing, client portals, legal AI and practice management integrations for law firms.",
     href: "/industries/legaltech",
     cta: "Explore LegalTech",
-    proof: { name: "FynoSign case study", href: "/project/fyno" },
+    // proof: { name: "FynoSign case study", href: "/project/fyno" },
   },
   {
     label: "Agriculture & AgriTech",
