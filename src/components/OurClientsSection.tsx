@@ -1,10 +1,12 @@
 import { memo, useEffect, useRef, useState } from "react";
 
-const paths = Array.from(
-  { length: 23 },
-  (_, i) => `https://dev.gemseeroo.com/logo/${i + 1}.png`
+// Logo numbers to leave out of the carousel
+const hiddenLogos = new Set([15]);
+const logoNumbers = Array.from({ length: 23 }, (_, i) => i + 1).filter(
+  (n) => !hiddenLogos.has(n)
 );
-const names = Array.from({ length: 23 }, (_, i) => `Client ${i + 1}`);
+const paths = logoNumbers.map((n) => `https://dev.gemseeroo.com/logo/${n}.png`);
+const names = logoNumbers.map((n) => `Client ${n}`);
 const mid = Math.ceil(paths.length / 2);
 const row1 = paths.slice(0, mid);
 const row2 = paths.slice(mid);
