@@ -940,6 +940,7 @@ export const projectsData = [
     ],
     liveUrl: "http://rallytyper.com/",
   },
+  /* FynoSign project hidden from the work section
   {
     id: "fyno",
     title: "FynoSign",
@@ -1024,4 +1025,5 @@ export const projectsData = [
     ],
     liveUrl: "https://fynosign.com",
   },
+  */
 ];

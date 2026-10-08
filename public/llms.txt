@@ -17,7 +17,7 @@
 
 ## Case studies
 
-- [FynoSign](https://forrof.io/project/fyno): E-signature platform.
+<!-- - [FynoSign](https://forrof.io/project/fyno): E-signature platform. -->
 - [Bushel](https://forrof.io/project/bushel): Farm management and financial platform for grain farmers.
 - [All projects](https://forrof.io/projects)
 
